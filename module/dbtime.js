@@ -1,3 +1,10 @@
+/**
+ * module registration functions
+ * 
+ * Version 1.0
+ */
+
+
 Hooks.once('init', () => {
     // registerSettings();
     // console.log('dbtime init')
