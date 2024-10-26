@@ -1,7 +1,7 @@
 {
   "id": "jd-dbtime",
-  "title": "jd-dbtime",
-  "version": "1.0.0",
+  "title": "JugglinDan's Dragonbane Timekeeping",
+  "version": "0.1.0",
   "compatibility": {
     "minimum": "12",
     "verified": "12"
@@ -15,6 +15,7 @@
       }
     ]
   },
+  "description": "To do - grab the description from the script readme and edit from MD to HTML",
   "authors": [
     {
       "name": "JugglinDan",
