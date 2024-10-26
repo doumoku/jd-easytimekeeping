@@ -11,7 +11,7 @@ It has the following main features:
 I had a few goals when creating this system:
 
 - The GM is always in control. While this module keeps track of the passage of time, it never takes decisions away from the GM.
-- It should remain simple to use. Outside of the Foundry settings, there is no user interface. Simple macros placed in the Foundry Macro Toolbar provide one-click buttons for all operations - advance time by a stretch, a shift, or any other time interval you require.
+- It should remain simple to use. Outside of the Foundry settings, there is no user interface. Simple macros placed in the Foundry Macro Toolbar provide one-click buttons for all operations - advance time by a stretch, a shift, or any other time interval you require. This module provides ready-made script macros for the most common requirements which you can customise to meet any need.
 
 ## Dependencies
 
