@@ -23,5 +23,8 @@
       "flags": {}
     }
   ],
+  "esmodules": [
+    "module/dbtime.js"
+  ],
   "url": "https://github.com/DC23/jd-dbtime"
 }
