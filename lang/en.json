@@ -1,0 +1,6 @@
+{
+    "DBTIME.Settings.ShowHours.name": "Show Hours",
+    "DBTIME.Settings.ShowHours.hint": "Show the optional hours clock",
+    "DBTIME.Settings.ShowDays.name": "Show Days",
+    "DBTIME.Settings.ShowDays.hint": "Show the optional days clock"
+}

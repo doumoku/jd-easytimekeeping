@@ -9,8 +9,8 @@ const SETTINGS = {
 
 function registerSettings () {
     game.settings.register(MODULE_ID, SETTINGS.SHOW_HOURS, {
-        name: 'Show Hours',
-        hint: 'Show the optional hour clock',
+        name: game.i18n.localize('DBTIME.Settings.ShowHours.name'),
+        hint: game.i18n.localize('DBTIME.Settings.ShowHours.hint'),
         scope: 'world',
         config: true,
         type: Boolean,
@@ -23,8 +23,8 @@ function registerSettings () {
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DAYS, {
-        name: 'Show Days',
-        hint: 'Show the optional day clock',
+        name: game.i18n.localize('DBTIME.Settings.ShowDays.name'),
+        hint: game.i18n.localize('DBTIME.Settings.ShowDays.hint'),
         scope: 'world',
         config: true,
         type: Boolean,

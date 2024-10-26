@@ -24,7 +24,15 @@
     }
   ],
   "esmodules": [
-    "module/dbtime.js"
+    "module/registration.js"
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json",
+      "flags": {}
+    }
   ],
   "url": "https://github.com/DC23/jd-dbtime"
 }
