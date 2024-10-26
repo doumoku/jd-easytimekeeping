@@ -10,7 +10,7 @@ const SETTINGS = {
 function registerSettings () {
     game.settings.register(MODULE_ID, SETTINGS.SHOW_HOURS, {
         name: 'Show Hours',
-        hint: 'Should the hour clock be shown?',
+        hint: 'Show the optional hour clock',
         scope: 'world',
         config: true,
         type: Boolean,
@@ -24,7 +24,7 @@ function registerSettings () {
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DAYS, {
         name: 'Show Days',
-        hint: 'Should the day clock be shown?',
+        hint: 'Show the optional day clock',
         scope: 'world',
         config: true,
         type: Boolean,
