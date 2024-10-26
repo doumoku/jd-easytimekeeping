@@ -318,8 +318,8 @@ async function tellTime (stretch, hour, shift, day, includeDay) {
     })
 }
 
-// FIXME: Quick hack - wrap the script code in a function
-async function dispatch (scope) {
+// FIXME: Quick hack - wrap the script code in a function but only support increment as a test
+async function tick (count) {
     // Get the optional hour clock first, so we can use its absence or presence to
     // validate the stretch clock
     console.group('DBTime')
@@ -335,29 +335,11 @@ async function dispatch (scope) {
     const shift = getValidClock(SHIFT_CLOCK_NAME, SHIFTS_PER_DAY)
     const day = getValidClock(DAY_CLOCK_NAME, DAY_CLOCK_SEGMENTS, true)
 
-    // get the macro arguments
-    const mode = scope.mode
-    const count = scope.count
-
     // if we have the essential clocks, then dispatch to the correct handler
     if (stretch && shift) {
-        switch (mode) {
-            case 'increment':
-                increment(count, stretch, hour, shift, day)
-                break
-            case 'set':
-                await setAllClocks(scope, stretch, hour, shift, day)
-                break
-            case 'tell':
-                await tellTime(
-                    stretch,
-                    hour,
-                    shift,
-                    day,
-                    scope.includeDay && day
-                )
-                break
-        }
+        increment(count, stretch, hour, shift, day)
     }
     console.groupEnd()
 }
+
+export { tick }
