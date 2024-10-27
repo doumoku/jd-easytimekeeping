@@ -21,20 +21,9 @@ export class Timekeeper {
     async increment (stretches = 1) {
         console.log('DB Time | incrementing %d stretches', stretches)
 
-        // TODO: This should be encapsulated
-        const currentTicks = game.settings.get(
-            MODULE_ID,
-            SETTINGS.TOTAL_ELAPSED_TIME
-        )
+        // do some increment logic from the prototype code
 
-        // do some increment logic
-
-        // TODO: This should be encapsulated
-        game.settings.set(
-            MODULE_ID,
-            SETTINGS.TOTAL_ELAPSED_TIME,
-            currentTicks + stretches
-        )
+        this.#totalElapsedTicks += stretches
     }
 
     /**
@@ -50,6 +39,7 @@ export class Timekeeper {
             'DB Time | setting time to %d total stretches',
             totalStretches
         )
+        this.#totalElapsedTicks = totalStretches
     }
 
     /**
@@ -58,5 +48,13 @@ export class Timekeeper {
      */
     async tellTime () {
         console.log('DB Time | tellTime')
+    }
+
+    get #totalElapsedTicks () {
+        return game.settings.get(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME)
+    }
+
+    set #totalElapsedTicks (ticks) {
+        game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, ticks)
     }
 }
