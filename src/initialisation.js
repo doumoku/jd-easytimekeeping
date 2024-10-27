@@ -2,7 +2,8 @@
  * Dragonbane Timekeeping module registration functions
  *
  */
-import { registerSettings } from './settings.js'
+import { registerSettings, MODULE_ID, SETTINGS } from './settings.js'
+import { Constants } from './constants.js'
 import { Timekeeper } from './timekeeper.js'
 
 Hooks.once('init', () => {
@@ -17,8 +18,8 @@ Hooks.once('setup', () => {
      * Global Progress Clocks to be initialised first, and that happens in the init hook.
      */
     console.group('DB Time | setup')
-
-    game.modules.get('jd-dbtime').api = new Timekeeper()
+    const constants = new Constants(game.settings.get(MODULE_ID, SETTINGS.BASE_TIME_UNIT))
+    game.modules.get('jd-dbtime').api = new Timekeeper(constants)
 
     console.groupEnd()
 })

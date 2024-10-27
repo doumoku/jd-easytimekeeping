@@ -7,10 +7,17 @@ import { SETTINGS, MODULE_ID } from './settings.js'
 
 // TODO: #1 bring over functionality from dbtime-engine.js prototype code
 export class Timekeeper {
-    constructor () {
+    #constants = null
+    constructor (constants) {
         // TODO: decide how much of the clock init should be done here, and how much done
         // outside with a dependency injection pattern
         console.log('DB Time | Timekeeper created')
+
+        this.#constants = constants
+    }
+
+    get constants () {
+        return this.#constants
     }
 
     /**

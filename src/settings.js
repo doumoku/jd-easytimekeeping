@@ -5,6 +5,8 @@ const SETTINGS = {
     SHOW_HOURS: 'showHours',
     SHOW_DAYS: 'showDays',
     TOTAL_ELAPSED_TIME: 'totalElapsedTime',
+    BASE_TIME_UNIT: 'baseTimeUnit',
+    BASE_TIME_CLOCK: 'baseTimeClock',
 }
 
 function registerSettings () {
@@ -34,6 +36,33 @@ function registerSettings () {
         },
         // FIXME: this is for testing. It will actually require a reload since I'll need to mix up the clock configuration
         requiresReload: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_UNIT, {
+        name: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.name'),
+        hint: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.hint'),
+        scope: 'world',
+        config: true,
+        type: Number,
+        default: 15,
+        onChange: value => {
+            // TODO: validation is needed!
+            console.log('DB Time | %s %d', SETTINGS.BASE_TIME_UNIT, value)
+        },
+        requiresReload: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_CLOCK, {
+        name: game.i18n.localize('DBTIME.Settings.BaseTimeClock.name'),
+        hint: game.i18n.localize('DBTIME.Settings.BaseTimeClock.hint'),
+        scope: 'world',
+        config: true,
+        type: String,
+        default: 'Stretch',
+        onChange: value => {
+            console.log('DB Time | %s %d', SETTINGS.BASE_TIME_CLOCK, value)
+        },
+        requiresReload: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, {
