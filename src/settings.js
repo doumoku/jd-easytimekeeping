@@ -51,10 +51,10 @@ function registerSettings () {
                 20: '20 minutes',
                 30: '30 minutes',
             },
+            required: true,
         }),
         default: 15,
         onChange: value => {
-            // TODO: validation is needed!
             console.log('DB Time | %s %d', SETTINGS.BASE_TIME_UNIT, value)
         },
         requiresReload: true,
