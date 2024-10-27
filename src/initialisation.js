@@ -3,6 +3,7 @@
  *
  */
 import { registerSettings } from './settings.js'
+import { Timekeeper } from './timekeeper.js'
 
 Hooks.once('init', () => {
     console.group('DB Time | init')
@@ -17,7 +18,8 @@ Hooks.once('setup', () => {
      */
     console.group('DB Time | setup')
 
-    // game.modules.get('jd-dbtime').api = tick
+    game.modules.get('jd-dbtime').api = new Timekeeper()
+
     console.groupEnd()
 })
 

@@ -1,11 +1,13 @@
 /**
+ * Dragonbane Timekeeping API and core functionality.
  *
  */
 // TODO: #1 bring over functionality from dbtime-engine.js prototype code
 export class Timekeeper {
     constructor () {
-        // TODO: decide how much of the clock init should be done here, and how much done 
+        // TODO: decide how much of the clock init should be done here, and how much done
         // outside with a dependency injection pattern
+        console.log('DB Time | Timekeeper created')
     }
 
     /**
@@ -13,7 +15,9 @@ export class Timekeeper {
      *
      * @param {Number} stretches The number of stretches to increment.
      */
-    async increment (stretches = 1) {}
+    async increment (stretches = 1) {
+        console.log('DB Time | incrementing %d stretches', stretches)
+    }
 
     /**
      * Set the time to the given total number of stretches since stretch 0 on day 0, which is 6am on day 0. This is
@@ -23,11 +27,18 @@ export class Timekeeper {
      *
      * @param {Number} totalStretches The total number of 15 minute stretches since 6am on day 0.
      */
-    async set (totalStretches = 0) {}
+    async set (totalStretches = 0) {
+        console.log(
+            'DB Time | setting time to %d total stretches',
+            totalStretches
+        )
+    }
 
     /**
      * Posts the current time to chat.
      * If the day clock is enabled in the module settings, then the day will be included in the chat message.
      */
-    async tellTime () {}
+    async tellTime () {
+        console.log('DB Time | tellTime')
+    }
 }
