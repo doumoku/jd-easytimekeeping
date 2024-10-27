@@ -24,7 +24,7 @@
     }
   ],
   "esmodules": [
-    "src/registration.js"
+    "src/initialisation.js"
   ],
   "languages": [
     {
