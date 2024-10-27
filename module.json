@@ -34,5 +34,17 @@
       "flags": {}
     }
   ],
-  "url": "https://github.com/DC23/jd-dbtime"
+  "url": "https://github.com/DC23/jd-dbtime",
+  "packs": [
+    {
+      "name": "macros",
+      "label": "Macros",
+      "path": "packs/macros",
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      }
+    }
+  ]
 }
