@@ -7,12 +7,11 @@ import { SETTINGS, MODULE_ID } from './settings.js'
 
 // TODO: #1 bring over functionality from dbtime-engine.js prototype code
 export class Timekeeper {
-    static TimeChangedHook = 'jd-dbtime-timechanged'
     #constants = null
     constructor (constants) {
         // TODO: decide how much of the clock init should be done here, and how much done
         // outside with a dependency injection pattern
-        console.log('DB Time | Timekeeper created')
+        console.debug('DB Time | Timekeeper created')
 
         this.#constants = constants
     }
@@ -30,7 +29,7 @@ export class Timekeeper {
      * @param {Number} stretches The number of stretches to increment.
      */
     async increment (stretches = 1) {
-        console.log('DB Time | incrementing %d stretches', stretches)
+        console.debug('DB Time | incrementing %d stretches', stretches)
 
         // do some increment logic from the prototype code
 
@@ -46,7 +45,7 @@ export class Timekeeper {
      * @param {Number} totalStretches The total number of 15 minute stretches since 6am on day 0.
      */
     async set (totalStretches = 0) {
-        console.log(
+        console.debug(
             'DB Time | setting time to %d total stretches',
             totalStretches
         )
@@ -58,7 +57,7 @@ export class Timekeeper {
      * If the day clock is enabled in the module settings, then the day will be included in the chat message.
      */
     async tellTime () {
-        console.log('DB Time | tellTime')
+        console.debug('DB Time | tellTime')
     }
 
     /**
