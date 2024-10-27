@@ -7,6 +7,7 @@ import { SETTINGS, MODULE_ID } from './settings.js'
 
 // TODO: #1 bring over functionality from dbtime-engine.js prototype code
 export class Timekeeper {
+    static TimeChangedHook = 'jd-dbtime-timechanged'
     #constants = null
     constructor (constants) {
         // TODO: decide how much of the clock init should be done here, and how much done
@@ -16,6 +17,9 @@ export class Timekeeper {
         this.#constants = constants
     }
 
+    /**
+     * Gets the constants object, containing useful values relating to time as currently defined.
+     */
     get constants () {
         return this.#constants
     }
@@ -68,6 +72,12 @@ export class Timekeeper {
      * Sets the total elapsed ticks since tick 0 on day 0
      */
     set #totalElapsedTicks (ticks) {
-        game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, ticks)
+        if (ticks != this.#totalElapsedTicks) {
+            game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, ticks)
+            // TODO: this needs to receive all the data matching the prototype - oldTime, current time etc
+            // TODO: rename once I converge on how I'm actually handling the change callbacks
+            const changeMacro = game.macros.getName('test-change-macro')
+            if (changeMacro) changeMacro.execute()
+        }
     }
 }
