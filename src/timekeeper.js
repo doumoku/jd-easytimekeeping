@@ -13,7 +13,7 @@ export class Timekeeper {
      *
      * @param {Number} stretches The number of stretches to increment.
      */
-    async increment (stretches) {}
+    async increment (stretches = 1) {}
 
     /**
      * Set the time to the given total number of stretches since stretch 0 on day 0, which is 6am on day 0. This is
