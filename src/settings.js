@@ -43,7 +43,15 @@ function registerSettings () {
         hint: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.hint'),
         scope: 'world',
         config: true,
-        type: Number,
+        type: new foundry.data.fields.StringField({
+            choices: {
+                5: '5 minutes',
+                10: '10 minutes',
+                15: '15 minutes',
+                20: '20 minutes',
+                30: '30 minutes',
+            },
+        }),
         default: 15,
         onChange: value => {
             // TODO: validation is needed!

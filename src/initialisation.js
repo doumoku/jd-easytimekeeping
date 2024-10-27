@@ -18,7 +18,8 @@ Hooks.once('setup', () => {
      * Global Progress Clocks to be initialised first, and that happens in the init hook.
      */
     console.group('DB Time | setup')
-    const constants = new Constants(game.settings.get(MODULE_ID, SETTINGS.BASE_TIME_UNIT))
+    const baseTimeUnit = Number.parseInt(game.settings.get(MODULE_ID, SETTINGS.BASE_TIME_UNIT))
+    const constants = new Constants(baseTimeUnit)
     game.modules.get('jd-dbtime').api = new Timekeeper(constants)
 
     console.groupEnd()
