@@ -1,7 +1,18 @@
-/**
- * This is the original proof of concept macro code.
- * I'm putting it here for reference while converting it to a class-based API.
- */
+/*
+A macro for the Foundry virtual tabletop.
+
+Part of the Dragonbane Time collection.
+
+Implements all the functionality for Dragonbane timekeeping using Global Progress Clocks
+When you add this macro to Foundry, you must call it "gpc-dbtime" for the other 
+macros to find it.
+
+Dependencies: 
+  - Global Progress Clocks >= 0.4.5
+
+Foundry v12
+Version 1.38
+*/
 
 // 4 stretches per hour and 6 hours per shift is the same as 24 fifteen minute stretches per shift.
 // Since the hour clock is optional, just leave it out and when using this script you'll never notice that
@@ -318,28 +329,40 @@ async function tellTime (stretch, hour, shift, day, includeDay) {
     })
 }
 
-// FIXME: Quick hack - wrap the script code in a function but only support increment as a test
-async function tick (count) {
-    // Get the optional hour clock first, so we can use its absence or presence to
-    // validate the stretch clock
-    console.group('DBTime')
-    const hour = getValidClock(HOUR_CLOCK_NAME, HOURS_PER_SHIFT, true)
+/**
+ * This is where the script first starts to do some work
+ */
+// Get the optional hour clock first, so we can use its absence or presence to
+// validate the stretch clock
+console.group('DBTime')
+const hour = getValidClock(HOUR_CLOCK_NAME, HOURS_PER_SHIFT, true)
 
-    // The number of segments in the stretch clock varies based on whether the optional
-    // hour clock sits in between the stretch and shift clocks.
-    const stretch = getValidClock(
-        STRETCH_CLOCK_NAME,
-        hour ? STRETCHES_PER_HOUR : STRETCHES_PER_SHIFT
-    )
+// The number of segments in the stretch clock varies based on whether the optional
+// hour clock sits in between the stretch and shift clocks.
+const stretch = getValidClock(
+    STRETCH_CLOCK_NAME,
+    hour ? STRETCHES_PER_HOUR : STRETCHES_PER_SHIFT
+)
 
-    const shift = getValidClock(SHIFT_CLOCK_NAME, SHIFTS_PER_DAY)
-    const day = getValidClock(DAY_CLOCK_NAME, DAY_CLOCK_SEGMENTS, true)
+const shift = getValidClock(SHIFT_CLOCK_NAME, SHIFTS_PER_DAY)
+const day = getValidClock(DAY_CLOCK_NAME, DAY_CLOCK_SEGMENTS, true)
 
-    // if we have the essential clocks, then dispatch to the correct handler
-    if (stretch && shift) {
-        increment(count, stretch, hour, shift, day)
+// get the macro arguments
+const mode = scope.mode
+const count = scope.count
+
+// if we have the essential clocks, then dispatch to the correct handler
+if (stretch && shift) {
+    switch (mode) {
+        case 'increment':
+            increment(count, stretch, hour, shift, day)
+            break
+        case 'set':
+            await setAllClocks(scope, stretch, hour, shift, day)
+            break
+        case 'tell':
+            await tellTime(stretch, hour, shift, day, scope.includeDay && day)
+            break
     }
-    console.groupEnd()
 }
-
-export { tick }
+console.groupEnd()
