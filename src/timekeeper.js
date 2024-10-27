@@ -50,10 +50,16 @@ export class Timekeeper {
         console.log('DB Time | tellTime')
     }
 
+    /**
+     * Gets the total elapsed ticks since tick 0 on day 0
+     */
     get #totalElapsedTicks () {
         return game.settings.get(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME)
     }
 
+    /**
+     * Sets the total elapsed ticks since tick 0 on day 0
+     */
     set #totalElapsedTicks (ticks) {
         game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, ticks)
     }
