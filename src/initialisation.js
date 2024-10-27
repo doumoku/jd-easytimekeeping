@@ -13,8 +13,11 @@ Hooks.once('init', () => {
     console.groupEnd()
 })
 
-Hooks.once('setup', () => {
-    console.group('DB Time | setup')
+// Hooks.once('setup', () => {
+// })
+
+Hooks.once('ready', () => {
+    console.group('DB Time | ready')
     const baseTimeUnit = Number.parseInt(
         game.settings.get(MODULE_ID, SETTINGS.BASE_TIME_UNIT)
     )
@@ -23,6 +26,3 @@ Hooks.once('setup', () => {
     game.modules.get('jd-dbtime').api = new Timekeeper(constants, clockView)
     console.groupEnd()
 })
-
-// Hooks.once('ready', () => {
-// })
