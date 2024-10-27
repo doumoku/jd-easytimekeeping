@@ -2,6 +2,9 @@
  * Dragonbane Timekeeping API and core functionality.
  *
  */
+
+import { SETTINGS, MODULE_ID } from './settings.js'
+
 // TODO: #1 bring over functionality from dbtime-engine.js prototype code
 export class Timekeeper {
     constructor () {
@@ -17,6 +20,21 @@ export class Timekeeper {
      */
     async increment (stretches = 1) {
         console.log('DB Time | incrementing %d stretches', stretches)
+
+        // TODO: This should be encapsulated
+        const currentTicks = game.settings.get(
+            MODULE_ID,
+            SETTINGS.TOTAL_ELAPSED_TIME
+        )
+
+        // do some increment logic
+
+        // TODO: This should be encapsulated
+        game.settings.set(
+            MODULE_ID,
+            SETTINGS.TOTAL_ELAPSED_TIME,
+            currentTicks + stretches
+        )
     }
 
     /**
