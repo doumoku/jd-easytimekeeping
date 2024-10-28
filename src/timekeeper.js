@@ -5,7 +5,6 @@
 
 import { SETTINGS, MODULE_ID } from './settings.js'
 
-// TODO: #1 bring over functionality from dbtime-engine.js prototype code
 export class Timekeeper {
     #constants = null
     #clockView = null
@@ -27,14 +26,20 @@ export class Timekeeper {
     /**
      * Increment the current time.
      *
-     * @param {Number} stretches The number of stretches to increment.
+     * @param {Number} increment The number of stretches to increment.
      */
-    async increment (stretches = 1) {
-        console.debug('DB Time | incrementing %d stretches', stretches)
+    async increment (increment = 1) {
+        console.debug('DB Time | incrementing %d stretches', increment)
 
-        // do some increment logic from the prototype code
-
-        this.#totalElapsedTicks += stretches
+        if (increment > 0) {
+            const currentTime = this.#factorTime(this.#totalElapsedTicks)
+            const newTime = this.#factorTime(
+                this.#totalElapsedTicks + increment
+            )
+            console.log(currentTime)
+            console.log(newTime)
+            this.#totalElapsedTicks += increment
+        }
     }
 
     /**
@@ -59,6 +64,42 @@ export class Timekeeper {
      */
     async tellTime () {
         console.debug('DB Time | tellTime')
+    }
+
+    /**
+     * Factors a time in total ticks into a time object, with the time given in
+     * ticks (stretches/turns), hours, shifts, & days, the time of day, and the total elapsed ticks.
+     */
+    #factorTime (ticks) {
+        const time = {
+            tick: 0,
+            shift: 0,
+            day: 0,
+            totalTicks: ticks,
+        }
+
+        var remainingTicks = ticks
+        // how many days?
+        time.day = Math.floor(ticks / this.#constants.stretchesPerDay)
+        remainingTicks = remainingTicks % this.#constants.stretchesPerDay
+        // how many shifts?
+        time.shift = Math.floor(
+            remainingTicks / this.#constants.stretchesPerShift
+        )
+        remainingTicks = remainingTicks % this.#constants.stretchesPerShift
+        // if we are using hours, then calculate how many whole hours we have
+        if (this.#clockView.showHours) {
+            time.hour = Math.floor(
+                remainingTicks / this.#constants.stretchesPerHour
+            )
+            remainingTicks = remainingTicks % this.#constants.stretchesPerHour
+        }
+        // This is the final remainder of stretches regardless of whether the optional hours are in use or not
+        time.tick = remainingTicks
+
+        // TODO: time of day formatted string
+
+        return time
     }
 
     /**

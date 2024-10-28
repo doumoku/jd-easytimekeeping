@@ -15,14 +15,14 @@ export class ClockView {
 
         this.#initStretchClock()
         this.#initOptionalClock(
-            this.#showHours,
+            this.showHours,
             SETTINGS.HOUR_CLOCK_ID,
             constants.hoursPerShift,
             'Hour'
         )
         this.#initShiftClock()
         this.#initOptionalClock(
-            this.#showDays,
+            this.showDays,
             SETTINGS.DAY_CLOCK_ID,
             constants.maxDaysTracked,
             'Day'
@@ -52,7 +52,7 @@ export class ClockView {
 
     #initStretchClock () {
         // The number of segments depends on whether there's an hour clock between the stretch clock and the shift clock
-        const stretchClockSegments = this.#showHours
+        const stretchClockSegments = this.showHours
             ? this.#constants.stretchesPerHour
             : this.#constants.stretchesPerShift
 
@@ -128,11 +128,11 @@ export class ClockView {
         )
     }
 
-    get #showHours () {
+    get showHours () {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_HOURS)
     }
 
-    get #showDays () {
+    get showDays () {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_DAYS)
     }
 }
