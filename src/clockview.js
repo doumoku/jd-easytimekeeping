@@ -29,6 +29,27 @@ export class ClockView {
         )
     }
 
+    // TODO: I'm not convinced that giving Timekeeper access to these is the right approach.
+    // I'll implement the timekeeping code first and then see what pattern emerges as the best way
+    // to update ClockView when it needs to display the results.
+    /*
+    get stretchClock () {
+        return this.#getClock(SETTINGS.STRETCH_CLOCK_ID)
+    }
+
+    get hourClock () {
+        return this.#getClock(SETTINGS.HOUR_CLOCK_ID)
+    }
+
+    get shiftClock () {
+        return this.#getClock(SETTINGS.SHIFT_CLOCK_ID)
+    }
+
+    get dayClock () {
+        return this.#getClock(SETTINGS.DAY_CLOCK_ID)
+    }
+    */
+
     #initStretchClock () {
         // The number of segments depends on whether there's an hour clock between the stretch clock and the shift clock
         const stretchClockSegments = this.#showHours
