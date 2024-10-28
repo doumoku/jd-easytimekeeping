@@ -20,9 +20,9 @@ Hooks.once('ready', async () => {
     )
     const constants = new Constants(baseTimeUnit)
     const clockView = new ClockView(constants)
-    await clockView.initialise()
+    clockView.initialise()
     const timekeeper = new Timekeeper(constants, clockView)
-    await timekeeper.initialise()
+    timekeeper.initialise()
     game.modules.get('jd-dbtime').api = timekeeper
     console.groupEnd()
 })

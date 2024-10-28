@@ -13,7 +13,7 @@ export class ClockView {
         this.#constants = constants
     }
 
-    async initialise()  {
+    initialise()  {
         console.debug('DB Time | ClockView Checking for Clocks')
         this.#initTickClock()
         this.#initOptionalClock(
@@ -117,12 +117,12 @@ export class ClockView {
      * @param {Number} segments the number of segments this clock is required to have
      * @param {String} name the expected clock name
      */
-    #getOrCreateClock (idKey, segments, name) {
+    async #getOrCreateClock (idKey, segments, name) {
         const clock = this.#getClock(idKey)
         if (clock) {
             // ensure the right number of segments and name
             if (clock.max != segments || clock.name != name) {
-                window.clockDatabase.update({
+                await window.clockDatabase.update({
                     id: clock.id,
                     max: segments,
                     name: name,
@@ -131,7 +131,7 @@ export class ClockView {
         } else {
             // make a new clock
             const id = foundry.utils.randomID()
-            window.clockDatabase.addClock({
+            await window.clockDatabase.addClock({
                 value: 0,
                 max: segments,
                 name: name,
@@ -140,7 +140,7 @@ export class ClockView {
             })
 
             // store the id
-            game.settings.set(MODULE_ID, idKey, id)
+            await game.settings.set(MODULE_ID, idKey, id)
         }
     }
 
