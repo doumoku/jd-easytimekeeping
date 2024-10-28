@@ -14,9 +14,9 @@ export class Timekeeper {
 
         this.#constants = constants
         this.#clockView = clockView
-        
-    // set the time to the current time to force an update of the clockview
-    // this is particularly required if ClockView has just created brand new clocks
+
+        // set the time to the current time to force an update of the clockview
+        // this is particularly required if ClockView has just created brand new clocks
         // this.set(this.#totalElapsedTicks)
     }
 
@@ -28,11 +28,11 @@ export class Timekeeper {
     }
 
     /**
-     * Increment the current time.
+     * Private method to actually increment the current time.
      *
      * @param {Number} increment The number of ticks to increment.
      */
-    async increment (increment = 1) {
+    async #increment (increment = 1) {
         console.debug('DB Time | incrementing %d ticks', increment)
 
         if (increment > 0) {
@@ -48,14 +48,11 @@ export class Timekeeper {
     }
 
     /**
-     * Set the time to the given total number of ticks since tick 0 on day 0, which is 6am on day 0. This is
-     * mostly used by the Reset Clocks macro, though it can be used to set the time to any value so long as you calculate
-     * the total number of ticks required. There are 24 ticks per shift, 4 ticks per hour, 6 hours per shift,
-     * 4 shifts per day, and therefore 96 ticks per day.
+     * Private method to actually set the time.
      *
      * @param {Number} totalTicks The total number of ticks since tick 0 on day 0
      */
-    async set (totalTicks = 0) {
+    async #set (totalTicks = 0) {
         if (totalTicks >= 0) {
             const currentTime = this.#factorTime(this.#totalElapsedTicks)
             const newTime = this.#factorTime(totalTicks)
@@ -64,6 +61,49 @@ export class Timekeeper {
             this.#totalElapsedTicks = totalTicks
             this.#notify(currentTime, newTime)
         }
+    }
+
+    /**
+     * Increment the time.
+     *
+     * @param {Object} time the time interval to increment by
+     * @param {Number} [time.tick=1] ticks
+     * @param {Number} [time.hour=0] hours
+     * @param {Number} [time.shift=0] shifts
+     * @param {Number} [time.day=0] days
+     */
+    async increment (time) {
+        if (!time) time = {tick:1}
+        this.#increment(this.#toTicks(time))
+    }
+
+    /**
+     * Set the time.
+     *
+     * @param {Object} time the time to set
+     * @param {Number} [time.tick=0] ticks
+     * @param {Number} [time.hour=0] hours
+     * @param {Number} [time.shift=0] shifts
+     * @param {Number} [time.day=0] days
+     */
+    async set (time) {
+        if (!time) time = {tick:0}
+        this.#set(this.#toTicks(time))
+    }
+
+    #toTicks (time) {
+        const tick = time.tick ? Math.max(0, time.tick) : 0
+        const hour = time.hour ? Math.max(0, time.hour) : 0
+        const shift = time.shift ? Math.max(0, time.shift) : 0
+        const day = time.day
+            ? Math.min(this.#constants.maxDaysTracked, Math.max(0, time.day))
+            : 0
+        return (
+            tick +
+            hour * this.#constants.ticksPerHour +
+            shift * this.#constants.ticksPerShift +
+            day * this.#constants.ticksPerDay
+        )
     }
 
     /**
