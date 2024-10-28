@@ -73,7 +73,7 @@ export class Timekeeper {
      * @param {Number} [time.day=0] days
      */
     async increment (time) {
-        if (!time) time = {tick:1}
+        if (!time) time = { tick: 1 }
         this.#increment(this.#toTicks(time))
     }
 
@@ -87,7 +87,7 @@ export class Timekeeper {
      * @param {Number} [time.day=0] days
      */
     async set (time) {
-        if (!time) time = {tick:0}
+        if (!time) time = { tick: 0 }
         this.#set(this.#toTicks(time))
     }
 
