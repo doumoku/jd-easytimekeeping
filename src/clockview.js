@@ -36,6 +36,19 @@ export class ClockView {
         if (this.showDays) this.#updateClock(this.#dayClock, time.day)
     }
 
+    tellTime (time) {
+        let content = `It's ${time.timeOfDay} on day ${time.day + 1}` // display in 1-based days
+
+        // TODO: decide if the module setting to not show the day clock means that the current day should also be hidden
+        // from the tellTime chat message
+        // if (this.showDays) content += ` on day ${time.day + 1}` // display in 1-based days
+
+        ChatMessage.create({
+            speaker: { actor: game.user.id },
+            content: content,
+        })
+    }
+
     #updateClock (clock, value) {
         if (clock) {
             value += 1 // handle the conversion from the 0-based units to 1-based for display in GPC
@@ -44,9 +57,10 @@ export class ClockView {
             if (clock.value != value) {
                 window.clockDatabase.update({ id: clock.id, value })
             }
-        }
-        else {
-            console.warn('DB Time | An expected clock is missing. Reloading Foundry should restore it.')
+        } else {
+            console.warn(
+                'DB Time | An expected clock is missing. Reloading Foundry should restore it.'
+            )
         }
     }
 

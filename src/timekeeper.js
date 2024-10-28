@@ -68,6 +68,10 @@ export class Timekeeper {
      */
     async tellTime () {
         console.debug('DB Time | tellTime')
+        // Get the current time object, then hand off to the clock view to tell the time in
+        // an appropriate way. This API class is trying to keep it's hands out of the display business.
+        const currentTime = this.#factorTime(this.#totalElapsedTicks)
+        this.#clockView.tellTime(currentTime)
     }
 
     /**
