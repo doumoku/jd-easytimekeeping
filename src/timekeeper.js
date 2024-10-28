@@ -100,9 +100,9 @@ export class Timekeeper {
             : 0
         return Math.round(
             tick +
-            hour * this.#constants.ticksPerHour +
-            shift * this.#constants.ticksPerShift +
-            day * this.#constants.ticksPerDay
+                hour * this.#constants.ticksPerHour +
+                shift * this.#constants.ticksPerShift +
+                day * this.#constants.ticksPerDay
         )
     }
 
@@ -126,7 +126,12 @@ export class Timekeeper {
     #notify (currentTime, newTime) {
         this.#clockView.updateTime(newTime)
         // TODO: call a hook for world macros
-        // TODO: call a macro from a module setting UUID
+
+        // call a macro from a module setting UUID
+        const timeChangeMacro = this.#timeChangeMacro
+        if (timeChangeMacro) {
+            timeChangeMacro.execute()
+        }
     }
 
     /**
@@ -199,8 +204,14 @@ export class Timekeeper {
     set #totalElapsedTicks (ticks) {
         if (ticks != this.#totalElapsedTicks) {
             game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, ticks)
-            // const changeMacro = game.macros.getName('test-change-macro')
-            // if (changeMacro) changeMacro.execute()
         }
+    }
+
+    get #timeChangeMacro () {
+        return game.macros.find(
+            m =>
+                m.uuid ===
+                game.settings.get(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO)
+        )
     }
 }

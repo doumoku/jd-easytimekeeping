@@ -11,6 +11,7 @@ const SETTINGS = {
     HOUR_CLOCK_ID: 'hourClockId',
     SHIFT_CLOCK_ID: 'shiftClockId',
     DAY_CLOCK_ID: 'dayClockId',
+    TIME_CHANGE_MACRO: 'timeChangeMacro',
 }
 
 function registerSettings () {
@@ -83,12 +84,20 @@ function registerSettings () {
         requiresReload: true,
     })
 
+    game.settings.register(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO, {
+        name: game.i18n.localize('DBTIME.Settings.TimeChangeMacro.name'),
+        hint: game.i18n.localize('DBTIME.Settings.TimeChangeMacro.hint'),
+        scope: 'world',
+        config: true,
+        type: new foundry.data.fields.DocumentUUIDField({ type: 'Macro' }),
+        requiresReload: false,
+    })
+
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, {
         scope: 'world',
         config: false,
         type: Number,
         default: 0,
-        // onChange: value => {},
         requiresReload: false,
     })
 
