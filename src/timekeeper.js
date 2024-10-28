@@ -37,7 +37,7 @@ export class Timekeeper {
                 this.#totalElapsedTicks + increment
             )
             console.debug('DB Time | Current time %o', currentTime)
-            console.log('DB Time | New time %o', newTime)
+            console.log('DB Time | Incrementing to new time %o', newTime)
             this.#totalElapsedTicks += increment
             this.#notify(currentTime, newTime)
         }
@@ -49,14 +49,17 @@ export class Timekeeper {
      * the total number of stretches required. There are 24 stretches per shift, 4 stretches per hour, 6 hours per shift,
      * 4 shifts per day, and therefore 96 stretches per day.
      *
-     * @param {Number} totalStretches The total number of 15 minute stretches since 6am on day 0.
+     * @param {Number} totalTicks The total number of ticks since tick 0 on day 0
      */
-    async set (totalStretches = 0) {
-        console.debug(
-            'DB Time | setting time to %d total stretches',
-            totalStretches
-        )
-        this.#totalElapsedTicks = totalStretches
+    async set (totalTicks = 0) {
+        if (totalTicks >= 0) {
+            const currentTime = this.#factorTime(this.#totalElapsedTicks)
+            const newTime = this.#factorTime(totalTicks)
+            console.debug('DB Time | Current time %o', currentTime)
+            console.log('DB Time | Setting new time %o', newTime)
+            this.#totalElapsedTicks = totalTicks
+            this.#notify(currentTime, newTime)
+        }
     }
 
     /**
@@ -69,11 +72,11 @@ export class Timekeeper {
 
     /**
      * Notifies of a change in the time.
-     * 
-     * @param {Object} currentTime 
-     * @param {Object} newTime 
+     *
+     * @param {Object} currentTime
+     * @param {Object} newTime
      */
-    #notify(currentTime, newTime) {
+    #notify (currentTime, newTime) {
         this.#clockView.updateTime(newTime)
         // TODO: call a hook for world macros
         // TODO: call a macro from a module setting UUID
@@ -110,9 +113,30 @@ export class Timekeeper {
         // This is the final remainder of stretches regardless of whether the optional hours are in use or not
         time.tick = remainingTicks
 
-        // TODO: time of day formatted string
+        this.#calculateTimeOfDay(time)
 
         return time
+    }
+
+    #calculateTimeOfDay (time) {
+        // Each day starts at 6am with shift 0.
+        let minutesSinceSixAM =
+            time.tick * this.#constants.minutesPerStretch +
+            time.shift * this.#constants.minutesPerStretch * this.#constants.stretchesPerShift
+
+        // handle optional hours
+        if (time.hour) minutesSinceSixAM += time.hour * 60
+
+        // factor into hours and minutes
+        let hours = Math.floor(minutesSinceSixAM / 60) + 6  // add 6 since 0 is 6 am
+        const minutes = minutesSinceSixAM % 60
+
+        // handle AM and PM, and after midnight wrapping
+        const amPm = hours < 12 || hours >= 24 ? 'AM' : 'PM'
+        if (hours > 24) hours -= 24
+        if (hours >= 13) hours -= 12
+
+        time.timeOfDay = `${hours}:${minutes.toString().padStart(2, '0')} ${amPm}`
     }
 
     /**
