@@ -18,14 +18,14 @@ export class ClockView {
             this.showHours,
             SETTINGS.HOUR_CLOCK_ID,
             constants.hoursPerShift,
-            'Hour'
+            game.i18n.localize('DBTIME.Settings.HourClockName')
         )
         this.#initShiftClock()
         this.#initOptionalClock(
             this.showDays,
             SETTINGS.DAY_CLOCK_ID,
             constants.maxDaysTracked,
-            'Day'
+            game.i18n.localize('DBTIME.Settings.DayClockName')
         )
     }
 
@@ -105,7 +105,7 @@ export class ClockView {
         this.#getOrCreateClock(
             SETTINGS.SHIFT_CLOCK_ID,
             this.#constants.shiftsPerDay,
-            'Shift'
+            game.i18n.localize('DBTIME.Settings.ShiftClockName')
         )
     }
 
