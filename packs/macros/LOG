@@ -1,0 +1,8 @@
+2024/10/28-17:15:16.488 54ac Recovering log #21
+2024/10/28-17:15:16.491 54ac Delete type=0 #21
+2024/10/28-17:15:16.491 54ac Delete type=3 #19
+2024/10/28-17:15:26.233 3710 Level-0 table #27: started
+2024/10/28-17:15:26.233 3710 Level-0 table #27: 0 bytes OK
+2024/10/28-17:15:26.234 3710 Delete type=0 #25
+2024/10/28-17:15:26.235 3710 Manual compaction at level-0 from '!folders!VRqkozz2rW3VE3US' @ 72057594037927935 : 1 .. '!macros!jZGAUpTMVRrwmtny' @ 0 : 0; will stop at (end)
+2024/10/28-17:15:26.235 3710 Manual compaction at level-1 from '!folders!VRqkozz2rW3VE3US' @ 72057594037927935 : 1 .. '!macros!jZGAUpTMVRrwmtny' @ 0 : 0; will stop at (end)

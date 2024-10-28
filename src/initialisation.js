@@ -2,7 +2,9 @@
  * Dragonbane Timekeeping module registration functions
  *
  */
-import { registerSettings } from './settings.js'
+import { registerSettings, MODULE_ID, SETTINGS } from './settings.js'
+import { ClockView } from './clockview.js'
+import { Constants } from './constants.js'
 import { Timekeeper } from './timekeeper.js'
 
 Hooks.once('init', () => {
@@ -11,17 +13,14 @@ Hooks.once('init', () => {
     console.groupEnd()
 })
 
-Hooks.once('setup', () => {
-    /**
-     * I probably want to create the clocks and setup the API here, since I need
-     * Global Progress Clocks to be initialised first, and that happens in the init hook.
-     */
-    console.group('DB Time | setup')
-
-    game.modules.get('jd-dbtime').api = new Timekeeper()
-
+Hooks.once('ready', () => {
+    console.group('DB Time | ready')
+    const baseTimeUnit = Number.parseInt(
+        game.settings.get(MODULE_ID, SETTINGS.BASE_TIME_UNIT)
+    )
+    const constants = new Constants(baseTimeUnit)
+    const clockView = new ClockView(constants)
+    const timekeeper = new Timekeeper(constants, clockView)
+    game.modules.get('jd-dbtime').api = timekeeper
     console.groupEnd()
 })
-
-// Hooks.once('ready', () => {
-// })
