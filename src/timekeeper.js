@@ -14,10 +14,12 @@ export class Timekeeper {
 
         this.#constants = constants
         this.#clockView = clockView
+    }
 
+    async initialise () {
         // set the time to the current time to force an update of the clockview
         // this is particularly required if ClockView has just created brand new clocks
-        // this.set(this.#totalElapsedTicks)
+        this.set(this.#totalElapsedTicks)
     }
 
     /**
@@ -92,18 +94,25 @@ export class Timekeeper {
     }
 
     #toTicks (time) {
-        const tick = time.tick ? Math.max(0, time.tick) : 0
-        const hour = time.hour ? Math.max(0, time.hour) : 0
-        const shift = time.shift ? Math.max(0, time.shift) : 0
-        const day = time.day
-            ? Math.min(this.#constants.maxDaysTracked, Math.max(0, time.day))
-            : 0
-        return Math.round(
-            tick +
-                hour * this.#constants.ticksPerHour +
-                shift * this.#constants.ticksPerShift +
-                day * this.#constants.ticksPerDay
-        )
+        if (typeof time === 'number') {
+            return time
+        } else {
+            const tick = time.tick ? Math.max(0, time.tick) : 0
+            const hour = time.hour ? Math.max(0, time.hour) : 0
+            const shift = time.shift ? Math.max(0, time.shift) : 0
+            const day = time.day
+                ? Math.min(
+                      this.#constants.maxDaysTracked,
+                      Math.max(0, time.day)
+                  )
+                : 0
+            return Math.round(
+                tick +
+                    hour * this.#constants.ticksPerHour +
+                    shift * this.#constants.ticksPerShift +
+                    day * this.#constants.ticksPerDay
+            )
+        }
     }
 
     /**

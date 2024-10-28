@@ -10,21 +10,23 @@ export class ClockView {
      * Construct a ClockView instance
      */
     constructor (constants) {
-        console.debug('DB Time | ClockView Checking for Clocks')
         this.#constants = constants
+    }
 
+    async initialise()  {
+        console.debug('DB Time | ClockView Checking for Clocks')
         this.#initTickClock()
         this.#initOptionalClock(
             this.showHours,
             SETTINGS.HOUR_CLOCK_ID,
-            constants.hoursPerShift,
+            this.#constants.hoursPerShift,
             game.i18n.localize('DBTIME.Settings.HourClockName')
         )
         this.#initShiftClock()
         this.#initOptionalClock(
             this.showDays,
             SETTINGS.DAY_CLOCK_ID,
-            constants.maxDaysTracked,
+            this.#constants.maxDaysTracked,
             game.i18n.localize('DBTIME.Settings.DayClockName')
         )
     }
@@ -58,9 +60,8 @@ export class ClockView {
                 window.clockDatabase.update({ id: clock.id, value })
             }
         } else {
-            console.warn(
-                'DB Time | An expected clock is missing. Reloading Foundry should restore it.'
-            )
+            const warning = 'DB Time | An expected clock is missing. Reloading Foundry should restore it.'
+            ui.notifications.warn(warning)
         }
     }
 
