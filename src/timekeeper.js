@@ -64,9 +64,8 @@ export class Timekeeper {
 
     /**
      * Posts the current time to chat.
-     * If the day clock is enabled in the module settings, then the day will be included in the chat message.
      */
-    async tellTime () {
+    tellTime () {
         console.debug('DB Time | tellTime')
         // Get the current time object, then hand off to the clock view to tell the time in
         // an appropriate way. This API class is trying to keep it's hands out of the display business.
