@@ -14,10 +14,12 @@ export class Timekeeper {
 
         this.#constants = constants
         this.#clockView = clockView
+    }
 
+    initialise () {
         // set the time to the current time to force an update of the clockview
         // this is particularly required if ClockView has just created brand new clocks
-        // this.set(this.#totalElapsedTicks)
+        this.set(this.#totalElapsedTicks)
     }
 
     /**
@@ -32,7 +34,7 @@ export class Timekeeper {
      *
      * @param {Number} increment The number of ticks to increment.
      */
-    async #increment (increment = 1) {
+    #increment (increment = 1) {
         console.debug('DB Time | incrementing %d ticks', increment)
 
         if (increment > 0) {
@@ -52,7 +54,7 @@ export class Timekeeper {
      *
      * @param {Number} totalTicks The total number of ticks since tick 0 on day 0
      */
-    async #set (totalTicks = 0) {
+    #set (totalTicks = 0) {
         if (totalTicks >= 0) {
             const currentTime = this.#factorTime(this.#totalElapsedTicks)
             const newTime = this.#factorTime(totalTicks)
@@ -72,7 +74,7 @@ export class Timekeeper {
      * @param {Number} [time.shift=0] shifts
      * @param {Number} [time.day=0] days
      */
-    async increment (time) {
+    increment (time) {
         if (!time) time = { tick: 1 }
         this.#increment(this.#toTicks(time))
     }
@@ -86,24 +88,31 @@ export class Timekeeper {
      * @param {Number} [time.shift=0] shifts
      * @param {Number} [time.day=0] days
      */
-    async set (time) {
+    set (time) {
         if (!time) time = { tick: 0 }
         this.#set(this.#toTicks(time))
     }
 
     #toTicks (time) {
-        const tick = time.tick ? Math.max(0, time.tick) : 0
-        const hour = time.hour ? Math.max(0, time.hour) : 0
-        const shift = time.shift ? Math.max(0, time.shift) : 0
-        const day = time.day
-            ? Math.min(this.#constants.maxDaysTracked, Math.max(0, time.day))
-            : 0
-        return Math.round(
-            tick +
-                hour * this.#constants.ticksPerHour +
-                shift * this.#constants.ticksPerShift +
-                day * this.#constants.ticksPerDay
-        )
+        if (typeof time === 'number') {
+            return time
+        } else {
+            const tick = time.tick ? Math.max(0, time.tick) : 0
+            const hour = time.hour ? Math.max(0, time.hour) : 0
+            const shift = time.shift ? Math.max(0, time.shift) : 0
+            const day = time.day
+                ? Math.min(
+                      this.#constants.maxDaysTracked,
+                      Math.max(0, time.day)
+                  )
+                : 0
+            return Math.round(
+                tick +
+                    hour * this.#constants.ticksPerHour +
+                    shift * this.#constants.ticksPerShift +
+                    day * this.#constants.ticksPerDay
+            )
+        }
     }
 
     /**
