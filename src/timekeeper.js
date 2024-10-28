@@ -98,7 +98,7 @@ export class Timekeeper {
         const day = time.day
             ? Math.min(this.#constants.maxDaysTracked, Math.max(0, time.day))
             : 0
-        return (
+        return Math.round(
             tick +
             hour * this.#constants.ticksPerHour +
             shift * this.#constants.ticksPerShift +
