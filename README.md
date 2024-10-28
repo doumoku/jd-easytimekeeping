@@ -1,9 +1,9 @@
 # Dragonbane Timekeeping
 
-![Static Badge](https://img.shields.io/badge/Module%20Status%3A-Pre--Alpha-red)
+![Static Badge](https://img.shields.io/badge/Module%20Status%3A-Alpha-red)
 
 > [!CAUTION]
-> This module is still a work in progress, and is not yet ready for use. It has not been released. If you really want some timekeeping goodness, you'll be better off with [the original macro version](https://github.com/DC23/foundry-macros/blob/main/dbtime/dbtime-readme.md). I don't maintain that version anymore, and it's harder to install than I hope this module will be, but at least it's ready to use now.
+> This module is still a work in progress, and is not yet ready for use. It has not been released. If you really want some timekeeping goodness, you'll be better off with [the original macro version](https://github.com/DC23/foundry-macros/blob/main/dbtime/dbtime-readme.md). I don't maintain that version anymore, and it's harder to install than this module, but at least it's ready to use now.
 
 ***Dragonbane Timekeeping***, or ***DB Time*** for short, implements simple timekeeping for the [Dragonbane game system](https://foundryvtt.com/packages/dragonbane) on top of the [Global Progress Clocks](https://foundryvtt.com/packages/global-progress-clocks) module.
 
@@ -20,5 +20,4 @@ I had a few goals when creating this system:
 
 ## Dependencies
 
-- Foundry VTT Version 12 or higher
 - [Global Progress Clocks](https://foundryvtt.com/packages/global-progress-clocks)
