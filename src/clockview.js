@@ -29,26 +29,42 @@ export class ClockView {
         )
     }
 
-    // TODO: I'm not convinced that giving Timekeeper access to these is the right approach.
-    // I'll implement the timekeeping code first and then see what pattern emerges as the best way
-    // to update ClockView when it needs to display the results.
-    /*
-    get stretchClock () {
+    updateTime (time) {
+        this.#updateClock(this.#stretchClock, time.tick)
+        this.#updateClock(this.#shiftClock, time.shift)
+        if (this.showHours) this.#updateClock(this.#hourClock, time.hour)
+        if (this.showDays) this.#updateClock(this.#dayClock, time.day)
+    }
+
+    #updateClock (clock, value) {
+        if (clock) {
+            value += 1 // handle the conversion from the 0-based units to 1-based for display in GPC
+            // display values are clamped to the range [1..clock.max]
+            value = Math.max(1, Math.min(clock.max, value))
+            if (clock.value != value) {
+                window.clockDatabase.update({ id: clock.id, value })
+            }
+        }
+        else {
+            console.warn('DB Time | An expected clock is missing. Reloading Foundry should restore it.')
+        }
+    }
+
+    get #stretchClock () {
         return this.#getClock(SETTINGS.STRETCH_CLOCK_ID)
     }
 
-    get hourClock () {
+    get #hourClock () {
         return this.#getClock(SETTINGS.HOUR_CLOCK_ID)
     }
 
-    get shiftClock () {
+    get #shiftClock () {
         return this.#getClock(SETTINGS.SHIFT_CLOCK_ID)
     }
 
-    get dayClock () {
+    get #dayClock () {
         return this.#getClock(SETTINGS.DAY_CLOCK_ID)
     }
-    */
 
     #initStretchClock () {
         // The number of segments depends on whether there's an hour clock between the stretch clock and the shift clock

@@ -36,9 +36,10 @@ export class Timekeeper {
             const newTime = this.#factorTime(
                 this.#totalElapsedTicks + increment
             )
-            console.log(currentTime)
-            console.log(newTime)
+            console.debug('DB Time | Current time %o', currentTime)
+            console.log('DB Time | New time %o', newTime)
             this.#totalElapsedTicks += increment
+            this.#notify(currentTime, newTime)
         }
     }
 
@@ -64,6 +65,18 @@ export class Timekeeper {
      */
     async tellTime () {
         console.debug('DB Time | tellTime')
+    }
+
+    /**
+     * Notifies of a change in the time.
+     * 
+     * @param {Object} currentTime 
+     * @param {Object} newTime 
+     */
+    #notify(currentTime, newTime) {
+        this.#clockView.updateTime(newTime)
+        // TODO: call a hook for world macros
+        // TODO: call a macro from a module setting UUID
     }
 
     /**
@@ -115,10 +128,8 @@ export class Timekeeper {
     set #totalElapsedTicks (ticks) {
         if (ticks != this.#totalElapsedTicks) {
             game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, ticks)
-            // TODO: this needs to receive all the data matching the prototype - oldTime, current time etc
-            // TODO: rename once I converge on how I'm actually handling the change callbacks
-            const changeMacro = game.macros.getName('test-change-macro')
-            if (changeMacro) changeMacro.execute()
+            // const changeMacro = game.macros.getName('test-change-macro')
+            // if (changeMacro) changeMacro.execute()
         }
     }
 }
