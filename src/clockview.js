@@ -5,7 +5,6 @@ import { MODULE_ID, SETTINGS } from './settings.js'
 
 export class ClockView {
     #constants = null
-    #stretchClock = null
 
     /**
      * Construct a ClockView instance
@@ -15,53 +14,19 @@ export class ClockView {
         this.#constants = constants
 
         this.#initStretchClock()
-    }
-
-    /**
-     * Validates a Global Progress Clock clock.
-     * Since so much of these scripts depend on these clocks being configured correctly, but
-     * that configuration is outside the control of the scripts, the least I can do is check
-     * that it's right.
-     * @param {Object} clock The clock to check.
-     * @param {string} name The clock name.
-     * @param {number} segments The expected number of segments.
-     */
-    #validate_clock (clock, name, segments, optional = false) {
-        if (!optional && !clock)
-            throw new Error(`DBTime: Global Progress Clock '${name}' missing`)
-
-        if (clock && clock.max != segments)
-            throw new Error(
-                `DBTime: Global Progress Clock '${name}' has ${clock.max} segments, it requires ${segments}`
-            )
-    }
-
-    /**
-     * Gets a validated timekeeping progress clock by name.
-     * @param {string} name
-     * @param {number} segments The expected number of clock segments
-     * @param {boolean} optional An optional clock will return null if it is missing, while a required clock will raise an exception if missing.
-     * @returns {Object} The validated Global Progress Clocks clock object, or null if a valid clock could not be found.
-     */
-    #getValidClock (name, segments, optional = false) {
-        var clock = null
-        try {
-            clock = window.clockDatabase.getName(name)
-        } catch (error) {
-            ui.notifications.error(
-                'The Global Progress Clocks module is probably not loaded'
-            )
-            return null
-        }
-
-        try {
-            this.#validate_clock(clock, name, segments, optional)
-        } catch (error) {
-            ui.notifications.error(error)
-            return null
-        }
-
-        return clock
+        this.#initOptionalClock(
+            this.#showHours,
+            SETTINGS.HOUR_CLOCK_ID,
+            constants.hoursPerShift,
+            'Hour'
+        )
+        this.#initShiftClock()
+        this.#initOptionalClock(
+            this.#showDays,
+            SETTINGS.DAY_CLOCK_ID,
+            constants.maxDaysTracked,
+            'Day'
+        )
     }
 
     #initStretchClock () {
@@ -70,29 +35,70 @@ export class ClockView {
             ? this.#constants.stretchesPerHour
             : this.#constants.stretchesPerShift
 
-        // First, see if a valid stretch clock exists
-        this.#stretchClock = this.#getValidClock(
-            this.#stretchClockName,
+        this.#getOrCreateClock(
+            SETTINGS.STRETCH_CLOCK_ID,
             stretchClockSegments,
-            true // Say it's optional, since we'll make one if it's not there.
+            this.#stretchClockName
         )
-        
-        const id = foundry.utils.randomID()
-        console.log(`clock id: ${id}`)
+    }
 
-        // TODO: This validation pattern doesn't translate from the script version.
-        // If validations fails, then making a new clock might not work either.
-        if (!this.#stretchClock) {
-            // make a new stretch clock
-            console.log('making new clock')
+    #initOptionalClock (showClock, idKey, segments, name) {
+        if (showClock) {
+            this.#getOrCreateClock(idKey, segments, name)
+        } else {
+            this.#deleteClock(idKey)
+        }
+    }
+
+    #initShiftClock () {
+        this.#getOrCreateClock(
+            SETTINGS.SHIFT_CLOCK_ID,
+            this.#constants.shiftsPerDay,
+            'Shift'
+        )
+    }
+
+    /**
+     * Get or create a Global Progress Clock.
+     *
+     * @param {String} idKey the key to the module setting that stores the clock ID
+     * @param {Number} segments the number of segments this clock is required to have
+     * @param {String} name the expected clock name
+     */
+    #getOrCreateClock (idKey, segments, name) {
+        const clock = this.#getClock(idKey)
+        if (clock) {
+            // ensure the right number of segments and name
+            if (clock.max != segments || clock.name != name) {
+                window.clockDatabase.update({
+                    id: clock.id,
+                    max: segments,
+                    name: name,
+                })
+            }
+        } else {
+            // make a new clock
+            const id = foundry.utils.randomID()
             window.clockDatabase.addClock({
                 value: 0,
-                max: stretchClockSegments,
-                name: this.#stretchClockName,
+                max: segments,
+                name: name,
                 id: id,
                 private: false,
             })
+
+            // store the id
+            game.settings.set(MODULE_ID, idKey, id)
         }
+    }
+
+    #getClock (key) {
+        return window.clockDatabase.get(game.settings.get(MODULE_ID, key))
+    }
+
+    #deleteClock (key) {
+        window.clockDatabase.delete(game.settings.get(MODULE_ID, key))
+        game.settings.set(MODULE_ID, key, '')
     }
 
     get #stretchClockName () {
@@ -103,5 +109,9 @@ export class ClockView {
 
     get #showHours () {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_HOURS)
+    }
+
+    get #showDays () {
+        return game.settings.get(MODULE_ID, SETTINGS.SHOW_DAYS)
     }
 }

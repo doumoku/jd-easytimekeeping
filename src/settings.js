@@ -7,6 +7,10 @@ const SETTINGS = {
     TOTAL_ELAPSED_TIME: 'totalElapsedTime',
     BASE_TIME_UNIT: 'baseTimeUnit',
     BASE_TIME_CLOCK: 'baseTimeClock',
+    STRETCH_CLOCK_ID: 'stretchClockId',
+    HOUR_CLOCK_ID: 'HourClockId',
+    SHIFT_CLOCK_ID: 'ShiftClockId',
+    DAY_CLOCK_ID: 'DayClockId',
 }
 
 function registerSettings () {
@@ -20,8 +24,7 @@ function registerSettings () {
         onChange: value => {
             console.log('DB Time | %s %o', SETTINGS.SHOW_HOURS, value)
         },
-        // FIXME: this is for testing. It will actually require a reload since I'll need to mix up the clock configuration
-        requiresReload: false,
+        requiresReload: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DAYS, {
@@ -34,8 +37,7 @@ function registerSettings () {
         onChange: value => {
             console.log('DB Time | %s %o', SETTINGS.SHOW_DAYS, value)
         },
-        // FIXME: this is for testing. It will actually require a reload since I'll need to mix up the clock configuration
-        requiresReload: false,
+        requiresReload: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_UNIT, {
@@ -74,7 +76,6 @@ function registerSettings () {
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, {
-        name: 'Total Elapsed Time',
         scope: 'world',
         config: false,
         type: Number,
@@ -86,6 +87,20 @@ function registerSettings () {
                 value
             )
         },
+        requiresReload: false,
+    })
+
+    registerId(SETTINGS.STRETCH_CLOCK_ID)
+    registerId(SETTINGS.HOUR_CLOCK_ID)
+    registerId(SETTINGS.SHIFT_CLOCK_ID)
+    registerId(SETTINGS.DAY_CLOCK_ID)
+}
+
+function registerId (setting) {
+    game.settings.register(MODULE_ID, setting, {
+        scope: 'world',
+        config: false,
+        type: String,
         requiresReload: false,
     })
 }
