@@ -47,11 +47,19 @@ function registerSettings () {
         config: true,
         type: new foundry.data.fields.StringField({
             choices: {
-                5: '5 minutes',
-                10: '10 minutes',
-                15: '15 minutes',
-                20: '20 minutes',
-                30: '30 minutes',
+                5: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.option.5'),
+                10: game.i18n.localize(
+                    'DBTIME.Settings.BaseTimeUnit.option.10'
+                ),
+                15: game.i18n.localize(
+                    'DBTIME.Settings.BaseTimeUnit.option.15'
+                ),
+                20: game.i18n.localize(
+                    'DBTIME.Settings.BaseTimeUnit.option.20'
+                ),
+                30: game.i18n.localize(
+                    'DBTIME.Settings.BaseTimeUnit.option.30'
+                ),
             },
             required: true,
         }),
