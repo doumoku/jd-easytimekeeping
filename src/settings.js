@@ -80,13 +80,7 @@ function registerSettings () {
         config: false,
         type: Number,
         default: 0,
-        onChange: value => {
-            console.log(
-                'DB Time | %s=%d ticks',
-                SETTINGS.TOTAL_ELAPSED_TIME,
-                value
-            )
-        },
+        // onChange: value => {},
         requiresReload: false,
     })
 
