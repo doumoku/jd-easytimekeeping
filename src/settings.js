@@ -7,10 +7,10 @@ const SETTINGS = {
     TOTAL_ELAPSED_TIME: 'totalElapsedTime',
     BASE_TIME_UNIT: 'baseTimeUnit',
     BASE_TIME_CLOCK: 'baseTimeClock',
-    STRETCH_CLOCK_ID: 'stretchClockId',
-    HOUR_CLOCK_ID: 'HourClockId',
-    SHIFT_CLOCK_ID: 'ShiftClockId',
-    DAY_CLOCK_ID: 'DayClockId',
+    TICK_CLOCK_ID: 'tickClockId',
+    HOUR_CLOCK_ID: 'hourClockId',
+    SHIFT_CLOCK_ID: 'shiftClockId',
+    DAY_CLOCK_ID: 'dayClockId',
 }
 
 function registerSettings () {
@@ -84,7 +84,7 @@ function registerSettings () {
         requiresReload: false,
     })
 
-    registerId(SETTINGS.STRETCH_CLOCK_ID)
+    registerId(SETTINGS.TICK_CLOCK_ID)
     registerId(SETTINGS.HOUR_CLOCK_ID)
     registerId(SETTINGS.SHIFT_CLOCK_ID)
     registerId(SETTINGS.DAY_CLOCK_ID)

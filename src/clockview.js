@@ -13,7 +13,7 @@ export class ClockView {
         console.debug('DB Time | ClockView Checking for Clocks')
         this.#constants = constants
 
-        this.#initStretchClock()
+        this.#initTickClock()
         this.#initOptionalClock(
             this.showHours,
             SETTINGS.HOUR_CLOCK_ID,
@@ -30,7 +30,7 @@ export class ClockView {
     }
 
     updateTime (time) {
-        this.#updateClock(this.#stretchClock, time.tick)
+        this.#updateClock(this.#tickClock, time.tick)
         this.#updateClock(this.#shiftClock, time.shift)
         if (this.showHours) this.#updateClock(this.#hourClock, time.hour)
         if (this.showDays) this.#updateClock(this.#dayClock, time.day)
@@ -64,8 +64,8 @@ export class ClockView {
         }
     }
 
-    get #stretchClock () {
-        return this.#getClock(SETTINGS.STRETCH_CLOCK_ID)
+    get #tickClock () {
+        return this.#getClock(SETTINGS.TICK_CLOCK_ID)
     }
 
     get #hourClock () {
@@ -80,16 +80,16 @@ export class ClockView {
         return this.#getClock(SETTINGS.DAY_CLOCK_ID)
     }
 
-    #initStretchClock () {
-        // The number of segments depends on whether there's an hour clock between the stretch clock and the shift clock
-        const stretchClockSegments = this.showHours
-            ? this.#constants.stretchesPerHour
-            : this.#constants.stretchesPerShift
+    #initTickClock () {
+        // The number of segments depends on whether there's an hour clock between the tick clock and the shift clock
+        const tickClockSegments = this.showHours
+            ? this.#constants.ticksPerHour
+            : this.#constants.ticksPerShift
 
         this.#getOrCreateClock(
-            SETTINGS.STRETCH_CLOCK_ID,
-            stretchClockSegments,
-            this.#stretchClockName
+            SETTINGS.TICK_CLOCK_ID,
+            tickClockSegments,
+            this.#tickClockName
         )
     }
 
@@ -152,10 +152,8 @@ export class ClockView {
         game.settings.set(MODULE_ID, key, '')
     }
 
-    get #stretchClockName () {
-        return (
-            game.settings.get(MODULE_ID, SETTINGS.BASE_TIME_CLOCK) || 'Stretch'
-        )
+    get #tickClockName () {
+        return game.settings.get(MODULE_ID, SETTINGS.BASE_TIME_CLOCK) || 'Tick'
     }
 
     get showHours () {
