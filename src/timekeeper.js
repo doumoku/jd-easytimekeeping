@@ -14,6 +14,10 @@ export class Timekeeper {
 
         this.#constants = constants
         this.#clockView = clockView
+        
+    // set the time to the current time to force an update of the clockview
+    // this is particularly required if ClockView has just created brand new clocks
+        // this.set(this.#totalElapsedTicks)
     }
 
     /**
