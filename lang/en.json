@@ -11,5 +11,7 @@
     "DBTIME.Settings.BaseTimeUnit.option.20": "20 minutes",
     "DBTIME.Settings.BaseTimeUnit.option.30": "30 minutes",
     "DBTIME.Settings.BaseTimeClock.name": "Display name of the Stretch clock",
-    "DBTIME.Settings.BaseTimeClock.hint": "For adapting this system to other games."
+    "DBTIME.Settings.BaseTimeClock.hint": "For adapting this system to other games.",
+    "DBTIME.Settings.TimeChangeMacro.name": "Time Change Event Handler",
+    "DBTIME.Settings.TimeChangeMacro.hint": "UUID of a macro that will be called when the time changes"
 }
