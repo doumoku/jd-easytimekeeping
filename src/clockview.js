@@ -36,6 +36,11 @@ export class ClockView {
         this.#updateClock(this.#shiftClock, time.shift)
         if (this.showHours) this.#updateClock(this.#hourClock, time.hour)
         if (this.showDays) this.#updateClock(this.#dayClock, time.day)
+
+        /**
+         * if auto time telling and it's time to tell the time
+         *    this.tellTime
+         */
     }
 
     tellTime (time) {

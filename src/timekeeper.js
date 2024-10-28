@@ -130,7 +130,19 @@ export class Timekeeper {
      * Notifies of a change in the time.
      *
      * @param {Object} currentTime
+     * @param {Number} [currentTime.totalTicks] total ticks
+     * @param {Number} [currentTime.tick] ticks
+     * @param {Number} [currentTime.hour] hours
+     * @param {Number} [currentTime.shift] shifts
+     * @param {Number} [currentTime.day] days
+     * @param {String} [currentTime.timeOfDay] hh:mm [AM|PM]
      * @param {Object} newTime
+     * @param {Number} [newTime.totalTicks] total ticks
+     * @param {Number} [newTime.tick] ticks
+     * @param {Number} [newTime.hour] hours
+     * @param {Number} [newTime.shift] shifts
+     * @param {Number} [newTime.day] days
+     * @param {String} [newTime.timeOfDay] hh:mm [AM|PM]
      */
     #notify (currentTime, newTime) {
         this.#clockView.updateTime(newTime)
@@ -139,7 +151,7 @@ export class Timekeeper {
         // call a macro from a module setting UUID
         const timeChangeMacro = this.#timeChangeMacro
         if (timeChangeMacro) {
-            timeChangeMacro.execute()
+            timeChangeMacro.execute({ oldTime: currentTime, time: newTime })
         }
     }
 
