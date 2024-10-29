@@ -37,8 +37,7 @@ export class ClockView {
         if (this.showHours) this.#updateClock(this.#hourClock, time.hour)
         if (this.showDays) this.#updateClock(this.#dayClock, time.day)
 
-        if (this.#autoTellTime)
-            if (this.#isItTimeToTellTheTime(time)) this.tellTime(time)
+        this.#checkAutoTellTime(time)
     }
 
     tellTime (time) {
@@ -171,25 +170,12 @@ export class ClockView {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_DAYS)
     }
 
-    get #autoTellTime () {
-        // FIXME: disabled until I implement the new settings FormApplication
-        return false
-        // return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME)
-    }
-
-    // FIXME: disabled until I implement the new settings FormApplication
-    // get #autoTellTimeIntervalHours () {
-    //     return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_HOUR)
-    // }
-
-    #isItTimeToTellTheTime (time) {
-        // FIXME: disabled until I implement the new settings FormApplication
-        return false
-        // return (
-        //     time.totalTicks %
-        //         (this.#constants.ticksPerHour *
-        //             this.#autoTellTimeIntervalHours) ===
-        //     0
-        // )
+    #checkAutoTellTime (time) {
+        const tellTimeSettings = game.settings.get(
+            MODULE_ID,
+            SETTINGS.AUTO_TELL_TIME_SETTINGS
+        )
+        if (tellTimeSettings[time.timeOfDay]) 
+            this.tellTime(time)
     }
 }
