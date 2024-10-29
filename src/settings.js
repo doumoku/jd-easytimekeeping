@@ -150,7 +150,7 @@ class AutoTellTimeMenu extends FormApplication {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['form'],
             popOut: true,
-            width: 500,
+            width: 600,
             template: 'modules/jd-dbtime/templates/autotelltimesettings.hbs',
             id: SETTINGS.AUTO_TELL_TIME_MENU,
             title: game.i18n.localize(
@@ -161,20 +161,33 @@ class AutoTellTimeMenu extends FormApplication {
 
     getData () {
         // returns data to the template
-        const data = game.settings.get(
+        const initialValues = game.settings.get(
             MODULE_ID,
             SETTINGS.AUTO_TELL_TIME_SETTINGS
         )
-        const templateData = {
-            morning: [
-                { hour: 6, time: "6:00 AM", checked: ''},
-                { hour: 7, time: "7:00 AM", checked: 'checked'},
-                { hour: 8, time: "8:00 AM", checked: ''},
-            ],
+
+        // build the array of data for a shift of hours needed by the handlebars template
+        // this handles looking up the actual stored settings so the initial form state is
+        // correct
+        function buildShiftArray (hourArray, amPM) {
+            let shiftArray = []
+            for (const h of hourArray)
+                shiftArray.push({ time: `${h}:00 ${amPM}` })
+
+            for (const t of shiftArray)
+                t.checked = initialValues[t.time] ? 'checked' : ''
+
+            return shiftArray
         }
-        console.log('DB Time | AutoTell Setting Menu getData: %o', data)
+
+        const templateData = {
+            morning: buildShiftArray([6, 7, 8, 9, 10, 11], 'AM'),
+            afternoon: buildShiftArray([12, 1, 2, 3, 4, 5], 'PM'),
+            evening: buildShiftArray([6, 7, 8, 9, 10, 11], 'PM'),
+            night: buildShiftArray([12, 1, 2, 3, 4, 5], 'AM'),
+        }
+
         return templateData
-        // return data
     }
 
     _updateObject (event, formData) {

@@ -1,11 +1,12 @@
 {{#*inline "checkboxPartial"}}
-<label for="hour-{{this.hour}}">{{this.time}}</label>
-<input type="checkbox" name="hour-{{this.hour}}" value="true" {{this.checked}} />
+<label for="{{this.time}}">{{this.time}}</label>
+<input type="checkbox" name="{{this.time}}" value="true" {{this.checked}} />
 {{/inline}}
 
 <form class="flexcol">
     <div class="form-group">
         <div>
+            {{!-- I guess I could factor this repeating pattern out into a partial, but meh --}}
             <fieldset>
                 <legend>Morning:</legend>
                 {{#each morning}}
@@ -15,6 +16,18 @@
             <fieldset>
                 <legend>Afternoon:</legend>
                 {{#each afternoon}}
+                {{> checkboxPartial}}
+                {{/each}}
+            </fieldset>
+            <fieldset>
+                <legend>Evening:</legend>
+                {{#each evening}}
+                {{> checkboxPartial}}
+                {{/each}}
+            </fieldset>
+            <fieldset>
+                <legend>Night:</legend>
+                {{#each night}}
                 {{> checkboxPartial}}
                 {{/each}}
             </fieldset>
