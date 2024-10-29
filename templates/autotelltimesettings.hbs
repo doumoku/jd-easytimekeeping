@@ -1,10 +1,23 @@
+{{#*inline "checkboxPartial"}}
+<label for="hour-{{this.hour}}">{{this.time}}</label>
+<input type="checkbox" name="hour-{{this.hour}}" value="true" {{this.checked}} />
+{{/inline}}
+
 <form class="flexcol">
     <div class="form-group">
         <div>
-            {{#each timeOptions}}
-            <label for="hour-{{this.hour}}">{{this.hour}}:00</label>
-            <input type="checkbox" name="hour-{{this.hour}}" value="true" id="hour-{{this.hour}}" {{this.checked}} />
-            {{/each}}
+            <fieldset>
+                <legend>Morning:</legend>
+                {{#each morning}}
+                {{> checkboxPartial}}
+                {{/each}}
+            </fieldset>
+            <fieldset>
+                <legend>Afternoon:</legend>
+                {{#each afternoon}}
+                {{> checkboxPartial}}
+                {{/each}}
+            </fieldset>
         </div>
     </div>
     <footer class="sheet-footer flexrow">
