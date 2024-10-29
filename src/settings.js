@@ -167,9 +167,9 @@ class AutoTellTimeMenu extends FormApplication {
         )
         const templateData = {
             timeOptions: [
-                6,
-                7,
-                8
+                { hour: 6, checked: ''},
+                { hour: 7, checked: 'checked'},
+                { hour: 8, checked: ''},
             ],
         }
         console.log('DB Time | AutoTell Setting Menu getData: %o', data)
