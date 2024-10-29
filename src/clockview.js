@@ -172,22 +172,24 @@ export class ClockView {
     }
 
     get #autoTellTime () {
-        return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME)
+        // FIXME: disabled until I implement the new settings FormApplication
+        return false
+        // return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME)
     }
 
-    get #autoTellTimeIntervalHours () {
-        return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_HOUR)
-    }
+    // FIXME: disabled until I implement the new settings FormApplication
+    // get #autoTellTimeIntervalHours () {
+    //     return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_HOUR)
+    // }
 
     #isItTimeToTellTheTime (time) {
-        let hours = time.timeOfDay24HourNumeric.hours
-        // We need to handle the time between 12 midnight and 6am as though it is part of the previous day
-        // otherwise the integer modulo doesn't work correctly for all time intervals as the hours wraps back
-        // to a smaller number at midnight
-        if (hours < 6) hours += 24
-        return (
-            time.timeOfDay24HourNumeric.minutes === 0 &&
-            (hours - 6) % this.#autoTellTimeIntervalHours === 0
-        )
+        // FIXME: disabled until I implement the new settings FormApplication
+        return false
+        // return (
+        //     time.totalTicks %
+        //         (this.#constants.ticksPerHour *
+        //             this.#autoTellTimeIntervalHours) ===
+        //     0
+        // )
     }
 }

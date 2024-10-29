@@ -12,8 +12,8 @@ const SETTINGS = {
     SHIFT_CLOCK_ID: 'shiftClockId',
     DAY_CLOCK_ID: 'dayClockId',
     TIME_CHANGE_MACRO: 'timeChangeMacro',
-    AUTO_TELL_TIME: 'autoTellTime',
-    AUTO_TELL_TIME_HOUR: 'autoTellTimeHour',
+    AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings',
+    AUTO_TELL_TIME_MENU: 'autoTellTimeSettingsMenu',
 }
 
 function registerSettings () {
@@ -121,35 +121,32 @@ function registerId (setting) {
 }
 
 function registerAutoTellTimeSettings () {
-    game.settings.register(MODULE_ID, SETTINGS.AUTO_TELL_TIME, {
-        name: game.i18n.localize('DBTIME.Settings.AutoTellTime.name'),
-        hint: game.i18n.localize('DBTIME.Settings.AutoTellTime.hint'),
-        scope: 'world',
-        config: true,
-        type: Boolean,
-        default: false,
-        onChange: value => {
-            console.log('DB Time | %s %o', SETTINGS.AUTO_TELL_TIME, value)
-        },
-        requiresReload: false,
+    // The settings menu
+    game.settings.registerMenu(MODULE_ID, SETTINGS.AUTO_TELL_TIME_MENU, {
+        name: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.name'),
+        label: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.label'),
+        hint: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.hint'),
+        icon: 'fas fa-cog',
+        type: AutoTellTimeMenu,
+        restricted: true, // Restrict this submenu to gamemaster only?
     })
 
-    game.settings.register(MODULE_ID, SETTINGS.AUTO_TELL_TIME_HOUR, {
-        name: game.i18n.localize('DBTIME.Settings.AutoTellTimeHour.name'),
-        hint: game.i18n.localize('DBTIME.Settings.AutoTellTimeHour.hint'),
+    // the settings object
+    game.settings.register(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS, {
         scope: 'world',
-        config: true,
-        type: new foundry.data.fields.NumberField({
-            min: 1,
-            max: 12,
-            step: 1,
-            initial: 1,
-            nullable: false,
-        }),
-        default: 1,
-        onChange: value => {
-            console.log('DB Time | Auto time telling every %d hours', value)
-        },
-        requiresReload: false,
+        config: false,
+        type: Object,
+        default: {},
     })
+}
+
+class AutoTellTimeMenu extends FormApplication {
+    getData () {
+        return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS)
+    }
+
+    _updateObject (event, formData) {
+        const data = expandObject(formData)
+        game.settings.set(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS, data)
+    }
 }
