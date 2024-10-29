@@ -1,0 +1,15 @@
+<form class="flexcol">
+    <div class="form-group">
+        <div>
+            {{#each timeOptions}}
+            <label for="hour-{{this.time}}">{{this.time}}:00</label>
+            <input type="checkbox" name="{{this.time}}" value="true" id="hour-{{this.time}}" {{this.checked}}></input>
+            {{/each}}
+        </div>
+    </div>
+    <footer class="sheet-footer flexrow">
+        <button type="submit" name="submit">
+            <i class="fa fa-check"></i> OK
+        </button>
+    </footer>
+</form>

@@ -146,13 +146,12 @@ function registerAutoTellTimeSettings () {
 }
 
 class AutoTellTimeMenu extends FormApplication {
-
     static get defaultOptions () {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['form'],
             popOut: true,
-            // TODO: change to handlebars template
-            template: 'modules/jd-dbtime/templates/autotelltimesettings.html',
+            width: 500,
+            template: 'modules/jd-dbtime/templates/autotelltimesettings.hbs',
             id: SETTINGS.AUTO_TELL_TIME_MENU,
             title: game.i18n.localize(
                 'DBTIME.Settings.AutoTellTimeConfig.name'
@@ -166,8 +165,16 @@ class AutoTellTimeMenu extends FormApplication {
             MODULE_ID,
             SETTINGS.AUTO_TELL_TIME_SETTINGS
         )
+        const templateData = {
+            timeOptions: [
+                { time: 6, checked: '' },
+                { time: 7, checked: '' },
+                { time: 8, checked: '' },
+            ],
+        }
         console.log('DB Time | AutoTell Setting Menu getData: %o', data)
-        return { msg: data.exampleInput, color:'blue' }
+        return templateData
+        // return data
     }
 
     _updateObject (event, formData) {
