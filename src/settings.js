@@ -148,7 +148,7 @@ function registerAutoTellTimeSettings () {
 class AutoTellTimeMenu extends FormApplication {
     static get defaultOptions () {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ['form'],
+            classes: ['settings'],
             popOut: true,
             width: 600,
             template: 'modules/jd-dbtime/templates/autotelltimesettings.hbs',

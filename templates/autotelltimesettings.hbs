@@ -1,6 +1,8 @@
 {{#*inline "checkboxPartial"}}
-<label for="{{this.time}}">{{this.time}}</label>
-<input type="checkbox" name="{{this.time}}" value="true" {{this.checked}} />
+<span class="dbtime-checkbox">
+    <label for="{{this.time}}">{{this.time}}</label>
+    <input type="checkbox" name="{{this.time}}" value="true" {{this.checked}} />
+</span>
 {{/inline}}
 
 <form class="flexcol">
