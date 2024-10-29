@@ -28,6 +28,7 @@ function registerSettings () {
             console.log('DB Time | %s %o', SETTINGS.SHOW_HOURS, value)
         },
         requiresReload: true,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DAYS, {
@@ -41,6 +42,7 @@ function registerSettings () {
             console.log('DB Time | %s %o', SETTINGS.SHOW_DAYS, value)
         },
         requiresReload: true,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_UNIT, {
@@ -71,6 +73,7 @@ function registerSettings () {
             console.log('DB Time | %s %d', SETTINGS.BASE_TIME_UNIT, value)
         },
         requiresReload: true,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_CLOCK, {
@@ -84,6 +87,7 @@ function registerSettings () {
             console.log('DB Time | %s %d', SETTINGS.BASE_TIME_CLOCK, value)
         },
         requiresReload: true,
+        restricted: true,
     })
 
     registerAutoTellTimeSettings()
@@ -95,6 +99,7 @@ function registerSettings () {
         config: true,
         type: new foundry.data.fields.DocumentUUIDField({ type: 'Macro' }),
         requiresReload: false,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, {
@@ -128,7 +133,7 @@ function registerAutoTellTimeSettings () {
         hint: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.hint'),
         icon: 'fas fa-cog',
         type: AutoTellTimeMenu,
-        restricted: true, // Restrict this submenu to gamemaster only?
+        restricted: true,
     })
 
     // the settings object
@@ -141,12 +146,34 @@ function registerAutoTellTimeSettings () {
 }
 
 class AutoTellTimeMenu extends FormApplication {
+
+    static get defaultOptions () {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ['form'],
+            popOut: true,
+            // TODO: change to handlebars template
+            template: 'modules/jd-dbtime/templates/autotelltimesettings.html',
+            id: SETTINGS.AUTO_TELL_TIME_MENU,
+            title: game.i18n.localize(
+                'DBTIME.Settings.AutoTellTimeConfig.name'
+            ),
+        })
+    }
+
     getData () {
-        return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS)
+        // returns data to the template
+        const data = game.settings.get(
+            MODULE_ID,
+            SETTINGS.AUTO_TELL_TIME_SETTINGS
+        )
+        console.log('DB Time | AutoTell Setting Menu getData: %o', data)
+        return { msg: data.exampleInput, color:'blue' }
     }
 
     _updateObject (event, formData) {
-        const data = expandObject(formData)
+        // gets data from the form, validates and persists if valid
+        const data = foundry.utils.expandObject(formData)
+        console.log('DB Time | AutoTell Setting Menu _updateObject: %o', data)
         game.settings.set(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS, data)
     }
 }
