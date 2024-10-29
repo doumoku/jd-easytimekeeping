@@ -12,6 +12,8 @@ const SETTINGS = {
     SHIFT_CLOCK_ID: 'shiftClockId',
     DAY_CLOCK_ID: 'dayClockId',
     TIME_CHANGE_MACRO: 'timeChangeMacro',
+    AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings',
+    AUTO_TELL_TIME_MENU: 'autoTellTimeSettingsMenu',
 }
 
 function registerSettings () {
@@ -26,6 +28,7 @@ function registerSettings () {
             console.log('DB Time | %s %o', SETTINGS.SHOW_HOURS, value)
         },
         requiresReload: true,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DAYS, {
@@ -39,6 +42,7 @@ function registerSettings () {
             console.log('DB Time | %s %o', SETTINGS.SHOW_DAYS, value)
         },
         requiresReload: true,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_UNIT, {
@@ -69,6 +73,7 @@ function registerSettings () {
             console.log('DB Time | %s %d', SETTINGS.BASE_TIME_UNIT, value)
         },
         requiresReload: true,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_CLOCK, {
@@ -82,7 +87,10 @@ function registerSettings () {
             console.log('DB Time | %s %d', SETTINGS.BASE_TIME_CLOCK, value)
         },
         requiresReload: true,
+        restricted: true,
     })
+
+    registerAutoTellTimeSettings()
 
     game.settings.register(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO, {
         name: game.i18n.localize('DBTIME.Settings.TimeChangeMacro.name'),
@@ -91,6 +99,7 @@ function registerSettings () {
         config: true,
         type: new foundry.data.fields.DocumentUUIDField({ type: 'Macro' }),
         requiresReload: false,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, {
@@ -114,4 +123,77 @@ function registerId (setting) {
         type: String,
         requiresReload: false,
     })
+}
+
+function registerAutoTellTimeSettings () {
+    // The settings menu
+    game.settings.registerMenu(MODULE_ID, SETTINGS.AUTO_TELL_TIME_MENU, {
+        name: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.name'),
+        label: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.label'),
+        hint: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.hint'),
+        icon: 'fas fa-cog',
+        type: AutoTellTimeMenu,
+        restricted: true,
+    })
+
+    // the settings object
+    game.settings.register(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS, {
+        scope: 'world',
+        config: false,
+        type: Object,
+        default: {},
+    })
+}
+
+class AutoTellTimeMenu extends FormApplication {
+    static get defaultOptions () {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ['settings'],
+            popOut: true,
+            width: 600,
+            template: 'modules/jd-dbtime/templates/autotelltimesettings.hbs',
+            id: SETTINGS.AUTO_TELL_TIME_MENU,
+            title: game.i18n.localize(
+                'DBTIME.Settings.AutoTellTimeConfig.name'
+            ),
+        })
+    }
+
+    getData () {
+        // returns data to the template
+        const initialValues = game.settings.get(
+            MODULE_ID,
+            SETTINGS.AUTO_TELL_TIME_SETTINGS
+        )
+
+        // build the array of data for a shift of hours needed by the handlebars template
+        // this handles looking up the actual stored settings so the initial form state is
+        // correct
+        function buildShiftArray (hourArray, amPM) {
+            let shiftArray = []
+            for (const h of hourArray)
+                shiftArray.push({ time: `${h}:00 ${amPM}` })
+
+            for (const t of shiftArray)
+                t.checked = initialValues[t.time] ? 'checked' : ''
+
+            return shiftArray
+        }
+
+        const templateData = {
+            morning: buildShiftArray([6, 7, 8, 9, 10, 11], 'AM'),
+            afternoon: buildShiftArray([12, 1, 2, 3, 4, 5], 'PM'),
+            evening: buildShiftArray([6, 7, 8, 9, 10, 11], 'PM'),
+            night: buildShiftArray([12, 1, 2, 3, 4, 5], 'AM'),
+        }
+
+        return templateData
+    }
+
+    _updateObject (event, formData) {
+        // gets data from the form, validates and persists if valid
+        const data = foundry.utils.expandObject(formData)
+        console.log('DB Time | AutoTell Setting Menu _updateObject: %o', data)
+        game.settings.set(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS, data)
+    }
 }

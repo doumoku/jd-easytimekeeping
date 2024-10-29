@@ -16,5 +16,12 @@
     "DBTIME.Settings.TimeChangeMacro.hint": "UUID of a macro that will be called when the time changes",
     "DBTIME.Settings.HourClockName": "Hour",
     "DBTIME.Settings.ShiftClockName": "Shift",
-    "DBTIME.Settings.DayClockName": "Day"
+    "DBTIME.Settings.DayClockName": "Day",
+    "DBTIME.Settings.AutoTellTime.name": "Automatically post time to chat",
+    "DBTIME.Settings.AutoTellTime.hint": "At the start of every nth hour, the time of day will be posted to chat",
+    "DBTIME.Settings.AutoTellTimeHour.name": "Interval in hours for the automatic time chat messages",
+    "DBTIME.Settings.AutoTellTimeHour.hint": "If you need more control over the message or the timing, you'll need to use a macro",
+    "DBTIME.Settings.AutoTellTimeConfig.name": "Time Chat Configuration",
+    "DBTIME.Settings.AutoTellTimeConfig.label": "Change Time Chat Settings",
+    "DBTIME.Settings.AutoTellTimeConfig.hint": "Controls whether the time of day is automatically posted to the game chat, and at what intervals"
 }

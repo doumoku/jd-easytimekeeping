@@ -130,7 +130,22 @@ export class Timekeeper {
      * Notifies of a change in the time.
      *
      * @param {Object} currentTime
+     * @param {Number} currentTime.totalTicks total ticks
+     * @param {Number} currentTime.tick ticks
+     * @param {Number} [currentTime.hour] hours
+     * @param {Number} currentTime.shift shifts
+     * @param {Number} currentTime.day days
+     * @param {String} currentTime.timeOfDay hh:mm [AM|PM]
      * @param {Object} newTime
+     * @param {Number} newTime.totalTicks total ticks
+     * @param {Number} newTime.tick ticks
+     * @param {Number} [newTime.hour] hours
+     * @param {Number} newTime.shift shifts
+     * @param {Number} newTime.day days
+     * @param {String} newTime.timeOfDay hh:mm [AM|PM]
+     * @param {Object} timeOfDay24HourNumeric the time of day in 24 hour numeric format
+     * @param {Number} timeOfDay24HourNumeric.hours
+     * @param {Number} timeOfDay24HourNumeric.minutes
      */
     #notify (currentTime, newTime) {
         this.#clockView.updateTime(newTime)
@@ -139,7 +154,7 @@ export class Timekeeper {
         // call a macro from a module setting UUID
         const timeChangeMacro = this.#timeChangeMacro
         if (timeChangeMacro) {
-            timeChangeMacro.execute()
+            timeChangeMacro.execute({ oldTime: currentTime, time: newTime })
         }
     }
 
@@ -193,6 +208,10 @@ export class Timekeeper {
         // handle AM and PM, and after midnight wrapping
         const amPm = hours < 12 || hours >= 24 ? 'AM' : 'PM'
         if (hours > 24) hours -= 24
+
+        // Store the 24 hour time as a numeric object since that's also helpful
+        time.timeOfDay24HourNumeric = { hours: hours, minutes: minutes }
+
         if (hours >= 13) hours -= 12
 
         time.timeOfDay = `${hours}:${minutes
