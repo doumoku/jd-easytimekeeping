@@ -2,8 +2,8 @@
     <div class="form-group">
         <div>
             {{#each timeOptions}}
-            <label for="hour-{{this.time}}">{{this.time}}:00</label>
-            <input type="checkbox" name="{{this.time}}" value="true" id="hour-{{this.time}}" {{this.checked}}></input>
+            <label for="hour-{{this}}">{{this}}:00</label>
+            <input type="checkbox" name="hour-{{this}}" value="true" id="hour-{{this}}" />
             {{/each}}
         </div>
     </div>
