@@ -12,6 +12,8 @@ const SETTINGS = {
     SHIFT_CLOCK_ID: 'shiftClockId',
     DAY_CLOCK_ID: 'dayClockId',
     TIME_CHANGE_MACRO: 'timeChangeMacro',
+    AUTO_TELL_TIME: 'autoTellTime',
+    AUTO_TELL_TIME_HOUR: 'autoTellTimeHour',
 }
 
 function registerSettings () {
@@ -84,6 +86,8 @@ function registerSettings () {
         requiresReload: true,
     })
 
+    registerAutoTellTimeSettings()
+
     game.settings.register(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO, {
         name: game.i18n.localize('DBTIME.Settings.TimeChangeMacro.name'),
         hint: game.i18n.localize('DBTIME.Settings.TimeChangeMacro.hint'),
@@ -112,6 +116,40 @@ function registerId (setting) {
         scope: 'world',
         config: false,
         type: String,
+        requiresReload: false,
+    })
+}
+
+function registerAutoTellTimeSettings () {
+    game.settings.register(MODULE_ID, SETTINGS.AUTO_TELL_TIME, {
+        name: game.i18n.localize('DBTIME.Settings.AutoTellTime.name'),
+        hint: game.i18n.localize('DBTIME.Settings.AutoTellTime.hint'),
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+        onChange: value => {
+            console.log('DB Time | %s %o', SETTINGS.AUTO_TELL_TIME, value)
+        },
+        requiresReload: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.AUTO_TELL_TIME_HOUR, {
+        name: game.i18n.localize('DBTIME.Settings.AutoTellTimeHour.name'),
+        hint: game.i18n.localize('DBTIME.Settings.AutoTellTimeHour.hint'),
+        scope: 'world',
+        config: true,
+        type: new foundry.data.fields.NumberField({
+            min: 1,
+            max: 12,
+            step: 1,
+            initial: 1,
+            nullable: false,
+        }),
+        default: 1,
+        onChange: value => {
+            console.log('DB Time | Auto time telling every %d hours', value)
+        },
         requiresReload: false,
     })
 }

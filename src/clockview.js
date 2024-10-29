@@ -13,7 +13,7 @@ export class ClockView {
         this.#constants = constants
     }
 
-    initialise()  {
+    initialise () {
         console.debug('DB Time | ClockView Checking for Clocks')
         this.#initTickClock()
         this.#initOptionalClock(
@@ -37,10 +37,8 @@ export class ClockView {
         if (this.showHours) this.#updateClock(this.#hourClock, time.hour)
         if (this.showDays) this.#updateClock(this.#dayClock, time.day)
 
-        /**
-         * if auto time telling and it's time to tell the time
-         *    this.tellTime
-         */
+        if (this.#autoTellTime)
+            if (this.#isItTimeToTellTheTime(time)) this.tellTime(time)
     }
 
     tellTime (time) {
@@ -49,6 +47,8 @@ export class ClockView {
         // TODO: decide if the module setting to not show the day clock means that the current day should also be hidden
         // from the tellTime chat message
         // if (this.showDays) content += ` on day ${time.day + 1}` // display in 1-based days
+
+        console.log('DB Time | %s', content)
 
         ChatMessage.create({
             speaker: { actor: game.user.id },
@@ -65,7 +65,8 @@ export class ClockView {
                 window.clockDatabase.update({ id: clock.id, value })
             }
         } else {
-            const warning = 'DB Time | An expected clock is missing. Reloading Foundry should restore it.'
+            const warning =
+                'DB Time | An expected clock is missing. Reloading Foundry should restore it.'
             ui.notifications.warn(warning)
         }
     }
@@ -168,5 +169,25 @@ export class ClockView {
 
     get showDays () {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_DAYS)
+    }
+
+    get #autoTellTime () {
+        return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME)
+    }
+
+    get #autoTellTimeIntervalHours () {
+        return game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_HOUR)
+    }
+
+    #isItTimeToTellTheTime (time) {
+        let hours = time.timeOfDay24HourNumeric.hours
+        // We need to handle the time between 12 midnight and 6am as though it is part of the previous day
+        // otherwise the integer modulo doesn't work correctly for all time intervals as the hours wraps back
+        // to a smaller number at midnight
+        if (hours < 6) hours += 24
+        return (
+            time.timeOfDay24HourNumeric.minutes === 0 &&
+            (hours - 6) % this.#autoTellTimeIntervalHours === 0
+        )
     }
 }
