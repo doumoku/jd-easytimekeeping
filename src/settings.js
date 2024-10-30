@@ -150,7 +150,7 @@ class AutoTellTimeMenu extends FormApplication {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['settings'],
             popOut: true,
-            width: 600,
+            width: 400,
             template: 'modules/jd-dbtime/templates/autotelltimesettings.hbs',
             id: SETTINGS.AUTO_TELL_TIME_MENU,
             title: game.i18n.localize(

@@ -1,5 +1,5 @@
 {{#*inline "checkboxPartial"}}
-<span class="dbtime-checkbox">
+<span class="checkbox-item">
     <label for="{{@key}}">{{@key}}</label>
     <input type="checkbox" name="{{@key}}" value="true" {{checked this}} />
 </span>
@@ -7,7 +7,7 @@
 
 <form class="flexcol">
     <div class="form-group">
-        <div>
+        <div class="grid-container">
             {{!-- I guess I could factor this repeating pattern out into a partial, but meh --}}
             <fieldset>
                 <legend>Morning:</legend>

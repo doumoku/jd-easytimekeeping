@@ -1,6 +1,24 @@
-.dbtime-checkbox {
-    padding-left: 0.25rem;
-    text-align: centre;
-    /* font-size: medium; */
-    color: blue;
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 7px;
+    margin-bottom: 7px;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-item label {
+    display: inline-block;
+    width: 100px;
+    /*This is probably a bad idea, but it works for now*/
+    text-align: right;
+}
+
+.checkbox-item input {
+    margin-right: 10px;
+    /* text-align: right; */
 }
