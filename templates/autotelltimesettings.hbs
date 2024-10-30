@@ -10,25 +10,25 @@
         <div class="grid-container">
             {{!-- I guess I could factor this repeating pattern out into a partial, but meh --}}
             <fieldset>
-                <legend>Morning:</legend>
+                <legend>{{localize "DBTIME.Shift.Morning"}}:</legend>
                 {{#each morning}}
                 {{> checkboxPartial}}
                 {{/each}}
             </fieldset>
             <fieldset>
-                <legend>Afternoon:</legend>
+                <legend>{{localize "DBTIME.Shift.Afternoon"}}:</legend>
                 {{#each afternoon}}
                 {{> checkboxPartial}}
                 {{/each}}
             </fieldset>
             <fieldset>
-                <legend>Evening:</legend>
+                <legend>{{localize "DBTIME.Shift.Evening"}}:</legend>
                 {{#each evening}}
                 {{> checkboxPartial}}
                 {{/each}}
             </fieldset>
             <fieldset>
-                <legend>Night:</legend>
+                <legend>{{localize "DBTIME.Shift.Night"}}:</legend>
                 {{#each night}}
                 {{> checkboxPartial}}
                 {{/each}}
