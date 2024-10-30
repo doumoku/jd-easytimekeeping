@@ -31,5 +31,9 @@
     "DBTIME.Settings.DawnDuskEnabled": "Enable Scene Lighting Transitions",
     "DBTIME.Settings.DawnDuskConfig.name": "Scene Lighting Settings",
     "DBTIME.Settings.DawnDuskConfig.label": "Scene Lighting Settings",
-    "DBTIME.Settings.DawnDuskConfig.hint": "Controls whether the scene ambient lighting will automatically change between light and dark at dawn and dusk each day."
+    "DBTIME.Settings.DawnDuskConfig.hint": "Controls whether the scene ambient lighting will automatically change between light and dark at dawn and dusk each day.",
+    "DBTIME.Settings.DaytimeDarknessLevel.label": "Daytime Darkness Level",
+    "DBTIME.Settings.NighttimeDarknessLevel.label": "Nighttime Darkness Level",
+    "DBTIME.Settings.DawnStartTime.label": "Dawn Start Time",
+    "DBTIME.Settings.SunsetStartTime.label": "Sunset Start Time"
 }

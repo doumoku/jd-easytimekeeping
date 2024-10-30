@@ -9,17 +9,17 @@
             <input type="checkbox" name="dawn-dusk-enabled" value="true" {{checked dawn-dusk-enabled}} />
         </div>
         <div class="form-group">
-            <label for="day-darkness-level">Daytime Darkness Level:</label>
+            <label for="day-darkness-level">{{localize "DBTIME.Settings.DaytimeDarknessLevel.label"}}:</label>
             <range-picker min="0" max="1" name="day-darkness-level" step="0.05"
                 value={{day-darkness-level}}></range-picker>
         </div>
         <div class="form-group">
-            <label for="night-darkness-level">Nighttime Darkness Level:</label>
+            <label for="night-darkness-level">{{localize "DBTIME.Settings.NighttimeDarknessLevel.label"}}:</label>
             <range-picker min="0" max="1" name="night-darkness-level" step="0.05"
                 value={{night-darkness-level}}></range-picker>
         </div>
         <div class="form-group">
-            <label>Dawn Start Time:</label>
+            <label>{{localize "DBTIME.Settings.DawnStartTime.label"}}:</label>
             <div class="form-fields">
                 <select name="dawn-start">
                     {{#each dawn-start-options}}
@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label>Sunset Start Time:</label>
+            <label>{{localize "DBTIME.Settings.SunsetStartTime.label"}}:</label>
             <div class="form-fields">
                 <select name="sunset-start">
                     {{#each sunset-start-options}}
