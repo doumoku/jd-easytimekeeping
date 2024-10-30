@@ -1,7 +1,19 @@
 <form class="flexcol">
-    <div class="form-group">
-        <label for="dawn-dusk-enabled">{{localize "DBTIME.Settings.DawnDuskEnabled"}}</label>
-        <input type="checkbox" name="dawn-dusk-enabled" value="true" {{checked dawn-dusk-enabled}} />
+    <div class="form-inline">
+        <div class="form-row">
+            <label for="dawn-dusk-enabled">{{localize "DBTIME.Settings.DawnDuskEnabled"}}</label>
+            <input type="checkbox" name="dawn-dusk-enabled" value="true" {{checked dawn-dusk-enabled}} />
+        </div>
+        <div class="form-row">
+            <label for="day-darkness-level">Daytime Darkness Level:</label>
+            <range-picker min="0" max="1" name="day-darkness-level" step="0.1"
+                value={{day-darkness-level}}></range-picker>
+        </div>
+        <div class="form-row">
+            <label for="night-darkness-level">Nighttime Darkness Level:</label>
+            <range-picker min="0" max="1" name="night-darkness-level" step="0.1"
+                value={{night-darkness-level}}></range-picker>
+        </div>
     </div>
     <footer class="sheet-footer flexrow">
         <button type="submit" name="submit">

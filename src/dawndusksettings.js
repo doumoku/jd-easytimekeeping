@@ -16,7 +16,11 @@ export function registerDawnDuskSettings () {
         scope: 'world',
         config: false,
         type: Object,
-        default: {},
+        default: {
+            "dawn-dusk-enabled": false,
+            "day-darkness-level": 0,
+            "night-darkness-level": 1.0,
+        },
     })
 }
 
@@ -25,7 +29,7 @@ class DawnDuskMenu extends FormApplication {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['settings'],
             popOut: true,
-            width: 400,
+            width: 500,
             template: 'modules/jd-dbtime/templates/dawndusk.hbs',
             id: SETTINGS.DAWN_DUSK_MENU,
             title: game.i18n.localize(
