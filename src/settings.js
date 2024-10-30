@@ -12,7 +12,7 @@ const SETTINGS = {
     SHIFT_CLOCK_ID: 'shiftClockId',
     DAY_CLOCK_ID: 'dayClockId',
     TIME_CHANGE_MACRO: 'timeChangeMacro',
-    AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings',
+    AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings4',
     AUTO_TELL_TIME_MENU: 'autoTellTimeSettingsMenu',
 }
 
@@ -136,13 +136,30 @@ function registerAutoTellTimeSettings () {
         restricted: true,
     })
 
+    const initialValues = {
+        morning: buildShiftValues([6, 7, 8, 9, 10, 11], 'AM'),
+        afternoon: buildShiftValues([12, 1, 2, 3, 4, 5], 'PM'),
+        evening: buildShiftValues([6, 7, 8, 9, 10, 11], 'PM'),
+        night: buildShiftValues([12, 1, 2, 3, 4, 5], 'AM'),
+    }
+
     // the settings object
     game.settings.register(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS, {
         scope: 'world',
         config: false,
         type: Object,
-        default: {},
+        default: initialValues,
     })
+}
+
+// builds the default array of data for a shift
+function buildShiftValues (hourArray, amPM) {
+    let shiftArray = {}
+    for (const h of hourArray) {
+        shiftArray[`${h}:00 ${amPM}`] = false
+    }
+
+    return shiftArray
 }
 
 class AutoTellTimeMenu extends FormApplication {
@@ -165,29 +182,8 @@ class AutoTellTimeMenu extends FormApplication {
             MODULE_ID,
             SETTINGS.AUTO_TELL_TIME_SETTINGS
         )
-
-        // build the array of data for a shift of hours needed by the handlebars template
-        // this handles looking up the actual stored settings so the initial form state is
-        // correct
-        function buildShiftArray (hourArray, amPM) {
-            let shiftArray = []
-            for (const h of hourArray)
-                shiftArray.push({ time: `${h}:00 ${amPM}` })
-
-            for (const t of shiftArray)
-                t.checked = initialValues[t.time] ? 'checked' : ''
-
-            return shiftArray
-        }
-
-        const templateData = {
-            morning: buildShiftArray([6, 7, 8, 9, 10, 11], 'AM'),
-            afternoon: buildShiftArray([12, 1, 2, 3, 4, 5], 'PM'),
-            evening: buildShiftArray([6, 7, 8, 9, 10, 11], 'PM'),
-            night: buildShiftArray([12, 1, 2, 3, 4, 5], 'AM'),
-        }
-
-        return templateData
+        console.log(initialValues)
+        return initialValues
     }
 
     _updateObject (event, formData) {

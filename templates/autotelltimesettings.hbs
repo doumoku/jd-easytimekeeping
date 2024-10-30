@@ -1,7 +1,7 @@
 {{#*inline "checkboxPartial"}}
 <span class="dbtime-checkbox">
-    <label for="{{this.time}}">{{this.time}}</label>
-    <input type="checkbox" name="{{this.time}}" value="true" {{this.checked}} />
+    <label for="{{@key}}">{{@key}}</label>
+    <input type="checkbox" name="{{@key}}" value="true" {{checked this}} />
 </span>
 {{/inline}}
 
