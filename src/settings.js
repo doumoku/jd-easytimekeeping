@@ -12,7 +12,7 @@ const SETTINGS = {
     SHIFT_CLOCK_ID: 'shiftClockId',
     DAY_CLOCK_ID: 'dayClockId',
     TIME_CHANGE_MACRO: 'timeChangeMacro',
-    AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings4',
+    AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings',
     AUTO_TELL_TIME_MENU: 'autoTellTimeSettingsMenu',
 }
 
@@ -136,30 +136,13 @@ function registerAutoTellTimeSettings () {
         restricted: true,
     })
 
-    const initialValues = {
-        morning: buildShiftValues([6, 7, 8, 9, 10, 11], 'AM'),
-        afternoon: buildShiftValues([12, 1, 2, 3, 4, 5], 'PM'),
-        evening: buildShiftValues([6, 7, 8, 9, 10, 11], 'PM'),
-        night: buildShiftValues([12, 1, 2, 3, 4, 5], 'AM'),
-    }
-
     // the settings object
     game.settings.register(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS, {
         scope: 'world',
         config: false,
         type: Object,
-        default: initialValues,
+        default: {},
     })
-}
-
-// builds the default array of data for a shift
-function buildShiftValues (hourArray, amPM) {
-    let shiftArray = {}
-    for (const h of hourArray) {
-        shiftArray[`${h}:00 ${amPM}`] = false
-    }
-
-    return shiftArray
 }
 
 class AutoTellTimeMenu extends FormApplication {
@@ -177,13 +160,31 @@ class AutoTellTimeMenu extends FormApplication {
     }
 
     getData () {
-        // returns data to the template
         const initialValues = game.settings.get(
             MODULE_ID,
             SETTINGS.AUTO_TELL_TIME_SETTINGS
         )
+
+        function buildShiftValues (hourArray, amPM) {
+            let shiftArray = {}
+            for (const h of hourArray) {
+                const hour = `${h}:00 ${amPM}`
+                shiftArray[hour] = initialValues[hour]
+            }
+
+            return shiftArray
+        }
+
+        const shiftTimes = {
+            morning: buildShiftValues([6, 7, 8, 9, 10, 11], 'AM'),
+            afternoon: buildShiftValues([12, 1, 2, 3, 4, 5], 'PM'),
+            evening: buildShiftValues([6, 7, 8, 9, 10, 11], 'PM'),
+            night: buildShiftValues([12, 1, 2, 3, 4, 5], 'AM'),
+        }
+
         console.log(initialValues)
-        return initialValues
+        console.log(shiftTimes)
+        return shiftTimes
     }
 
     _updateObject (event, formData) {
