@@ -22,7 +22,7 @@
     "DBTIME.Settings.AutoTellTimeHour.name": "Interval in hours for the automatic time chat messages",
     "DBTIME.Settings.AutoTellTimeHour.hint": "If you need more control over the message or the timing, you'll need to use a macro",
     "DBTIME.Settings.AutoTellTimeConfig.name": "Time Chat Settings",
-    "DBTIME.Settings.AutoTellTimeConfig.label": "Change Time Chat Settings",
+    "DBTIME.Settings.AutoTellTimeConfig.label": "Time Chat Settings",
     "DBTIME.Settings.AutoTellTimeConfig.hint": "Controls whether the time of day is automatically posted to the game chat, and at what intervals",
     "DBTIME.Shift.Morning": "Morning",
     "DBTIME.Shift.Afternoon": "Afternoon",
@@ -30,6 +30,6 @@
     "DBTIME.Shift.Night": "Night",
     "DBTIME.Settings.DawnDuskEnabled": "Enable Scene Lighting Transitions",
     "DBTIME.Settings.DawnDuskConfig.name": "Scene Lighting Settings",
-    "DBTIME.Settings.DawnDuskConfig.label": "Change Scene Lighting Settings",
+    "DBTIME.Settings.DawnDuskConfig.label": "Scene Lighting Settings",
     "DBTIME.Settings.DawnDuskConfig.hint": "Controls whether the scene ambient lighting will automatically change between light and dark at dawn and dusk each day."
 }
