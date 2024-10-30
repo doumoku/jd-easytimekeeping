@@ -28,6 +28,7 @@
     "DBTIME.Shift.Afternoon": "Afternoon",
     "DBTIME.Shift.Evening": "Evening",
     "DBTIME.Shift.Night": "Night",
+    "DBTIME.Settings.DawnDuskEnabled": "Enable Scene Lighting Transitions",
     "DBTIME.Settings.DawnDuskConfig.name": "Scene Lighting Settings",
     "DBTIME.Settings.DawnDuskConfig.label": "Change Scene Lighting Settings",
     "DBTIME.Settings.DawnDuskConfig.hint": "Controls whether the scene ambient lighting will automatically change between light and dark at dawn and dusk each day."
