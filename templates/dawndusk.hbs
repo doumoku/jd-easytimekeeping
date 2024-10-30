@@ -19,27 +19,33 @@
                 value={{night-darkness-level}}></range-picker>
         </div>
         <div class="form-group">
-            <label>{{localize "DBTIME.Settings.DawnStartTime.label"}}:</label>
-            <div class="form-fields">
-                <select name="dawn-start">
-                    {{#each dawn-start-options}}
-                    {{> selectPartial}}
-                    {{/each}}
-                </select>
-            </div>
+            <fieldset>
+                <legend>{{localize "DBTIME.Dawn"}}</legend>
+                <label>{{localize "DBTIME.Settings.DawnStartTime.label"}}:</label>
+                <div class="form-fields">
+                    <select name="dawn-start">
+                        {{#each dawn-start-options}}
+                        {{> selectPartial}}
+                        {{/each}}
+                    </select>
+                </div>
+            </fieldset>
         </div>
         <div class="form-group">
-            <label>{{localize "DBTIME.Settings.SunsetStartTime.label"}}:</label>
-            <div class="form-fields">
-                <select name="sunset-start">
-                    {{#each sunset-start-options}}
-                    {{> selectPartial}}
-                    {{/each}}
-                </select>
-            </div>
+            <fieldset>
+                <legend>{{localize "DBTIME.Dusk"}}</legend>
+                <label>{{localize "DBTIME.Settings.SunsetStartTime.label"}}:</label>
+                <div class="form-fields">
+                    <select name="sunset-start">
+                        {{#each sunset-start-options}}
+                        {{> selectPartial}}
+                        {{/each}}
+                    </select>
+                </div>
+            </fieldset>
         </div>
     </div>
-    <footer class="sheet-footer flexrow">
+    <footer class="sheet-footer margin-top flexrow">
         <button type="submit" name="submit">
             <i class="fa fa-check"></i> OK
         </button>
