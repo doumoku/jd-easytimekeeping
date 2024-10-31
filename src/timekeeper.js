@@ -8,13 +8,15 @@ import { SETTINGS, MODULE_ID } from './settings.js'
 export class Timekeeper {
     #constants = null
     #clockView = null
+    #daylightCycle = null
 
     static TIME_CHANGE_HOOK = 'dbtimeTimeChangedHook'
 
-    constructor (constants, clockView) {
+    constructor (constants, clockView, daylightCycle) {
         console.debug('DB Time | Timekeeper created')
         this.#constants = constants
         this.#clockView = clockView
+        this.#daylightCycle = daylightCycle
     }
 
     initialise () {
@@ -151,6 +153,7 @@ export class Timekeeper {
     #notify (currentTime, newTime) {
         const data = { oldTime: currentTime, time: newTime }
         this.#clockView.updateTime(newTime)
+        this.#daylightCycle.updateTime(newTime)
 
         Hooks.callAll(Timekeeper.TIME_CHANGE_HOOK, data)
 
