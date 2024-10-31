@@ -1,7 +1,7 @@
 export { MODULE_ID, SETTINGS, registerSettings }
 
 import { registerAutoTellTimeSettings } from './autotelltimemenu.js'
-import { registerDawnDuskSettings } from './dawndusksettings.js'
+import { registerDaylightCycleSettings } from './daylightcyclesettings.js'
 
 const MODULE_ID = 'jd-dbtime'
 const SETTINGS = {
@@ -16,15 +16,15 @@ const SETTINGS = {
     DAY_CLOCK_ID: 'dayClockId',
     TIME_CHANGE_MACRO: 'timeChangeMacro',
     AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings',
-    AUTO_TELL_TIME_MENU: 'autoTellTimeSettingsMenu',
-    DAWN_DUSK_SETTINGS: 'dawnDuskSettings',
-    DAWN_DUSK_MENU: 'dawnDuskSettingsMenu',
+    AUTO_TELL_TIME_MENU: 'autoTellTimeMenu',
+    DAYLIGHT_CYCLE_SETTINGS: 'daylightCycleSettings',
+    DAYLIGHT_CYCLE_MENU: 'daylightCycleMenu',
 }
 
 function registerSettings () {
     // Register the menus
     registerAutoTellTimeSettings()
-    registerDawnDuskSettings()
+    registerDaylightCycleSettings()
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_HOURS, {
         name: game.i18n.localize('DBTIME.Settings.ShowHours.name'),

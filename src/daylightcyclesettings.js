@@ -1,23 +1,25 @@
 import { MODULE_ID, SETTINGS } from './settings.js'
 
-export function registerDawnDuskSettings () {
+export function registerDaylightCycleSettings () {
     // The settings menu
-    game.settings.registerMenu(MODULE_ID, SETTINGS.DAWN_DUSK_MENU, {
-        name: game.i18n.localize('DBTIME.Settings.DawnDuskConfig.name'),
-        label: game.i18n.localize('DBTIME.Settings.DawnDuskConfig.label'),
-        hint: game.i18n.localize('DBTIME.Settings.DawnDuskConfig.hint'),
+    game.settings.registerMenu(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_MENU, {
+        name: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.name'),
+        label: game.i18n.localize(
+            'DBTIME.Settings.DaylightCycleSettings.label'
+        ),
+        hint: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.hint'),
         icon: 'fas fa-cog',
-        type: DawnDuskMenu,
+        type: DaylightCycleMenu,
         restricted: true,
     })
 
     // the settings object
-    game.settings.register(MODULE_ID, SETTINGS.DAWN_DUSK_SETTINGS, {
+    game.settings.register(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS, {
         scope: 'world',
         config: false,
         type: Object,
         default: {
-            'dawn-dusk-enabled': false,
+            'daylight-cycle-enabled': false,
             'day-darkness-level': 0,
             'night-darkness-level': 1.0,
             'sunset-start': '6:00 PM',
@@ -28,22 +30,24 @@ export function registerDawnDuskSettings () {
     })
 }
 
-class DawnDuskMenu extends FormApplication {
+class DaylightCycleMenu extends FormApplication {
     static get defaultOptions () {
         return foundry.utils.mergeObject(super.defaultOptions, {
             classes: ['settings'],
             popOut: true,
             width: 500,
-            template: 'modules/jd-dbtime/templates/dawndusk.hbs',
-            id: SETTINGS.DAWN_DUSK_MENU,
-            title: game.i18n.localize('DBTIME.Settings.DawnDuskConfig.name'),
+            template: 'modules/jd-dbtime/templates/daylightcyclesettings.hbs',
+            id: SETTINGS.DAYLIGHT_CYCLE_MENU,
+            title: game.i18n.localize(
+                'DBTIME.Settings.DaylightCycleSettings.name'
+            ),
         })
     }
 
     getData () {
         const initialValues = game.settings.get(
             MODULE_ID,
-            SETTINGS.DAWN_DUSK_SETTINGS
+            SETTINGS.DAYLIGHT_CYCLE_SETTINGS
         )
 
         // TODO: I could do better than this fixed choice of options for
@@ -74,7 +78,7 @@ class DawnDuskMenu extends FormApplication {
     _updateObject (event, formData) {
         // gets data from the form, validates and persists if valid
         const data = foundry.utils.expandObject(formData)
-        console.log('DB Time | DawnDuskMenu _updateObject: %o', data)
-        game.settings.set(MODULE_ID, SETTINGS.DAWN_DUSK_SETTINGS, data)
+        console.log('DB Time | DaylightCycleMenu _updateObject: %o', data)
+        game.settings.set(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS, data)
     }
 }

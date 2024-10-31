@@ -130,14 +130,14 @@ export class Timekeeper {
     /**
      * Notifies of a change in the time.
      *
-     * @param {Object} currentTime
+     * @param {Object} currentTime the previous time
      * @param {Number} currentTime.totalTicks total ticks
      * @param {Number} currentTime.tick ticks
      * @param {Number} [currentTime.hour] hours
      * @param {Number} currentTime.shift shifts
      * @param {Number} currentTime.day days
      * @param {String} currentTime.timeOfDay hh:mm [AM|PM]
-     * @param {Object} newTime
+     * @param {Object} newTime the new time
      * @param {Number} newTime.totalTicks total ticks
      * @param {Number} newTime.tick ticks
      * @param {Number} [newTime.hour] hours
