@@ -73,7 +73,13 @@ class DaylightCycleMenu extends FormApplication {
         initialValues['sunset-start-options'] = sunsetOptions
         initialValues['dawn-start-options'] = dawnOptions
         initialValues['animate-darkness'] = initialValues['animate-darkness-ms'] / 1000
-        console.log(initialValues)
+        
+        /**
+         * There's no neat way to give this settings form application access 
+         * to the Constants instance, so lets just grab it from the public API
+         */ 
+        initialValues['tick-minutes'] = game.modules.get('jd-dbtime').api.constants.minutesPerTick
+        console.debug(initialValues)
         return initialValues
     }
 

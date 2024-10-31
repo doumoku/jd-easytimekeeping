@@ -13,13 +13,13 @@
 
         <div class="form-group">
             <label for="animate-darkness">{{localize "DBTIME.Settings.AnimateDarknessChange.label"}}:</label>
-            <range-picker min="0" max="10" name="animate-darkness" step="0.5"
+            <range-picker min="0" max="15" name="animate-darkness" step="0.5"
                 value={{animate-darkness}}></range-picker>
             <p class="notes">{{localize "DBTIME.Settings.AnimateDarknessChange.hint"}}</p>
         </div>
 
         <div class="form-group">
-            <fieldset>
+            <fieldset class="margin-top">
                 <legend>{{localize "DBTIME.Settings.Day"}}</legend>
 
                 <div class="form-group">
@@ -41,13 +41,13 @@
                     <label for="dawn-duration-ticks">{{localize "DBTIME.Settings.DawnDurationTicks.label"}}:</label>
                     <range-picker min="1" max="8" name="dawn-duration-ticks" step="1"
                         value={{dawn-duration-ticks}}></range-picker>
-                    <p class="notes">{{localize "DBTIME.Settings.DawnDurationTicks.hint"}}</p>
+                    <p class="notes">{{localize "DBTIME.Settings.DawnDurationTicks.hint"}}{{tick-minutes}} {{localize "DBTIME.minutes"}}.</p>
                 </div>
             </fieldset>
         </div>
 
         <div class="form-group">
-            <fieldset>
+            <fieldset class="margin-top">
                 <legend>{{localize "DBTIME.Settings.Night"}}</legend>
 
                 <div class="form-group">
@@ -70,7 +70,7 @@
                     <label for="dusk-duration-ticks">{{localize "DBTIME.Settings.DuskDurationTicks.label"}}:</label>
                     <range-picker min="1" max="8" name="dusk-duration-ticks" step="1"
                         value={{dusk-duration-ticks}}></range-picker>
-                    <p class="notes">{{localize "DBTIME.Settings.DuskDurationTicks.hint"}}</p>
+                    <p class="notes">{{localize "DBTIME.Settings.DuskDurationTicks.hint"}}{{tick-minutes}} {{localize "DBTIME.minutes"}}.</p>
                 </div>
             </fieldset>
         </div>

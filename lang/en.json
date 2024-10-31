@@ -4,7 +4,7 @@
     "DBTIME.Settings.ShowDays.name": "Show Days",
     "DBTIME.Settings.ShowDays.hint": "Show the optional days clock",
     "DBTIME.Settings.BaseTimeUnit.name": "Duration in minutes of a Stretch.",
-    "DBTIME.Settings.BaseTimeUnit.hint": "The duration of a non-combat game turn. Helpful for adapting to other game systems. For example, many OSR games use 10 minute turns.",
+    "DBTIME.Settings.BaseTimeUnit.hint": "The duration of a non-combat game turn. Helpful for adapting to other game systems. For example, many OSR games use 10 minute turns. Note this will change the current time so you may need to reset it.",
     "DBTIME.Settings.BaseTimeUnit.option.5": "5 minutes",
     "DBTIME.Settings.BaseTimeUnit.option.10": "10 minutes",
     "DBTIME.Settings.BaseTimeUnit.option.15": "15 minutes",
@@ -38,7 +38,8 @@
     "DBTIME.Settings.Day": "Day Settings",
     "DBTIME.Settings.Night": "Night Settings",
     "DBTIME.Settings.DawnDurationTicks.label": "Dawn duration",
-    "DBTIME.Settings.DawnDurationTicks.hint": "Duration in stretches/turns",
+    "DBTIME.Settings.DawnDurationTicks.hint": "Duration in stretches/turns. One turn is ",
     "DBTIME.Settings.DuskDurationTicks.label": "Dusk duration",
-    "DBTIME.Settings.DuskDurationTicks.hint": "Duration in stretches/turns"
+    "DBTIME.Settings.DuskDurationTicks.hint": "Duration in stretches/turns. One turn is ",
+    "DBTIME.minutes": "minutes"
 }
