@@ -4,9 +4,7 @@ export function registerDaylightCycleSettings () {
     // The settings menu
     game.settings.registerMenu(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_MENU, {
         name: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.name'),
-        label: game.i18n.localize(
-            'DBTIME.Settings.DaylightCycleSettings.label'
-        ),
+        label: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.label'),
         hint: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.hint'),
         icon: 'fas fa-cog',
         type: DaylightCycleMenu,
@@ -39,17 +37,12 @@ class DaylightCycleMenu extends FormApplication {
             width: 500,
             template: 'modules/jd-dbtime/templates/daylightcyclesettings.hbs',
             id: SETTINGS.DAYLIGHT_CYCLE_MENU,
-            title: game.i18n.localize(
-                'DBTIME.Settings.DaylightCycleSettings.name'
-            ),
+            title: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.name'),
         })
     }
 
     getData () {
-        const initialValues = game.settings.get(
-            MODULE_ID,
-            SETTINGS.DAYLIGHT_CYCLE_SETTINGS
-        )
+        const initialValues = game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)
 
         // TODO: I could do better than this fixed choice of options for
         // starting dusk and sunrise, but it's good enough for now
@@ -73,11 +66,11 @@ class DaylightCycleMenu extends FormApplication {
         initialValues['dusk-start-options'] = duskOptions
         initialValues['dawn-start-options'] = dawnOptions
         initialValues['animate-darkness'] = initialValues['animate-darkness-ms'] / 1000
-        
+
         /**
-         * There's no neat way to give this settings form application access 
+         * There's no neat way to give this settings form application access
          * to the Constants instance, so lets just grab it from the public API
-         */ 
+         */
         initialValues['tick-minutes'] = game.modules.get('jd-dbtime').api.constants.minutesPerTick
         console.debug(initialValues)
         return initialValues

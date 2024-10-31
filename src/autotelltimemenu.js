@@ -1,4 +1,4 @@
-import { MODULE_ID, SETTINGS } from "./settings.js"
+import { MODULE_ID, SETTINGS } from './settings.js'
 
 export function registerAutoTellTimeSettings () {
     // The settings menu
@@ -28,17 +28,12 @@ class AutoTellTimeMenu extends FormApplication {
             width: 400,
             template: 'modules/jd-dbtime/templates/autotelltimesettings.hbs',
             id: SETTINGS.AUTO_TELL_TIME_MENU,
-            title: game.i18n.localize(
-                'DBTIME.Settings.AutoTellTimeConfig.name'
-            ),
+            title: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.name'),
         })
     }
 
     getData () {
-        const initialValues = game.settings.get(
-            MODULE_ID,
-            SETTINGS.AUTO_TELL_TIME_SETTINGS
-        )
+        const initialValues = game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS)
 
         function buildShiftValues (hourArray, amPM) {
             let shiftArray = {}

@@ -42,9 +42,7 @@ export class Timekeeper {
 
         if (increment > 0) {
             const currentTime = this.#factorTime(this.#totalElapsedTicks)
-            const newTime = this.#factorTime(
-                this.#totalElapsedTicks + increment
-            )
+            const newTime = this.#factorTime(this.#totalElapsedTicks + increment)
             console.debug('DB Time | Current time %o', currentTime)
             console.log('DB Time | Incrementing to new time %o', newTime)
             this.#totalElapsedTicks += increment
@@ -104,10 +102,7 @@ export class Timekeeper {
             const hour = time.hour ? Math.max(0, time.hour) : 0
             const shift = time.shift ? Math.max(0, time.shift) : 0
             const day = time.day
-                ? Math.min(
-                      this.#constants.maxDaysTracked,
-                      Math.max(0, time.day)
-                  )
+                ? Math.min(this.#constants.maxDaysTracked, Math.max(0, time.day))
                 : 0
             return Math.round(
                 tick +
@@ -203,9 +198,7 @@ export class Timekeeper {
         // Each day starts at 6am with shift 0.
         let minutesSinceSixAM =
             time.tick * this.#constants.minutesPerTick +
-            time.shift *
-                this.#constants.minutesPerTick *
-                this.#constants.ticksPerShift
+            time.shift * this.#constants.minutesPerTick * this.#constants.ticksPerShift
 
         // handle optional hours
         if (time.hour) minutesSinceSixAM += time.hour * 60
@@ -223,9 +216,7 @@ export class Timekeeper {
 
         if (hours >= 13) hours -= 12
 
-        time.timeOfDay = `${hours}:${minutes
-            .toString()
-            .padStart(2, '0')} ${amPm}`
+        time.timeOfDay = `${hours}:${minutes.toString().padStart(2, '0')} ${amPm}`
     }
 
     /**
@@ -246,9 +237,7 @@ export class Timekeeper {
 
     get #timeChangeMacro () {
         return game.macros.find(
-            m =>
-                m.uuid ===
-                game.settings.get(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO)
+            m => m.uuid === game.settings.get(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO)
         )
     }
 }
