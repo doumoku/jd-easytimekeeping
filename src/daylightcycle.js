@@ -11,7 +11,6 @@ export class DaylightCycle {
     }
 
     initialise () {
-        // console.debug('DB Time | DaylightCycle initialising')
     }
 
     updateTime (time) {

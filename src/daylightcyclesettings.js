@@ -78,7 +78,7 @@ class DaylightCycleMenu extends FormApplication {
     _updateObject (event, formData) {
         // gets data from the form, validates and persists if valid
         const data = foundry.utils.expandObject(formData)
-        console.log('DB Time | DaylightCycleMenu _updateObject: %o', data)
+        console.debug('DB Time | DaylightCycleMenu _updateObject: %o', data)
         game.settings.set(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS, data)
     }
 }

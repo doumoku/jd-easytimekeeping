@@ -57,15 +57,13 @@ class AutoTellTimeMenu extends FormApplication {
             night: buildShiftValues([12, 1, 2, 3, 4, 5], 'AM'),
         }
 
-        console.log(initialValues)
-        console.log(shiftTimes)
         return shiftTimes
     }
 
     _updateObject (event, formData) {
         // gets data from the form, validates and persists if valid
         const data = foundry.utils.expandObject(formData)
-        console.log('DB Time | AutoTell Setting Menu _updateObject: %o', data)
+        console.debug('DB Time | AutoTell Setting Menu _updateObject: %o', data)
         game.settings.set(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS, data)
     }
 }
