@@ -40,7 +40,7 @@ export class DaylightCycle {
         if (!this.#enabled) return
 
         try {
-            switch (this.#detectPhase(time)) {
+            switch (this.#detectPhase(time.timeOfDay24HourNumeric)) {
                 case PHASES.DAWN:
                     this.#processDawn(time)
                     break
@@ -60,18 +60,58 @@ export class DaylightCycle {
         }
     }
 
+    /**
+     * Returns true if timeA is < timeB
+     */
+    #timeLT (timeA, timeB) {
+        return (
+            timeA.hours < timeB.hours ||
+            (timeA.hours === timeB.hours && timeA.minutes < timeB.minutes)
+        )
+    }
+
+    /**
+     * Returns true if timeA is >= timeB
+     */
+    #timeGTE (timeA, timeB) {
+        return !this.#timeLT(timeA, timeB)
+    }
+
     #detectPhase (time) {
         const dawnStart = this.#dawnStart
         const dawnEnd = this.#addTicksToTime(dawnStart, this.#dawnDurationTicks)
         const duskStart = this.#duskStart
         const duskEnd = this.#addTicksToTime(duskStart, this.#duskDurationTicks)
 
-        console.log('dawnStart: %o', dawnStart)
-        console.log('dawnEnd: %o', dawnEnd)
-        console.log('dawnTicks: %o', this.#dawnDurationTicks)
-        console.log('duskStart: %o', duskStart)
-        console.log('duskEnd: %o', duskEnd)
-        console.log('now: %o', time.timeOfDay24HourNumeric)
+        console.debug('dawnStart: %O', dawnStart)
+        console.debug('dawnEnd: %O', dawnEnd)
+        console.debug('duskStart: %O', duskStart)
+        console.debug('duskEnd: %O', duskEnd)
+        console.debug('now: %O', time.timeOfDay24HourNumeric)
+
+        // to avoid messing with the time roll-over at midnight, test for dawn, day and dusk.
+        // it's night when it's not one of those three.
+        if (this.#timeGTE(time, dawnStart)) {
+            // It's past the start of dawn. Could be dawn, day, dusk or the early part of night
+
+            if (this.#timeLT(time, dawnEnd)) {
+                console.log('Dawn dawns!')
+            } else if (this.#timeGTE(time, duskStart)) {
+                if (this.#timeLT(time, duskEnd)) {
+                    console.log('The sun is setting!')
+                } else {
+                    // the time is past the start of dusk, and past the end of dusk
+                    // that's the early half of night
+                    console.log('nighttime')
+                }
+            } else {
+                // the time is >= dawnEnd && < duskStart : that's daytime
+                console.log('daytime')
+            }
+        } else {
+            // definitely the latter half of the night
+            console.log('nighttime')
+        }
 
         return PHASES.DAY
     }
