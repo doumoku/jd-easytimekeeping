@@ -4,24 +4,23 @@
 
 <form class="flexcol">
     <div class="category">
+
         <div class="form-group">
             <label for="dawn-dusk-enabled">{{localize "DBTIME.Settings.DawnDuskEnabled"}}:</label>
             <input type="checkbox" name="dawn-dusk-enabled" value="true" {{checked dawn-dusk-enabled}} />
         </div>
-        <div class="form-group">
-            <label for="day-darkness-level">{{localize "DBTIME.Settings.DaytimeDarknessLevel.label"}}:</label>
-            <range-picker min="0" max="1" name="day-darkness-level" step="0.05"
-                value={{day-darkness-level}}></range-picker>
-        </div>
-        <div class="form-group">
-            <label for="night-darkness-level">{{localize "DBTIME.Settings.NighttimeDarknessLevel.label"}}:</label>
-            <range-picker min="0" max="1" name="night-darkness-level" step="0.05"
-                value={{night-darkness-level}}></range-picker>
-        </div>
+
         <div class="form-group">
             <fieldset>
-                <legend>{{localize "DBTIME.Dawn"}}</legend>
-                <label>{{localize "DBTIME.Settings.DawnStartTime.label"}}:</label>
+                <legend>{{localize "DBTIME.Settings.Day"}}</legend>
+
+                <div class="form-group">
+                    <label for="day-darkness-level">{{localize "DBTIME.Settings.DaytimeDarknessLevel.label"}}:</label>
+                    <range-picker min="0" max="1" name="day-darkness-level" step="0.05"
+                        value={{day-darkness-level}}></range-picker>
+                </div>
+
+                <label for="dawn-start">{{localize "DBTIME.Settings.DawnStartTime.label"}}:</label>
                 <div class="form-fields">
                     <select name="dawn-start">
                         {{#each dawn-start-options}}
@@ -29,12 +28,27 @@
                         {{/each}}
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="dawn-duration-ticks">{{localize "DBTIME.Settings.DawnDurationTicks.label"}}:</label>
+                    <range-picker min="1" max="8" name="dawn-duration-ticks" step="1"
+                        value={{dawn-duration-ticks}}></range-picker>
+                </div>
             </fieldset>
         </div>
+
         <div class="form-group">
             <fieldset>
-                <legend>{{localize "DBTIME.Dusk"}}</legend>
-                <label>{{localize "DBTIME.Settings.SunsetStartTime.label"}}:</label>
+                <legend>{{localize "DBTIME.Settings.Night"}}</legend>
+
+                <div class="form-group">
+                    <label for="night-darkness-level">{{localize
+                        "DBTIME.Settings.NighttimeDarknessLevel.label"}}:</label>
+                    <range-picker min="0" max="1" name="night-darkness-level" step="0.05"
+                        value={{night-darkness-level}}></range-picker>
+                </div>
+
+                <label for="sunset-start">{{localize "DBTIME.Settings.SunsetStartTime.label"}}:</label>
                 <div class="form-fields">
                     <select name="sunset-start">
                         {{#each sunset-start-options}}
@@ -42,9 +56,16 @@
                         {{/each}}
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="dusk-duration-ticks">{{localize "DBTIME.Settings.DuskDurationTicks.label"}}:</label>
+                    <range-picker min="1" max="8" name="dusk-duration-ticks" step="1"
+                        value={{dusk-duration-ticks}}></range-picker>
+                </div>
             </fieldset>
         </div>
     </div>
+
     <footer class="sheet-footer margin-top flexrow">
         <button type="submit" name="submit">
             <i class="fa fa-check"></i> OK

@@ -22,6 +22,8 @@ export function registerDawnDuskSettings () {
             'night-darkness-level': 1.0,
             'sunset-start': '6:00 PM',
             'dawn-start': '6:00 AM',
+            'dawn-duration-ticks': 5,
+            'dusk-duration-ticks': 5,
         },
     })
 }

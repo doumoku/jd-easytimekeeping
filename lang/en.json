@@ -36,6 +36,8 @@
     "DBTIME.Settings.NighttimeDarknessLevel.label": "Nighttime Darkness Level",
     "DBTIME.Settings.DawnStartTime.label": "Sunrise Start Time",
     "DBTIME.Settings.SunsetStartTime.label": "Sunset Start Time",
-    "DBTIME.Dawn": "Dawn",
-    "DBTIME.Dusk": "Dusk"
+    "DBTIME.Settings.Day": "Day Settings",
+    "DBTIME.Settings.Night": "Night Settings",
+    "DBTIME.Settings.DawnDurationTicks.label": "Dawn duration in stretches/turns",
+    "DBTIME.Settings.DuskDurationTicks.label": "Dusk duration in stretches/turns"
 }
