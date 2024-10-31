@@ -38,8 +38,8 @@
     "DBTIME.Settings.Day": "Day Settings",
     "DBTIME.Settings.Night": "Night Settings",
     "DBTIME.Settings.DawnDurationTicks.label": "Dawn duration",
-    "DBTIME.Settings.DawnDurationTicks.hint": "Duration in stretches/turns. One turn is ",
+    "DBTIME.Settings.DawnDurationTicks.hint": "Duration in stretches/turns. One turn is currently ",
     "DBTIME.Settings.DuskDurationTicks.label": "Dusk duration",
-    "DBTIME.Settings.DuskDurationTicks.hint": "Duration in stretches/turns. One turn is ",
+    "DBTIME.Settings.DuskDurationTicks.hint": "Duration in stretches/turns. One turn is currently ",
     "DBTIME.minutes": "minutes"
 }
