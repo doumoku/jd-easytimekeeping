@@ -74,15 +74,22 @@ export class DaylightCycle {
     }
 
     #processNight (time) {
-        console.log('DB Time | Daylight cycle - processing night phase')
+        console.debug('DB Time | Daylight cycle - processing night phase')
+        if (this.#sceneDarkness != this.#nighttimeDarkness) {
+            console.log(
+                'DB Time | Daylight cycle: setting nighttime darkness %f',
+                this.#nighttimeDarkness
+            )
+            this.#setSceneDarkness(this.#nighttimeDarkness)
+        }
     }
 
     #processDawn (time) {
-        console.log('DB Time | Daylight cycle - processing dawn phase')
+        console.debug('DB Time | Daylight cycle - processing dawn phase')
     }
 
     #processDusk (time) {
-        console.log('DB Time | Daylight cycle - processing dusk phase')
+        console.debug('DB Time | Daylight cycle - processing dusk phase')
     }
 
     /**
@@ -103,6 +110,12 @@ export class DaylightCycle {
     get #daytimeDarkness () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
             'day-darkness-level'
+        ]
+    }
+
+    get #nighttimeDarkness () {
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
+            'night-darkness-level'
         ]
     }
 
