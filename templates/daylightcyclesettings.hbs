@@ -6,8 +6,14 @@
     <div class="category">
 
         <div class="form-group">
-            <label for="daylight-cycle-enabled">{{localize "DBTIME.Settings.DaylightCycleEnabled"}}:</label>
+            <label for="daylight-cycle-enabled">{{localize "DBTIME.Settings.DaylightCycleEnabled.label"}}:</label>
             <input type="checkbox" name="daylight-cycle-enabled" value="true" {{checked daylight-cycle-enabled}} />
+        </div>
+
+        <div class="form-group">
+            <label for="animate-darkness">{{localize "DBTIME.Settings.AnimateDarknessChange.label"}}:</label>
+            <range-picker min="0" max="10" name="animate-darkness" step="0.5"
+                value={{animate-darkness}}></range-picker>
         </div>
 
         <div class="form-group">

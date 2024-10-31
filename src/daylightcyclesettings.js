@@ -26,6 +26,7 @@ export function registerDaylightCycleSettings () {
             'dawn-start': '6:00 AM',
             'dawn-duration-ticks': 5,
             'dusk-duration-ticks': 5,
+            'animate-darkness-ms': 5000,
         },
     })
 }
@@ -71,6 +72,7 @@ class DaylightCycleMenu extends FormApplication {
         dawnOptions[initialValues['dawn-start']] = true
         initialValues['sunset-start-options'] = sunsetOptions
         initialValues['dawn-start-options'] = dawnOptions
+        initialValues['animate-darkness'] = initialValues['animate-darkness-ms'] / 1000
         console.log(initialValues)
         return initialValues
     }
@@ -78,6 +80,7 @@ class DaylightCycleMenu extends FormApplication {
     _updateObject (event, formData) {
         // gets data from the form, validates and persists if valid
         const data = foundry.utils.expandObject(formData)
+        data['animate-darkness-ms'] = Number.parseFloat(data['animate-darkness']) * 1000
         console.debug('DB Time | DaylightCycleMenu _updateObject: %o', data)
         game.settings.set(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS, data)
     }

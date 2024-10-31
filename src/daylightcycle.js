@@ -10,8 +10,7 @@ export class DaylightCycle {
         this.#constants = constants
     }
 
-    initialise () {
-    }
+    initialise () {}
 
     updateTime (time) {
         // TODO: when this was a script, it only ran for the GM. Now it's a module, do I need to manually ensure it only runs for the GM?
