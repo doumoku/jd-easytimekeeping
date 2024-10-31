@@ -83,37 +83,23 @@ export class DaylightCycle {
         const duskStart = this.#duskStart
         const duskEnd = this.#addTicksToTime(duskStart, this.#duskDurationTicks)
 
-        console.debug('dawnStart: %O', dawnStart)
-        console.debug('dawnEnd: %O', dawnEnd)
-        console.debug('duskStart: %O', duskStart)
-        console.debug('duskEnd: %O', duskEnd)
-        console.debug('now: %O', time.timeOfDay24HourNumeric)
+        // console.debug('dawnStart: %O', dawnStart)
+        // console.debug('dawnEnd: %O', dawnEnd)
+        // console.debug('duskStart: %O', duskStart)
+        // console.debug('duskEnd: %O', duskEnd)
+        // console.debug('now: %O', time)
 
         // to avoid messing with the time roll-over at midnight, test for dawn, day and dusk.
         // it's night when it's not one of those three.
-        if (this.#timeGTE(time, dawnStart)) {
-            // It's past the start of dawn. Could be dawn, day, dusk or the early part of night
-
-            if (this.#timeLT(time, dawnEnd)) {
-                console.log('Dawn dawns!')
-            } else if (this.#timeGTE(time, duskStart)) {
-                if (this.#timeLT(time, duskEnd)) {
-                    console.log('The sun is setting!')
-                } else {
-                    // the time is past the start of dusk, and past the end of dusk
-                    // that's the early half of night
-                    console.log('nighttime')
-                }
-            } else {
-                // the time is >= dawnEnd && < duskStart : that's daytime
-                console.log('daytime')
-            }
+        if (this.#timeGTE(time, dawnStart) && this.#timeLT(time, dawnEnd)) {
+            return PHASES.DAWN
+        } else if (this.#timeGTE(time, dawnEnd) && this.#timeLT(time, duskStart)) {
+            return PHASES.DAY
+        } else if (this.#timeGTE(time, duskStart) && this.#timeLT(time, duskEnd)) {
+            return PHASES.DUSK
         } else {
-            // definitely the latter half of the night
-            console.log('nighttime')
+            return PHASES.NIGHT
         }
-
-        return PHASES.DAY
     }
 
     #processDay (time) {
@@ -157,8 +143,7 @@ export class DaylightCycle {
             minutes: Number.parseInt(split[1]),
         }
 
-        if (split[2].toLocaleUpperCase() === 'PM' && time.hours < 12)
-            time.hours += 12
+        if (split[2].toLocaleUpperCase() === 'PM' && time.hours < 12) time.hours += 12
 
         return time
     }
@@ -171,10 +156,7 @@ export class DaylightCycle {
         // Note that since this method is used only for adding the dawn and dusk duration to the start
         // times, it does not handle things like wrapping into a new day. The UI does not allow
         // time spans that are long enough for that.
-        const totalMinutes =
-            ticks * this.#constants.minutesPerTick +
-            time.hours * 60 +
-            time.minutes
+        const totalMinutes = ticks * this.#constants.minutesPerTick + time.hours * 60 + time.minutes
         return {
             hours: Math.floor(totalMinutes / 60),
             minutes: totalMinutes % 60,
@@ -191,15 +173,11 @@ export class DaylightCycle {
     }
 
     get #animateDarkness () {
-        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
-            'animate-darkness-ms'
-        ]
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['animate-darkness-ms']
     }
 
     get #daytimeDarkness () {
-        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
-            'day-darkness-level'
-        ]
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['day-darkness-level']
     }
 
     get #nighttimeDarkness () {
@@ -221,29 +199,21 @@ export class DaylightCycle {
 
     get #dawnStart () {
         return this.#parseTimeOfDay(
-            game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
-                'dawn-start'
-            ]
+            game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dawn-start']
         )
     }
 
     get #dawnDurationTicks () {
-        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
-            'dawn-duration-ticks'
-        ]
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dawn-duration-ticks']
     }
 
     get #duskStart () {
         return this.#parseTimeOfDay(
-            game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
-                'dusk-start'
-            ]
+            game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dusk-start']
         )
     }
 
     get #duskDurationTicks () {
-        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
-            'dusk-duration-ticks'
-        ]
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dusk-duration-ticks']
     }
 }
