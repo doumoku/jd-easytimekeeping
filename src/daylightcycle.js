@@ -37,30 +37,42 @@ export class DaylightCycle {
     initialise () {}
 
     updateTime (time) {
-        // TODO: when this was a script, it only ran for the GM. Now it's a module, do I need to manually ensure it only runs for the GM?
-
         if (!this.#enabled) return
 
-        console.log(time)
-
-        switch (this.#detectPhase(time)) {
-            case PHASES.DAWN:
-                this.#processDawn(time)
-                break
-            default:
-            case PHASES.DAY:
-                this.#processDay(time)
-                break
-            case PHASES.DUSK:
-                this.#processDusk(time)
-                break
-            case PHASES.NIGHT:
-                this.#processNight(time)
-                break
+        try {
+            switch (this.#detectPhase(time)) {
+                case PHASES.DAWN:
+                    this.#processDawn(time)
+                    break
+                default:
+                case PHASES.DAY:
+                    this.#processDay(time)
+                    break
+                case PHASES.DUSK:
+                    this.#processDusk(time)
+                    break
+                case PHASES.NIGHT:
+                    this.#processNight(time)
+                    break
+            }
+        } catch (error) {
+            console.error(error)
         }
     }
 
     #detectPhase (time) {
+        const dawnStart = this.#dawnStart
+        const dawnEnd = this.#addTicksToTime(dawnStart, this.#dawnDurationTicks)
+        const duskStart = this.#duskStart
+        const duskEnd = this.#addTicksToTime(duskStart, this.#duskDurationTicks)
+
+        console.log('dawnStart: %o', dawnStart)
+        console.log('dawnEnd: %o', dawnEnd)
+        console.log('dawnTicks: %o', this.#dawnDurationTicks)
+        console.log('duskStart: %o', duskStart)
+        console.log('duskEnd: %o', duskEnd)
+        console.log('now: %o', time.timeOfDay24HourNumeric)
+
         return PHASES.DAY
     }
 
@@ -92,6 +104,41 @@ export class DaylightCycle {
 
     #processDusk (time) {
         console.debug('DB Time | Daylight cycle - dusk')
+    }
+
+    /**
+     * @param {String} timeOfDay The time of day as a string in the format 'hh:mm [AM/PM]'
+     * @returns An object containing the integer hour and minute in 24 hour time
+     */
+    #parseTimeOfDay (timeOfDay) {
+        const split = timeOfDay.split(/[ :]+/)
+        const time = {
+            hours: Number.parseInt(split[0]),
+            minutes: Number.parseInt(split[1]),
+        }
+
+        if (split[2].toLocaleUpperCase() === 'PM' && time.hours < 12)
+            time.hours += 12
+
+        return time
+    }
+
+    /**
+     * @param {Object} time the 24-hour time object from parsing a time string
+     * @param {Number} ticks a positive integral number of ticks to add to the time
+     */
+    #addTicksToTime (time, ticks) {
+        // Note that since this method is used only for adding the dawn and dusk duration to the start
+        // times, it does not handle things like wrapping into a new day. The UI does not allow
+        // time spans that are long enough for that.
+        const totalMinutes =
+            ticks * this.#constants.minutesPerTick +
+            time.hours * 60 +
+            time.minutes
+        return {
+            hours: Math.floor(totalMinutes / 60),
+            minutes: totalMinutes % 60,
+        }
     }
 
     /**
@@ -130,5 +177,33 @@ export class DaylightCycle {
             { 'environment.darknessLevel': darkness },
             { animateDarkness: this.#animateDarkness }
         )
+    }
+
+    get #dawnStart () {
+        return this.#parseTimeOfDay(
+            game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
+                'dawn-start'
+            ]
+        )
+    }
+
+    get #dawnDurationTicks () {
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
+            'dawn-duration-ticks'
+        ]
+    }
+
+    get #duskStart () {
+        return this.#parseTimeOfDay(
+            game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
+                'dusk-start'
+            ]
+        )
+    }
+
+    get #duskDurationTicks () {
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
+            'dusk-duration-ticks'
+        ]
     }
 }

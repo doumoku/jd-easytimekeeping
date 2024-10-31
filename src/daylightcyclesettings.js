@@ -22,10 +22,10 @@ export function registerDaylightCycleSettings () {
             'daylight-cycle-enabled': false,
             'day-darkness-level': 0,
             'night-darkness-level': 1.0,
-            'sunset-start': '6:00 PM',
+            'dusk-start': '6:00 PM',
             'dawn-start': '6:00 AM',
-            'dawn-duration-ticks': 5,
-            'dusk-duration-ticks': 5,
+            'dawn-duration-ticks': 4,
+            'dusk-duration-ticks': 4,
             'animate-darkness-ms': 5000,
         },
     })
@@ -52,8 +52,8 @@ class DaylightCycleMenu extends FormApplication {
         )
 
         // TODO: I could do better than this fixed choice of options for
-        // starting sunset and sunrise, but it's good enough for now
-        const sunsetOptions = {
+        // starting dusk and sunrise, but it's good enough for now
+        const duskOptions = {
             '5:00 PM': false,
             '5:30 PM': false,
             '6:00 PM': false,
@@ -68,9 +68,9 @@ class DaylightCycleMenu extends FormApplication {
         }
 
         // set the initial values for the form
-        sunsetOptions[initialValues['sunset-start']] = true
+        duskOptions[initialValues['dusk-start']] = true
         dawnOptions[initialValues['dawn-start']] = true
-        initialValues['sunset-start-options'] = sunsetOptions
+        initialValues['dusk-start-options'] = duskOptions
         initialValues['dawn-start-options'] = dawnOptions
         initialValues['animate-darkness'] = initialValues['animate-darkness-ms'] / 1000
         

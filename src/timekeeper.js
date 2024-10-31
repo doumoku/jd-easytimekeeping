@@ -26,20 +26,6 @@ export class Timekeeper {
     }
 
     /**
-     * @param {String} timeOfDay The time of day as a string in the format 'hh:mm [AM/PM]'
-     * @returns An object containing the integer hour and minute in 24 hour time
-     */
-    parseTimeOfDay (timeOfDay) {
-        const split = timeOfDay.split(/[ :]+/)
-        const time = { hours: Number.parseInt(split[0]), minutes: Number.parseInt(split[1]) }
-
-        if (split[2].toLocaleUpperCase() === 'PM' && time.hours < 12)
-            time.hours += 12
-
-        return time
-    }
-
-    /**
      * Gets the constants object, containing useful values relating to time as currently defined.
      */
     get constants () {
