@@ -27,13 +27,16 @@ export class Timekeeper {
 
     /**
      * @param {String} timeOfDay The time of day as a string in the format 'hh:mm [AM/PM]'
-     * @returns An object containing the integer hour and minute in 24 hour time,
-     * and total ticks since 6am based on the current time settings.
+     * @returns An object containing the integer hour and minute in 24 hour time
      */
     parseTimeOfDay (timeOfDay) {
-        const unpacked = { hours: 0, minutes: 0, totalTicks: 0 }
+        const split = timeOfDay.split(/[ :]+/)
+        const time = { hours: Number.parseInt(split[0]), minutes: Number.parseInt(split[1]) }
 
-        return unpacked
+        if (split[2].toLocaleUpperCase() === 'PM' && time.hours < 12)
+            time.hours += 12
+
+        return time
     }
 
     /**
