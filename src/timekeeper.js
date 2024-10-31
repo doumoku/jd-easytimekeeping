@@ -9,9 +9,10 @@ export class Timekeeper {
     #constants = null
     #clockView = null
 
+    static TIME_CHANGE_HOOK = 'dbtimeTimeChangedHook'
+
     constructor (constants, clockView) {
         console.debug('DB Time | Timekeeper created')
-
         this.#constants = constants
         this.#clockView = clockView
     }
@@ -148,13 +149,18 @@ export class Timekeeper {
      * @param {Number} timeOfDay24HourNumeric.minutes
      */
     #notify (currentTime, newTime) {
+        const data = { oldTime: currentTime, time: newTime }
         this.#clockView.updateTime(newTime)
-        // TODO: call a hook for world macros
 
-        // call a macro from a module setting UUID
+        Hooks.callAll(Timekeeper.TIME_CHANGE_HOOK, data)
+
+        /**
+         * Macros can't listen to hooks, so if there is a macro registered in the
+         * module settings then we'll call it
+         */
         const timeChangeMacro = this.#timeChangeMacro
         if (timeChangeMacro) {
-            timeChangeMacro.execute({ oldTime: currentTime, time: newTime })
+            timeChangeMacro.execute(data)
         }
     }
 
