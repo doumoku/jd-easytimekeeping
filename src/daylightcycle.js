@@ -41,6 +41,8 @@ export class DaylightCycle {
 
         if (!this.#enabled) return
 
+        console.log(time)
+
         switch (this.#detectPhase(time)) {
             case PHASES.DAWN:
                 this.#processDawn(time)
@@ -63,7 +65,7 @@ export class DaylightCycle {
     }
 
     #processDay (time) {
-        console.debug('DB Time | Daylight cycle - processing daytime phase')
+        console.debug('DB Time | Daylight cycle - day')
         if (this.#sceneDarkness != this.#daytimeDarkness) {
             console.log(
                 'DB Time | Daylight cycle: setting daytime darkness %f',
@@ -74,7 +76,7 @@ export class DaylightCycle {
     }
 
     #processNight (time) {
-        console.debug('DB Time | Daylight cycle - processing night phase')
+        console.debug('DB Time | Daylight cycle - night')
         if (this.#sceneDarkness != this.#nighttimeDarkness) {
             console.log(
                 'DB Time | Daylight cycle: setting nighttime darkness %f',
@@ -85,11 +87,11 @@ export class DaylightCycle {
     }
 
     #processDawn (time) {
-        console.debug('DB Time | Daylight cycle - processing dawn phase')
+        console.debug('DB Time | Daylight cycle - dawn')
     }
 
     #processDusk (time) {
-        console.debug('DB Time | Daylight cycle - processing dusk phase')
+        console.debug('DB Time | Daylight cycle - dusk')
     }
 
     /**

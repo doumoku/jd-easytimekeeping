@@ -26,6 +26,17 @@ export class Timekeeper {
     }
 
     /**
+     * @param {String} timeOfDay The time of day as a string in the format 'hh:mm [AM/PM]'
+     * @returns An object containing the integer hour and minute in 24 hour time,
+     * and total ticks since 6am based on the current time settings.
+     */
+    parseTimeOfDay (timeOfDay) {
+        const unpacked = { hours: 0, minutes: 0, totalTicks: 0 }
+
+        return unpacked
+    }
+
+    /**
      * Gets the constants object, containing useful values relating to time as currently defined.
      */
     get constants () {
