@@ -39,6 +39,8 @@ export class DaylightCycle {
     updateTime (time) {
         // TODO: when this was a script, it only ran for the GM. Now it's a module, do I need to manually ensure it only runs for the GM?
 
+        if (!this.#enabled) return
+
         switch (this.#detectPhase(time)) {
             case PHASES.DAWN:
                 this.#processDawn(time)
@@ -61,11 +63,57 @@ export class DaylightCycle {
     }
 
     #processDay (time) {
+        console.debug('DB Time | Daylight cycle - processing daytime phase')
+        if (this.#sceneDarkness != this.#daytimeDarkness) {
+            console.log(
+                'DB Time | Daylight cycle: setting daytime darkness %f',
+                this.#daytimeDarkness
+            )
+            this.#setSceneDarkness(this.#daytimeDarkness)
+        }
     }
 
-    #processNight (time) {}
+    #processNight (time) {
+        console.log('DB Time | Daylight cycle - processing night phase')
+    }
 
-    #processDawn (time) {}
+    #processDawn (time) {
+        console.log('DB Time | Daylight cycle - processing dawn phase')
+    }
 
-    #processDusk (time) {}
+    #processDusk (time) {
+        console.log('DB Time | Daylight cycle - processing dusk phase')
+    }
+
+    /**
+     * Methods to encapsulate settings and scene values, since they make for cleaner code
+     */
+    get #enabled () {
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
+            'daylight-cycle-enabled'
+        ]
+    }
+
+    get #animateDarkness () {
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
+            'animate-darkness-ms'
+        ]
+    }
+
+    get #daytimeDarkness () {
+        return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
+            'day-darkness-level'
+        ]
+    }
+
+    get #sceneDarkness () {
+        return canvas.scene.environment.darknessLevel
+    }
+
+    async #setSceneDarkness (darkness) {
+        await canvas.scene.update(
+            { 'environment.darknessLevel': darkness },
+            { animateDarkness: this.#animateDarkness }
+        )
+    }
 }
