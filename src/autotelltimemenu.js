@@ -68,8 +68,8 @@ class AutoTellTimeMenu extends FormApplication {
     }
 
     async _handleButtonShiftClicked (event) {
-        const clickedElement = $(event.currentTarget)
-        const action = clickedElement.data().action
-        console.log('button clicked: element %O, action %O', clickedElement, action)
+        $(`#${$(event.currentTarget).data().target}`)
+            .find('input[type="checkbox"]')
+            .prop('checked', $(event.currentTarget).data().action === 'check' ? true : false)
     }
 }

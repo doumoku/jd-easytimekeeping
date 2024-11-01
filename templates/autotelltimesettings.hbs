@@ -8,52 +8,66 @@
 <form class="flexcol">
     <div class="form-group">
         <div class="grid-two-by-two">
-            {{!-- I guess I could factor this repeating pattern out into a partial, but meh --}}
+            {{!-- I guess I could factor this repeating pattern out into a partial, but meh! It's done now :) --}}
             <fieldset>
                 <legend>{{localize "DBTIME.Shift.Morning"}}:</legend>
-                {{#each morning}}
-                {{> checkboxPartial}}
-                {{/each}}
+                <div id="morning">
+                    {{#each morning}}
+                    {{> checkboxPartial}}
+                    {{/each}}
+                </div>
                 <div class="button-container">
-                    <button class="flex0" type="button" data-action="check" id="btn-check-all-morning">{{localize
+                    <button type="button" data-action="check" data-target="morning"
+                        id="btn-check-all-morning">{{localize
                         "DBTIME.Settings.CheckAll"}}</button>
-                    <button class="flex0" type="button" data-action="clear" id="btn-clear-all-morning">{{localize
+                    <button type="button" data-action="clear" data-target="morning"
+                        id="btn-clear-all-morning">{{localize
                         "DBTIME.Settings.ClearAll"}}</button>
                 </div>
             </fieldset>
             <fieldset>
                 <legend>{{localize "DBTIME.Shift.Afternoon"}}:</legend>
-                {{#each afternoon}}
-                {{> checkboxPartial}}
-                {{/each}}
+                <div id="afternoon">
+                    {{#each afternoon}}
+                    {{> checkboxPartial}}
+                    {{/each}}
+                </div>
                 <div class="button-container">
-                    <button type="button" data-action="check" id="btn-check-all-afternoon">{{localize
+                    <button type="button" data-action="check" data-target="afternoon"
+                        id="btn-check-all-afternoon">{{localize
                         "DBTIME.Settings.CheckAll"}}</button>
-                    <button type="button" data-action="clear" id="btn-clear-all-afternoon">{{localize
+                    <button type="button" data-action="clear" data-target="afternoon"
+                        id="btn-clear-all-afternoon">{{localize
                         "DBTIME.Settings.ClearAll"}}</button>
                 </div>
             </fieldset>
             <fieldset>
                 <legend>{{localize "DBTIME.Shift.Evening"}}:</legend>
-                {{#each evening}}
-                {{> checkboxPartial}}
-                {{/each}}
+                <div id="evening">
+                    {{#each evening}}
+                    {{> checkboxPartial}}
+                    {{/each}}
+                </div>
                 <div class="button-container">
-                    <button type="button" data-action="check" id="btn-check-all-evening">{{localize
+                    <button type="button" data-action="check" data-target="evening"
+                        id="btn-check-all-evening">{{localize
                         "DBTIME.Settings.CheckAll"}}</button>
-                    <button type="button" data-action="clear" id="btn-clear-all-evening">{{localize
+                    <button type="button" data-action="clear" data-target="evening"
+                        id="btn-clear-all-evening">{{localize
                         "DBTIME.Settings.ClearAll"}}</button>
                 </div>
             </fieldset>
             <fieldset>
                 <legend>{{localize "DBTIME.Shift.Night"}}:</legend>
-                {{#each night}}
-                {{> checkboxPartial}}
-                {{/each}}
+                <div id="night">
+                    {{#each night}}
+                    {{> checkboxPartial}}
+                    {{/each}}
+                </div>
                 <div class="button-container">
-                    <button type="button" data-action="check" id="btn-check-all-night">{{localize
+                    <button type="button" data-action="check" data-target="night" id="btn-check-all-night">{{localize
                         "DBTIME.Settings.CheckAll"}}</button>
-                    <button type="button" data-action="clear" id="btn-clear-all-night">{{localize
+                    <button type="button" data-action="clear" data-target="night" id="btn-clear-all-night">{{localize
                         "DBTIME.Settings.ClearAll"}}</button>
                 </div>
             </fieldset>
