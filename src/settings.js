@@ -107,6 +107,7 @@ function registerSettings () {
         type: Number,
         default: 0,
         requiresReload: false,
+        restricted: true,
     })
 
     registerId(SETTINGS.TICK_CLOCK_ID)
