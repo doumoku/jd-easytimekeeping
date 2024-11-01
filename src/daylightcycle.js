@@ -103,7 +103,7 @@ export class DaylightCycle {
     }
 
     #processDay () {
-        console.log('DB Time | Daylight cycle - day')
+        console.debug('DB Time | Daylight cycle - day')
         if (this.#sceneDarkness != this.#daytimeDarkness) {
             console.log(
                 'DB Time | Daylight cycle: setting daytime darkness %f',
@@ -114,7 +114,7 @@ export class DaylightCycle {
     }
 
     #processNight () {
-        console.log('DB Time | Daylight cycle - night')
+        console.debug('DB Time | Daylight cycle - night')
         if (this.#sceneDarkness != this.#nighttimeDarkness) {
             console.log(
                 'DB Time | Daylight cycle: setting nighttime darkness %f',
@@ -125,16 +125,28 @@ export class DaylightCycle {
     }
 
     #processDawn (time) {
-        console.log('DB Time | Daylight cycle - dawn')
-        this.#processTwilightPhase(time, this.#dawnStart, this.#dawnDurationTicks)
+        console.debug('DB Time | Daylight cycle - dawn')
+        this.#processTwilightPhase(
+            time,
+            this.#dawnStart,
+            this.#dawnDurationTicks,
+            this.#nighttimeDarkness,
+            this.#daytimeDarkness
+        )
     }
 
     #processDusk (time) {
-        console.log('DB Time | Daylight cycle - dusk')
-        this.#processTwilightPhase(time, this.#duskStart, this.#duskDurationTicks)
+        console.debug('DB Time | Daylight cycle - dusk')
+        this.#processTwilightPhase(
+            time,
+            this.#duskStart,
+            this.#duskDurationTicks,
+            this.#daytimeDarkness,
+            this.#nighttimeDarkness
+        )
     }
 
-    #processTwilightPhase (time, startTime, durationTicks) {
+    #processTwilightPhase (time, startTime, durationTicks, fromDarkness, toDarkness) {
         /**
          * Given:
          * 1. start, end, & duration in minutes of the phase
@@ -160,14 +172,10 @@ export class DaylightCycle {
             this.#constants.minutesPerTick / 2
 
         const scaleFactor = (currentMinute - startMinute) / (endMinute - startMinute)
-        const darkness = this.#scaleVector(
-            scaleFactor,
-            this.#nighttimeDarkness,
-            this.#daytimeDarkness
-        )
+        const darkness = this.#scaleVector(scaleFactor, fromDarkness, toDarkness)
         this.#setSceneDarkness(darkness)
 
-        console.log(
+        console.debug(
             'DB Time | twilight (dawn/dusk) phase is running from minute %d \
             to minute %d. Currently at minute %d for scaleFactor = %f. \
             Setting darkness level %f',
