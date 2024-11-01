@@ -47,17 +47,21 @@ class DaylightCycleMenu extends FormApplication {
         // TODO: I could do better than this fixed choice of options for
         // starting dusk and sunrise, but it's good enough for now
         const duskOptions = {
+            '4:30 PM': false,
             '5:00 PM': false,
             '5:30 PM': false,
             '6:00 PM': false,
             '6:30 PM': false,
+            '7:00 PM': false,
         }
 
         const dawnOptions = {
+            '4:30 AM': false,
             '5:00 AM': false,
             '5:30 AM': false,
             '6:00 AM': false,
             '6:30 AM': false,
+            '7:00 AM': false,
         }
 
         // set the initial values for the form
