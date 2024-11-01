@@ -61,4 +61,15 @@ class AutoTellTimeMenu extends FormApplication {
         console.debug('DB Time | AutoTell Setting Menu _updateObject: %o', data)
         game.settings.set(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS, data)
     }
+
+    activateListeners (html) {
+        super.activateListeners(html)
+        html.on('click', '[data-action]', this._handleButtonShiftClicked)
+    }
+
+    async _handleButtonShiftClicked (event) {
+        const clickedElement = $(event.currentTarget)
+        const action = clickedElement.data().action
+        console.log('button clicked: element %O, action %O', clickedElement, action)
+    }
 }
