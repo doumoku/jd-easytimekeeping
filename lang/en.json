@@ -41,5 +41,7 @@
     "DBTIME.Settings.DawnDurationTicks.hint": "Duration in stretches/turns. One turn is currently ",
     "DBTIME.Settings.DuskDurationTicks.label": "Dusk duration",
     "DBTIME.Settings.DuskDurationTicks.hint": "Duration in stretches/turns. One turn is currently ",
-    "DBTIME.minutes": "minutes"
+    "DBTIME.minutes": "minutes",
+    "DBTIME.Settings.CheckAll": "Check All",
+    "DBTIME.Settings.ClearAll": "Clear All"
 }

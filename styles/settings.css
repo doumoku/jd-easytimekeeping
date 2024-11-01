@@ -41,3 +41,9 @@
 .margin-top {
     margin-top: 5px;
 }
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+}
