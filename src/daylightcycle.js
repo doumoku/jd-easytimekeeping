@@ -46,13 +46,13 @@ export class DaylightCycle {
                     break
                 default:
                 case PHASES.DAY:
-                    this.#processDay(time)
+                    this.#processDay()
                     break
                 case PHASES.DUSK:
                     this.#processDusk(time)
                     break
                 case PHASES.NIGHT:
-                    this.#processNight(time)
+                    this.#processNight()
                     break
             }
         } catch (error) {
@@ -102,7 +102,7 @@ export class DaylightCycle {
         }
     }
 
-    #processDay (time) {
+    #processDay () {
         console.debug('DB Time | Daylight cycle - day')
         if (this.#sceneDarkness != this.#daytimeDarkness) {
             console.log(
@@ -113,7 +113,7 @@ export class DaylightCycle {
         }
     }
 
-    #processNight (time) {
+    #processNight () {
         console.debug('DB Time | Daylight cycle - night')
         if (this.#sceneDarkness != this.#nighttimeDarkness) {
             console.log(
