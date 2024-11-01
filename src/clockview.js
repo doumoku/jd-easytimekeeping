@@ -92,11 +92,7 @@ export class ClockView {
             ? this.#constants.ticksPerHour
             : this.#constants.ticksPerShift
 
-        this.#getOrCreateClock(
-            SETTINGS.TICK_CLOCK_ID,
-            tickClockSegments,
-            this.#tickClockName
-        )
+        this.#getOrCreateClock(SETTINGS.TICK_CLOCK_ID, tickClockSegments, this.#tickClockName)
     }
 
     #initOptionalClock (showClock, idKey, segments, name) {
@@ -171,11 +167,7 @@ export class ClockView {
     }
 
     #checkAutoTellTime (time) {
-        const tellTimeSettings = game.settings.get(
-            MODULE_ID,
-            SETTINGS.AUTO_TELL_TIME_SETTINGS
-        )
-        if (tellTimeSettings[time.timeOfDay]) 
-            this.tellTime(time)
+        const tellTimeSettings = game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS)
+        if (tellTimeSettings[time.timeOfDay]) this.tellTime(time)
     }
 }

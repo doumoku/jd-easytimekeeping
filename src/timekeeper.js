@@ -8,12 +8,15 @@ import { SETTINGS, MODULE_ID } from './settings.js'
 export class Timekeeper {
     #constants = null
     #clockView = null
+    #daylightCycle = null
 
-    constructor (constants, clockView) {
+    static TIME_CHANGE_HOOK = 'dbtimeTimeChangedHook'
+
+    constructor (constants, clockView, daylightCycle) {
         console.debug('DB Time | Timekeeper created')
-
         this.#constants = constants
         this.#clockView = clockView
+        this.#daylightCycle = daylightCycle
     }
 
     initialise () {
@@ -39,9 +42,7 @@ export class Timekeeper {
 
         if (increment > 0) {
             const currentTime = this.#factorTime(this.#totalElapsedTicks)
-            const newTime = this.#factorTime(
-                this.#totalElapsedTicks + increment
-            )
+            const newTime = this.#factorTime(this.#totalElapsedTicks + increment)
             console.debug('DB Time | Current time %o', currentTime)
             console.log('DB Time | Incrementing to new time %o', newTime)
             this.#totalElapsedTicks += increment
@@ -101,10 +102,7 @@ export class Timekeeper {
             const hour = time.hour ? Math.max(0, time.hour) : 0
             const shift = time.shift ? Math.max(0, time.shift) : 0
             const day = time.day
-                ? Math.min(
-                      this.#constants.maxDaysTracked,
-                      Math.max(0, time.day)
-                  )
+                ? Math.min(this.#constants.maxDaysTracked, Math.max(0, time.day))
                 : 0
             return Math.round(
                 tick +
@@ -129,14 +127,14 @@ export class Timekeeper {
     /**
      * Notifies of a change in the time.
      *
-     * @param {Object} currentTime
+     * @param {Object} currentTime the previous time
      * @param {Number} currentTime.totalTicks total ticks
      * @param {Number} currentTime.tick ticks
      * @param {Number} [currentTime.hour] hours
      * @param {Number} currentTime.shift shifts
      * @param {Number} currentTime.day days
      * @param {String} currentTime.timeOfDay hh:mm [AM|PM]
-     * @param {Object} newTime
+     * @param {Object} newTime the new time
      * @param {Number} newTime.totalTicks total ticks
      * @param {Number} newTime.tick ticks
      * @param {Number} [newTime.hour] hours
@@ -148,13 +146,19 @@ export class Timekeeper {
      * @param {Number} timeOfDay24HourNumeric.minutes
      */
     #notify (currentTime, newTime) {
+        const data = { oldTime: currentTime, time: newTime }
         this.#clockView.updateTime(newTime)
-        // TODO: call a hook for world macros
+        this.#daylightCycle.updateTime(newTime)
 
-        // call a macro from a module setting UUID
+        Hooks.callAll(Timekeeper.TIME_CHANGE_HOOK, data)
+
+        /**
+         * Macros can't listen to hooks, so if there is a macro registered in the
+         * module settings then we'll call it
+         */
         const timeChangeMacro = this.#timeChangeMacro
         if (timeChangeMacro) {
-            timeChangeMacro.execute({ oldTime: currentTime, time: newTime })
+            timeChangeMacro.execute(data)
         }
     }
 
@@ -194,9 +198,7 @@ export class Timekeeper {
         // Each day starts at 6am with shift 0.
         let minutesSinceSixAM =
             time.tick * this.#constants.minutesPerTick +
-            time.shift *
-                this.#constants.minutesPerTick *
-                this.#constants.ticksPerShift
+            time.shift * this.#constants.minutesPerTick * this.#constants.ticksPerShift
 
         // handle optional hours
         if (time.hour) minutesSinceSixAM += time.hour * 60
@@ -214,9 +216,7 @@ export class Timekeeper {
 
         if (hours >= 13) hours -= 12
 
-        time.timeOfDay = `${hours}:${minutes
-            .toString()
-            .padStart(2, '0')} ${amPm}`
+        time.timeOfDay = `${hours}:${minutes.toString().padStart(2, '0')} ${amPm}`
     }
 
     /**
@@ -237,9 +237,7 @@ export class Timekeeper {
 
     get #timeChangeMacro () {
         return game.macros.find(
-            m =>
-                m.uuid ===
-                game.settings.get(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO)
+            m => m.uuid === game.settings.get(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO)
         )
     }
 }
