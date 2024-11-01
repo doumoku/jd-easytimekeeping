@@ -103,7 +103,7 @@ export class DaylightCycle {
     }
 
     #processDay () {
-        console.debug('DB Time | Daylight cycle - day')
+        console.log('DB Time | Daylight cycle - day')
         if (this.#sceneDarkness != this.#daytimeDarkness) {
             console.log(
                 'DB Time | Daylight cycle: setting daytime darkness %f',
@@ -114,7 +114,7 @@ export class DaylightCycle {
     }
 
     #processNight () {
-        console.debug('DB Time | Daylight cycle - night')
+        console.log('DB Time | Daylight cycle - night')
         if (this.#sceneDarkness != this.#nighttimeDarkness) {
             console.log(
                 'DB Time | Daylight cycle: setting nighttime darkness %f',
@@ -125,11 +125,64 @@ export class DaylightCycle {
     }
 
     #processDawn (time) {
-        console.debug('DB Time | Daylight cycle - dawn')
+        console.log('DB Time | Daylight cycle - dawn')
+        this.#processTwilightPhase(time, this.#dawnStart, this.#dawnDurationTicks)
     }
 
     #processDusk (time) {
-        console.debug('DB Time | Daylight cycle - dusk')
+        console.log('DB Time | Daylight cycle - dusk')
+        this.#processTwilightPhase(time, this.#duskStart, this.#duskDurationTicks)
+    }
+
+    #processTwilightPhase (time, startTime, durationTicks) {
+        /**
+         * Given:
+         * 1. start, end, & duration in minutes of the phase
+         * 2. current minute of the phase
+         * 3. start, end, and current darkness levels
+         *
+         * then it's a linear interpolation problem.
+         * The distance moved in minutes between the start and end of the phase
+         * as a proportion of the total duration gives the amount to scale the
+         * darkness level as it increments between the starting and target values.
+         *
+         * We don't need to test for overrunning the end of the phase. That's
+         * already handled before this method is called.
+         */
+
+        const endTime = this.#addTicksToTime(startTime, durationTicks)
+        const startMinute = startTime.hours * 60 + startTime.minutes
+        const endMinute = endTime.hours * 60 + endTime.minutes
+        const currentMinute =
+            time.timeOfDay24HourNumeric.hours * 60 +
+            time.timeOfDay24HourNumeric.minutes +
+            // act as though the time is in the middle of the tick, rather than the start
+            this.#constants.minutesPerTick / 2
+
+        const scaleFactor = (currentMinute - startMinute) / (endMinute - startMinute)
+        const darkness = this.#scaleVector(
+            scaleFactor,
+            this.#nighttimeDarkness,
+            this.#daytimeDarkness
+        )
+        this.#setSceneDarkness(darkness)
+
+        console.log(
+            'DB Time | twilight (dawn/dusk) phase is running from minute %d \
+            to minute %d. Currently at minute %d for scaleFactor = %f. \
+            Setting darkness level %f',
+            startMinute,
+            endMinute,
+            currentMinute,
+            scaleFactor,
+            darkness
+        )
+    }
+
+    #scaleVector (scale, start, end) {
+        let v = scale * (end - start) + start
+        v = Math.min(1, Math.max(0, v))
+        return v
     }
 
     /**
