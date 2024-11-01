@@ -14,24 +14,40 @@
                 {{#each morning}}
                 {{> checkboxPartial}}
                 {{/each}}
+                <div class="button-container">
+                    <button type="button" id="btn-check-all-morning">{{localize "DBTIME.Settings.CheckAll"}}</button>
+                    <button type="button" id="btn-clear-all-morning">{{localize "DBTIME.Settings.ClearAll"}}</button>
+                </div>
             </fieldset>
             <fieldset>
                 <legend>{{localize "DBTIME.Shift.Afternoon"}}:</legend>
                 {{#each afternoon}}
                 {{> checkboxPartial}}
                 {{/each}}
+                <div class="button-container">
+                    <button type="button" id="btn-check-all-afternoon">{{localize "DBTIME.Settings.CheckAll"}}</button>
+                    <button type="button" id="btn-clear-all-afternoon">{{localize "DBTIME.Settings.ClearAll"}}</button>
+                </div>
             </fieldset>
             <fieldset>
                 <legend>{{localize "DBTIME.Shift.Evening"}}:</legend>
                 {{#each evening}}
                 {{> checkboxPartial}}
                 {{/each}}
+                <div class="button-container">
+                    <button type="button" id="btn-check-all-evening">{{localize "DBTIME.Settings.CheckAll"}}</button>
+                    <button type="button" id="btn-clear-all-evening">{{localize "DBTIME.Settings.ClearAll"}}</button>
+                </div>
             </fieldset>
             <fieldset>
                 <legend>{{localize "DBTIME.Shift.Night"}}:</legend>
                 {{#each night}}
                 {{> checkboxPartial}}
                 {{/each}}
+                <div class="button-container">
+                    <button type="button" id="btn-check-all-night">{{localize "DBTIME.Settings.CheckAll"}}</button>
+                    <button type="button" id="btn-clear-all-night">{{localize "DBTIME.Settings.ClearAll"}}</button>
+                </div>
             </fieldset>
         </div>
     </div>
