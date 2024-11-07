@@ -223,7 +223,7 @@ export class Timekeeper {
      * Gets the total elapsed ticks since tick 0 on day 0
      */
     get #totalElapsedTicks () {
-        return game.settings.get(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME)
+        return game.settings.get(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES)
     }
 
     /**
@@ -231,7 +231,7 @@ export class Timekeeper {
      */
     set #totalElapsedTicks (ticks) {
         if (ticks != this.#totalElapsedTicks) {
-            game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, ticks)
+            game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, ticks)
         }
     }
 

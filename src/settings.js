@@ -7,7 +7,7 @@ const MODULE_ID = 'jd-dbtime'
 const SETTINGS = {
     SHOW_HOURS: 'showHours',
     SHOW_DAYS: 'showDays',
-    TOTAL_ELAPSED_TIME: 'totalElapsedTime',
+    TOTAL_ELAPSED_MINUTES: 'totalElapsedMinutes',
     BASE_TIME_UNIT: 'baseTimeUnit',
     BASE_TIME_CLOCK: 'baseTimeClock',
     TICK_CLOCK_ID: 'tickClockId',
@@ -101,7 +101,7 @@ function registerSettings () {
         restricted: true,
     })
 
-    game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_TIME, {
+    game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, {
         scope: 'world',
         config: false,
         type: Number,
