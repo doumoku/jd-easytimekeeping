@@ -11,15 +11,21 @@ In it's current form, Easy Timekeeping is no longer uniquely tailored to the Dra
 
 Easy Timekeeping has the following main features:
 
-- TODO: a feature
-- TODO: the second feature
-- TODO: feature the third
-- Provides hooks for easy customisation when the time changes.
-
-I had a few goals when creating this system:
-
-- The GM is always in control. While this module keeps track of the passage of time, it never takes decisions away from the GM.
+- The GM is always in control of the passage of time.
+- The UI allows quickly incrementing or decrementing time by configurable small and large jumps.
+- An optional daylight cycle provides configurable automation of scene lighting.
+- Configurable ability to post the time to chat at regular times of day. Particularly useful when combined with the option to hide the time of day display on the main UI.
+- An API allows many features to be controlled from macros, such as setting the time, incrementing or decrementing the time, querying the current time, and posting the time to chat.
+- Time change events allow further automation. There is a hook for world scripts, and the ability to specify a time change handler macro through the module settings (requires GM permissions). This allows you to develop scripted events that occur in response to the passage of time, or that take place only at certain times of day.
 
 ## So, What About that SmallTime Module?
 
 I owe a huge debt to the wonderful [SmallTime](https://foundryvtt.com/packages/smalltime) module, whose UI I have adapted (hooray for the MIT licence!). Since this means that on the surface, Easy Timekeeping looks and works much the same as SmallTime, I probably should spend a little time explaining why I created Easy Timekeeping when SmallTime already does the same job.
+
+First, I had no idea SmallTime existed when I started. I started writing this to teach myself how to develop Foundry modules, by taking some macros I'd made and converting them into something more polished. I'd advanced about 60% through the module development, testing only through the API when I asked at the Foundry Discord for ideas on how to build a UI. Someone mentioned SmallTime. I took a look, and realised with a sense of dread that the module pretty much did everything I was planning to do. But when the initial discouragement faded, I took a closer look and realised that wasn't correct. Many of the decisions that had been taken with SmallTime were not decisions I would have taken, while I loved the UI, I didn't want the calendar integrations. I liked my code, and wanted to complete it. I thought I had something interesting with the API and the way I allowed the time change event to call back to a GM macro - something SmallTime doesn't have.
+
+But I really do love the SmallTime UI. And I suck at building that sort of thing.
+
+Good thing we both use the MIT licence. And it's a good thing there's plenty of room in the open-source world for different interpretations of the same idea.
+
+So, here's Easy Timekeeping. The UI looks a lot like SmallTime, but it does a bit less, does it very differently under the hood, and lets you do different things if scripting and automation is your thing.
