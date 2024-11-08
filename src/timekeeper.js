@@ -75,6 +75,7 @@ export class Timekeeper {
      * @param {Number} [time.minutes=10] minutes
      */
     increment (time) {
+        // FIXME: The default time increment should come from module settings
         if (!time) time = { minutes: 10 }
         this.#increment(this.#toTotalMinutes(time))
     }
@@ -111,8 +112,6 @@ export class Timekeeper {
      */
     tellTime () {
         console.debug('DB Time | tellTime')
-        // Get the current time object, then hand off to the clock view to tell the time in
-        // an appropriate way. This API class is trying to keep it's hands out of the display business.
         const currentTime = this.#factorTime(this.#totalElapsedMinutes)
         this.#clockView.tellTime(currentTime)
     }
@@ -125,10 +124,11 @@ export class Timekeeper {
      * @param {Number} oldTime.days days
      * @param {Number} oldTime.hour The hour of the day in 24 time
      * @param {Number} oldTime.minute The minute of the hour
-     * @param {String} oldTime.timeOfDay hh:mm [AM|PM]
      * @param {Object} newTime the new time
      * @param {Number} newTime.totalMinutes total minutes
      * @param {Number} newTime.days days
+     * @param {Number} newTime.hour The hour of the day in 24 time
+     * @param {Number} newTime.minute The minute of the hour
      */
     #notify (oldTime, newTime) {
         const data = { oldTime: oldTime, time: newTime }
@@ -157,30 +157,9 @@ export class Timekeeper {
         time.days = Math.floor(totalMinutes / this.#constants.minutesPerDay)
         time.hour = Math.floor((totalMinutes % this.#constants.minutesPerDay) / 60)
         time.minute = (totalMinutes % this.#constants.minutesPerDay) % 60
-        // TODO: a method that formats the time string
 
         return time
     }
-
-    /*
-    #calculateTimeOfDay (time) {
-
-        // factor into hours and minutes
-        let hours = Math.floor(minutesSinceSixAM / 60) + 6 // add 6 since 0 is 6 am
-        const minutes = minutesSinceSixAM % 60
-
-        // handle AM and PM, and after midnight wrapping
-        const amPm = hours < 12 || hours >= 24 ? 'AM' : 'PM'
-        if (hours > 24) hours -= 24
-
-        // Store the 24 hour time as a numeric object since that's also helpful
-        time.timeOfDay24HourNumeric = { hours: hours, minutes: minutes }
-
-        if (hours >= 13) hours -= 12
-
-        time.timeOfDay = `${hours}:${minutes.toString().padStart(2, '0')} ${amPm}`
-    }
-    */
 
     /**
      * Gets the total elapsed ticks since tick 0 on day 0
