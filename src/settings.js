@@ -8,12 +8,6 @@ const SETTINGS = {
     SHOW_HOURS: 'showHours',
     SHOW_DAYS: 'showDays',
     TOTAL_ELAPSED_MINUTES: 'totalElapsedMinutes',
-    BASE_TIME_UNIT: 'baseTimeUnit',
-    BASE_TIME_CLOCK: 'baseTimeClock',
-    TICK_CLOCK_ID: 'tickClockId',
-    HOUR_CLOCK_ID: 'hourClockId',
-    SHIFT_CLOCK_ID: 'shiftClockId',
-    DAY_CLOCK_ID: 'dayClockId',
     TIME_CHANGE_MACRO: 'timeChangeMacro',
     AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings',
     AUTO_TELL_TIME_MENU: 'autoTellTimeMenu',
@@ -54,6 +48,7 @@ function registerSettings () {
         restricted: true,
     })
 
+    /*
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_UNIT, {
         name: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.name'),
         hint: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.hint'),
@@ -90,6 +85,7 @@ function registerSettings () {
         requiresReload: true,
         restricted: true,
     })
+    */
 
     game.settings.register(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO, {
         name: game.i18n.localize('DBTIME.Settings.TimeChangeMacro.name'),
@@ -108,19 +104,5 @@ function registerSettings () {
         default: 0,
         requiresReload: false,
         restricted: true,
-    })
-
-    registerId(SETTINGS.TICK_CLOCK_ID)
-    registerId(SETTINGS.HOUR_CLOCK_ID)
-    registerId(SETTINGS.SHIFT_CLOCK_ID)
-    registerId(SETTINGS.DAY_CLOCK_ID)
-}
-
-function registerId (setting) {
-    game.settings.register(MODULE_ID, setting, {
-        scope: 'world',
-        config: false,
-        type: String,
-        requiresReload: false,
     })
 }
