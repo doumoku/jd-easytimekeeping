@@ -22,7 +22,7 @@ export class Timekeeper {
     initialise () {
         // set the time to the current time to force an update of the clockview
         // this is particularly required if ClockView has just created brand new clocks
-        this.set(this.#totalElapsedTicks)
+        this.set(this.#totalElapsedMinutes)
     }
 
     /**
@@ -35,34 +35,34 @@ export class Timekeeper {
     /**
      * Private method to actually increment the current time.
      *
-     * @param {Number} increment The number of ticks to increment.
+     * @param {Number} minutes The number of minutes to increment.
      */
-    #increment (increment = 1) {
-        console.debug('DB Time | incrementing %d ticks', increment)
+    #increment (minutes = 1) {
+        console.debug('DB Time | incrementing %d minutes', minutes)
 
-        if (increment > 0) {
-            const currentTime = this.#factorTime(this.#totalElapsedTicks)
-            const newTime = this.#factorTime(this.#totalElapsedTicks + increment)
-            console.debug('DB Time | Current time %o', currentTime)
+        if (minutes > 0) {
+            const oldTime = this.#factorTime(this.#totalElapsedMinutes)
+            const newTime = this.#factorTime(this.#totalElapsedMinutes + minutes)
+            console.debug('DB Time | Current time %o', oldTime)
             console.log('DB Time | Incrementing to new time %o', newTime)
-            this.#totalElapsedTicks += increment
-            this.#notify(currentTime, newTime)
+            this.#totalElapsedMinutes += minutes
+            this.#notify(oldTime, newTime)
         }
     }
 
     /**
      * Private method to actually set the time.
      *
-     * @param {Number} totalTicks The total number of ticks since tick 0 on day 0
+     * @param {Number} totalMinutes The total number of minutes since 0:00 on day 0
      */
-    #set (totalTicks = 0) {
-        if (totalTicks >= 0) {
-            const currentTime = this.#factorTime(this.#totalElapsedTicks)
-            const newTime = this.#factorTime(totalTicks)
-            console.debug('DB Time | Current time %o', currentTime)
+    #set (totalMinutes = 0) {
+        if (totalMinutes >= 0) {
+            const oldTime = this.#factorTime(this.#totalElapsedMinutes)
+            const newTime = this.#factorTime(totalMinutes)
+            console.debug('DB Time | Current time %o', oldTime)
             console.log('DB Time | Setting new time %o', newTime)
-            this.#totalElapsedTicks = totalTicks
-            this.#notify(currentTime, newTime)
+            this.#totalElapsedMinutes = totalMinutes
+            this.#notify(oldTime, newTime)
         }
     }
 
@@ -70,46 +70,33 @@ export class Timekeeper {
      * Increment the time.
      *
      * @param {Object} time the time interval to increment by
-     * @param {Number} [time.tick=1] ticks
-     * @param {Number} [time.hour=0] hours
-     * @param {Number} [time.shift=0] shifts
-     * @param {Number} [time.day=0] days
+     * @param {Number} [time.days=0] days
+     * @param {Number} [time.hours=0] hours
+     * @param {Number} [time.minutes=10] minutes
      */
     increment (time) {
-        if (!time) time = { tick: 1 }
-        this.#increment(this.#toTicks(time))
+        if (!time) time = { minutes: 10 }
+        this.#increment(this.#toTotalMinutes(time))
     }
 
     /**
      * Set the time.
      *
      * @param {Object} time the time to set
-     * @param {Number} [time.tick=0] ticks
-     * @param {Number} [time.hour=0] hours
-     * @param {Number} [time.shift=0] shifts
-     * @param {Number} [time.day=0] days
+     * @param {Number} [time.days=0] days
+     * @param {Number} [time.hours=0] hours
+     * @param {Number} [time.minutes=10] minutes
      */
     set (time) {
-        if (!time) time = { tick: 0 }
-        this.#set(this.#toTicks(time))
+        if (!time) time = 0
+        this.#set(this.#toTotalMinutes(time))
     }
 
-    #toTicks (time) {
+    #toTotalMinutes (time) {
         if (typeof time === 'number') {
             return time
         } else {
-            const tick = time.tick ? Math.max(0, time.tick) : 0
-            const hour = time.hour ? Math.max(0, time.hour) : 0
-            const shift = time.shift ? Math.max(0, time.shift) : 0
-            const day = time.day
-                ? Math.min(this.#constants.maxDaysTracked, Math.max(0, time.day))
-                : 0
-            return Math.round(
-                tick +
-                    hour * this.#constants.ticksPerHour +
-                    shift * this.#constants.ticksPerShift +
-                    day * this.#constants.ticksPerDay
-            )
+            // TODO: calc minutes
         }
     }
 
@@ -120,33 +107,30 @@ export class Timekeeper {
         console.debug('DB Time | tellTime')
         // Get the current time object, then hand off to the clock view to tell the time in
         // an appropriate way. This API class is trying to keep it's hands out of the display business.
-        const currentTime = this.#factorTime(this.#totalElapsedTicks)
+        const currentTime = this.#factorTime(this.#totalElapsedMinutes)
         this.#clockView.tellTime(currentTime)
     }
 
     /**
      * Notifies of a change in the time.
      *
-     * @param {Object} currentTime the previous time
-     * @param {Number} currentTime.totalTicks total ticks
-     * @param {Number} currentTime.tick ticks
-     * @param {Number} [currentTime.hour] hours
-     * @param {Number} currentTime.shift shifts
-     * @param {Number} currentTime.day days
-     * @param {String} currentTime.timeOfDay hh:mm [AM|PM]
+     * @param {Object} oldTime the previous time
+     * @param {Number} oldTime.totalMinutes total minutes
+     * @param {Number} oldTime.day days
+     * @param {String} oldTime.timeOfDay hh:mm [AM|PM]
+     * @param {Object} oldTime.timeOfDay24HourNumeric the time of day in 24 hour numeric format
+     * @param {Number} oldTime.timeOfDay24HourNumeric.hours
+     * @param {Number} oldTime.timeOfDay24HourNumeric.minutes
      * @param {Object} newTime the new time
-     * @param {Number} newTime.totalTicks total ticks
-     * @param {Number} newTime.tick ticks
-     * @param {Number} [newTime.hour] hours
-     * @param {Number} newTime.shift shifts
+     * @param {Number} newTime.totalMinutes total minutes
      * @param {Number} newTime.day days
      * @param {String} newTime.timeOfDay hh:mm [AM|PM]
-     * @param {Object} timeOfDay24HourNumeric the time of day in 24 hour numeric format
-     * @param {Number} timeOfDay24HourNumeric.hours
-     * @param {Number} timeOfDay24HourNumeric.minutes
+     * @param {Object} newTime.timeOfDay24HourNumeric the time of day in 24 hour numeric format
+     * @param {Number} newTime.timeOfDay24HourNumeric.hours
+     * @param {Number} newTime.timeOfDay24HourNumeric.minutes
      */
-    #notify (currentTime, newTime) {
-        const data = { oldTime: currentTime, time: newTime }
+    #notify (oldTime, newTime) {
+        const data = { oldTime: oldTime, time: newTime }
         this.#clockView.updateTime(newTime)
         this.#daylightCycle.updateTime(newTime)
 
@@ -167,6 +151,7 @@ export class Timekeeper {
      * ticks (ticks/turns), hours, shifts, & days, the time of day, and the total elapsed ticks.
      */
     #factorTime (ticks) {
+        // TODO: update to new time formats
         const time = {
             tick: 0,
             shift: 0,
@@ -195,6 +180,7 @@ export class Timekeeper {
     }
 
     #calculateTimeOfDay (time) {
+        // TODO: update to new time formats
         // Each day starts at 6am with shift 0.
         let minutesSinceSixAM =
             time.tick * this.#constants.minutesPerTick +
@@ -222,16 +208,16 @@ export class Timekeeper {
     /**
      * Gets the total elapsed ticks since tick 0 on day 0
      */
-    get #totalElapsedTicks () {
+    get #totalElapsedMinutes () {
         return game.settings.get(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES)
     }
 
     /**
      * Sets the total elapsed ticks since tick 0 on day 0
      */
-    set #totalElapsedTicks (ticks) {
-        if (ticks != this.#totalElapsedTicks) {
-            game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, ticks)
+    set #totalElapsedMinutes (minutes) {
+        if (minutes != this.#totalElapsedMinutes) {
+            game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, minutes)
         }
     }
 
