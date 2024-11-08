@@ -41,10 +41,12 @@ export class ClockView {
 
     #checkAutoTellTime (time) {
         const tellTimeSettings = game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS)
-        if (tellTimeSettings[time.timeOfDay]) this.tellTime(time)
+        const timeOfDay = this.#toTimeOfDay(time)
+        if (tellTimeSettings[timeOfDay]) this.tellTime(time)
     }
 
     #toTimeOfDay (time) {
+        // TODO: once I implement 24-hour display module settings, I'll need a way to force 12-hour strings for when this is called from #checkAutoTellTime
         // TODO: module settings for 24-hour display
         // time.hour is a value from 0 to 23
         const amPm = time.hour >= 12 ? 'PM' : 'AM'
