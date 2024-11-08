@@ -17,9 +17,7 @@ Hooks.once('init', () => {
 Hooks.once('ready', async () => {
     console.group('DB Time | ready')
 
-    const baseTimeUnit = Number.parseInt(game.settings.get(MODULE_ID, SETTINGS.BASE_TIME_UNIT))
-
-    const constants = new Constants(baseTimeUnit)
+    const constants = new Constants()
 
     const clockView = new ClockView(constants)
     clockView.initialise()
