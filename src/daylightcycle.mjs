@@ -43,7 +43,7 @@ export class DaylightCycle {
             switch (this.#detectPhase(time)) {
                 case PHASES.DAWN:
                     console.log('dawn')
-                    // this.#processDawn(time)
+                    this.#processDawn(time)
                     break
                 default:
                 case PHASES.DAY:
@@ -52,7 +52,7 @@ export class DaylightCycle {
                     break
                 case PHASES.DUSK:
                     console.log('dusk')
-                    // this.#processDusk(time)
+                    this.#processDusk(time)
                     break
                 case PHASES.NIGHT:
                     console.log('night')
@@ -77,7 +77,7 @@ export class DaylightCycle {
         const duskEnd = new Date(duskStart)
         duskEnd.setMinutes(duskEnd.getMinutes() + this.#duskDuration)
 
-        // Create now from dawnStart so that it will be on the same day, 
+        // Create now from dawnStart so that it will be on the same day,
         // but with the same hours & minutes as the in-game time
         const now = new Date(dawnStart)
         now.setHours(time.hours)
@@ -142,7 +142,7 @@ export class DaylightCycle {
         )
     }
 
-    #processTwilightPhase (time, startTime, durationTicks, fromDarkness, toDarkness) {
+    #processTwilightPhase (time, startTime, durationMinutes, fromDarkness, toDarkness) {
         /**
          * Given:
          * 1. start, end, & duration in minutes of the phase
@@ -157,16 +157,10 @@ export class DaylightCycle {
          * We don't need to test for overrunning the end of the phase. That's
          * already handled before this method is called.
          */
-        /*
-        const endTime = this.#addMinutes(startTime, durationTicks)
+        const endTime = this.#addMinutes(startTime, durationMinutes)
         const startMinute = startTime.hours * 60 + startTime.minutes
         const endMinute = endTime.hours * 60 + endTime.minutes
-        const currentMinute =
-            time.timeOfDay24HourNumeric.hours * 60 +
-            time.timeOfDay24HourNumeric.minutes +
-            // act as though the time is in the middle of the tick, rather than the start
-            this.#constants.minutesPerTick / 2
-
+        const currentMinute = time.hours * 60 + time.minutes
         const scaleFactor = (currentMinute - startMinute) / (endMinute - startMinute)
         const darkness = this.#scaleVector(scaleFactor, fromDarkness, toDarkness)
         this.#setSceneDarkness(darkness)
@@ -181,7 +175,6 @@ export class DaylightCycle {
             scaleFactor,
             darkness
         )
-        */
     }
 
     #scaleVector (scale, start, end) {
