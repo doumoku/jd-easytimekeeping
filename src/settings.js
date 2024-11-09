@@ -20,33 +20,35 @@ function registerSettings () {
     registerAutoTellTimeSettings()
     registerDaylightCycleSettings()
 
-    game.settings.register(MODULE_ID, SETTINGS.SHOW_HOURS, {
-        name: game.i18n.localize('JDTIMEKEEPING.Settings.ShowHours.name'),
-        hint: game.i18n.localize('JDTIMEKEEPING.Settings.ShowHours.hint'),
-        scope: 'world',
-        config: true,
-        type: Boolean,
-        default: false,
-        onChange: value => {
-            console.log('JD ETime | %s %o', SETTINGS.SHOW_HOURS, value)
-        },
-        requiresReload: true,
-        restricted: true,
-    })
+    // TODO: I might want a show time setting later when it comes to the UI - do the players see the time on the UI or not?
+    // game.settings.register(MODULE_ID, SETTINGS.SHOW_HOURS, {
+    //     name: game.i18n.localize('JDTIMEKEEPING.Settings.ShowHours.name'),
+    //     hint: game.i18n.localize('JDTIMEKEEPING.Settings.ShowHours.hint'),
+    //     scope: 'world',
+    //     config: true,
+    //     type: Boolean,
+    //     default: false,
+    //     onChange: value => {
+    //         console.log('JD ETime | %s %o', SETTINGS.SHOW_HOURS, value)
+    //     },
+    //     requiresReload: true,
+    //     restricted: true,
+    // })
 
-    game.settings.register(MODULE_ID, SETTINGS.SHOW_DAYS, {
-        name: game.i18n.localize('JDTIMEKEEPING.Settings.ShowDays.name'),
-        hint: game.i18n.localize('JDTIMEKEEPING.Settings.ShowDays.hint'),
-        scope: 'world',
-        config: true,
-        type: Boolean,
-        default: false,
-        onChange: value => {
-            console.log('JD ETime | %s %o', SETTINGS.SHOW_DAYS, value)
-        },
-        requiresReload: true,
-        restricted: true,
-    })
+    // TODO: for later - does the count of days get shown on the panel?
+    // game.settings.register(MODULE_ID, SETTINGS.SHOW_DAYS, {
+    //     name: game.i18n.localize('JDTIMEKEEPING.Settings.ShowDays.name'),
+    //     hint: game.i18n.localize('JDTIMEKEEPING.Settings.ShowDays.hint'),
+    //     scope: 'world',
+    //     config: true,
+    //     type: Boolean,
+    //     default: false,
+    //     onChange: value => {
+    //         console.log('JD ETime | %s %o', SETTINGS.SHOW_DAYS, value)
+    //     },
+    //     requiresReload: true,
+    //     restricted: true,
+    // })
 
     /*
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_UNIT, {
