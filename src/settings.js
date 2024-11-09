@@ -13,6 +13,7 @@ const SETTINGS = {
     AUTO_TELL_TIME_MENU: 'autoTellTimeMenu',
     DAYLIGHT_CYCLE_SETTINGS: 'daylightCycleSettings',
     DAYLIGHT_CYCLE_MENU: 'daylightCycleMenu',
+    DISPLAY_24_HOUR_TIME: 'display24HourTime',
 }
 
 function registerSettings () {
@@ -49,6 +50,16 @@ function registerSettings () {
     //     requiresReload: true,
     //     restricted: true,
     // })
+
+    game.settings.register(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME, {
+        name: game.i18n.localize('JDTIMEKEEPING.Settings.Display24HourFormat.name'),
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: false,
+        restricted: true,
+    })
 
     /*
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_UNIT, {
