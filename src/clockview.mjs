@@ -22,13 +22,17 @@ export class ClockView {
     }
 
     tellTime (time) {
-        const timeOfDay = this.#toTimeOfDay(time)
-        let content = `It's ${timeOfDay} on day ${time.days + 1}` // display in 1-based days
+        const content = this.toTimeString(time, true)
         console.log('JD ETime | %s', content)
         ChatMessage.create({
             speaker: { actor: game.user.id },
             content: content,
         })
+    }
+
+    toTimeString (time, includeDay = false) {
+        const timeOfDay = this.#toTimeOfDay(time)
+        return includeDay ? `It's ${timeOfDay} on day ${time.days + 1}` : timeOfDay
     }
 
     #checkAutoTellTime (time) {
