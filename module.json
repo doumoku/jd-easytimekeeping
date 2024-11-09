@@ -1,5 +1,5 @@
 {
-  "id": "jd-dbtime",
+  "id": "jd-easytimekeeping",
   "title": "Easy Timekeeping",
   "version": "0.2.5",
   "compatibility": {
@@ -28,7 +28,7 @@
   "styles": [
     "styles/settings.css"
   ],
-  "url": "https://github.com/DC23/jd-dbtime",
+  "url": "https://github.com/DC23/jd-easytimekeeping",
   "packs": [
     {
       "name": "macros",
