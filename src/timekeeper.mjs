@@ -46,7 +46,7 @@ export class Timekeeper {
             console.debug('JD ETime | Current time %o', oldTime)
             console.log('JD ETime | Incrementing to new time %o', newTime)
             this.#totalElapsedMinutes += minutes
-            this.#notify(oldTime, newTime)
+            return this.#notify(oldTime, newTime)
         }
     }
 
@@ -62,7 +62,7 @@ export class Timekeeper {
             console.debug('JD ETime | Current time %o', oldTime)
             console.log('JD ETime | Setting new time %o', newTime)
             this.#totalElapsedMinutes = totalMinutes
-            this.#notify(oldTime, newTime)
+            return this.#notify(oldTime, newTime)
         }
     }
 
@@ -77,7 +77,7 @@ export class Timekeeper {
     increment (time) {
         // FIXME: The default time increment should come from module settings
         if (!time) time = { minutes: 10 }
-        this.#increment(this.#toTotalMinutes(time))
+        return this.#increment(this.#toTotalMinutes(time))
     }
 
     /**
@@ -90,7 +90,7 @@ export class Timekeeper {
      */
     set (time) {
         if (!time) time = 0
-        this.#set(this.#toTotalMinutes(time))
+        return this.#set(this.#toTotalMinutes(time))
     }
 
     #toTotalMinutes (time) {
@@ -145,6 +145,8 @@ export class Timekeeper {
         if (timeChangeMacro) {
             timeChangeMacro.execute(data)
         }
+
+        return data
     }
 
     /**
