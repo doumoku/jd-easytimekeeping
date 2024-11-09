@@ -1,21 +1,12 @@
 {
-  "id": "jd-dbtime",
-  "title": "Dragonbane Timekeeping",
-  "version": "0.1.0",
+  "id": "jd-easytimekeeping",
+  "title": "Easy Timekeeping",
+  "version": "0.2.5",
   "compatibility": {
     "minimum": "11",
     "verified": "12"
   },
-  "relationships": {
-    "requires": [
-      {
-        "id": "global-progress-clocks",
-        "type": "module",
-        "compatibility": {}
-      }
-    ]
-  },
-  "description": "Dragonbane Timekeeping (DB Time) implements simple timekeeping for the Dragonbane game system on top of the Global Progress Clocks module. \n\nIt has the following main features:\n<ul>\n  <li>Tracks the time in stretches and shifts, and optionally in hours and days.</li>\n  <li>Can post the time in hours and minutes and day to chat.</li>\n  <li>Provides hooks for easy customisation when the time changes.</li>\n  <li>Can be easily modified for other game systems.</li>\n  <li>Never takes control away from the GM. This module keeps track of the time, but the GM is always in charge of the rate at which time advances.</li>\n</ul>",
+  "description": "Easy Timekeeping implements simple timekeeping without any fuss or complicated features.",
   "authors": [
     {
       "name": "JugglinDan",
@@ -37,7 +28,7 @@
   "styles": [
     "styles/settings.css"
   ],
-  "url": "https://github.com/DC23/jd-dbtime",
+  "url": "https://github.com/DC23/jd-easytimekeeping",
   "packs": [
     {
       "name": "macros",
