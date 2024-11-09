@@ -26,7 +26,7 @@ class AutoTellTimeMenu extends FormApplication {
             classes: ['settings'],
             popOut: true,
             width: 400,
-            template: 'modules/jd-dbtime/templates/autotelltimesettings.hbs',
+            template: `modules/${MODULE_ID}/templates/autotelltimesettings.hbs`,
             id: SETTINGS.AUTO_TELL_TIME_MENU,
             title: game.i18n.localize('JDTIMEKEEPING.Settings.AutoTellTimeConfig.name'),
         })

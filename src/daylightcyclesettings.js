@@ -35,7 +35,7 @@ class DaylightCycleMenu extends FormApplication {
             classes: ['settings'],
             popOut: true,
             width: 500,
-            template: 'modules/jd-dbtime/templates/daylightcyclesettings.hbs',
+            template: `modules/${MODULE_ID}/templates/daylightcyclesettings.hbs`,
             id: SETTINGS.DAYLIGHT_CYCLE_MENU,
             title: game.i18n.localize('JDTIMEKEEPING.Settings.DaylightCycleSettings.name'),
         })
