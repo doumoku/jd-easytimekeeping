@@ -35,9 +35,9 @@
     "JDTIMEKEEPING.Settings.CheckAll": "Check All",
     "JDTIMEKEEPING.Settings.ClearAll": "Clear All",
     "JDTIMEKEEPING.Settings.Display24HourFormat.name": "Display time in 24-hour format",
-    "JDTIMEKEEPING.Hour": "Hour",
-    "JDTIMEKEEPING.Shift": "Shift",
-    "JDTIMEKEEPING.Day": "Day",
-    "JDTIMEKEEPING.minutes": "minutes",
+    "JDTIMEKEEPING.Time.Hour": "Hour",
+    "JDTIMEKEEPING.Time.Shift": "Shift",
+    "JDTIMEKEEPING.Time.Day": "Day",
+    "JDTIMEKEEPING.Time.minutes": "minutes",
     "JDTIMEKEEPING.timeOfDay": "It's {time} on day {day}"
 }
