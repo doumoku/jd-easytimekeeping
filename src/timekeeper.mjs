@@ -122,13 +122,13 @@ export class Timekeeper {
      * @param {Object} oldTime the previous time
      * @param {Number} oldTime.totalMinutes total minutes
      * @param {Number} oldTime.days days
-     * @param {Number} oldTime.hour The hour of the day in 24 time
-     * @param {Number} oldTime.minute The minute of the hour
+     * @param {Number} oldTime.hours The hour of the day in 24 time
+     * @param {Number} oldTime.minutes The minute of the hour
      * @param {Object} newTime the new time
      * @param {Number} newTime.totalMinutes total minutes
      * @param {Number} newTime.days days
-     * @param {Number} newTime.hour The hour of the day in 24 time
-     * @param {Number} newTime.minute The minute of the hour
+     * @param {Number} newTime.hours The hour of the day in 24 time
+     * @param {Number} newTime.minutes The minute of the hour
      */
     #notify (oldTime, newTime) {
         const data = { oldTime: oldTime, time: newTime }
@@ -155,8 +155,8 @@ export class Timekeeper {
 
         time.totalMinutes = totalMinutes
         time.days = Math.floor(totalMinutes / this.#constants.minutesPerDay)
-        time.hour = Math.floor((totalMinutes % this.#constants.minutesPerDay) / 60)
-        time.minute = (totalMinutes % this.#constants.minutesPerDay) % 60
+        time.hours = Math.floor((totalMinutes % this.#constants.minutesPerDay) / 60)
+        time.minutes = (totalMinutes % this.#constants.minutesPerDay) % 60
 
         return time
     }
