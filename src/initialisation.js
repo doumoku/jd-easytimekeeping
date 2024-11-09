@@ -9,13 +9,13 @@ import { DaylightCycle } from './daylightcycle.js'
 import { Timekeeper } from './timekeeper.js'
 
 Hooks.once('init', () => {
-    console.group('DB Time | init')
+    console.group('JD ETime | init')
     registerSettings()
     console.groupEnd()
 })
 
 Hooks.once('ready', async () => {
-    console.group('DB Time | ready')
+    console.group('JD ETime | ready')
 
     const constants = new Constants()
 

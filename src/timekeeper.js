@@ -13,7 +13,7 @@ export class Timekeeper {
     static TIME_CHANGE_HOOK = 'dbtimeTimeChangedHook'
 
     constructor (constants, clockView, daylightCycle) {
-        console.debug('DB Time | Timekeeper created')
+        console.debug('JD ETime | Timekeeper created')
         this.#constants = constants
         this.#clockView = clockView
         this.#daylightCycle = daylightCycle
@@ -38,13 +38,13 @@ export class Timekeeper {
      * @param {Number} minutes The number of minutes to increment.
      */
     #increment (minutes = 1) {
-        console.log('DB Time | incrementing %d minutes', minutes)
+        console.log('JD ETime | incrementing %d minutes', minutes)
 
         if (minutes > 0) {
             const oldTime = this.#factorTime(this.#totalElapsedMinutes)
             const newTime = this.#factorTime(this.#totalElapsedMinutes + minutes)
-            console.debug('DB Time | Current time %o', oldTime)
-            console.log('DB Time | Incrementing to new time %o', newTime)
+            console.debug('JD ETime | Current time %o', oldTime)
+            console.log('JD ETime | Incrementing to new time %o', newTime)
             this.#totalElapsedMinutes += minutes
             this.#notify(oldTime, newTime)
         }
@@ -59,8 +59,8 @@ export class Timekeeper {
         if (totalMinutes >= 0) {
             const oldTime = this.#factorTime(this.#totalElapsedMinutes)
             const newTime = this.#factorTime(totalMinutes)
-            console.debug('DB Time | Current time %o', oldTime)
-            console.log('DB Time | Setting new time %o', newTime)
+            console.debug('JD ETime | Current time %o', oldTime)
+            console.log('JD ETime | Setting new time %o', newTime)
             this.#totalElapsedMinutes = totalMinutes
             this.#notify(oldTime, newTime)
         }
@@ -97,12 +97,12 @@ export class Timekeeper {
         if (typeof time === 'number') {
             return time
         } else {
-            console.log('DB Time | toTotalMinutes time: %o', time)
+            console.log('JD ETime | toTotalMinutes time: %o', time)
             const total = 
                 (time.minutes ? time.minutes : 0) +
                 (time.hours ? time.hours * 60 : 0) +
                 (time.days ? time.days * this.#constants.minutesPerDay : 0)
-            console.log('DB Time | toTotalMinutes total: %o', total)
+            console.log('JD ETime | toTotalMinutes total: %o', total)
             return total
         }
     }
@@ -111,7 +111,7 @@ export class Timekeeper {
      * Posts the current time to chat.
      */
     tellTime () {
-        console.debug('DB Time | tellTime')
+        console.debug('JD ETime | tellTime')
         const currentTime = this.#factorTime(this.#totalElapsedMinutes)
         this.#clockView.tellTime(currentTime)
     }

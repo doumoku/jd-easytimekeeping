@@ -14,7 +14,7 @@ export class ClockView {
     }
 
     initialise () {
-        console.debug('DB Time | ClockView Checking for Clocks')
+        console.debug('JD ETime | ClockView Checking for Clocks')
     }
 
     updateTime (time) {
@@ -24,7 +24,7 @@ export class ClockView {
     tellTime (time) {
         const timeOfDay = this.#toTimeOfDay(time)
         let content = `It's ${timeOfDay} on day ${time.days + 1}` // display in 1-based days
-        console.log('DB Time | %s', content)
+        console.log('JD ETime | %s', content)
         ChatMessage.create({
             speaker: { actor: game.user.id },
             content: content,

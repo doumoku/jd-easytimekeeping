@@ -84,7 +84,7 @@ class DaylightCycleMenu extends FormApplication {
         // gets data from the form, validates and persists if valid
         const data = foundry.utils.expandObject(formData)
         data['animate-darkness-ms'] = Number.parseFloat(data['animate-darkness']) * 1000
-        console.debug('DB Time | DaylightCycleMenu _updateObject: %o', data)
+        console.debug('JD ETime | DaylightCycleMenu _updateObject: %o', data)
         game.settings.set(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS, data)
     }
 }
