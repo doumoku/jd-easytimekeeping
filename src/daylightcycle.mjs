@@ -70,6 +70,7 @@ export class DaylightCycle {
          * less error prone and will handle all the edge cases for us
          */
         const now = this.#asDate(time)
+        now.setDate(1) // We want to ignore the number of days and just make comparisons on time of day
         const dawnStart = this.#asDate(this.#dawnStart)
         const dawnEnd = new Date(dawnStart)
         dawnEnd.setMinutes(dawnEnd.getMinutes() + this.#dawnDuration)
@@ -255,7 +256,7 @@ export class DaylightCycle {
 
     #asTime (s) {
         const split = s.split(':')
-        return { days: 0, hours: Number.parseInt(split[0]), minutes: Number.parseInt(split[1]) }
+        return { days: 1, hours: Number.parseInt(split[0]), minutes: Number.parseInt(split[1]) }
     }
 
     get #dawnStart () {
