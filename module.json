@@ -1,7 +1,7 @@
 {
   "id": "jd-easytimekeeping",
   "title": "Easy Timekeeping",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "compatibility": {
     "minimum": "11",
     "verified": "12"
