@@ -3,9 +3,9 @@ import { MODULE_ID, SETTINGS } from './settings.js'
 export function registerAutoTellTimeSettings () {
     // The settings menu
     game.settings.registerMenu(MODULE_ID, SETTINGS.AUTO_TELL_TIME_MENU, {
-        name: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.name'),
-        label: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.label'),
-        hint: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.hint'),
+        name: game.i18n.localize('JDTIMEKEEPING.Settings.AutoTellTimeConfig.name'),
+        label: game.i18n.localize('JDTIMEKEEPING.Settings.AutoTellTimeConfig.label'),
+        hint: game.i18n.localize('JDTIMEKEEPING.Settings.AutoTellTimeConfig.hint'),
         icon: 'fas fa-cog',
         type: AutoTellTimeMenu,
         restricted: true,
@@ -28,7 +28,7 @@ class AutoTellTimeMenu extends FormApplication {
             width: 400,
             template: 'modules/jd-dbtime/templates/autotelltimesettings.hbs',
             id: SETTINGS.AUTO_TELL_TIME_MENU,
-            title: game.i18n.localize('DBTIME.Settings.AutoTellTimeConfig.name'),
+            title: game.i18n.localize('JDTIMEKEEPING.Settings.AutoTellTimeConfig.name'),
         })
     }
 

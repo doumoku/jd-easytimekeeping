@@ -3,9 +3,9 @@ import { MODULE_ID, SETTINGS } from './settings.js'
 export function registerDaylightCycleSettings () {
     // The settings menu
     game.settings.registerMenu(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_MENU, {
-        name: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.name'),
-        label: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.label'),
-        hint: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.hint'),
+        name: game.i18n.localize('JDTIMEKEEPING.Settings.DaylightCycleSettings.name'),
+        label: game.i18n.localize('JDTIMEKEEPING.Settings.DaylightCycleSettings.label'),
+        hint: game.i18n.localize('JDTIMEKEEPING.Settings.DaylightCycleSettings.hint'),
         icon: 'fas fa-cog',
         type: DaylightCycleMenu,
         restricted: true,
@@ -37,7 +37,7 @@ class DaylightCycleMenu extends FormApplication {
             width: 500,
             template: 'modules/jd-dbtime/templates/daylightcyclesettings.hbs',
             id: SETTINGS.DAYLIGHT_CYCLE_MENU,
-            title: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.name'),
+            title: game.i18n.localize('JDTIMEKEEPING.Settings.DaylightCycleSettings.name'),
         })
     }
 

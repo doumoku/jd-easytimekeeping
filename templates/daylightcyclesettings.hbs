@@ -6,28 +6,28 @@
     <div class="category">
 
         <div class="form-group">
-            <label for="daylight-cycle-enabled">{{localize "DBTIME.Settings.DaylightCycleEnabled.label"}}:</label>
+            <label for="daylight-cycle-enabled">{{localize "JDTIMEKEEPING.Settings.DaylightCycleEnabled.label"}}:</label>
             <input type="checkbox" name="daylight-cycle-enabled" value="true" {{checked daylight-cycle-enabled}} />
-            <p class="notes">{{localize "DBTIME.Settings.DaylightCycleEnabled.hint"}}</p>
+            <p class="notes">{{localize "JDTIMEKEEPING.Settings.DaylightCycleEnabled.hint"}}</p>
         </div>
 
         <div class="form-group">
-            <label for="animate-darkness">{{localize "DBTIME.Settings.AnimateDarknessChange.label"}}:</label>
+            <label for="animate-darkness">{{localize "JDTIMEKEEPING.Settings.AnimateDarknessChange.label"}}:</label>
             <range-picker min="0" max="60" name="animate-darkness" step="0.5" value={{animate-darkness}}></range-picker>
-            <p class="notes">{{localize "DBTIME.Settings.AnimateDarknessChange.hint"}}</p>
+            <p class="notes">{{localize "JDTIMEKEEPING.Settings.AnimateDarknessChange.hint"}}</p>
         </div>
 
         <div class="form-group">
             <fieldset class="margin-top">
-                <legend>{{localize "DBTIME.Settings.Day"}}</legend>
+                <legend>{{localize "JDTIMEKEEPING.Settings.Day"}}</legend>
 
                 <div class="form-group">
-                    <label for="day-darkness-level">{{localize "DBTIME.Settings.DaytimeDarknessLevel.label"}}:</label>
+                    <label for="day-darkness-level">{{localize "JDTIMEKEEPING.Settings.DaytimeDarknessLevel.label"}}:</label>
                     <range-picker min="0" max="1" name="day-darkness-level" step="0.05"
                         value={{day-darkness-level}}></range-picker>
                 </div>
 
-                <label for="dawn-start">{{localize "DBTIME.Settings.DawnStartTime.label"}}:</label>
+                <label for="dawn-start">{{localize "JDTIMEKEEPING.Settings.DawnStartTime.label"}}:</label>
                 <div class="form-fields">
                     <select name="dawn-start">
                         {{#each dawn-start-options}}
@@ -37,27 +37,27 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="dawn-duration-ticks">{{localize "DBTIME.Settings.DawnDurationTicks.label"}}:</label>
+                    <label for="dawn-duration-ticks">{{localize "JDTIMEKEEPING.Settings.DawnDurationTicks.label"}}:</label>
                     <range-picker min="1" max="8" name="dawn-duration-ticks" step="1"
                         value={{dawn-duration-ticks}}></range-picker>
-                    <p class="notes">{{localize "DBTIME.Settings.DawnDurationTicks.hint"}}{{tick-minutes}} {{localize
-                        "DBTIME.minutes"}}.</p>
+                    <p class="notes">{{localize "JDTIMEKEEPING.Settings.DawnDurationTicks.hint"}}{{tick-minutes}} {{localize
+                        "JDTIMEKEEPING.minutes"}}.</p>
                 </div>
             </fieldset>
         </div>
 
         <div class="form-group">
             <fieldset class="margin-top">
-                <legend>{{localize "DBTIME.Settings.Night"}}</legend>
+                <legend>{{localize "JDTIMEKEEPING.Settings.Night"}}</legend>
 
                 <div class="form-group">
                     <label for="night-darkness-level">{{localize
-                        "DBTIME.Settings.NighttimeDarknessLevel.label"}}:</label>
+                        "JDTIMEKEEPING.Settings.NighttimeDarknessLevel.label"}}:</label>
                     <range-picker min="0" max="1" name="night-darkness-level" step="0.05"
                         value={{night-darkness-level}}></range-picker>
                 </div>
 
-                <label for="dusk-start">{{localize "DBTIME.Settings.DuskStartTime.label"}}:</label>
+                <label for="dusk-start">{{localize "JDTIMEKEEPING.Settings.DuskStartTime.label"}}:</label>
                 <div class="form-fields">
                     <select name="dusk-start">
                         {{#each dusk-start-options}}
@@ -67,11 +67,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="dusk-duration-ticks">{{localize "DBTIME.Settings.DuskDurationTicks.label"}}:</label>
+                    <label for="dusk-duration-ticks">{{localize "JDTIMEKEEPING.Settings.DuskDurationTicks.label"}}:</label>
                     <range-picker min="1" max="8" name="dusk-duration-ticks" step="1"
                         value={{dusk-duration-ticks}}></range-picker>
-                    <p class="notes">{{localize "DBTIME.Settings.DuskDurationTicks.hint"}}{{tick-minutes}} {{localize
-                        "DBTIME.minutes"}}.</p>
+                    <p class="notes">{{localize "JDTIMEKEEPING.Settings.DuskDurationTicks.hint"}}{{tick-minutes}} {{localize
+                        "JDTIMEKEEPING.minutes"}}.</p>
                 </div>
             </fieldset>
         </div>
