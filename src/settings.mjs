@@ -1,7 +1,7 @@
 export { MODULE_ID, SETTINGS, registerSettings }
 
-import { registerAutoTellTimeSettings } from './autotelltimesettings.js'
-import { registerDaylightCycleSettings } from './daylightcyclesettings.js'
+import { registerAutoTellTimeSettings } from './autotelltimesettings.mjs'
+import { registerDaylightCycleSettings } from './daylightcyclesettings.mjs'
 
 const MODULE_ID = 'jd-easytimekeeping'
 const SETTINGS = {

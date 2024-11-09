@@ -1,7 +1,7 @@
 /**
  * Encapsulates the Clock view for Dragonbane Timekeeping
  */
-import { MODULE_ID, SETTINGS } from './settings.js'
+import { MODULE_ID, SETTINGS } from './settings.mjs'
 
 export class ClockView {
     #constants = null

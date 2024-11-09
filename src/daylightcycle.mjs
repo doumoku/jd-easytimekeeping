@@ -18,7 +18,7 @@
  * move the scene darkness level towards the target value over the required number of
  * clock ticks.
  */
-import { MODULE_ID, SETTINGS } from './settings.js'
+import { MODULE_ID, SETTINGS } from './settings.mjs'
 
 const PHASES = {
     DAWN: 0,

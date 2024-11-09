@@ -3,7 +3,7 @@
  *
  */
 
-import { SETTINGS, MODULE_ID } from './settings.js'
+import { SETTINGS, MODULE_ID } from './settings.mjs'
 
 export class Timekeeper {
     #constants = null

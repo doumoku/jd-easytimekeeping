@@ -1,4 +1,4 @@
-import { MODULE_ID, SETTINGS } from './settings.js'
+import { MODULE_ID, SETTINGS } from './settings.mjs'
 
 export function registerAutoTellTimeSettings () {
     // The settings menu
