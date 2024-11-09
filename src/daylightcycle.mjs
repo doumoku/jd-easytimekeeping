@@ -48,7 +48,7 @@ export class DaylightCycle {
                 default:
                 case PHASES.DAY:
                     console.log('day')
-                    // this.#processDay()
+                    this.#processDay()
                     break
                 case PHASES.DUSK:
                     console.log('dusk')
@@ -56,7 +56,7 @@ export class DaylightCycle {
                     break
                 case PHASES.NIGHT:
                     console.log('night')
-                    // this.#processNight()
+                    this.#processNight()
                     break
             }
         } catch (error) {
@@ -69,8 +69,6 @@ export class DaylightCycle {
          * Internally, work with the JS Date object since it's much
          * less error prone and will handle all the edge cases for us
          */
-        const now = this.#asDate(time)
-        now.setDate(1) // We want to ignore the number of days and just make comparisons on time of day
         const dawnStart = this.#asDate(this.#dawnStart)
         const dawnEnd = new Date(dawnStart)
         dawnEnd.setMinutes(dawnEnd.getMinutes() + this.#dawnDuration)
@@ -78,6 +76,12 @@ export class DaylightCycle {
         const duskStart = this.#asDate(this.#duskStart)
         const duskEnd = new Date(duskStart)
         duskEnd.setMinutes(duskEnd.getMinutes() + this.#duskDuration)
+
+        // Create now from dawnStart so that it will be on the same day, 
+        // but with the same hours & minutes as the in-game time
+        const now = new Date(dawnStart)
+        now.setHours(time.hours)
+        now.setMinutes(time.minutes, 0, 0)
 
         /**
          * to avoid messing with the time roll-over at midnight, test for dawn,
