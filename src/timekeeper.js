@@ -21,8 +21,8 @@ export class Timekeeper {
 
     initialise () {
         // set the time to the current time to force an update of the clockview
-        // this is particularly required if ClockView has just created brand new clocks
-        this.set(this.#totalElapsedMinutes)
+        // TODO: is this even required anymore?
+        // this.set(this.#totalElapsedMinutes)
     }
 
     /**
@@ -38,7 +38,7 @@ export class Timekeeper {
      * @param {Number} minutes The number of minutes to increment.
      */
     #increment (minutes = 1) {
-        console.log('JD ETime | incrementing %d minutes', minutes)
+        console.debug('JD ETime | incrementing %d minutes', minutes)
 
         if (minutes > 0) {
             const oldTime = this.#factorTime(this.#totalElapsedMinutes)
@@ -95,15 +95,15 @@ export class Timekeeper {
 
     #toTotalMinutes (time) {
         if (typeof time === 'number') {
-            return time
+            return Math.round(time)
         } else {
-            console.log('JD ETime | toTotalMinutes time: %o', time)
+            console.debug('JD ETime | toTotalMinutes time: %o', time)
             const total = 
                 (time.minutes ? time.minutes : 0) +
                 (time.hours ? time.hours * 60 : 0) +
                 (time.days ? time.days * this.#constants.minutesPerDay : 0)
-            console.log('JD ETime | toTotalMinutes total: %o', total)
-            return total
+            console.debug('JD ETime | toTotalMinutes total: %o', total)
+            return Math.round(total)
         }
     }
 
@@ -173,7 +173,10 @@ export class Timekeeper {
      */
     set #totalElapsedMinutes (minutes) {
         if (minutes != this.#totalElapsedMinutes) {
-            game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, minutes)
+            game.settings.set(
+                MODULE_ID, 
+                SETTINGS.TOTAL_ELAPSED_MINUTES, 
+                Math.round(minutes))
         }
     }
 
