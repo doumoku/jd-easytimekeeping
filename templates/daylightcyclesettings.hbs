@@ -32,8 +32,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="dawn-end">{{localize "JDTIMEKEEPING.Settings.DawnEndTime.label"}}:</label>
-                    <input type="time" name="dawn-end" step="300" value="{{dawn-end}}" />
+                    <label for="dawn-duration">{{localize "JDTIMEKEEPING.Settings.DawnDuration.label"}}:</label>
+                    <range-picker min="5" max="120" name="dawn-duration" step="5"
+                        value="{{dawn-duration}}"></range-picker>
                 </div>
 
             </fieldset>
@@ -56,8 +57,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="dusk-end">{{localize "JDTIMEKEEPING.Settings.DuskEndTime.label"}}:</label>
-                    <input type="time" name="dusk-end" step="300" value="{{dusk-end}}" />
+                    <label for="dusk-duration">{{localize "JDTIMEKEEPING.Settings.DuskDuration.label"}}:</label>
+                    <range-picker min="5" max="120" name="dusk-duration" step="5"
+                        value="{{dusk-duration}}"></range-picker>
                 </div>
 
             </fieldset>
