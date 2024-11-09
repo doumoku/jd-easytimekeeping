@@ -1,8 +1,4 @@
 {
-    "JDTIMEKEEPING.Settings.ShowHours.name": "Show Hours",
-    "JDTIMEKEEPING.Settings.ShowHours.hint": "Show the optional hours clock",
-    "JDTIMEKEEPING.Settings.ShowDays.name": "Show Days",
-    "JDTIMEKEEPING.Settings.ShowDays.hint": "Show the optional days clock",
     "JDTIMEKEEPING.Settings.BaseTimeUnit.name": "Duration in minutes of a Stretch.",
     "JDTIMEKEEPING.Settings.BaseTimeUnit.hint": "The duration of a non-combat game turn. Helpful for adapting to other game systems. For example, many OSR games use 10 minute turns. Note this will change the current time so you may need to reset it.",
     "JDTIMEKEEPING.Settings.BaseTimeUnit.option.5": "5 minutes",
@@ -14,9 +10,6 @@
     "JDTIMEKEEPING.Settings.BaseTimeClock.hint": "For adapting to other game systems.",
     "JDTIMEKEEPING.Settings.TimeChangeMacro.name": "Time Change Event Handler",
     "JDTIMEKEEPING.Settings.TimeChangeMacro.hint": "UUID of a macro that will be called when the time changes.",
-    "JDTIMEKEEPING.Settings.HourClockName": "Hour",
-    "JDTIMEKEEPING.Settings.ShiftClockName": "Shift",
-    "JDTIMEKEEPING.Settings.DayClockName": "Day",
     "JDTIMEKEEPING.Settings.AutoTellTimeConfig.name": "Time Chat Settings",
     "JDTIMEKEEPING.Settings.AutoTellTimeConfig.label": "Time Chat Settings",
     "JDTIMEKEEPING.Settings.AutoTellTimeConfig.hint": "Controls whether the time of day is automatically posted to the game chat, and at what intervals.",
@@ -39,8 +32,12 @@
     "JDTIMEKEEPING.Settings.DuskDuration.label": "Dusk Duration (minutes)",
     "JDTIMEKEEPING.Settings.Day": "Day Settings",
     "JDTIMEKEEPING.Settings.Night": "Night Settings",
-    "JDTIMEKEEPING.minutes": "minutes",
     "JDTIMEKEEPING.Settings.CheckAll": "Check All",
     "JDTIMEKEEPING.Settings.ClearAll": "Clear All",
-    "JDTIMEKEEPING.Settings.Display24HourFormat.name": "Display time in 24-hour format"
+    "JDTIMEKEEPING.Settings.Display24HourFormat.name": "Display time in 24-hour format",
+    "JDTIMEKEEPING.Time.Hour": "Hour",
+    "JDTIMEKEEPING.Time.Shift": "Shift",
+    "JDTIMEKEEPING.Time.Day": "Day",
+    "JDTIMEKEEPING.Time.minutes": "minutes",
+    "JDTIMEKEEPING.timeOfDay": "It's {time} on day {day}"
 }

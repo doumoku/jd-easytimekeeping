@@ -32,7 +32,9 @@ export class ClockView {
 
     toTimeString (time, includeDay = false) {
         const timeOfDay = this.#toTimeOfDay(time)
-        return includeDay ? `It's ${timeOfDay} on day ${time.days + 1}` : timeOfDay
+        return includeDay
+            ? game.i18n.format('JDTIMEKEEPING.timeOfDay', { time: timeOfDay, day: time.days + 1 })
+            : timeOfDay
     }
 
     #checkAutoTellTime (time) {
