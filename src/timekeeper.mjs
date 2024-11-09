@@ -22,7 +22,7 @@ export class Timekeeper {
     initialise () {
         // set the time to the current time to force an update of the clockview
         // TODO: is this even required anymore?
-        // this.set(this.#totalElapsedMinutes)
+        this.#set(this.#totalElapsedMinutes)
     }
 
     /**
