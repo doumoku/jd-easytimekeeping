@@ -34,14 +34,13 @@
     "JDTIMEKEEPING.Settings.DaytimeDarknessLevel.label": "Daytime Darkness Level",
     "JDTIMEKEEPING.Settings.NighttimeDarknessLevel.label": "Nighttime Darkness Level",
     "JDTIMEKEEPING.Settings.DawnStartTime.label": "Dawn Start Time",
+    "JDTIMEKEEPING.Settings.DawnEndTime.label": "Dawn End Time",
     "JDTIMEKEEPING.Settings.DuskStartTime.label": "Dusk Start Time",
+    "JDTIMEKEEPING.Settings.DuskEndTime.label": "Dusk End Time",
     "JDTIMEKEEPING.Settings.Day": "Day Settings",
     "JDTIMEKEEPING.Settings.Night": "Night Settings",
-    "JDTIMEKEEPING.Settings.DawnDurationTicks.label": "Dawn duration",
-    "JDTIMEKEEPING.Settings.DawnDurationTicks.hint": "Duration in stretches/turns. One turn is currently ",
-    "JDTIMEKEEPING.Settings.DuskDurationTicks.label": "Dusk duration",
-    "JDTIMEKEEPING.Settings.DuskDurationTicks.hint": "Duration in stretches/turns. One turn is currently ",
     "JDTIMEKEEPING.minutes": "minutes",
     "JDTIMEKEEPING.Settings.CheckAll": "Check All",
-    "JDTIMEKEEPING.Settings.ClearAll": "Clear All"
+    "JDTIMEKEEPING.Settings.ClearAll": "Clear All",
+    "JDTIMEKEEPING.Settings.Display24HourFormat.name": "Display time in 24-hour format"
 }
