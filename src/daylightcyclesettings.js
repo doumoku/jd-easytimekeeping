@@ -20,10 +20,10 @@ export function registerDaylightCycleSettings () {
             'daylight-cycle-enabled': false,
             'day-darkness-level': 0,
             'night-darkness-level': 1.0,
-            'dusk-start': '6:00 PM',
-            'dawn-start': '6:00 AM',
-            'dawn-duration-ticks': 4,
-            'dusk-duration-ticks': 4,
+            'dusk-start': '18:00',
+            'dusk-end': '19:00',
+            'dawn-start': '06:00',
+            'dawn-end': '07:00',
             'animate-darkness-ms': 5000,
         },
     })
@@ -43,45 +43,11 @@ class DaylightCycleMenu extends FormApplication {
 
     getData () {
         const initialValues = game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)
-
-        // TODO: I could do better than this fixed choice of options for
-        // starting dusk and sunrise, but it's good enough for now
-        const duskOptions = {
-            '4:30 PM': false,
-            '5:00 PM': false,
-            '5:30 PM': false,
-            '6:00 PM': false,
-            '6:30 PM': false,
-            '7:00 PM': false,
-        }
-
-        const dawnOptions = {
-            '4:30 AM': false,
-            '5:00 AM': false,
-            '5:30 AM': false,
-            '6:00 AM': false,
-            '6:30 AM': false,
-            '7:00 AM': false,
-        }
-
-        // set the initial values for the form
-        duskOptions[initialValues['dusk-start']] = true
-        dawnOptions[initialValues['dawn-start']] = true
-        initialValues['dusk-start-options'] = duskOptions
-        initialValues['dawn-start-options'] = dawnOptions
         initialValues['animate-darkness'] = initialValues['animate-darkness-ms'] / 1000
-
-        /**
-         * There's no neat way to give this settings form application access
-         * to the Constants instance, so lets just grab it from the public API
-         */
-        initialValues['tick-minutes'] = game.modules.get(MODULE_ID).api.constants.minutesPerTick
-        console.debug(initialValues)
         return initialValues
     }
 
     _updateObject (event, formData) {
-        // gets data from the form, validates and persists if valid
         const data = foundry.utils.expandObject(formData)
         data['animate-darkness-ms'] = Number.parseFloat(data['animate-darkness']) * 1000
         console.debug('JD ETime | DaylightCycleMenu _updateObject: %o', data)
