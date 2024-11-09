@@ -14,7 +14,7 @@ export class ClockView {
     }
 
     initialise () {
-        console.debug('JD ETime | ClockView Checking for Clocks')
+        console.debug('JD ETime | ClockView Ready')
     }
 
     updateTime (time) {
