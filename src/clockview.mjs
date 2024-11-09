@@ -38,14 +38,14 @@ export class ClockView {
     }
 
     #toTimeOfDay (time, force12Hour = false) {
-        // time.hour is a value from 0 to 23
+        // time.hours is a value from 0 to 23
         if (force12Hour || !this.#is24HourDisplay) {
-            const amPm = time.hour >= 12 ? 'PM' : 'AM'
-            let hour = time.hour > 12 ? time.hour - 12 : time.hour
+            const amPm = time.hours >= 12 ? 'PM' : 'AM'
+            let hour = time.hours > 12 ? time.hours - 12 : time.hour
             if (hour === 0) hour = 12
-            return `${hour}:${time.minute.toString().padStart(2, '0')} ${amPm}`
+            return `${hour}:${time.minutes.toString().padStart(2, '0')} ${amPm}`
         } else {
-            return `${time.hour.toString().padStart(2, '0')}:${time.minute
+            return `${time.hours.toString().padStart(2, '0')}:${time.minute
                 .toString()
                 .padStart(2, '0')}`
         }
