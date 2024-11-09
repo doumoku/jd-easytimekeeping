@@ -3,9 +3,9 @@ import { MODULE_ID, SETTINGS } from './settings.js'
 export function registerDaylightCycleSettings () {
     // The settings menu
     game.settings.registerMenu(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_MENU, {
-        name: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.name'),
-        label: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.label'),
-        hint: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.hint'),
+        name: game.i18n.localize('JDTIMEKEEPING.Settings.DaylightCycleSettings.name'),
+        label: game.i18n.localize('JDTIMEKEEPING.Settings.DaylightCycleSettings.label'),
+        hint: game.i18n.localize('JDTIMEKEEPING.Settings.DaylightCycleSettings.hint'),
         icon: 'fas fa-cog',
         type: DaylightCycleMenu,
         restricted: true,
@@ -35,9 +35,9 @@ class DaylightCycleMenu extends FormApplication {
             classes: ['settings'],
             popOut: true,
             width: 500,
-            template: 'modules/jd-dbtime/templates/daylightcyclesettings.hbs',
+            template: `modules/${MODULE_ID}/templates/daylightcyclesettings.hbs`,
             id: SETTINGS.DAYLIGHT_CYCLE_MENU,
-            title: game.i18n.localize('DBTIME.Settings.DaylightCycleSettings.name'),
+            title: game.i18n.localize('JDTIMEKEEPING.Settings.DaylightCycleSettings.name'),
         })
     }
 
@@ -75,7 +75,7 @@ class DaylightCycleMenu extends FormApplication {
          * There's no neat way to give this settings form application access
          * to the Constants instance, so lets just grab it from the public API
          */
-        initialValues['tick-minutes'] = game.modules.get('jd-dbtime').api.constants.minutesPerTick
+        initialValues['tick-minutes'] = game.modules.get(MODULE_ID).api.constants.minutesPerTick
         console.debug(initialValues)
         return initialValues
     }

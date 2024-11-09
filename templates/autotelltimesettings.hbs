@@ -10,7 +10,7 @@
         <div class="grid-two-by-two">
             {{!-- I guess I could factor this repeating pattern out into a partial, but meh! It's done now :) --}}
             <fieldset>
-                <legend>{{localize "DBTIME.Shift.Morning"}}:</legend>
+                <legend>{{localize "JDTIMEKEEPING.Shift.Morning"}}:</legend>
                 <div id="morning">
                     {{#each morning}}
                     {{> checkboxPartial}}
@@ -19,14 +19,14 @@
                 <div class="button-container">
                     <button type="button" data-action="check" data-target="morning"
                         id="btn-check-all-morning">{{localize
-                        "DBTIME.Settings.CheckAll"}}</button>
+                        "JDTIMEKEEPING.Settings.CheckAll"}}</button>
                     <button type="button" data-action="clear" data-target="morning"
                         id="btn-clear-all-morning">{{localize
-                        "DBTIME.Settings.ClearAll"}}</button>
+                        "JDTIMEKEEPING.Settings.ClearAll"}}</button>
                 </div>
             </fieldset>
             <fieldset>
-                <legend>{{localize "DBTIME.Shift.Afternoon"}}:</legend>
+                <legend>{{localize "JDTIMEKEEPING.Shift.Afternoon"}}:</legend>
                 <div id="afternoon">
                     {{#each afternoon}}
                     {{> checkboxPartial}}
@@ -35,14 +35,14 @@
                 <div class="button-container">
                     <button type="button" data-action="check" data-target="afternoon"
                         id="btn-check-all-afternoon">{{localize
-                        "DBTIME.Settings.CheckAll"}}</button>
+                        "JDTIMEKEEPING.Settings.CheckAll"}}</button>
                     <button type="button" data-action="clear" data-target="afternoon"
                         id="btn-clear-all-afternoon">{{localize
-                        "DBTIME.Settings.ClearAll"}}</button>
+                        "JDTIMEKEEPING.Settings.ClearAll"}}</button>
                 </div>
             </fieldset>
             <fieldset>
-                <legend>{{localize "DBTIME.Shift.Evening"}}:</legend>
+                <legend>{{localize "JDTIMEKEEPING.Shift.Evening"}}:</legend>
                 <div id="evening">
                     {{#each evening}}
                     {{> checkboxPartial}}
@@ -51,14 +51,14 @@
                 <div class="button-container">
                     <button type="button" data-action="check" data-target="evening"
                         id="btn-check-all-evening">{{localize
-                        "DBTIME.Settings.CheckAll"}}</button>
+                        "JDTIMEKEEPING.Settings.CheckAll"}}</button>
                     <button type="button" data-action="clear" data-target="evening"
                         id="btn-clear-all-evening">{{localize
-                        "DBTIME.Settings.ClearAll"}}</button>
+                        "JDTIMEKEEPING.Settings.ClearAll"}}</button>
                 </div>
             </fieldset>
             <fieldset>
-                <legend>{{localize "DBTIME.Shift.Night"}}:</legend>
+                <legend>{{localize "JDTIMEKEEPING.Shift.Night"}}:</legend>
                 <div id="night">
                     {{#each night}}
                     {{> checkboxPartial}}
@@ -66,9 +66,9 @@
                 </div>
                 <div class="button-container">
                     <button type="button" data-action="check" data-target="night" id="btn-check-all-night">{{localize
-                        "DBTIME.Settings.CheckAll"}}</button>
+                        "JDTIMEKEEPING.Settings.CheckAll"}}</button>
                     <button type="button" data-action="clear" data-target="night" id="btn-clear-all-night">{{localize
-                        "DBTIME.Settings.ClearAll"}}</button>
+                        "JDTIMEKEEPING.Settings.ClearAll"}}</button>
                 </div>
             </fieldset>
         </div>

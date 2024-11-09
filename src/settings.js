@@ -1,6 +1,6 @@
 export { MODULE_ID, SETTINGS, registerSettings }
 
-import { registerAutoTellTimeSettings } from './autotelltimemenu.js'
+import { registerAutoTellTimeSettings } from './autotelltimesettings.js'
 import { registerDaylightCycleSettings } from './daylightcyclesettings.js'
 
 const MODULE_ID = 'jd-easytimekeeping'
@@ -21,8 +21,8 @@ function registerSettings () {
     registerDaylightCycleSettings()
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_HOURS, {
-        name: game.i18n.localize('DBTIME.Settings.ShowHours.name'),
-        hint: game.i18n.localize('DBTIME.Settings.ShowHours.hint'),
+        name: game.i18n.localize('JDTIMEKEEPING.Settings.ShowHours.name'),
+        hint: game.i18n.localize('JDTIMEKEEPING.Settings.ShowHours.hint'),
         scope: 'world',
         config: true,
         type: Boolean,
@@ -35,8 +35,8 @@ function registerSettings () {
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DAYS, {
-        name: game.i18n.localize('DBTIME.Settings.ShowDays.name'),
-        hint: game.i18n.localize('DBTIME.Settings.ShowDays.hint'),
+        name: game.i18n.localize('JDTIMEKEEPING.Settings.ShowDays.name'),
+        hint: game.i18n.localize('JDTIMEKEEPING.Settings.ShowDays.hint'),
         scope: 'world',
         config: true,
         type: Boolean,
@@ -50,17 +50,17 @@ function registerSettings () {
 
     /*
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_UNIT, {
-        name: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.name'),
-        hint: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.hint'),
+        name: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.name'),
+        hint: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.hint'),
         scope: 'world',
         config: true,
         type: new foundry.data.fields.StringField({
             choices: {
-                5: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.option.5'),
-                10: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.option.10'),
-                15: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.option.15'),
-                20: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.option.20'),
-                30: game.i18n.localize('DBTIME.Settings.BaseTimeUnit.option.30'),
+                5: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.5'),
+                10: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.10'),
+                15: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.15'),
+                20: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.20'),
+                30: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.30'),
             },
             required: true,
         }),
@@ -73,8 +73,8 @@ function registerSettings () {
     })
 
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_CLOCK, {
-        name: game.i18n.localize('DBTIME.Settings.BaseTimeClock.name'),
-        hint: game.i18n.localize('DBTIME.Settings.BaseTimeClock.hint'),
+        name: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeClock.name'),
+        hint: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeClock.hint'),
         scope: 'world',
         config: true,
         type: String,
@@ -88,8 +88,8 @@ function registerSettings () {
     */
 
     game.settings.register(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO, {
-        name: game.i18n.localize('DBTIME.Settings.TimeChangeMacro.name'),
-        hint: game.i18n.localize('DBTIME.Settings.TimeChangeMacro.hint'),
+        name: game.i18n.localize('JDTIMEKEEPING.Settings.TimeChangeMacro.name'),
+        hint: game.i18n.localize('JDTIMEKEEPING.Settings.TimeChangeMacro.hint'),
         scope: 'world',
         config: true,
         type: new foundry.data.fields.DocumentUUIDField({ type: 'Macro' }),
