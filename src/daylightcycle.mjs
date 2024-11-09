@@ -42,20 +42,16 @@ export class DaylightCycle {
         try {
             switch (this.#detectPhase(time)) {
                 case PHASES.DAWN:
-                    console.log('dawn')
                     this.#processDawn(time)
                     break
                 default:
                 case PHASES.DAY:
-                    console.log('day')
                     this.#processDay()
                     break
                 case PHASES.DUSK:
-                    console.log('dusk')
                     this.#processDusk(time)
                     break
                 case PHASES.NIGHT:
-                    console.log('night')
                     this.#processNight()
                     break
             }
