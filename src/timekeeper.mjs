@@ -93,12 +93,28 @@ export class Timekeeper {
         return this.#set(this.#toTotalMinutes(time))
     }
 
+    /**
+     * Gets the current time
+     */
+    getTime () {
+        return this.#factorTime(this.#totalElapsedMinutes)
+    }
+
+    /**
+     * Gets the current time as a formatted string
+     * @param {Boolean} includeDay Determines whether the current day is included in the string
+     * @returns 
+     */
+    toTimeString (includeDay = false) {
+        return this.#clockView.toTimeString(this.#factorTime(this.#totalElapsedMinutes), includeDay)
+    }
+
     #toTotalMinutes (time) {
         if (typeof time === 'number') {
             return Math.round(time)
         } else {
             console.debug('JD ETime | toTotalMinutes time: %o', time)
-            const total = 
+            const total =
                 (time.minutes ? time.minutes : 0) +
                 (time.hours ? time.hours * 60 : 0) +
                 (time.days ? time.days * this.#constants.minutesPerDay : 0)
@@ -175,10 +191,7 @@ export class Timekeeper {
      */
     set #totalElapsedMinutes (minutes) {
         if (minutes != this.#totalElapsedMinutes) {
-            game.settings.set(
-                MODULE_ID, 
-                SETTINGS.TOTAL_ELAPSED_MINUTES, 
-                Math.round(minutes))
+            game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, Math.round(minutes))
         }
     }
 
