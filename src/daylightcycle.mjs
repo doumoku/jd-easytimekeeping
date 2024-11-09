@@ -40,7 +40,7 @@ export class DaylightCycle {
         if (!this.#enabled) return
 
         try {
-            switch (this.#detectPhase(time.timeOfDay24HourNumeric)) {
+            switch (this.#detectPhase(time)) {
                 case PHASES.DAWN:
                     this.#processDawn(time)
                     break
