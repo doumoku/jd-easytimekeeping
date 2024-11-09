@@ -103,10 +103,10 @@ export class DaylightCycle {
     }
 
     #processDay () {
-        console.debug('DB Time | Daylight cycle - day')
+        console.debug('JD ETime | Daylight cycle - day')
         if (this.#sceneDarkness != this.#daytimeDarkness) {
             console.log(
-                'DB Time | Daylight cycle: setting daytime darkness %f',
+                'JD ETime | Daylight cycle: setting daytime darkness %f',
                 this.#daytimeDarkness
             )
             this.#setSceneDarkness(this.#daytimeDarkness)
@@ -114,10 +114,10 @@ export class DaylightCycle {
     }
 
     #processNight () {
-        console.debug('DB Time | Daylight cycle - night')
+        console.debug('JD ETime | Daylight cycle - night')
         if (this.#sceneDarkness != this.#nighttimeDarkness) {
             console.log(
-                'DB Time | Daylight cycle: setting nighttime darkness %f',
+                'JD ETime | Daylight cycle: setting nighttime darkness %f',
                 this.#nighttimeDarkness
             )
             this.#setSceneDarkness(this.#nighttimeDarkness)
@@ -125,7 +125,7 @@ export class DaylightCycle {
     }
 
     #processDawn (time) {
-        console.debug('DB Time | Daylight cycle - dawn')
+        console.debug('JD ETime | Daylight cycle - dawn')
         this.#processTwilightPhase(
             time,
             this.#dawnStart,
@@ -136,7 +136,7 @@ export class DaylightCycle {
     }
 
     #processDusk (time) {
-        console.debug('DB Time | Daylight cycle - dusk')
+        console.debug('JD ETime | Daylight cycle - dusk')
         this.#processTwilightPhase(
             time,
             this.#duskStart,
@@ -176,7 +176,7 @@ export class DaylightCycle {
         this.#setSceneDarkness(darkness)
 
         console.debug(
-            'DB Time | twilight (dawn/dusk) phase is running from minute %d \
+            'JD ETime | twilight (dawn/dusk) phase is running from minute %d \
             to minute %d. Currently at minute %d for scaleFactor = %f. \
             Setting darkness level %f',
             startMinute,

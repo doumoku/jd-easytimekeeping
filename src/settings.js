@@ -3,7 +3,7 @@ export { MODULE_ID, SETTINGS, registerSettings }
 import { registerAutoTellTimeSettings } from './autotelltimemenu.js'
 import { registerDaylightCycleSettings } from './daylightcyclesettings.js'
 
-const MODULE_ID = 'jd-dbtime'
+const MODULE_ID = 'jd-easytimekeeping'
 const SETTINGS = {
     SHOW_HOURS: 'showHours',
     SHOW_DAYS: 'showDays',
@@ -28,7 +28,7 @@ function registerSettings () {
         type: Boolean,
         default: false,
         onChange: value => {
-            console.log('DB Time | %s %o', SETTINGS.SHOW_HOURS, value)
+            console.log('JD ETime | %s %o', SETTINGS.SHOW_HOURS, value)
         },
         requiresReload: true,
         restricted: true,
@@ -42,7 +42,7 @@ function registerSettings () {
         type: Boolean,
         default: false,
         onChange: value => {
-            console.log('DB Time | %s %o', SETTINGS.SHOW_DAYS, value)
+            console.log('JD ETime | %s %o', SETTINGS.SHOW_DAYS, value)
         },
         requiresReload: true,
         restricted: true,
@@ -66,7 +66,7 @@ function registerSettings () {
         }),
         default: 15,
         onChange: value => {
-            console.log('DB Time | %s %d', SETTINGS.BASE_TIME_UNIT, value)
+            console.log('JD ETime | %s %d', SETTINGS.BASE_TIME_UNIT, value)
         },
         requiresReload: true,
         restricted: true,
@@ -80,7 +80,7 @@ function registerSettings () {
         type: String,
         default: 'Stretch',
         onChange: value => {
-            console.log('DB Time | %s %d', SETTINGS.BASE_TIME_CLOCK, value)
+            console.log('JD ETime | %s %d', SETTINGS.BASE_TIME_CLOCK, value)
         },
         requiresReload: true,
         restricted: true,
