@@ -21,9 +21,9 @@ export function registerDaylightCycleSettings () {
             'day-darkness-level': 0,
             'night-darkness-level': 1.0,
             'dusk-start': '18:00',
-            'dusk-end': '19:00',
+            'dusk-duration': 60,
             'dawn-start': '06:00',
-            'dawn-end': '07:00',
+            'dawn-duration': 60,
             'animate-darkness-ms': 5000,
         },
     })
