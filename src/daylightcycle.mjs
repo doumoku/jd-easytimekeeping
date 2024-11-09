@@ -64,26 +64,11 @@ export class DaylightCycle {
         }
     }
 
-    /**
-     * Returns true if timeA is < timeB
-     */
-    #timeLT (timeA, timeB) {
-        return (
-            timeA.hours < timeB.hours ||
-            (timeA.hours === timeB.hours && timeA.minutes < timeB.minutes)
-        )
-    }
-
-    /**
-     * Returns true if timeA is >= timeB
-     */
-    #timeGTE (timeA, timeB) {
-        return !this.#timeLT(timeA, timeB)
-    }
-
     #detectPhase (time) {
-        // Internally, work with the JS Date object since it's much less error prone
-        // and will handle all the edge cases for us
+        /**
+         * Internally, work with the JS Date object since it's much
+         * less error prone and will handle all the edge cases for us
+         */
         const now = this.#asDate(time)
         const dawnStart = this.#asDate(this.#dawnStart)
         const dawnEnd = new Date(dawnStart)
@@ -93,24 +78,19 @@ export class DaylightCycle {
         const duskEnd = new Date(duskStart)
         duskEnd.setMinutes(duskEnd.getMinutes() + this.#duskDuration)
 
-        console.debug('dawnStart: %O', dawnStart)
-        console.debug('dawnEnd: %O', dawnEnd)
-        console.debug('duskStart: %O', duskStart)
-        console.debug('duskEnd: %O', duskEnd)
-        console.debug('now: %O', now)
-
-        // to avoid messing with the time roll-over at midnight, test for dawn, day and dusk.
-        // it's night when it's not one of those three.
-        // if (this.#timeGTE(time, dawnStart) && this.#timeLT(time, dawnEnd)) {
-        //     return PHASES.DAWN
-        // } else if (this.#timeGTE(time, dawnEnd) && this.#timeLT(time, duskStart)) {
-        //     return PHASES.DAY
-        // } else if (this.#timeGTE(time, duskStart) && this.#timeLT(time, duskEnd)) {
-        //     return PHASES.DUSK
-        // } else {
-        //     return PHASES.NIGHT
-        // }
-        return PHASES.DAY
+        /**
+         * to avoid messing with the time roll-over at midnight, test for dawn,
+         * day and dusk. It's night when it's not one of those three.
+         */
+        if (now >= dawnStart && now < dawnEnd) {
+            return PHASES.DAWN
+        } else if (now >= dawnEnd && now < duskStart) {
+            return PHASES.DAY
+        } else if (now >= duskStart && now < duskEnd) {
+            return PHASES.DUSK
+        } else {
+            return PHASES.NIGHT
+        }
     }
 
     #processDay () {
@@ -236,12 +216,6 @@ export class DaylightCycle {
         date.setDate(time.days)
         date.setHours(time.hours)
         date.setMinutes(time.minutes, 0, 0)
-        // TODO: this stuff below is only useful for adding an increment
-        // date.setMinutes(
-        //     Math.round(time.days * this.#constants.minutesPerDay + time.hours * 60 + time.minutes),
-        //     0, // 0 seconds
-        //     0 // 0 milliseconds
-        // )
         return date
     }
 
