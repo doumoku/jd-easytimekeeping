@@ -20,8 +20,7 @@ Hooks.once('ready', async () => {
     const clockView = new ClockView()
     clockView.initialise()
 
-    // FIXME: this looks dodgy, but the constructor registers a hook callback which prevents garbage collection
-    const daylightCycle = new DaylightCycle()
+    DaylightCycle.init()
 
     const timekeeper = new Timekeeper(clockView)
     timekeeper.initialise()
