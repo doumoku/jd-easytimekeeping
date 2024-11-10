@@ -2,16 +2,14 @@
  * Encapsulates the Clock view for Dragonbane Timekeeping
  */
 import { MODULE_ID, SETTINGS } from './settings.mjs'
+import { Constants } from './constants.mjs'
 import { Timekeeper } from './timekeeper.mjs'
 
 export class ClockView {
-    #constants = null
-
     /**
      * Construct a ClockView instance
      */
-    constructor (constants) {
-        this.#constants = constants
+    constructor () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
     }
 

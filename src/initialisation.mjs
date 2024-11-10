@@ -17,16 +17,17 @@ Hooks.once('init', () => {
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
 
-    const constants = new Constants()
-
-    const clockView = new ClockView(constants)
+    const clockView = new ClockView()
     clockView.initialise()
 
+    // FIXME: this looks dodgy, but the constructor registers a hook callback which prevents garbage collection
     const daylightCycle = new DaylightCycle()
 
-    const timekeeper = new Timekeeper(constants, clockView)
+    const timekeeper = new Timekeeper(clockView)
     timekeeper.initialise()
+
     game.modules.get(MODULE_ID).api = timekeeper
+    game.modules.get(MODULE_ID).constants = Constants
 
     console.groupEnd()
 })
