@@ -29,14 +29,10 @@ const PHASES = {
 }
 
 export class DaylightCycle {
-    #constants = null
 
-    constructor (constants) {
-        this.#constants = constants
+    constructor () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
     }
-
-    initialise () {}
 
     timeChangeHandler (data) {
         const time = data.time
