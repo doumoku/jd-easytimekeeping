@@ -21,7 +21,7 @@
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Timekeeper } from './timekeeper.mjs'
 
-const PHASES = {
+export const PHASES = {
     DAWN: 0,
     DAY: 1,
     DUSK: 2,
@@ -55,6 +55,20 @@ export class DaylightCycle {
             }
         } catch (error) {
             console.error(error)
+        }
+    }
+
+    static getPhaseOfDay (time) {
+        switch (DaylightCycle.#detectPhase(time)) {
+            case PHASES.DAWN:
+                return game.i18n.localize('JDTIMEKEEPING.Time.Dawn')
+            default:
+            case PHASES.DAY:
+                return game.i18n.localize('JDTIMEKEEPING.Time.Day')
+            case PHASES.DUSK:
+                return game.i18n.localize('JDTIMEKEEPING.Time.Dusk')
+            case PHASES.NIGHT:
+                return game.i18n.localize('JDTIMEKEEPING.Time.Night')
         }
     }
 

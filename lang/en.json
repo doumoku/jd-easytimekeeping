@@ -38,6 +38,9 @@
     "JDTIMEKEEPING.Time.Hour": "Hour",
     "JDTIMEKEEPING.Time.Shift": "Shift",
     "JDTIMEKEEPING.Time.Day": "Day",
+    "JDTIMEKEEPING.Time.Dawn": "Dawn",
+    "JDTIMEKEEPING.Time.Dusk": "Dusk",
+    "JDTIMEKEEPING.Time.Night": "Night",
     "JDTIMEKEEPING.Time.minutes": "minutes",
     "JDTIMEKEEPING.timeOfDay": "It's {time} on day {day}",
     "JDTIMEKEEPING.NoPermission": "You do not have permission to change the time."

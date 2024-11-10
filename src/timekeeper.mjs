@@ -5,6 +5,7 @@
 
 import { SETTINGS, MODULE_ID } from './settings.mjs'
 import { Constants } from './constants.mjs'
+import { DaylightCycle } from './daylightcycle.mjs'
 
 export class Timekeeper {
     #clockView = null
@@ -19,6 +20,10 @@ export class Timekeeper {
     initialise () {
         // set the time to the current time to force an update of the clockview
         this.#set(this.#totalElapsedMinutes)
+    }
+
+    getPhaseOfDay () {
+        return DaylightCycle.getPhaseOfDay(this.#factorTime(this.#totalElapsedMinutes))
     }
 
     /**
