@@ -21,7 +21,6 @@ export class Timekeeper {
 
     initialise () {
         // set the time to the current time to force an update of the clockview
-        // TODO: is this even required anymore?
         this.#set(this.#totalElapsedMinutes)
     }
 
@@ -107,7 +106,7 @@ export class Timekeeper {
             const newTime = this.#factorTime(this.#totalElapsedMinutes + minutes)
             console.debug('JD ETime | Current time %o', oldTime)
             console.log('JD ETime | Incrementing to new time %o', newTime)
-            this.#totalElapsedMinutes += minutes
+            this.#setTotalElapsedMinutes(this.#totalElapsedMinutes + minutes)
             return this.#notify(oldTime, newTime)
         }
     }
@@ -123,7 +122,7 @@ export class Timekeeper {
             const newTime = this.#factorTime(totalMinutes)
             console.debug('JD ETime | Current time %o', oldTime)
             console.log('JD ETime | Setting new time %o', newTime)
-            this.#totalElapsedMinutes = totalMinutes
+            this.#setTotalElapsedMinutes(totalMinutes)
             return this.#notify(oldTime, newTime)
         }
     }
@@ -199,10 +198,8 @@ export class Timekeeper {
     /**
      * Sets the total elapsed ticks since tick 0 on day 0
      */
-    set #totalElapsedMinutes (minutes) {
-        if (minutes != this.#totalElapsedMinutes) {
-            game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, Math.round(minutes))
-        }
+    async #setTotalElapsedMinutes (minutes) {
+        await game.settings.set(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, Math.round(minutes))
     }
 
     get #timeChangeMacro () {
