@@ -8,15 +8,13 @@ import { SETTINGS, MODULE_ID } from './settings.mjs'
 export class Timekeeper {
     #constants = null
     #clockView = null
-    #daylightCycle = null
 
     static TIME_CHANGE_HOOK = 'dbtimeTimeChangedHook'
 
-    constructor (constants, clockView, daylightCycle) {
+    constructor (constants, clockView) {
         console.debug('JD ETime | Timekeeper created')
         this.#constants = constants
         this.#clockView = clockView
-        this.#daylightCycle = daylightCycle
     }
 
     initialise () {

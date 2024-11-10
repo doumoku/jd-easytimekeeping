@@ -22,10 +22,9 @@ Hooks.once('ready', async () => {
     const clockView = new ClockView(constants)
     clockView.initialise()
 
-    const daylightCycle = new DaylightCycle(constants)
-    daylightCycle.initialise()
+    const daylightCycle = new DaylightCycle()
 
-    const timekeeper = new Timekeeper(constants, clockView, daylightCycle)
+    const timekeeper = new Timekeeper(constants, clockView)
     timekeeper.initialise()
     game.modules.get(MODULE_ID).api = timekeeper
 
