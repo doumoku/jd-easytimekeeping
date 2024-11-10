@@ -17,10 +17,10 @@ Hooks.once('init', () => {
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
 
+    DaylightCycle.init()
+
     const clockView = new ClockView()
     clockView.initialise()
-
-    DaylightCycle.init()
 
     const timekeeper = new Timekeeper(clockView)
     timekeeper.initialise()
