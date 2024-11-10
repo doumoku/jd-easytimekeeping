@@ -17,7 +17,7 @@ export class Timekeeper {
         this.#clockView = clockView
     }
 
-    initialise () {
+    init () {
         // set the time to the current time to force an update of the clockview
         this.#set(this.#totalElapsedMinutes)
     }

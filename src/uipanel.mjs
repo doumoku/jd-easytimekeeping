@@ -26,6 +26,21 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     init () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
+
+        /**
+         * This creates a DOM element in the ui-left interface div,
+         * in between the canvas controls and the players panel.
+         * Technique from Global Progress Clocks
+         * */
+        const top = document.querySelector('#controls')
+        if (top) {
+            const template = document.createElement('template')
+            template.setAttribute('id', UIPanel.ID)
+            top.insertAdjacentElement('afterend', template)
+        }
+        else {
+            console.error('JD ETime | Could not initialise UI Panel')
+        }
     }
 
     timeChangeHandler (data) {
