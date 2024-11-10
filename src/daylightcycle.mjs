@@ -38,7 +38,7 @@ export class DaylightCycle {
         if (!DaylightCycle.#enabled) return
 
         try {
-            switch (DaylightCycle.detectPhase(time)) {
+            switch (DaylightCycle.#detectPhase(time)) {
                 case PHASES.DAWN:
                     DaylightCycle.#processDawn(time)
                     break
@@ -58,7 +58,21 @@ export class DaylightCycle {
         }
     }
 
-    static detectPhase (time) {
+    static getPhaseOfDay (time) {
+        switch (DaylightCycle.#detectPhase(time)) {
+            case PHASES.DAWN:
+                return game.i18n.localize('JDTIMEKEEPING.Time.Dawn')
+            default:
+            case PHASES.DAY:
+                return game.i18n.localize('JDTIMEKEEPING.Time.Day')
+            case PHASES.DUSK:
+                return game.i18n.localize('JDTIMEKEEPING.Time.Dusk')
+            case PHASES.NIGHT:
+                return game.i18n.localize('JDTIMEKEEPING.Time.Night')
+        }
+    }
+
+    static #detectPhase (time) {
         /**
          * Internally, work with the JS Date object since it's much
          * less error prone and will handle all the edge cases for us
