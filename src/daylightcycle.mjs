@@ -21,7 +21,7 @@
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Timekeeper } from './timekeeper.mjs'
 
-const PHASES = {
+export const PHASES = {
     DAWN: 0,
     DAY: 1,
     DUSK: 2,
@@ -38,7 +38,7 @@ export class DaylightCycle {
         if (!DaylightCycle.#enabled) return
 
         try {
-            switch (DaylightCycle.#detectPhase(time)) {
+            switch (DaylightCycle.detectPhase(time)) {
                 case PHASES.DAWN:
                     DaylightCycle.#processDawn(time)
                     break
@@ -58,7 +58,7 @@ export class DaylightCycle {
         }
     }
 
-    static #detectPhase (time) {
+    static detectPhase (time) {
         /**
          * Internally, work with the JS Date object since it's much
          * less error prone and will handle all the edge cases for us
