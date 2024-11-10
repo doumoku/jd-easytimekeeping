@@ -2,6 +2,7 @@
  * Encapsulates the Clock view for Dragonbane Timekeeping
  */
 import { MODULE_ID, SETTINGS } from './settings.mjs'
+import { Timekeeper } from './timekeeper.mjs'
 
 export class ClockView {
     #constants = null
@@ -11,14 +12,15 @@ export class ClockView {
      */
     constructor (constants) {
         this.#constants = constants
+        Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
     }
 
     initialise () {
         console.debug('JD ETime | ClockView Ready')
     }
 
-    updateTime (time) {
-        this.#checkAutoTellTime(time)
+    timeChangeHandler (data) {
+        this.#checkAutoTellTime(data.time)
     }
 
     tellTime (time) {

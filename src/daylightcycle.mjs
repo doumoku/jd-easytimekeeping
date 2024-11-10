@@ -19,6 +19,7 @@
  * clock ticks.
  */
 import { MODULE_ID, SETTINGS } from './settings.mjs'
+import { Timekeeper } from './timekeeper.mjs'
 
 const PHASES = {
     DAWN: 0,
@@ -32,11 +33,13 @@ export class DaylightCycle {
 
     constructor (constants) {
         this.#constants = constants
+        Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
     }
 
     initialise () {}
 
-    updateTime (time) {
+    timeChangeHandler (data) {
+        const time = data.time
         if (!this.#enabled) return
 
         try {

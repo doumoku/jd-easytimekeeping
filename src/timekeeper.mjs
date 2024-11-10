@@ -157,8 +157,6 @@ export class Timekeeper {
      */
     #notify (oldTime, newTime) {
         const data = { oldTime: oldTime, time: newTime }
-        this.#clockView.updateTime(newTime)
-        this.#daylightCycle.updateTime(newTime)
 
         Hooks.callAll(Timekeeper.TIME_CHANGE_HOOK, data)
 
