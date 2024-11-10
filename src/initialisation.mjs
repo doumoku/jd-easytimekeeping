@@ -17,17 +17,16 @@ Hooks.once('init', () => {
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
 
-    const constants = new Constants()
+    DaylightCycle.init()
 
-    const clockView = new ClockView(constants)
+    const clockView = new ClockView()
     clockView.initialise()
 
-    const daylightCycle = new DaylightCycle(constants)
-    daylightCycle.initialise()
-
-    const timekeeper = new Timekeeper(constants, clockView, daylightCycle)
+    const timekeeper = new Timekeeper(clockView)
     timekeeper.initialise()
+
     game.modules.get(MODULE_ID).api = timekeeper
+    game.modules.get(MODULE_ID).constants = Constants
 
     console.groupEnd()
 })

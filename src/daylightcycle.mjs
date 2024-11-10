@@ -19,6 +19,7 @@
  * clock ticks.
  */
 import { MODULE_ID, SETTINGS } from './settings.mjs'
+import { Timekeeper } from './timekeeper.mjs'
 
 const PHASES = {
     DAWN: 0,
@@ -28,31 +29,28 @@ const PHASES = {
 }
 
 export class DaylightCycle {
-    #constants = null
-
-    constructor (constants) {
-        this.#constants = constants
+    static init () {
+        Hooks.on(Timekeeper.TIME_CHANGE_HOOK, DaylightCycle.timeChangeHandler)
     }
 
-    initialise () {}
-
-    updateTime (time) {
-        if (!this.#enabled) return
+    static timeChangeHandler (data) {
+        const time = data.time
+        if (!DaylightCycle.#enabled) return
 
         try {
-            switch (this.#detectPhase(time)) {
+            switch (DaylightCycle.#detectPhase(time)) {
                 case PHASES.DAWN:
-                    this.#processDawn(time)
+                    DaylightCycle.#processDawn(time)
                     break
                 default:
                 case PHASES.DAY:
-                    this.#processDay()
+                    DaylightCycle.#processDay()
                     break
                 case PHASES.DUSK:
-                    this.#processDusk(time)
+                    DaylightCycle.#processDusk(time)
                     break
                 case PHASES.NIGHT:
-                    this.#processNight()
+                    DaylightCycle.#processNight()
                     break
             }
         } catch (error) {
@@ -60,18 +58,18 @@ export class DaylightCycle {
         }
     }
 
-    #detectPhase (time) {
+    static #detectPhase (time) {
         /**
          * Internally, work with the JS Date object since it's much
          * less error prone and will handle all the edge cases for us
          */
-        const dawnStart = this.#asDate(this.#dawnStart)
+        const dawnStart = DaylightCycle.#asDate(DaylightCycle.#dawnStart)
         const dawnEnd = new Date(dawnStart)
-        dawnEnd.setMinutes(dawnEnd.getMinutes() + this.#dawnDuration)
+        dawnEnd.setMinutes(dawnEnd.getMinutes() + DaylightCycle.#dawnDuration)
 
-        const duskStart = this.#asDate(this.#duskStart)
+        const duskStart = DaylightCycle.#asDate(DaylightCycle.#duskStart)
         const duskEnd = new Date(duskStart)
-        duskEnd.setMinutes(duskEnd.getMinutes() + this.#duskDuration)
+        duskEnd.setMinutes(duskEnd.getMinutes() + DaylightCycle.#duskDuration)
 
         // Create now from dawnStart so that it will be on the same day,
         // but with the same hours & minutes as the in-game time
@@ -94,51 +92,51 @@ export class DaylightCycle {
         }
     }
 
-    #processDay () {
+    static #processDay () {
         console.debug('JD ETime | Daylight cycle - day')
-        if (this.#sceneDarkness != this.#daytimeDarkness) {
+        if (DaylightCycle.#sceneDarkness != DaylightCycle.#daytimeDarkness) {
             console.log(
                 'JD ETime | Daylight cycle: setting daytime darkness %f',
-                this.#daytimeDarkness
+                DaylightCycle.#daytimeDarkness
             )
-            this.#setSceneDarkness(this.#daytimeDarkness)
+            DaylightCycle.#setSceneDarkness(DaylightCycle.#daytimeDarkness)
         }
     }
 
-    #processNight () {
+    static #processNight () {
         console.debug('JD ETime | Daylight cycle - night')
-        if (this.#sceneDarkness != this.#nighttimeDarkness) {
+        if (DaylightCycle.#sceneDarkness != DaylightCycle.#nighttimeDarkness) {
             console.log(
                 'JD ETime | Daylight cycle: setting nighttime darkness %f',
-                this.#nighttimeDarkness
+                DaylightCycle.#nighttimeDarkness
             )
-            this.#setSceneDarkness(this.#nighttimeDarkness)
+            DaylightCycle.#setSceneDarkness(DaylightCycle.#nighttimeDarkness)
         }
     }
 
-    #processDawn (time) {
+    static #processDawn (time) {
         console.debug('JD ETime | Daylight cycle - dawn')
-        this.#processTwilightPhase(
+        DaylightCycle.#processTwilightPhase(
             time,
-            this.#dawnStart,
-            this.#dawnDuration,
-            this.#nighttimeDarkness,
-            this.#daytimeDarkness
+            DaylightCycle.#dawnStart,
+            DaylightCycle.#dawnDuration,
+            DaylightCycle.#nighttimeDarkness,
+            DaylightCycle.#daytimeDarkness
         )
     }
 
-    #processDusk (time) {
+    static #processDusk (time) {
         console.debug('JD ETime | Daylight cycle - dusk')
-        this.#processTwilightPhase(
+        DaylightCycle.#processTwilightPhase(
             time,
-            this.#duskStart,
-            this.#duskDuration,
-            this.#daytimeDarkness,
-            this.#nighttimeDarkness
+            DaylightCycle.#duskStart,
+            DaylightCycle.#duskDuration,
+            DaylightCycle.#daytimeDarkness,
+            DaylightCycle.#nighttimeDarkness
         )
     }
 
-    #processTwilightPhase (time, startTime, durationMinutes, fromDarkness, toDarkness) {
+    static #processTwilightPhase (time, startTime, durationMinutes, fromDarkness, toDarkness) {
         /**
          * Given:
          * 1. start, end, & duration in minutes of the phase
@@ -153,13 +151,13 @@ export class DaylightCycle {
          * We don't need to test for overrunning the end of the phase. That's
          * already handled before this method is called.
          */
-        const endTime = this.#addMinutes(startTime, durationMinutes)
+        const endTime = DaylightCycle.#addMinutes(startTime, durationMinutes)
         const startMinute = startTime.hours * 60 + startTime.minutes
         const endMinute = endTime.hours * 60 + endTime.minutes
         const currentMinute = time.hours * 60 + time.minutes
         const scaleFactor = (currentMinute - startMinute) / (endMinute - startMinute)
-        const darkness = this.#scaleVector(scaleFactor, fromDarkness, toDarkness)
-        this.#setSceneDarkness(darkness)
+        const darkness = DaylightCycle.#scaleVector(scaleFactor, fromDarkness, toDarkness)
+        DaylightCycle.#setSceneDarkness(darkness)
 
         console.debug(
             'JD ETime | twilight (dawn/dusk) phase is running from minute %d \
@@ -173,7 +171,7 @@ export class DaylightCycle {
         )
     }
 
-    #scaleVector (scale, start, end) {
+    static #scaleVector (scale, start, end) {
         let v = scale * (end - start) + start
         v = Math.min(1, Math.max(0, v))
         return v
@@ -183,7 +181,7 @@ export class DaylightCycle {
      * @param {Date} time the time
      * @param {Number} minutes the number of minutes to add to the time
      */
-    #addMinutes (time, minutes) {
+    static #addMinutes (time, minutes) {
         const totalMinutes = time.hours * 60 + time.minutes + minutes
         return {
             hours: Math.floor(totalMinutes / 60),
@@ -205,7 +203,7 @@ export class DaylightCycle {
      * @param {Number} time.minutes
      * @returns
      */
-    #asDate (time) {
+    static #asDate (time) {
         const date = new Date()
         date.setDate(time.days)
         date.setHours(time.hours)
@@ -216,59 +214,59 @@ export class DaylightCycle {
     /**
      * Methods to encapsulate settings and scene values, since they make for cleaner code
      */
-    get #enabled () {
+    static get #enabled () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
             'daylight-cycle-enabled'
         ]
     }
 
-    get #animateDarkness () {
+    static get #animateDarkness () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['animate-darkness-ms']
     }
 
-    get #daytimeDarkness () {
+    static get #daytimeDarkness () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['day-darkness-level']
     }
 
-    get #nighttimeDarkness () {
+    static get #nighttimeDarkness () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
             'night-darkness-level'
         ]
     }
 
-    get #sceneDarkness () {
+    static get #sceneDarkness () {
         return canvas.scene.environment.darknessLevel
     }
 
-    async #setSceneDarkness (darkness) {
+    static async #setSceneDarkness (darkness) {
         await canvas.scene.update(
             { 'environment.darknessLevel': darkness },
-            { animateDarkness: this.#animateDarkness }
+            { animateDarkness: DaylightCycle.#animateDarkness }
         )
     }
 
-    #asTime (s) {
+    static #asTime (s) {
         const split = s.split(':')
         return { days: 1, hours: Number.parseInt(split[0]), minutes: Number.parseInt(split[1]) }
     }
 
-    get #dawnStart () {
-        return this.#asTime(
+    static get #dawnStart () {
+        return DaylightCycle.#asTime(
             game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dawn-start']
         )
     }
 
-    get #dawnDuration () {
+    static get #dawnDuration () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dawn-duration']
     }
 
-    get #duskStart () {
-        return this.#asTime(
+    static get #duskStart () {
+        return DaylightCycle.#asTime(
             game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dusk-start']
         )
     }
 
-    get #duskDuration () {
+    static get #duskDuration () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dusk-duration']
     }
 }

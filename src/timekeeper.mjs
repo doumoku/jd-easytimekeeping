@@ -4,31 +4,21 @@
  */
 
 import { SETTINGS, MODULE_ID } from './settings.mjs'
+import { Constants } from './constants.mjs'
 
 export class Timekeeper {
-    #constants = null
     #clockView = null
-    #daylightCycle = null
 
     static TIME_CHANGE_HOOK = 'dbtimeTimeChangedHook'
 
-    constructor (constants, clockView, daylightCycle) {
+    constructor (clockView) {
         console.debug('JD ETime | Timekeeper created')
-        this.#constants = constants
         this.#clockView = clockView
-        this.#daylightCycle = daylightCycle
     }
 
     initialise () {
         // set the time to the current time to force an update of the clockview
         this.#set(this.#totalElapsedMinutes)
-    }
-
-    /**
-     * Gets the constants object, containing useful values relating to time as currently defined.
-     */
-    get constants () {
-        return this.#constants
     }
 
     /**
@@ -135,7 +125,7 @@ export class Timekeeper {
             const total =
                 (time.minutes ? time.minutes : 0) +
                 (time.hours ? time.hours * 60 : 0) +
-                (time.days ? time.days * this.#constants.minutesPerDay : 0)
+                (time.days ? time.days * Constants.minutesPerDay : 0)
             console.debug('JD ETime | toTotalMinutes total: %o', total)
             return Math.round(total)
         }
@@ -157,14 +147,12 @@ export class Timekeeper {
      */
     #notify (oldTime, newTime) {
         const data = { oldTime: oldTime, time: newTime }
-        this.#clockView.updateTime(newTime)
-        this.#daylightCycle.updateTime(newTime)
 
         Hooks.callAll(Timekeeper.TIME_CHANGE_HOOK, data)
 
         /**
          * Macros can't listen to hooks, so if there is a macro registered in the
-         * module settings then we'll call it
+         * module settings then we'll call it now
          */
         const timeChangeMacro = this.#timeChangeMacro
         if (timeChangeMacro) {
@@ -181,9 +169,9 @@ export class Timekeeper {
         const time = {}
 
         time.totalMinutes = totalMinutes
-        time.days = Math.floor(totalMinutes / this.#constants.minutesPerDay)
-        time.hours = Math.floor((totalMinutes % this.#constants.minutesPerDay) / 60)
-        time.minutes = (totalMinutes % this.#constants.minutesPerDay) % 60
+        time.days = Math.floor(totalMinutes / Constants.minutesPerDay)
+        time.hours = Math.floor((totalMinutes % Constants.minutesPerDay) / 60)
+        time.minutes = (totalMinutes % Constants.minutesPerDay) % 60
 
         return time
     }
