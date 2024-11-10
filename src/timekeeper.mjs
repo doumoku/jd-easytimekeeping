@@ -33,6 +33,68 @@ export class Timekeeper {
     }
 
     /**
+     * Increment the time.
+     *
+     * @param {Object} time the time interval to increment by
+     * @param {Number} [time.days=0] days
+     * @param {Number} [time.hours=0] hours
+     * @param {Number} [time.minutes=10] minutes
+     */
+    increment (time) {
+        if (!game.user.isGM) {
+            ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.NoPermission'))
+            return false
+        }
+
+        // FIXME: The default time increment should come from module settings
+        if (!time) time = { minutes: 10 }
+        return this.#increment(this.#toTotalMinutes(time))
+    }
+
+    /**
+     * Set the time.
+     *
+     * @param {Object} time the time to set
+     * @param {Number} [time.days=0] days
+     * @param {Number} [time.hours=0] hours
+     * @param {Number} [time.minutes=10] minutes
+     */
+    set (time) {
+        if (!game.user.isGM) {
+            ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.NoPermission'))
+            return false
+        }
+
+        if (!time) time = 0
+        return this.#set(this.#toTotalMinutes(time))
+    }
+
+    /**
+     * Gets the current time
+     */
+    getTime () {
+        return this.#factorTime(this.#totalElapsedMinutes)
+    }
+
+    /**
+     * Gets the current time as a formatted string
+     * @param {Boolean} includeDay Determines whether the current day is included in the string
+     * @returns
+     */
+    toTimeString (includeDay = false) {
+        return this.#clockView.toTimeString(this.#factorTime(this.#totalElapsedMinutes), includeDay)
+    }
+
+    /**
+     * Posts the current time to chat.
+     */
+    tellTime () {
+        console.debug('JD ETime | tellTime')
+        const currentTime = this.#factorTime(this.#totalElapsedMinutes)
+        this.#clockView.tellTime(currentTime)
+    }
+
+    /**
      * Private method to actually increment the current time.
      *
      * @param {Number} minutes The number of minutes to increment.
@@ -66,49 +128,6 @@ export class Timekeeper {
         }
     }
 
-    /**
-     * Increment the time.
-     *
-     * @param {Object} time the time interval to increment by
-     * @param {Number} [time.days=0] days
-     * @param {Number} [time.hours=0] hours
-     * @param {Number} [time.minutes=10] minutes
-     */
-    increment (time) {
-        // FIXME: The default time increment should come from module settings
-        if (!time) time = { minutes: 10 }
-        return this.#increment(this.#toTotalMinutes(time))
-    }
-
-    /**
-     * Set the time.
-     *
-     * @param {Object} time the time to set
-     * @param {Number} [time.days=0] days
-     * @param {Number} [time.hours=0] hours
-     * @param {Number} [time.minutes=10] minutes
-     */
-    set (time) {
-        if (!time) time = 0
-        return this.#set(this.#toTotalMinutes(time))
-    }
-
-    /**
-     * Gets the current time
-     */
-    getTime () {
-        return this.#factorTime(this.#totalElapsedMinutes)
-    }
-
-    /**
-     * Gets the current time as a formatted string
-     * @param {Boolean} includeDay Determines whether the current day is included in the string
-     * @returns 
-     */
-    toTimeString (includeDay = false) {
-        return this.#clockView.toTimeString(this.#factorTime(this.#totalElapsedMinutes), includeDay)
-    }
-
     #toTotalMinutes (time) {
         if (typeof time === 'number') {
             return Math.round(time)
@@ -121,15 +140,6 @@ export class Timekeeper {
             console.debug('JD ETime | toTotalMinutes total: %o', total)
             return Math.round(total)
         }
-    }
-
-    /**
-     * Posts the current time to chat.
-     */
-    tellTime () {
-        console.debug('JD ETime | tellTime')
-        const currentTime = this.#factorTime(this.#totalElapsedMinutes)
-        this.#clockView.tellTime(currentTime)
     }
 
     /**
