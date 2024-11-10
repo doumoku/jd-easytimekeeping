@@ -6,9 +6,6 @@ import { Constants } from './constants.mjs'
 import { Timekeeper } from './timekeeper.mjs'
 
 export class ClockView {
-    /**
-     * Construct a ClockView instance
-     */
     constructor () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
     }
