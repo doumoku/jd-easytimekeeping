@@ -10,7 +10,7 @@ export class ClockView {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
     }
 
-    initialise () {
+    init () {
         console.debug('JD ETime | ClockView Ready')
     }
 

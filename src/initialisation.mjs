@@ -11,39 +11,26 @@ import { UIPanel } from './uipanel.mjs'
 
 Hooks.once('init', () => {
     console.group('JD ETime | init')
+
     registerSettings()
 
-    /**
-     * This creates a DOM element in the ui-left interface div,
-     * in between the canvas controls and the players panel.
-     * */
-    createUIPanelElement('#controls')
+    const uiPanel = new UIPanel()
+    uiPanel.init()
+    game.modules.get(MODULE_ID).uiPanel = uiPanel
 
-    game.modules.get(MODULE_ID).uiPanel = new UIPanel()
-    game.modules.get(MODULE_ID).uiPanel.init()
+    DaylightCycle.init()
+
     console.groupEnd()
 })
-
-// Create a DOM element somewhere in the page. Technique from Global Progress Clocks
-function createUIPanelElement (insertAfter = '#ui-top') {
-    const top = document.querySelector(insertAfter)
-    if (top) {
-        const template = document.createElement('template')
-        template.setAttribute('id', UIPanel.ID)
-        top.insertAdjacentElement('afterend', template)
-    }
-}
 
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
 
-    DaylightCycle.init()
-
     const clockView = new ClockView()
-    clockView.initialise()
+    clockView.init()
 
     const timekeeper = new Timekeeper(clockView)
-    timekeeper.initialise()
+    timekeeper.init()
 
     game.modules.get(MODULE_ID).api = timekeeper
     game.modules.get(MODULE_ID).constants = Constants
