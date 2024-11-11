@@ -8,7 +8,8 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static ID = 'jd-et-uipanel'
     static DEFAULT_OPTIONS = {
-        tag: 'div',
+        tag: 'div', // TODO: do I need this to be a form to receive button click events?
+        classes: ['ui-panel', 'app'],
         id: UIPanel.ID,
         window: {
             frame: false,
