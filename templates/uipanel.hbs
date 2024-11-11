@@ -1,5 +1,9 @@
 <form class="ui-panel app">
-    <label>
-        {{time.hours}}:{{time.minutes}} on day {{time.days}}
-    </label>
+    <div class="flexcol">
+        <div class="et-time flexrow">
+            <span id="timeofday">
+                {{time.hours}}:{{time.minutes}} on day {{time.days}}
+            </span>
+        </div>
+    </div>
 </form>

@@ -50,7 +50,17 @@
 
 .ui-panel {
     /* Set the left and right margins to align with the player panel */
-    margin-left: 16px;
+    margin-left: 15px;
     margin-right: 4px;
+
+    /* A bit of space between us and the player panel */
     margin-bottom: 6px;
+    border: 1px solid black;
+
+    display: flex;
+    justify-content: center;
+}
+
+.et-time #timeofday {
+    color: goldenrod;
 }
