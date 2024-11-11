@@ -12,7 +12,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         classes: ['ui-panel', 'app', '' ],
         id: UIPanel.ID,
         window: {
-            frame: true,
+            frame: false,
         },
         actions: {
             'time-delta': UIPanel.smallJump,
