@@ -9,16 +9,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static ID = 'jd-et-uipanel'
     static DEFAULT_OPTIONS = {
         tag: 'div',
-        classes: ['ui-panel', 'app'],
+        classes: ['ui-panel', 'app', '' ],
         id: UIPanel.ID,
         window: {
-            frame: false,
-        },
-        position: {
-            top: 400,
-            left: 50,
-            width: 300,
-            height: 80,
+            frame: true,
         },
         actions: {
             'time-delta': UIPanel.smallJump,
@@ -36,21 +30,25 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     init () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
+        if (!UIPanel.DEFAULT_OPTIONS.window.frame)
+            this.#insertAppElement('#players')
+    }
 
+    #insertAppElement(target) {
         /**
          * This creates a DOM element in the ui-left interface div,
          * in between the canvas controls and the players panel.
          * Technique from Global Progress Clocks.
          * Shame it doesn't appear to work with ApplicationV2, since it put the UI exactly where I wanted it
          * */
-        // const top = document.querySelector('#controls')
-        // if (top) {
-        //     const template = document.createElement('template')
-        //     template.setAttribute('id', UIPanel.ID)
-        //     top.insertAdjacentElement('afterend', template)
-        // } else {
-        //     console.error('JD ETime | Could not initialise UI Panel')
-        // }
+        const top = document.querySelector(target)
+        if (top) {
+            const template = document.createElement('template')
+            template.setAttribute('id', UIPanel.ID)
+            top.insertAdjacentElement('beforebegin', template)
+        } else {
+            console.error('JD ETime | Could not initialise UI Panel')
+        }
     }
 
     timeChangeHandler (data) {
@@ -60,7 +58,6 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     _onRender (context, options) {
-        // I don't need this. The Actions works when the application has a frame, and nothing works when it doesn't
         // const timeButtons = this.element.querySelectorAll('[data-action=time-delta]')
         // for (const button of timeButtons) {
         //     button.addEventListener('click', this.testClick.bind(this))
@@ -79,12 +76,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
      * @param {HTMLElement} target - the capturing HTML element which defined a [data-action]
      */
     static smallJump (event, target) {
-        console.log(this, target)
         ui.notifications.notify('small jump')
     }
 
     testClick (event, target) {
-        console.log(this)
         ui.notifications.notify('clicked')
     }
 }

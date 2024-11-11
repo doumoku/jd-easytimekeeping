@@ -186,6 +186,10 @@ export class Timekeeper {
      */
     get #totalElapsedMinutes () {
         return game.settings.get(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES)
+        // This uses game time
+        // const currentWorldTime = game.time.worldTime
+        // const dayTime = Math.abs(Math.trunc((currentWorldTime % 86400) / 60));
+        // return dayTime
     }
 
     /**

@@ -1,13 +1,15 @@
-<div class="flexcol">
-    <div class="et-time flexcol">
-        <span id="timeofday">
-            {{time.hours}}:{{time.minutes}} on day {{time.days}}
-        </span>
-        <span class="button-container flexrow">
-            <button type="button" id="btn-et-small-jump" data-action="time-delta" data-target="large-decrement">&lt;&lt;</button>
-            <button type="button" id="btn-et-small-jump" data-action="time-delta" data-target="small-decrement">&lt;</button>
-            <button type="button" id="btn-et-small-jump" data-action="time-delta" data-target="small-increment">&gt;</button>
-            <button type="button" id="btn-et-small-jump" data-action="time-delta" data-target="large-increment">&gt;&gt;</button>
-        </span>
-    </div>
+<div class="et-time flexcol">
+    <span id="timeofday" class="flexrow flex-align-center">
+        {{time.hours}}:{{time.minutes}} on day {{time.days}}
+    </span>
+    <span class="button-container flexrow">
+        <button type="button" id="btn-et-small-jump" data-action="time-delta"
+            data-target="large-decrement">&lt;&lt;</button>
+        <button type="button" id="btn-et-small-jump" data-action="time-delta"
+            data-target="small-decrement">&lt;</button>
+        <button type="button" id="btn-et-small-jump" data-action="time-delta"
+            data-target="small-increment">&gt;</button>
+        <button type="button" id="btn-et-small-jump" data-action="time-delta"
+            data-target="large-increment">&gt;&gt;</button>
+    </span>
 </div>
