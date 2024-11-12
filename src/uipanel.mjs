@@ -15,7 +15,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             frame: false,
         },
         actions: {
-            'time-delta': UIPanel.smallJump,
+            'time-delta': UIPanel.timeDeltaButtonHandler,
         },
     }
 
@@ -74,11 +74,15 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
      * @param {PointerEvent} event - The originating click event
      * @param {HTMLElement} target - the capturing HTML element which defined a [data-action]
      */
-    static smallJump (event, target) {
-        ui.notifications.notify('small jump')
-    }
-
-    static testClick (event, target) {
-        ui.notifications.notify('clicked')
+    static timeDeltaButtonHandler (event, target) {
+        const dataTarget = target.getAttribute('data-target')
+        if (dataTarget === 'small-increment')
+            console.log('small-inc')
+        else if (dataTarget === 'large-increment')
+            console.log('large-inc')
+        else if (dataTarget === 'large-decrement')
+            console.log('large-dec')
+        else if (dataTarget === 'small-decrement')
+            console.log('small-dec')
     }
 }
