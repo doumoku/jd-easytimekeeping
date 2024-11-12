@@ -9,7 +9,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static ID = 'jd-et-uipanel'
     static DEFAULT_OPTIONS = {
         tag: 'div',
-        classes: ['ui-panel', 'app', '' ],
+        classes: ['ui-panel', 'app', ''],
         id: UIPanel.ID,
         window: {
             frame: false,
@@ -26,15 +26,14 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     #time = {}
-    refresh = foundry.utils.debounce(this.render, 200)
+    refresh = foundry.utils.debounce(this.render, 100)
 
     init () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
-        if (!UIPanel.DEFAULT_OPTIONS.window.frame)
-            this.#insertAppElement('#players')
+        if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
     }
 
-    #insertAppElement(target) {
+    #insertAppElement (target) {
         /**
          * This creates a DOM element in the ui-left interface div,
          * in between the canvas controls and the players panel.
@@ -79,7 +78,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         ui.notifications.notify('small jump')
     }
 
-    testClick (event, target) {
+    static testClick (event, target) {
         ui.notifications.notify('clicked')
     }
 }

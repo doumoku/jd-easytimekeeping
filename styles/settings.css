@@ -1,70 +1,74 @@
 .grid-two-by-two {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 7px;
-    margin-bottom: 7px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 7px;
+  margin-bottom: 7px;
 }
 
 .checkbox-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .checkbox-item label {
-    display: inline-block;
-    width: 100px;
-    text-align: right;
+  display: inline-block;
+  width: 100px;
+  text-align: right;
 }
 
 .checkbox-item input {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .form-inline {
-    display: flex;
-    flex-flow: row wrap;
-    flex-direction: column;
-    align-items: stretch;
+  display: flex;
+  flex-flow: row wrap;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .form-inline label {
-    display: inline-block;
-    align-items: center;
-    margin: 5px 10px 5px 0;
+  display: inline-block;
+  align-items: center;
+  margin: 5px 10px 5px 0;
 }
 
 .form-row {
-    margin: 5px;
+  margin: 5px;
 }
 
 .margin-top {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 
 .button-container {
-    display: flex;
-    gap: 10px;
-    margin-top: 5px;
+  display: flex;
+  gap: 10px;
+  margin-top: 5px;
+}
+
+.receive-pointer-events {
+  pointer-events: initial;
 }
 
 .ui-panel {
-    /* Set the left and right margins to align with the player panel */
-    margin-left: 15px;
-    margin-right: 4px;
+  /* Set the left and right margins to align with the player panel */
+  margin-left: 15px;
+  margin-right: 4px;
 
-    /* A bit of space between us and the player panel */
-    margin-bottom: 6px;
-    border: 1px solid black;
+  /* A bit of space between us and the player panel */
+  margin-bottom: 6px;
+  border: 1px solid black;
 
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 .et-time #timeofday {
-    color: goldenrod;
-    margin-bottom: 10px;
-    /* gap: 10px; */
+  color: goldenrod;
+  margin-bottom: 10px;
+  /* gap: 10px; */
 }
 
 .flex-group-center,
