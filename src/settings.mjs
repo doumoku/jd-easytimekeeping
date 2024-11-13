@@ -63,6 +63,7 @@ function registerSettings () {
         restricted: true,
     })
 
+    // small time delta in minutes
     game.settings.register(MODULE_ID, SETTINGS.SMALL_TIME_DELTA, {
         name: 'JDTIMEKEEPING.Settings.SmallTimeDelta.name',
         hint: 'JDTIMEKEEPING.Settings.SmallTimeDelta.hint',
@@ -86,6 +87,7 @@ function registerSettings () {
         restricted: true,
     })
 
+    // Large time delta in hours
     game.settings.register(MODULE_ID, SETTINGS.LARGE_TIME_DELTA, {
         name: 'JDTIMEKEEPING.Settings.LargeTimeDelta.name',
         hint: 'JDTIMEKEEPING.Settings.LargeTimeDelta.hint',
@@ -93,17 +95,17 @@ function registerSettings () {
         config: true,
         type: new foundry.data.fields.StringField({
             choices: {
-                60: '1',
-                120: '2',
-                180: '3',
-                240: '4',
-                300: '5',
-                360: '6',
-                720: '12',
+                1: '1',
+                2: '2',
+                3: '3',
+                4: '4',
+                5: '5',
+                6: '6',
+                12: '12',
             },
             required: true,
         }),
-        default: 360,
+        default: 6,
         onChange: value => {
             console.log('JD ETime | %s %d', SETTINGS.LARGE_TIME_DELTA, value)
         },

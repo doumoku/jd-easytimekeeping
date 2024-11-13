@@ -76,13 +76,27 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
      */
     static timeDeltaButtonHandler (event, target) {
         const dataTarget = target.getAttribute('data-target')
-        if (dataTarget === 'small-increment')
-            console.log('small-inc')
-        else if (dataTarget === 'large-increment')
-            console.log('large-inc')
-        else if (dataTarget === 'large-decrement')
-            console.log('large-dec')
-        else if (dataTarget === 'small-decrement')
-            console.log('small-dec')
+        if (dataTarget) {
+            const tk = game.modules.get(MODULE_ID).api
+            // TODO: keyboard modifiers
+
+            if (dataTarget === 'small-increment') {
+                tk.increment({ minutes: UIPanel.#smallTimeDelta })
+            } else if (dataTarget === 'large-increment') {
+                tk.increment({ minutes: -UIPanel.#largeTimeDelta })
+            } else if (dataTarget === 'large-decrement') {
+                tk.increment({ hours: -UIPanel.#largeTimeDelta })
+            } else if (dataTarget === 'small-decrement') {
+                tk.increment({ hours: -UIPanel.#smallTimeDelta })
+            }
+        }
+    }
+
+    static get #smallTimeDelta () {
+        return game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA)
+    }
+
+    static get #largeTimeDelta () {
+        return game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA)
     }
 }
