@@ -14,6 +14,8 @@ const SETTINGS = {
     DAYLIGHT_CYCLE_SETTINGS: 'daylightCycleSettings',
     DAYLIGHT_CYCLE_MENU: 'daylightCycleMenu',
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
+    SMALL_TIME_DELTA: 'smallTimeDelta',
+    LARGE_TIME_DELTA: 'largeTimeDelta',
 }
 
 function registerSettings () {
@@ -61,30 +63,55 @@ function registerSettings () {
         restricted: true,
     })
 
-    /*
-    game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_UNIT, {
-        name: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.name'),
-        hint: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.hint'),
+    game.settings.register(MODULE_ID, SETTINGS.SMALL_TIME_DELTA, {
+        name: 'JDTIMEKEEPING.Settings.SmallTimeDelta.name',
+        hint: 'JDTIMEKEEPING.Settings.SmallTimeDelta.hint',
         scope: 'world',
         config: true,
         type: new foundry.data.fields.StringField({
             choices: {
-                5: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.5'),
-                10: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.10'),
-                15: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.15'),
-                20: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.20'),
-                30: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeUnit.option.30'),
+                5: '5',
+                10: '10',
+                15: '15',
+                20: '20',
+                30: '30',
             },
             required: true,
         }),
         default: 15,
         onChange: value => {
-            console.log('JD ETime | %s %d', SETTINGS.BASE_TIME_UNIT, value)
+            console.log('JD ETime | %s %d', SETTINGS.SMALL_TIME_DELTA, value)
         },
-        requiresReload: true,
+        requiresReload: false,
         restricted: true,
     })
 
+    game.settings.register(MODULE_ID, SETTINGS.LARGE_TIME_DELTA, {
+        name: 'JDTIMEKEEPING.Settings.LargeTimeDelta.name',
+        hint: 'JDTIMEKEEPING.Settings.LargeTimeDelta.hint',
+        scope: 'world',
+        config: true,
+        type: new foundry.data.fields.StringField({
+            choices: {
+                60: '1',
+                120: '2',
+                180: '3',
+                240: '4',
+                300: '5',
+                360: '6',
+                720: '12',
+            },
+            required: true,
+        }),
+        default: 360,
+        onChange: value => {
+            console.log('JD ETime | %s %d', SETTINGS.LARGE_TIME_DELTA, value)
+        },
+        requiresReload: false,
+        restricted: true,
+    })
+
+    /*
     game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_CLOCK, {
         name: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeClock.name'),
         hint: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeClock.hint'),
