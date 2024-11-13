@@ -83,11 +83,11 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             if (dataTarget === 'small-increment') {
                 tk.increment({ minutes: UIPanel.#smallTimeDelta })
             } else if (dataTarget === 'large-increment') {
-                tk.increment({ minutes: -UIPanel.#largeTimeDelta })
+                tk.increment({ hours: UIPanel.#largeTimeDelta })
             } else if (dataTarget === 'large-decrement') {
                 tk.increment({ hours: -UIPanel.#largeTimeDelta })
             } else if (dataTarget === 'small-decrement') {
-                tk.increment({ hours: -UIPanel.#smallTimeDelta })
+                tk.increment({ minutes: -UIPanel.#smallTimeDelta })
             }
         }
     }
