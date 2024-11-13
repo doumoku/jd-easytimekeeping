@@ -6,6 +6,7 @@
 import { SETTINGS, MODULE_ID } from './settings.mjs'
 import { Constants } from './constants.mjs'
 import { DaylightCycle } from './daylightcycle.mjs'
+import { Helpers } from './helpers.mjs'
 
 export class Timekeeper {
     #clockView = null
@@ -18,7 +19,6 @@ export class Timekeeper {
     }
 
     init () {
-        // set the time to the current time to force an update of the clockview
         this.#set(this.#totalElapsedMinutes)
     }
 
@@ -76,7 +76,7 @@ export class Timekeeper {
      * @returns
      */
     toTimeString (includeDay = false) {
-        return this.#clockView.toTimeString(this.#factorTime(this.#totalElapsedMinutes), includeDay)
+        return Helpers.toTimeString(this.#factorTime(this.#totalElapsedMinutes), includeDay)
     }
 
     /**
