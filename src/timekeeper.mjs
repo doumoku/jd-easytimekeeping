@@ -96,14 +96,14 @@ export class Timekeeper {
     #increment (minutes = 1) {
         console.debug('JD ETime | incrementing %d minutes', minutes)
 
-        if (minutes > 0) {
-            const oldTime = this.#factorTime(this.#totalElapsedMinutes)
-            const newTime = this.#factorTime(this.#totalElapsedMinutes + minutes)
-            console.debug('JD ETime | Current time %o', oldTime)
-            console.log('JD ETime | Incrementing to new time %o', newTime)
-            this.#setTotalElapsedMinutes(this.#totalElapsedMinutes + minutes)
-            return this.#notify(oldTime, newTime)
-        }
+        // don't decrement time earlier than time 0
+        const newMinutes = Math.max(0, this.#totalElapsedMinutes + minutes)
+        const oldTime = this.#factorTime(this.#totalElapsedMinutes)
+        const newTime = this.#factorTime(newMinutes)
+        console.debug('JD ETime | Current time %o', oldTime)
+        console.log('JD ETime | Incrementing to new time %o', newTime)
+        this.#setTotalElapsedMinutes(newMinutes)
+        return this.#notify(oldTime, newTime)
     }
 
     /**
@@ -128,9 +128,9 @@ export class Timekeeper {
         } else {
             console.debug('JD ETime | toTotalMinutes time: %o', time)
             const total =
-                (time.minutes ? time.minutes : 0) +
-                (time.hours ? time.hours * 60 : 0) +
-                (time.days ? time.days * Constants.minutesPerDay : 0)
+                (time.minutes ? Number.parseFloat(time.minutes) : 0) +
+                (time.hours ? Number.parseFloat(time.hours) * 60 : 0) +
+                (time.days ? Number.parseFloat(time.days) * Constants.minutesPerDay : 0)
             console.debug('JD ETime | toTotalMinutes total: %o', total)
             return Math.round(total)
         }
