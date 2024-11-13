@@ -3,7 +3,7 @@
  *
  */
 import { registerSettings, MODULE_ID } from './settings.mjs'
-import { ClockView } from './clockview.mjs'
+import { TimeTeller } from './timeteller.mjs'
 import { Constants } from './constants.mjs'
 import { DaylightCycle } from './daylightcycle.mjs'
 import { Timekeeper } from './timekeeper.mjs'
@@ -18,7 +18,7 @@ Hooks.once('init', () => {
     uiPanel.init()
     game.modules.get(MODULE_ID).uiPanel = uiPanel
 
-    ClockView.init()
+    TimeTeller.init()
     DaylightCycle.init()
 
     console.groupEnd()

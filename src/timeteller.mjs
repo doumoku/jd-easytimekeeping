@@ -5,13 +5,13 @@ import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Helpers } from './helpers.mjs'
 import { Timekeeper } from './timekeeper.mjs'
 
-export class ClockView {
+export class TimeTeller {
     static init () {
-        Hooks.on(Timekeeper.TIME_CHANGE_HOOK, ClockView.timeChangeHandler)
+        Hooks.on(Timekeeper.TIME_CHANGE_HOOK, TimeTeller.timeChangeHandler)
     }
 
     static timeChangeHandler (data) {
-        ClockView.#checkAutoTellTime(data.time)
+        TimeTeller.#checkAutoTellTime(data.time)
     }
 
     static tellTime (time) {
