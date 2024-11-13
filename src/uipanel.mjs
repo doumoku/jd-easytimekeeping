@@ -3,6 +3,7 @@
  */
 import { Timekeeper } from './timekeeper.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
+import { Helpers } from './helpers.mjs'
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
 export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -51,8 +52,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     timeChangeHandler (data) {
-        this.#time = structuredClone(data.time)
-        this.#time.days += 1 // display 1-based instead of 0-based
+        this.#time = Helpers.toTimeString(data.time, {
+            includeDay: true,
+            i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
+        })
         this.render(true)
     }
 
