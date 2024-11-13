@@ -23,7 +23,6 @@ export function registerAutoTellTimeSettings () {
 class AutoTellTimeMenu extends FormApplication {
     static get defaultOptions () {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ['settings'],
             popOut: true,
             width: 400,
             template: `modules/${MODULE_ID}/templates/autotelltimesettings.hbs`,
