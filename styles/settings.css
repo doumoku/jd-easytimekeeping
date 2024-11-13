@@ -65,10 +65,20 @@
   justify-content: center;
 }
 
+.time-button-container {
+  i {
+    color: #ffffff;
+  }
+
+  i:hover {
+    color: orangered;
+    transform: scale(1.6);
+  }
+}
+
 .et-time #timeofday {
   color: goldenrod;
   margin-bottom: 10px;
-  /* gap: 10px; */
 }
 
 .flex-group-center,

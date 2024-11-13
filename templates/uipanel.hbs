@@ -3,14 +3,14 @@
         {{time.hours}}:{{time.minutes}} on day {{time.days}}
     </span>
     {{!-- TODO: don't even show this if the user is not a GM --}}
-    <span class="button-container flexrow receive-pointer-events">
-        <button type="button" id="btn-et-small-jump" data-action="time-delta"
-            data-target="large-decrement">&lt;&lt;</button>
-        <button type="button" id="btn-et-small-jump" data-action="time-delta"
-            data-target="small-decrement">&lt;</button>
-        <button type="button" id="btn-et-small-jump" data-action="time-delta"
-            data-target="small-increment">&gt;</button>
-        <button type="button" id="btn-et-small-jump" data-action="time-delta"
-            data-target="large-increment">&gt;&gt;</button>
+    <span class="button-container flexrow receive-pointer-events time-button-container">
+        <i id="btn-et-small-jump" data-action="time-delta" data-target="large-decrement"
+            class="fa-solid fa-backward-fast"></i>
+        <i id="btn-et-small-jump" data-action="time-delta" data-target="small-decrement"
+            class="fa-solid fa-backward"></i>
+        <i id="btn-et-small-jump" data-action="time-delta" data-target="small-increment"
+            class="fa-solid fa-forward"></i>
+        <i id="btn-et-large-jump" data-action="time-delta" data-target="large-increment"
+            class="fa-solid fa-forward-fast"></i>
     </span>
 </div>
