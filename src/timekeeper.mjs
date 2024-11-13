@@ -74,7 +74,7 @@ export class Timekeeper {
      * @returns
      */
     toTimeString (includeDay = false) {
-        return Helpers.toTimeString(this.#factorTime(this.#totalElapsedMinutes), includeDay)
+        return Helpers.toTimeString(this.#factorTime(this.#totalElapsedMinutes), {includeDay: includeDay})
     }
 
     /**

@@ -19,13 +19,18 @@ export class Helpers {
      * @param {Number} time.days days
      * @param {Number} time.hours The hour of the day in 24 time
      * @param {Number} time.minutes The minute of the hour
-     * @param {Boolean} includeDay Whether the day is included, or just the time
+     * @param {Object} [options]
+     * @param {Boolean} [options.includeDay=false] Whether the day is included, or just the time
+     * @param {String} [options.i18nFormatter='JDTIMEKEEPING.timeOfDay'] The formatter to use
      */
-    static toTimeString (time, includeDay = false) {
+    static toTimeString (time, options) {
         const timeOfDay = Helpers.toTimeOfDay(time)
-        return includeDay
-            ? game.i18n.format('JDTIMEKEEPING.timeOfDay', { time: timeOfDay, day: time.days + 1 })
-            : timeOfDay
+        if (options?.includeDay) {
+            const formatter = options?.i18nFormatter || 'JDTIMEKEEPING.timeOfDay'
+            return game.i18n.format(formatter, { time: timeOfDay, day: time.days + 1 })
+        } else {
+            return timeOfDay
+        }
     }
 
     /**

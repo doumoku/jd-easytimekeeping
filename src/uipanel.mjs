@@ -52,7 +52,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     timeChangeHandler (data) {
-        this.#time = Helpers.toTimeString(data.time, true)
+        this.#time = Helpers.toTimeString(data.time, {
+            includeDay: true,
+            i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
+        })
         this.render(true)
     }
 

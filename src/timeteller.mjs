@@ -15,7 +15,7 @@ export class TimeTeller {
     }
 
     static tellTime (time) {
-        const content = Helpers.toTimeString(time, true)
+        const content = Helpers.toTimeString(time, {includeDay: true})
         console.log('JD ETime | %s', content)
         ChatMessage.create({
             speaker: { actor: game.user.id },
