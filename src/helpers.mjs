@@ -8,13 +8,12 @@
 
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Constants } from './constants.mjs'
-import { Timekeeper } from './timekeeper.mjs'
 
 export class Helpers {
     /**
-     * Returns the current time of day as a formatted string. 
+     * Returns the current time of day as a formatted string.
      * Current module settings for 12 or 24 hour time are honoured.
-     * 
+     *
      * @param {Object} time A Timekeeper time object
      * @param {Number} time.totalMinutes total minutes
      * @param {Number} time.days days
