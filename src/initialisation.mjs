@@ -18,6 +18,7 @@ Hooks.once('init', () => {
     uiPanel.init()
     game.modules.get(MODULE_ID).uiPanel = uiPanel
 
+    ClockView.init()
     DaylightCycle.init()
 
     console.groupEnd()
@@ -26,10 +27,7 @@ Hooks.once('init', () => {
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
 
-    const clockView = new ClockView()
-    clockView.init()
-
-    const timekeeper = new Timekeeper(clockView)
+    const timekeeper = new Timekeeper()
     timekeeper.init()
 
     game.modules.get(MODULE_ID).api = timekeeper

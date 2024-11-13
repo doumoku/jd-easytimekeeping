@@ -7,15 +7,13 @@ import { SETTINGS, MODULE_ID } from './settings.mjs'
 import { Constants } from './constants.mjs'
 import { DaylightCycle } from './daylightcycle.mjs'
 import { Helpers } from './helpers.mjs'
+import { ClockView } from './clockview.mjs'
 
 export class Timekeeper {
-    #clockView = null
-
     static TIME_CHANGE_HOOK = 'dbtimeTimeChangedHook'
 
-    constructor (clockView) {
+    constructor () {
         console.debug('JD ETime | Timekeeper created')
-        this.#clockView = clockView
     }
 
     init () {
@@ -85,7 +83,7 @@ export class Timekeeper {
     tellTime () {
         console.debug('JD ETime | tellTime')
         const currentTime = this.#factorTime(this.#totalElapsedMinutes)
-        this.#clockView.tellTime(currentTime)
+        ClockView.tellTime(currentTime)
     }
 
     /**

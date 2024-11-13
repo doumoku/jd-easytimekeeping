@@ -6,19 +6,15 @@ import { Helpers } from './helpers.mjs'
 import { Timekeeper } from './timekeeper.mjs'
 
 export class ClockView {
-    constructor () {
-        Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
+    static init () {
+        Hooks.on(Timekeeper.TIME_CHANGE_HOOK, ClockView.timeChangeHandler)
     }
 
-    init () {
-        console.debug('JD ETime | ClockView Ready')
+    static timeChangeHandler (data) {
+        ClockView.#checkAutoTellTime(data.time)
     }
 
-    timeChangeHandler (data) {
-        this.#checkAutoTellTime(data.time)
-    }
-
-    tellTime (time) {
+    static tellTime (time) {
         const content = Helpers.toTimeString(time, true)
         console.log('JD ETime | %s', content)
         ChatMessage.create({
@@ -27,7 +23,7 @@ export class ClockView {
         })
     }
 
-    #checkAutoTellTime (time) {
+    static #checkAutoTellTime (time) {
         const tellTimeSettings = game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS)
         const timeOfDay = Helpers.toTimeOfDay(time, true)
         if (tellTimeSettings[timeOfDay]) this.tellTime(time)
