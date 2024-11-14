@@ -42,12 +42,6 @@ export class SetTimeApplication extends HandlebarsApplicationMixin(ApplicationV2
                     icon: 'fa-solid fa-save',
                     label: 'SETTINGS.Save',
                 },
-                {
-                    type: 'reset',
-                    action: 'reset',
-                    icon: 'fa-solid fa-undo',
-                    label: 'SETTINGS.Reset',
-                },
             ],
         }
         return context
