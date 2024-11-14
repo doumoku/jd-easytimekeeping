@@ -6,8 +6,6 @@
 > [!CAUTION]
 > This module is still a work in progress, and it has not yet been published to Foundry. If you are brave and want to try it out, it can be installed from the manifest URL as described in the [Foundry documentation](https://foundryvtt.com/article/modules/).
 
-Manifest URL:
-
 ```html
 https://raw.githubusercontent.com/DC23/jd-easytimekeeping/refs/tags/v0.4.5/module.json
 ```
