@@ -17,6 +17,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         },
         actions: {
             'time-delta': UIPanel.timeDeltaButtonHandler,
+            'set-time': UIPanel.setTimeButtonHandler,
+            'reset-time': UIPanel.resetTimeButtonHandler,
         },
     }
 
@@ -92,6 +94,27 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             } else if (dataTarget === 'small-decrement') {
                 tk.increment({ minutes: -UIPanel.#smallTimeDelta })
             }
+        }
+    }
+
+    static async setTimeButtonHandler (event, target) {
+        const proceed = await foundry.applications.api.DialogV2.prompt({
+            window: { title: 'Set' },
+            content: '<p>Do you wish to continue?</p>',
+            modal: true,
+        })
+        console.log(proceed)
+    }
+
+    static async resetTimeButtonHandler (event, target) {
+        const reset = await foundry.applications.api.DialogV2.confirm({
+            window: { title: 'JDTIMEKEEPING.ResetTime.title' },
+            content: game.i18n.localize('JDTIMEKEEPING.ResetTime.content'),
+            modal: true,
+            rejectClose: false,
+        })
+        if (reset) {
+            await game.modules.get(MODULE_ID).api.set({ days: 0, hours: 0, minutes: 0 })
         }
     }
 
