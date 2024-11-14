@@ -1,6 +1,13 @@
-<form class="flexrow">
+<div class="flexcol">
     <div class="form-group">
-        <label for="set-time">{{localize "JDTIMEKEEPING.SetTime.label"}}:</label>
-        <input type="time" name="set-time" step="300" value="{{set-time}}" />
+        <label for="setTime">{{localize "JDTIMEKEEPING.SetTime.label"}}:</label>
+        <input type="time" name="setTime" step="300" value="{{setTime}}" />
     </div>
+    <div class="form-group">
+        <label for="setDay">{{localize "JDTIMEKEEPING.Time.Day"}}:</label>
+        {{numberInput setDay name="setDay" step=1 min=1 }}
+    </div>
+
+    <footer class="sheet-footer margin-top flexrow">
+    </footer>
 </form>

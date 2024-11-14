@@ -55,4 +55,9 @@ export class Helpers {
     static get timeDisplayMode () {
         return game.settings.get(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME) ? '24hour' : '12hour'
     }
+
+    static splitTimeString (s) {
+        const split = s.split(':')
+        return { days: 1, hours: Number.parseInt(split[0]), minutes: Number.parseInt(split[1]) }
+    }
 }

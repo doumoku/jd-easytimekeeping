@@ -4,13 +4,14 @@
 import { Timekeeper } from './timekeeper.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Helpers } from './helpers.mjs'
+import { SetTimeApplication } from './settimeapp.mjs'
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
 export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static ID = 'jd-et-uipanel'
     static DEFAULT_OPTIONS = {
         tag: 'div',
-        classes: ['ui-panel', 'app', ''],
+        classes: ['ui-panel', 'app'],
         id: UIPanel.ID,
         window: {
             frame: false,
@@ -98,25 +99,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     static async setTimeButtonHandler (event, target) {
-        const data = {
-            'set-time': Helpers.toTimeOfDay(
-                await game.modules.get(MODULE_ID).api.getTime(),
-                '24hour'
-            ),
-        }
-        const content = await renderTemplate(
-            `modules/${MODULE_ID}/templates/setTimeDialog.hbs`,
-            data
-        )
-        const setTime = await foundry.applications.api.DialogV2.confirm({
-            window: { title: 'JDTIMEKEEPING.SetTime.title' },
-            content: content,
-            modal: true,
-            rejectClose: false,
-        })
-        if (setTime) {
-            console.log(setTime)
-        }
+        new SetTimeApplication().render(true)
     }
 
     static async resetTimeButtonHandler (event, target) {
