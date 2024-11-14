@@ -98,12 +98,25 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     static async setTimeButtonHandler (event, target) {
-        const proceed = await foundry.applications.api.DialogV2.prompt({
-            window: { title: 'Set' },
-            content: '<p>Do you wish to continue?</p>',
+        const data = {
+            'dawn-start': Helpers.toTimeOfDay(
+                await game.modules.get(MODULE_ID).api.getTime(),
+                '24hour'
+            ),
+        }
+        const content = await renderTemplate(
+            `modules/${MODULE_ID}/templates/setTimeDialog.hbs`,
+            data
+        )
+        const setTime = await foundry.applications.api.DialogV2.confirm({
+            window: { title: 'JDTIMEKEEPING.SetTime.title' },
+            content: content,
             modal: true,
+            rejectClose: false,
         })
-        console.log(proceed)
+        if (setTime) {
+            console.log(setTime)
+        }
     }
 
     static async resetTimeButtonHandler (event, target) {

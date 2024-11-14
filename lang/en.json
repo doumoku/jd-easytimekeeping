@@ -41,5 +41,7 @@
     "JDTIMEKEEPING.uiTimeOfDay": "{time} on day {day}",
     "JDTIMEKEEPING.NoPermission": "You do not have permission to change the time.",
     "JDTIMEKEEPING.ResetTime.title": "Confirm Time Reset",
-    "JDTIMEKEEPING.ResetTime.content": "<p>Reset the time to midnight of the first day?</p>"
+    "JDTIMEKEEPING.ResetTime.content": "<p>Reset the time to midnight of the first day?</p>",
+    "JDTIMEKEEPING.SetTime.title": "Set the Time",
+    "JDTIMEKEEPING.SetTime.label": "Set time"
 }
