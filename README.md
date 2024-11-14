@@ -1,6 +1,7 @@
 # Easy Timekeeping
 
 ![Static Badge](https://img.shields.io/badge/Module%20Status%3A-Alpha-red)
+![Static Badge](https://img.shields.io/badge/Version-0.4.4-blue)
 
 > [!CAUTION]
 > This module is still a work in progress, and is not yet ready for use. It has not been released. If you really want some timekeeping goodness, you'll be better off with [the original macro version](https://github.com/DC23/foundry-macros/blob/main/dbtime/dbtime-readme.md). I don't maintain that version anymore, and it's harder to install than this module, but at least it's ready to use now.
