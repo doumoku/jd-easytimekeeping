@@ -99,7 +99,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static async setTimeButtonHandler (event, target) {
         const data = {
-            'dawn-start': Helpers.toTimeOfDay(
+            'set-time': Helpers.toTimeOfDay(
                 await game.modules.get(MODULE_ID).api.getTime(),
                 '24hour'
             ),
