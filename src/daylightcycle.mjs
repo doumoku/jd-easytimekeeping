@@ -18,6 +18,7 @@
  * move the scene darkness level towards the target value over the required number of
  * clock ticks.
  */
+import { Helpers } from './helpers.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Timekeeper } from './timekeeper.mjs'
 
@@ -259,13 +260,8 @@ export class DaylightCycle {
         )
     }
 
-    static #asTime (s) {
-        const split = s.split(':')
-        return { days: 1, hours: Number.parseInt(split[0]), minutes: Number.parseInt(split[1]) }
-    }
-
     static get #dawnStart () {
-        return DaylightCycle.#asTime(
+        return Helpers.splitTimeString(
             game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dawn-start']
         )
     }
@@ -275,7 +271,7 @@ export class DaylightCycle {
     }
 
     static get #duskStart () {
-        return DaylightCycle.#asTime(
+        return Helpers.splitTimeString(
             game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dusk-start']
         )
     }

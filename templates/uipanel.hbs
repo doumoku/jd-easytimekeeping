@@ -4,6 +4,7 @@
     </span>
     {{!-- TODO: don't even show this if the user is not a GM --}}
     <span class="button-container flexrow receive-pointer-events time-button-container">
+        <i id="btn-et-reset-time" data-action="reset-time" class="fa-solid fa-clock-rotate-left"></i>
         <i id="btn-et-small-jump" data-action="time-delta" data-target="large-decrement"
             class="fa-solid fa-backward-fast"></i>
         <i id="btn-et-small-jump" data-action="time-delta" data-target="small-decrement"
@@ -12,5 +13,6 @@
             class="fa-solid fa-forward"></i>
         <i id="btn-et-large-jump" data-action="time-delta" data-target="large-increment"
             class="fa-solid fa-forward-fast"></i>
+        <i id="btn-et-set-time" data-action="set-time" class="fa-solid fa-clock"></i>
     </span>
 </div>

@@ -4,19 +4,22 @@
 import { Timekeeper } from './timekeeper.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Helpers } from './helpers.mjs'
+import { SetTimeApplication } from './settimeapp.mjs'
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
 export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static ID = 'jd-et-uipanel'
     static DEFAULT_OPTIONS = {
         tag: 'div',
-        classes: ['ui-panel', 'app', ''],
+        classes: ['ui-panel', 'app'],
         id: UIPanel.ID,
         window: {
             frame: false,
         },
         actions: {
             'time-delta': UIPanel.timeDeltaButtonHandler,
+            'set-time': UIPanel.setTimeButtonHandler,
+            'reset-time': UIPanel.resetTimeButtonHandler,
         },
     }
 
@@ -92,6 +95,24 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             } else if (dataTarget === 'small-decrement') {
                 tk.increment({ minutes: -UIPanel.#smallTimeDelta })
             }
+        }
+    }
+
+    static async setTimeButtonHandler (event, target) {
+        new SetTimeApplication().render(true)
+    }
+
+    static async resetTimeButtonHandler (event, target) {
+        const reset = await foundry.applications.api.DialogV2.confirm({
+            window: { 
+                icon: 'fa-solid fa-clock-rotate-left',
+                title: 'JDTIMEKEEPING.ResetTime.title' },
+            content: game.i18n.localize('JDTIMEKEEPING.ResetTime.content'),
+            modal: true,
+            rejectClose: false,
+        })
+        if (reset) {
+            await game.modules.get(MODULE_ID).api.set({ days: 0, hours: 0, minutes: 0 })
         }
     }
 

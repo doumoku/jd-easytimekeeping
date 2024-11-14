@@ -25,7 +25,7 @@ export class TimeTeller {
 
     static #checkAutoTellTime (time) {
         const tellTimeSettings = game.settings.get(MODULE_ID, SETTINGS.AUTO_TELL_TIME_SETTINGS)
-        const timeOfDay = Helpers.toTimeOfDay(time, true)
+        const timeOfDay = Helpers.toTimeOfDay(time, '12hour')
         if (tellTimeSettings[timeOfDay]) this.tellTime(time)
     }
 }

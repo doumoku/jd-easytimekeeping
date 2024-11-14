@@ -36,11 +36,11 @@ export class Helpers {
     /**
      * Gets the formatted time as a string "hh:mm [AM|PM]"
      * @param {Object} time A Timekeeper time object
-     * @param {Boolean} [force12Hour=false] If true, forces an override to the module setting
+     * @param {String} [mode='auto'] Time mode. 'auto' uses the module setting
      */
-    static toTimeOfDay (time, force12Hour = false) {
-        // time.hours is a value from 0 to 23
-        if (force12Hour || !this.is24HourDisplay) {
+    static toTimeOfDay (time, mode = 'auto') {
+        const theMode = mode === 'auto' ? Helpers.timeDisplayMode : mode
+        if (theMode === '12hour') {
             const amPm = time.hours >= 12 ? 'PM' : 'AM'
             let hour = time.hours > 12 ? time.hours - 12 : time.hours
             if (hour === 0) hour = 12
@@ -52,7 +52,12 @@ export class Helpers {
         }
     }
 
-    static get is24HourDisplay () {
-        return game.settings.get(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME)
+    static get timeDisplayMode () {
+        return game.settings.get(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME) ? '24hour' : '12hour'
+    }
+
+    static splitTimeString (s) {
+        const split = s.split(':')
+        return { days: 1, hours: Number.parseInt(split[0]), minutes: Number.parseInt(split[1]) }
     }
 }
