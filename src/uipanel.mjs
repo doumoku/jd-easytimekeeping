@@ -104,7 +104,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static async resetTimeButtonHandler (event, target) {
         const reset = await foundry.applications.api.DialogV2.confirm({
-            window: { title: 'JDTIMEKEEPING.ResetTime.title' },
+            window: { 
+                icon: 'fa-solid fa-clock-rotate-left',
+                title: 'JDTIMEKEEPING.ResetTime.title' },
             content: game.i18n.localize('JDTIMEKEEPING.ResetTime.content'),
             modal: true,
             rejectClose: false,

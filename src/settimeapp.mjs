@@ -1,8 +1,7 @@
 /**
  * The set time application dialog
  */
-import { Timekeeper } from './timekeeper.mjs'
-import { MODULE_ID, SETTINGS } from './settings.mjs'
+import { MODULE_ID } from './settings.mjs'
 import { Helpers } from './helpers.mjs'
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
@@ -13,6 +12,7 @@ export class SetTimeApplication extends HandlebarsApplicationMixin(ApplicationV2
         classes: ['form', 'app'],
         id: SetTimeApplication.ID,
         window: {
+            icon: 'fa-solid fa-clock',
             title: 'JDTIMEKEEPING.SetTime.title',
             width: 500,
         },
