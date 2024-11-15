@@ -65,10 +65,17 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     _prepareContext (options) {
-        const displayTime = Helpers.toTimeString(this.#time, {
-            includeDay: true,
-            i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
+        // const displayTime = Helpers.toTimeString(this.#time, {
+        //     includeDay: true,
+        //     i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
+        // })
+        const dbtime = Helpers.factorDragonbaneTime(this.#time)
+        const displayTime = game.i18n.format('JDTIMEKEEPING.dragonbaneTimeofDay', {
+            stretch: dbtime.stretches + 1,
+            shift: Helpers.getDragonbaneShiftName(dbtime.shifts),
+            day: dbtime.days + 1,
         })
+
         const context = { time: displayTime, isGM: game.user.isGM }
         return context
     }

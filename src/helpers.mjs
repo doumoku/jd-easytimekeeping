@@ -60,4 +60,32 @@ export class Helpers {
         const split = s.split(':')
         return { days: 1, hours: Number.parseInt(split[0]), minutes: Number.parseInt(split[1]) }
     }
+
+    /**
+     * Factors a time object into Dragonbane stretches, shifts and days
+     */
+    static factorDragonbaneTime (time) {
+        const dbtime = {}
+        dbtime.totalStretches = Math.floor(time.totalMinutes / Constants.minutesPerStretch)
+        var remainingStretches = dbtime.totalStretches
+        dbtime.days = Math.floor(remainingStretches / Constants.stretchesPerDay)
+        remainingStretches = remainingStretches % Constants.stretchesPerDay
+        dbtime.shifts = Math.floor(remainingStretches / Constants.stretchesPerShift)
+        dbtime.stretches = remainingStretches % Constants.stretchesPerShift
+
+        return dbtime
+    }
+
+    static dbShifts = {
+        0: 'JDTIMEKEEPING.Shift.Night',
+        1: 'JDTIMEKEEPING.Shift.Morning',
+        2: 'JDTIMEKEEPING.Shift.Afternoon',
+        3: 'JDTIMEKEEPING.Shift.Evening',
+    }
+
+    static getDragonbaneShiftName (shiftIndex) {
+        if (Helpers.dbShifts.hasOwnProperty(shiftIndex))
+            return game.i18n.localize(Helpers.dbShifts[shiftIndex])
+        return ''
+    }
 }
