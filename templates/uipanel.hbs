@@ -2,6 +2,23 @@
     <span id="timeofday" class="flexrow align-center">
         {{time}}
     </span>
+
+    <div class="etk-clock-panel flexrow align-center">
+        {{#each clocks as |clock|}}
+        <div class="etk-clock-entry">
+            <span class="etk-clock"
+                style="width: 40px; height: 40px; --areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}; --background: {{clock.backgroundColor}}">
+                {{#each clock.spokes}}
+                <div class="etk-spoke" style="--index: {{ this }}"></div>
+                {{/each}}
+            </span>
+            {{!-- <div class="etk-name-section">
+                <div class="name">{{clock.name}}</div>
+            </div> --}}
+        </div>
+        {{/each}}
+    </div>
+
     {{#if isGM}}
     <span class="button-container flexrow receive-pointer-events time-button-container">
         <i id="btn-et-reset-time" data-action="reset-time" class="fa-solid fa-clock-rotate-left"></i>

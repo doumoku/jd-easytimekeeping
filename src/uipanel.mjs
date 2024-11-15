@@ -5,6 +5,7 @@ import { Timekeeper } from './timekeeper.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Helpers } from './helpers.mjs'
 import { SetTimeApplication } from './settimeapp.mjs'
+import { Constants } from './constants.mjs'
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
 export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -64,6 +65,35 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         this.render(true)
     }
 
+    #prepareClocks(time) {
+        // prep the time data
+        const clocks = [
+            {
+                id: 'etk-stretches',
+                value: time.stretches + 1,
+                max: Constants.stretchesPerShift,
+                name: 'Stretches',
+                color: '#ff0000',
+                backgroundColor: '#000000',
+            },
+            {
+                id: 'etk-shifts',
+                value: time.shifts + 1,
+                max: Constants.shiftsPerDay,
+                name: 'Shifts',
+                color: '#ff0000',
+                backgroundColor: '#000000',
+            },
+        ]
+        // derive the radial data
+        const maxSpokes = 28; 
+        return clocks.map((data) => ({
+            ...data,
+            value: Math.clamp(data.value, 0, data.max),
+            spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
+        }))
+    }
+
     _prepareContext (options) {
         // const displayTime = Helpers.toTimeString(this.#time, {
         //     includeDay: true,
@@ -75,8 +105,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             shift: Helpers.getDragonbaneShiftName(dbtime.shifts),
             day: dbtime.days + 1,
         })
-
-        const context = { time: displayTime, isGM: game.user.isGM }
+        const clocks = this.#prepareClocks(dbtime)
+        const context = { time: displayTime, isGM: game.user.isGM, clocks: clocks }
         return context
     }
 

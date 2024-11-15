@@ -154,3 +154,156 @@
   justify-content: center;
   text-align: center;
 }
+
+/**
+ * Styles grafted from Global Progress Clocks are below here
+ */
+.etk-clock-panel {
+  position: absolute;
+  top: calc(5px + var(--offset));
+  bottom: calc(10px + var(--offset));
+  right: 0;
+  align-items: end;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &.bottom {
+    justify-content: end;
+  }
+
+  &.editable {
+
+    .etk-clock-list,
+    a {
+      pointer-events: initial;
+    }
+  }
+
+  /** Make button go above */
+  &.bottom {
+    flex-direction: column-reverse;
+  }
+
+  .drag-preview {
+    outline: 1px solid white;
+  }
+
+  .drag-gap {
+    visibility: hidden;
+  }
+
+  .etk-clock-list {
+    align-items: end;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow: auto;
+  }
+
+  a[data-action=add-clock] {
+    border-radius: 5px;
+    padding: 4px 6px;
+    margin-right: 4px;
+  }
+}
+
+.etk-clock-panel .etk-clock-entry,
+.etk-clock-panel [data-action=add-clock] {
+  --highlight-color: rgba(255, 255, 255, 0.18);
+  background: rgba(15, 15, 15, 0.75);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.35), 0 0 6px inset var(--highlight-color);
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  color: white;
+
+  &.private {
+    background: rgba(17, 13, 26, 0.75);
+    --highlight-color: rgba(138, 80, 255, 0.3);
+  }
+}
+
+.etk-clock-panel .etk-clock-entry {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: end;
+  height: 44px;
+  border-radius: 5px 22px 22px 5px;
+  border-right: none;
+
+  &.hidden {
+    display: none;
+  }
+
+  &:hover .controls a {
+    display: inline;
+  }
+
+  .etk-name-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: end;
+    padding: 0 4px 2px 8px;
+    overflow-y: hidden;
+
+    .name {
+      align-items: center;
+      cursor: initial;
+      display: flex;
+      min-width: 120px;
+      justify-content: end;
+
+      i {
+        font-size: 0.8em;
+        margin-right: 0.25rem;
+        margin-top: -0.2em;
+        opacity: 0.95;
+      }
+    }
+  }
+
+  .controls {
+    display: flex;
+    font-size: 0.9em;
+    align-items: center;
+
+    a {
+      display: none;
+      padding: 2px;
+    }
+  }
+
+  .etk-clock {
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+
+    --spoke-width: 2px;
+
+    align-self: center;
+    aspect-ratio: 1 / 1;
+
+    --filled-ratio: calc(var(--filled) / var(--areas) * 1turn);
+    background: conic-gradient(var(--clock-color) var(--filled-ratio), var(--background) var(--filled-ratio) 1turn);
+    border-radius: 50%;
+    border: black var(--spoke-width) solid;
+
+    position: relative;
+
+    .etk-spoke {
+      width: var(--spoke-width);
+
+      /* Make the spokes slightly larger than the inner radius so they overlay half the outer border, preventing subpixel gaps */
+      height: calc(50% + .5 * var(--spoke-width));
+
+      top: calc(-.5 * var(--spoke-width));
+      right: calc(50% - var(--spoke-width) / 2);
+
+      background: black;
+      position: absolute;
+
+      transform-origin: center bottom;
+      transform: rotate(calc((var(--index) * 1turn) / var(--areas)));
+    }
+  }
+}
