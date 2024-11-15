@@ -34,7 +34,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     init () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
-        game.socket.on(`module.${MODULE_ID}`, (time) => {
+        game.socket.on(`module.${MODULE_ID}`, time => {
             this.#time = time
             this.render(true)
         })
@@ -63,7 +63,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             includeDay: true,
             i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
         })
-        game.socket.emit(`module.${MODULE_ID}`, this.#time);
+        game.socket.emit(`module.${MODULE_ID}`, this.#time)
         this.render(true)
     }
 
@@ -75,7 +75,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     _prepareContext (options) {
-        const context = { time: this.#time }
+        const context = { time: this.#time, isGM: game.user.isGM }
         return context
     }
 
@@ -109,9 +109,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static async resetTimeButtonHandler (event, target) {
         const reset = await foundry.applications.api.DialogV2.confirm({
-            window: { 
+            window: {
                 icon: 'fa-solid fa-clock-rotate-left',
-                title: 'JDTIMEKEEPING.ResetTime.title' },
+                title: 'JDTIMEKEEPING.ResetTime.title',
+            },
             content: game.i18n.localize('JDTIMEKEEPING.ResetTime.content'),
             modal: true,
             rejectClose: false,
