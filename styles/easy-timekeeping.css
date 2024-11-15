@@ -159,52 +159,21 @@
  * Styles grafted from Global Progress Clocks are below here
  */
 .etk-clock-panel {
-  position: absolute;
-  top: calc(5px + var(--offset));
-  bottom: calc(10px + var(--offset));
-  right: 0;
-  align-items: end;
-  display: flex;
-  flex-direction: column;
+  position: relative;
+  align-items: center;
+  /* top: calc(5px + var(--offset)); */
+  /* bottom: calc(10px + var(--offset)); */
+  /* display: flex; */
+  /* flex-direction: row; */
   gap: 5px;
-
-  &.bottom {
-    justify-content: end;
-  }
-
-  &.editable {
-
-    .etk-clock-list,
-    a {
-      pointer-events: initial;
-    }
-  }
-
-  /** Make button go above */
-  &.bottom {
-    flex-direction: column-reverse;
-  }
-
-  .drag-preview {
-    outline: 1px solid white;
-  }
-
-  .drag-gap {
-    visibility: hidden;
-  }
+  right: 0;
 
   .etk-clock-list {
-    align-items: end;
+    align-items: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 5px;
     overflow: auto;
-  }
-
-  a[data-action=add-clock] {
-    border-radius: 5px;
-    padding: 4px 6px;
-    margin-right: 4px;
   }
 }
 
