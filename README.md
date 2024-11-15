@@ -1,13 +1,13 @@
 # Easy Timekeeping
 
 ![Static Badge](https://img.shields.io/badge/Module%20Status%3A-Alpha-red)
-![Static Badge](https://img.shields.io/badge/Version-0.4.7-blue)
+![Static Badge](https://img.shields.io/badge/Version-0.4.8-blue)
 
 > [!CAUTION]
 > This module is still a work in progress, and it has not yet been published to Foundry. If you are brave and want to try it out, it can be installed from the manifest URL as described in the [Foundry documentation](https://foundryvtt.com/article/modules/).
 
 ```html
-https://raw.githubusercontent.com/DC23/jd-easytimekeeping/refs/tags/v0.4.7/module.json
+https://raw.githubusercontent.com/DC23/jd-easytimekeeping/refs/tags/v0.4.8/module.json
 ```
 
 ---
