@@ -84,7 +84,7 @@
 
 .et-time #timeofday {
   color: goldenrod;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 .flex-group-center,
@@ -169,7 +169,7 @@
     align-items: center;
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    /* gap: 5px; */
     overflow: auto;
   }
 }

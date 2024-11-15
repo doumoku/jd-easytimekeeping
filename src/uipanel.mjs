@@ -80,10 +80,26 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 id: 'etk-shifts',
                 value: time.shifts + 1,
                 max: Constants.shiftsPerDay,
-                name: 'Shift',
+                name: time.shiftName,
                 color: '#138b37',
                 backgroundColor: '#ffffff',
             },
+            {
+                id: 'etk-days',
+                value: time.days + 1,
+                max: 128,
+                name: 'Day',
+                color: '#138b37',
+                backgroundColor: '#ffffff',
+            },
+            // {
+            //     id: 'etk-totalStretches',
+            //     value: time.totalStretches % Constants.stretchesPerDay,
+            //     max: Constants.stretchesPerDay,
+            //     name: 'Stretches',
+            //     color: '#138b37',
+            //     backgroundColor: '#ffffff',
+            // },
         ]
         // derive the radial data
         const maxSpokes = 28; 
@@ -95,16 +111,17 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     _prepareContext (options) {
-        // const displayTime = Helpers.toTimeString(this.#time, {
-        //     includeDay: true,
-        //     i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
-        // })
-        const dbtime = Helpers.factorDragonbaneTime(this.#time)
-        const displayTime = game.i18n.format('JDTIMEKEEPING.dragonbaneTimeofDay', {
-            stretch: dbtime.stretches + 1,
-            shift: Helpers.getDragonbaneShiftName(dbtime.shifts),
-            day: dbtime.days + 1,
+        const displayTime = Helpers.toTimeString(this.#time, {
+            includeDay: true,
+            i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
         })
+        const dbtime = Helpers.factorDragonbaneTime(this.#time)
+        dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
+        // const displayTime = game.i18n.format('JDTIMEKEEPING.dragonbaneTimeofDay', {
+        //     stretch: dbtime.stretches + 1,
+        //     shift: Helpers.getDragonbaneShiftName(dbtime.shifts),
+        //     day: dbtime.days + 1,
+        // })
         const clocks = this.#prepareClocks(dbtime)
         const context = { time: displayTime, isGM: game.user.isGM, clocks: clocks }
         return context
