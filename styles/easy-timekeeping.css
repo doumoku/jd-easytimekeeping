@@ -162,10 +162,6 @@
 .etk-clock-panel {
   position: relative;
   align-items: center;
-  /* top: calc(5px + var(--offset)); */
-  /* bottom: calc(10px + var(--offset)); */
-  /* display: flex; */
-  /* flex-direction: row; */
   gap: 5px;
   right: 0;
 
@@ -180,8 +176,8 @@
 
 .etk-clock-panel .etk-clock-entry {
   display: flex;
-  flex-direction: row-reverse;
-  align-items: end;
+  flex-direction: row;
+  align-items: center;
   height: 44px;
   border-radius: 5px 22px 22px 5px;
   border-right: none;
@@ -190,15 +186,11 @@
     display: none;
   }
 
-  &:hover .controls a {
-    display: inline;
-  }
-
   .etk-name-section {
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    align-items: end;
+    justify-content: center;
+    align-items: center;
     padding: 0 4px 2px 8px;
     overflow-y: hidden;
 
@@ -206,26 +198,8 @@
       align-items: center;
       cursor: initial;
       display: flex;
-      min-width: 120px;
+      /* min-width: 120px; */
       justify-content: end;
-
-      i {
-        font-size: 0.8em;
-        margin-right: 0.25rem;
-        margin-top: -0.2em;
-        opacity: 0.95;
-      }
-    }
-  }
-
-  .controls {
-    display: flex;
-    font-size: 0.9em;
-    align-items: center;
-
-    a {
-      display: none;
-      padding: 2px;
     }
   }
 

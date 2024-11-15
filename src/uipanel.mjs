@@ -72,17 +72,17 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 id: 'etk-stretches',
                 value: time.stretches + 1,
                 max: Constants.stretchesPerShift,
-                name: 'Stretches',
-                color: '#ff0000',
-                backgroundColor: '#000000',
+                name: 'Stretch',
+                color: '#138b37',
+                backgroundColor: '#ffffff',
             },
             {
                 id: 'etk-shifts',
                 value: time.shifts + 1,
                 max: Constants.shiftsPerDay,
-                name: 'Shifts',
-                color: '#ff0000',
-                backgroundColor: '#000000',
+                name: 'Shift',
+                color: '#138b37',
+                backgroundColor: '#ffffff',
             },
         ]
         // derive the radial data
