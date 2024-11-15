@@ -59,23 +59,17 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     timeChangeHandler (data) {
-        this.#time = Helpers.toTimeString(data.time, {
-            includeDay: true,
-            i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
-        })
+        this.#time = data.time
         game.socket.emit(`module.${MODULE_ID}`, this.#time)
         this.render(true)
     }
 
-    _onRender (context, options) {
-        // const timeButtons = this.element.querySelectorAll('[data-action=time-delta]')
-        // for (const button of timeButtons) {
-        //     button.addEventListener('click', this.testClick.bind(this))
-        // }
-    }
-
     _prepareContext (options) {
-        const context = { time: this.#time, isGM: game.user.isGM }
+        const displayTime = Helpers.toTimeString(this.#time, {
+            includeDay: true,
+            i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
+        })
+        const context = { time: displayTime, isGM: game.user.isGM }
         return context
     }
 
