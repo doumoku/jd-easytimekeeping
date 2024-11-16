@@ -20,8 +20,9 @@ In it's current form, Easy Timekeeping is no longer uniquely tailored to the Dra
 Easy Timekeeping has the following main features:
 
 - The GM is always in control of the passage of time.
-- The UI allows quickly incrementing or decrementing time by configurable small and large jumps.
+- The UI allows the GM to quickly change the time by configurable small and large jumps.
 - An optional daylight cycle provides configurable automation of scene lighting.
+- Special modes for Dragonbane that support fuzzy time showing just the current stretch and shift in words and visual form. The precise time of day can optionally be hidden from players.
 - Configurable ability to post the time to chat at regular times of day. Particularly useful when combined with the option to hide the time of day display on the main UI.
 - An API allows many features to be controlled from macros, such as setting the time, incrementing or decrementing the time, querying the current time, and posting the time to chat.
 - Time change events allow further automation. There is a hook for world scripts, and the ability to specify a time change handler macro through the module settings (requires GM permissions). This allows you to develop scripted events that occur in response to the passage of time, or that take place only at certain times of day.
