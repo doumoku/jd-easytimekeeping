@@ -40,6 +40,32 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             this.render(true)
         })
         if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
+
+        UIPanel.registerKeybindings()
+    }
+
+    static registerKeybindings () {
+        // Set time
+        game.keybindings.register(MODULE_ID, 'set-time', {
+            name: 'JDTIMEKEEPING.SetTime.hotkey',
+            precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
+            restricted: true,
+            onDown: async () => {
+                await UIPanel.setTimeButtonHandler()
+                return true
+            },
+        })
+
+        // Reset time
+        game.keybindings.register(MODULE_ID, 'reset-time', {
+            name: 'JDTIMEKEEPING.ResetTime.hotkey',
+            precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
+            restricted: true,
+            onDown: async () => {
+                await UIPanel.resetTimeButtonHandler()
+                return true
+            },
+        })
     }
 
     #insertAppElement (target) {

@@ -169,11 +169,9 @@ export function registerKeybindings () {
         precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
         restricted: true,
         onDown: () => {
-            game.modules
-                .get(MODULE_ID)
-                .api?.increment({
-                    minutes: game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA),
-                })
+            game.modules.get(MODULE_ID).api?.increment({
+                minutes: game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA),
+            })
             return true
         },
     })
@@ -184,11 +182,9 @@ export function registerKeybindings () {
         precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
         restricted: true,
         onDown: () => {
-            game.modules
-                .get(MODULE_ID)
-                .api?.increment({
-                    minutes: -game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA),
-                })
+            game.modules.get(MODULE_ID).api?.increment({
+                minutes: -game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA),
+            })
             return true
         },
     })
@@ -199,11 +195,9 @@ export function registerKeybindings () {
         precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
         restricted: true,
         onDown: () => {
-            game.modules
-                .get(MODULE_ID)
-                .api?.increment({
-                    hours: game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA),
-                })
+            game.modules.get(MODULE_ID).api?.increment({
+                hours: game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA),
+            })
             return true
         },
     })
@@ -214,11 +208,9 @@ export function registerKeybindings () {
         precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
         restricted: true,
         onDown: () => {
-            game.modules
-                .get(MODULE_ID)
-                .api?.increment({
-                    hours: -game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA),
-                })
+            game.modules.get(MODULE_ID).api?.increment({
+                hours: -game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA),
+            })
             return true
         },
     })
