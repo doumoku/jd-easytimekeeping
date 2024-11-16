@@ -73,7 +73,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 value: time.stretches + 1,
                 max: Constants.stretchesPerShift,
                 name: 'Stretch',
-                color: '#138b37',
+                color: UIPanel.#clockColor,
                 backgroundColor: '#ffffff',
             },
             {
@@ -81,7 +81,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 value: time.shifts + 1,
                 max: Constants.shiftsPerDay,
                 name: time.shiftName,
-                color: '#138b37',
+                color: UIPanel.#clockColor,
                 backgroundColor: '#ffffff',
             },
             {
@@ -89,7 +89,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 value: time.days + 1,
                 max: 128,
                 name: 'Day',
-                color: '#138b37',
+                color: UIPanel.#clockColor,
                 backgroundColor: '#ffffff',
             },
             // {
@@ -97,7 +97,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             //     value: time.totalStretches % Constants.stretchesPerDay,
             //     max: Constants.stretchesPerDay,
             //     name: 'Stretches',
-            //     color: '#138b37',
+            //     color: UIPanel.#clockColor,
             //     backgroundColor: '#ffffff',
             // },
         ]
@@ -113,7 +113,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     _prepareContext (options) {
         const context = {
             isGM: game.user.isGM,
-            textColor: '#138b37',
+            textColor: UIPanel.#uiTextColor,
         }
 
         if (UIPanel.#showTimeOfDay) {
@@ -185,6 +185,14 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }
     }
 
+    static get #uiTextColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_TEXT_COLOR)
+    }
+
+    static get #clockColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_COLOR)
+    }
+
     static get #smallTimeDelta () {
         return game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA)
     }
@@ -196,8 +204,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static get #showTimeOfDay () {
         // The time of day string is always shown for a GM, and conditionally for
         // players based on the module setting
-        return game.settings.get(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY)
-        // return game.user.isGM || game.settings.get(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY)
+        return game.user.isGM || game.settings.get(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY)
     }
 
     static get #showDBTime () {

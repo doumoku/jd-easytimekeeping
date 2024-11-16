@@ -19,6 +19,7 @@ const SETTINGS = {
     SHOW_DRAGONBANE_TIME: 'showDragonbaneTime',
     SHOW_TIME_OF_DAY: 'showTimeOfDay',
     UI_TEXT_COLOR: 'uiTextColor',
+    RADIAL_CLOCK_COLOR: 'radialClockColor',
 }
 
 function registerSettings () {
@@ -76,6 +77,17 @@ function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#ffffff',
+        requiresReload: true,
+        restricted: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.RadialClockColor.name',
+        hint: 'JDTIMEKEEPING.Settings.RadialClockColor.hint',
+        scope: 'world',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#138b37',
         requiresReload: true,
         restricted: true,
     })

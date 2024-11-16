@@ -52,5 +52,7 @@
     "JDTIMEKEEPING.Settings.ShowRadialClock.name": "Show the circular Dragonbane clocks",
     "JDTIMEKEEPING.Settings.ShowRadialClock.hint": "While they look like Global Progress Clocks, you can't click on them",
     "JDTIMEKEEPING.Settings.UITextColor.name": "UI text color",
-    "JDTIMEKEEPING.Settings.UITextColor.hint": "Used for the time and Dragonbane fuzzy time strings"
+    "JDTIMEKEEPING.Settings.UITextColor.hint": "Used for the time and Dragonbane fuzzy time strings",
+    "JDTIMEKEEPING.Settings.RadialClockColor.name": "Circular clock color",
+    "JDTIMEKEEPING.Settings.RadialClockColor.hint": ""
 }
