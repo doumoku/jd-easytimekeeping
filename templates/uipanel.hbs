@@ -1,14 +1,21 @@
 <div class="et-time flexcol">
-    <span id="timeofday" class="flexrow align-center">
+    {{#if time}}
+    <span id="timeofday" class="etk-timeofday flexrow align-center">
         {{time}}
     </span>
+    {{/if}}
+    {{#if dbTime}}
+    <span id="db-timeofday" class="etk-timeofday flexrow align-center">
+        {{dbTime}}
+    </span>
+    {{/if}}
 
     <div class="etk-clock-panel flexrow align-center">
         <div class="etk-clock-list">
             {{#each clocks as |clock|}}
             <div class="etk-clock-entry">
                 <span class="etk-clock"
-                    style="width: 40px; height: 40px; --areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}; --background: {{clock.backgroundColor}}">
+                    style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}; --background: {{clock.backgroundColor}}">
                     {{#each clock.spokes}}
                     <div class="etk-spoke" style="--index: {{ this }}"></div>
                     {{/each}}

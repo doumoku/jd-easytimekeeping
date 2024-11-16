@@ -52,41 +52,6 @@
   pointer-events: initial;
 }
 
-.ui-panel {
-  /* Set the left and right margins to align with the player panel */
-  margin-left: 15px;
-  margin-right: 4px;
-
-  /* A bit of space between us and the player panel */
-  margin-bottom: 6px;
-  border: 1px solid black;
-
-  display: flex;
-  justify-content: center;
-}
-
-.time-button-container {
-  i {
-    color: #ffffff;
-  }
-
-  i:hover {
-    color: goldenrod;
-    transform: scale(1.4);
-    /* box-shadow: 0 0 4px rgba(35, 234, 0, 0.941); */
-  }
-
-  i:active {
-    color: rgb(217, 86, 39);
-    transform: scale(1.4);
-  }
-}
-
-.et-time #timeofday {
-  color: goldenrod;
-  margin-bottom: 5px;
-}
-
 .flex-group-center,
 .flex-group-left,
 .flex-group-right {
@@ -157,7 +122,52 @@
 }
 
 /**
- * Styles grafted from Global Progress Clocks are below here
+ * UI Panel specific styles
+ */
+.ui-panel {
+  /* Set the left and right margins to align with the player panel */
+  margin-left: 15px;
+  margin-right: 4px;
+
+  /* A bit of space between us and the player panel */
+  margin-bottom: 6px;
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+}
+
+/**
+ * The GM buttons for time control
+ */
+.time-button-container {
+  i {
+    color: #ffffff;
+  }
+
+  i:hover {
+    color: goldenrod;
+    transform: scale(1.4);
+    /* box-shadow: 0 0 4px rgba(35, 234, 0, 0.941); */
+  }
+
+  i:active {
+    color: rgb(217, 86, 39);
+    transform: scale(1.4);
+  }
+}
+
+/**
+ * Display strings for time of day
+ */
+.etk-timeofday {
+  color: goldenrod;
+  margin-bottom: 5px;
+}
+
+/**
+ * Styles grafted from Global Progress Clocks are below here.
+ * They control the circular clocks used to display Dragonbane time.
  */
 .etk-clock-panel {
   position: relative;
@@ -198,7 +208,6 @@
       align-items: center;
       cursor: initial;
       display: flex;
-      /* min-width: 120px; */
       justify-content: end;
     }
   }

@@ -65,7 +65,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         this.render(true)
     }
 
-    #prepareClocks(time) {
+    #prepareClocks (time) {
         // prep the time data
         const clocks = [
             {
@@ -102,8 +102,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             // },
         ]
         // derive the radial data
-        const maxSpokes = 28; 
-        return clocks.map((data) => ({
+        const maxSpokes = 28
+        return clocks.map(data => ({
             ...data,
             value: Math.clamp(data.value, 0, data.max),
             spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
@@ -117,13 +117,18 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         })
         const dbtime = Helpers.factorDragonbaneTime(this.#time)
         dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
-        // const displayTime = game.i18n.format('JDTIMEKEEPING.dragonbaneTimeofDay', {
-        //     stretch: dbtime.stretches + 1,
-        //     shift: Helpers.getDragonbaneShiftName(dbtime.shifts),
-        //     day: dbtime.days + 1,
-        // })
+        const dbDisplayTime = game.i18n.format('JDTIMEKEEPING.dragonbaneTimeofDay', {
+            stretch: dbtime.stretches + 1,
+            shift: dbtime.shiftName,
+            day: dbtime.days + 1,
+        })
         const clocks = this.#prepareClocks(dbtime)
-        const context = { time: displayTime, isGM: game.user.isGM, clocks: clocks }
+        const context = {
+            time: displayTime,
+            isGM: game.user.isGM,
+            clocks: clocks,
+            dbTime: dbDisplayTime,
+        }
         return context
     }
 
