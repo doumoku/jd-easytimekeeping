@@ -83,6 +83,13 @@ export class Helpers {
         3: 'JDTIMEKEEPING.Shift.Evening',
     }
 
+    /** 
+     * Looks up the Dragonbane shift name from a shift index.
+     * night: 12am to 6am 
+     * morning: 6am to 12pm 
+     * afternoon: 12pm to 6pm 
+     * evening: 6pm to 12am
+     */
     static getDragonbaneShiftName (shiftIndex) {
         if (Helpers.dbShifts.hasOwnProperty(shiftIndex))
             return game.i18n.localize(Helpers.dbShifts[shiftIndex])

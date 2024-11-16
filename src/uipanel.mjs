@@ -65,6 +65,19 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         this.render(true)
     }
 
+    /**
+     * Simple remapping of the shifts. 
+     * Technically night shift is 12am to 6am and is the first shift of the day, 
+     * but I think it looks better if displayed as the last shift of the day.
+     * This lookup table rotates the shift indicies for the radial clock.
+     */
+    static #shiftDisplay = {
+        0: 4, // night, 12am to 6am
+        1: 1, // morning, 6am to 12pm
+        2: 2, // afternoon, 12pm to 6pm
+        3: 3, // evening, 6pm to 12am
+    }
+
     #prepareClocks (time) {
         // prep the time data
         const clocks = [
@@ -78,20 +91,20 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             },
             {
                 id: 'etk-shifts',
-                value: time.shifts + 1,
+                value: UIPanel.#shiftDisplay[time.shifts],
                 max: Constants.shiftsPerDay,
                 name: time.shiftName,
                 color: UIPanel.#clockColor,
                 backgroundColor: '#ffffff',
             },
-            {
-                id: 'etk-days',
-                value: time.days + 1,
-                max: 128,
-                name: 'Day',
-                color: UIPanel.#clockColor,
-                backgroundColor: '#ffffff',
-            },
+            // {
+            //     id: 'etk-days',
+            //     value: time.days + 1,
+            //     max: 128,
+            //     name: 'Day',
+            //     color: UIPanel.#clockColor,
+            //     backgroundColor: '#ffffff',
+            // },
             // {
             //     id: 'etk-totalStretches',
             //     value: time.totalStretches % Constants.stretchesPerDay,
@@ -129,10 +142,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
 
             if (UIPanel.#showDBTime) {
-                context.dbTime = game.i18n.format('JDTIMEKEEPING.dragonbaneTimeofDay', {
+                context.dbTime = game.i18n.format('JDTIMEKEEPING.fuzzyDragonbaneTime', {
                     stretch: dbtime.stretches + 1,
-                    shift: dbtime.shiftName,
-                    day: dbtime.days + 1,
+                    shift: dbtime.shiftName.toLowerCase()
                 })
             }
 

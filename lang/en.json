@@ -38,7 +38,7 @@
     "JDTIMEKEEPING.Time.Night": "Night",
     "JDTIMEKEEPING.Time.minutes": "minutes",
     "JDTIMEKEEPING.timeOfDay": "It's {time} on day {day}",
-    "JDTIMEKEEPING.dragonbaneTimeofDay": "Stretch {stretch} | {shift} | Day {day}",
+    "JDTIMEKEEPING.fuzzyDragonbaneTime": "Stretch {stretch}, {shift} shift",
     "JDTIMEKEEPING.uiTimeOfDay": "{time} on day {day}",
     "JDTIMEKEEPING.NoPermission": "You do not have permission to change the time.",
     "JDTIMEKEEPING.ResetTime.title": "Confirm Time Reset",
