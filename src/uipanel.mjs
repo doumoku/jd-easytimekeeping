@@ -30,7 +30,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         },
     }
 
-    #time = {}
+    #time = { minutes: 0, hours: 0, days: 0 }
     refresh = foundry.utils.debounce(this.render, 100)
 
     init () {
@@ -111,8 +111,6 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     _prepareContext (options) {
-        if (!this.#time) return {}
-
         const context = {
             isGM: game.user.isGM,
             textColor: '#138b37',
