@@ -34,13 +34,13 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     refresh = foundry.utils.debounce(this.render, 100)
 
     init () {
-            Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
-            game.socket.on(`module.${MODULE_ID}`, time => {
-                this.#time = time
-                this.render(true)
-            })
-            if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
-        }
+        Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
+        game.socket.on(`module.${MODULE_ID}`, time => {
+            this.#time = time
+            this.render(true)
+        })
+        if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
+    }
 
     #insertAppElement (target) {
         /**
