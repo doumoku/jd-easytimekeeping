@@ -111,25 +111,36 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     _prepareContext (options) {
-        const displayTime = Helpers.toTimeString(this.#time, {
-            includeDay: true,
-            i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
-        })
-        const dbtime = Helpers.factorDragonbaneTime(this.#time)
-        dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
-        const dbDisplayTime = game.i18n.format('JDTIMEKEEPING.dragonbaneTimeofDay', {
-            stretch: dbtime.stretches + 1,
-            shift: dbtime.shiftName,
-            day: dbtime.days + 1,
-        })
-        const clocks = this.#prepareClocks(dbtime)
+        if (!this.#time) return {}
+
         const context = {
-            time: displayTime,
             isGM: game.user.isGM,
-            clocks: clocks,
-            dbTime: dbDisplayTime,
-            textColor: "#138b37",
+            textColor: '#138b37',
         }
+
+        if (UIPanel.#showTimeOfDay) {
+            context.time = Helpers.toTimeString(this.#time, {
+                includeDay: true,
+                i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
+            })
+        }
+
+        // some calculations are common whether we are showing either one or both of these
+        if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
+            const dbtime = Helpers.factorDragonbaneTime(this.#time)
+            dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
+
+            if (UIPanel.#showDBTime) {
+                context.dbTime = game.i18n.format('JDTIMEKEEPING.dragonbaneTimeofDay', {
+                    stretch: dbtime.stretches + 1,
+                    shift: dbtime.shiftName,
+                    day: dbtime.days + 1,
+                })
+            }
+
+            if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(dbtime)
+        }
+
         return context
     }
 
@@ -182,5 +193,20 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #largeTimeDelta () {
         return game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA)
+    }
+
+    static get #showTimeOfDay () {
+        // The time of day string is always shown for a GM, and conditionally for
+        // players based on the module setting
+        return game.settings.get(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY)
+        // return game.user.isGM || game.settings.get(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY)
+    }
+
+    static get #showDBTime () {
+        return game.settings.get(MODULE_ID, SETTINGS.SHOW_DRAGONBANE_TIME)
+    }
+
+    static get #showRadialClocks () {
+        return game.settings.get(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK)
     }
 }

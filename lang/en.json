@@ -1,6 +1,6 @@
 {
     "JDTIMEKEEPING.Settings.SmallTimeDelta.name": "Small time step (minutes)",
-    "JDTIMEKEEPING.Settings.SmallTimeDelta.hint": "Small time step UI button duration in minutes",
+    "JDTIMEKEEPING.Settings.SmallTimeDelta.hint": "Small time step UI button duration in minutes. Values other than 15 don't work well with the Dragonbane fuzzy time and circular clocks.",
     "JDTIMEKEEPING.Settings.LargeTimeDelta.name": "Large time step (hours)",
     "JDTIMEKEEPING.Settings.LargeTimeDelta.hint": "Large time step UI button duration in hours",
     "JDTIMEKEEPING.Settings.TimeChangeMacro.name": "Time Change Event Handler",
@@ -44,5 +44,11 @@
     "JDTIMEKEEPING.ResetTime.title": "Confirm Time Reset",
     "JDTIMEKEEPING.ResetTime.content": "Reset the time to midnight of the first day?",
     "JDTIMEKEEPING.SetTime.title": "Set the Time",
-    "JDTIMEKEEPING.SetTime.label": "Time"
+    "JDTIMEKEEPING.SetTime.label": "Time",
+    "JDTIMEKEEPING.Settings.ShowTimeOfDay.name": "Show the current time of day on the UI panel to Players",
+    "JDTIMEKEEPING.Settings.ShowTimeOfDay.hint": "The time is always shown to the GM",
+    "JDTIMEKEEPING.Settings.ShowDragonbaneTime.name": "Show the fuzzy Dragonbane time in stretches and shifts",
+    "JDTIMEKEEPING.Settings.ShowDragonbaneTime.hint": "If selected, this will be shown to players and the GM",
+    "JDTIMEKEEPING.Settings.ShowRadialClock.name": "Show the circular Dragonbane clocks",
+    "JDTIMEKEEPING.Settings.ShowRadialClock.hint": "While they look like Global Progress Clocks, you can't click on them"
 }

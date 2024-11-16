@@ -5,8 +5,6 @@ import { registerDaylightCycleSettings } from './daylightcyclesettings.mjs'
 
 const MODULE_ID = 'jd-easytimekeeping'
 const SETTINGS = {
-    SHOW_HOURS: 'showHours',
-    SHOW_DAYS: 'showDays',
     TOTAL_ELAPSED_MINUTES: 'totalElapsedMinutes',
     TIME_CHANGE_MACRO: 'timeChangeMacro',
     AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings',
@@ -16,6 +14,11 @@ const SETTINGS = {
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
     SMALL_TIME_DELTA: 'smallTimeDelta',
     LARGE_TIME_DELTA: 'largeTimeDelta',
+    UI_RADIAL_CLOCK_COLOR: 'uiRadialClockColor',
+    SHOW_RADIAL_CLOCK: 'showRadialClock',
+    SHOW_DRAGONBANE_TIME: 'showDragonbaneTime',
+    SHOW_TIME_OF_DAY: 'showTimeOfDay',
+    UI_TEXT_COLOR: 'uiTextColor',
 }
 
 function registerSettings () {
@@ -23,35 +26,16 @@ function registerSettings () {
     registerAutoTellTimeSettings()
     registerDaylightCycleSettings()
 
-    // TODO: I might want a show time setting later when it comes to the UI - do the players see the time on the UI or not?
-    // game.settings.register(MODULE_ID, SETTINGS.SHOW_HOURS, {
-    //     name: game.i18n.localize('JDTIMEKEEPING.Settings.ShowHours.name'),
-    //     hint: game.i18n.localize('JDTIMEKEEPING.Settings.ShowHours.hint'),
-    //     scope: 'world',
-    //     config: true,
-    //     type: Boolean,
-    //     default: false,
-    //     onChange: value => {
-    //         console.log('JD ETime | %s %o', SETTINGS.SHOW_HOURS, value)
-    //     },
-    //     requiresReload: true,
-    //     restricted: true,
-    // })
-
-    // TODO: for later - does the count of days get shown on the panel?
-    // game.settings.register(MODULE_ID, SETTINGS.SHOW_DAYS, {
-    //     name: game.i18n.localize('JDTIMEKEEPING.Settings.ShowDays.name'),
-    //     hint: game.i18n.localize('JDTIMEKEEPING.Settings.ShowDays.hint'),
-    //     scope: 'world',
-    //     config: true,
-    //     type: Boolean,
-    //     default: false,
-    //     onChange: value => {
-    //         console.log('JD ETime | %s %o', SETTINGS.SHOW_DAYS, value)
-    //     },
-    //     requiresReload: true,
-    //     restricted: true,
-    // })
+    game.settings.register(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY, {
+        name: 'JDTIMEKEEPING.Settings.ShowTimeOfDay.name',
+        hint: 'JDTIMEKEEPING.Settings.ShowTimeOfDay.hint',
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: true,
+        requiresReload: true,
+        restricted: true,
+    })
 
     game.settings.register(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME, {
         name: game.i18n.localize('JDTIMEKEEPING.Settings.Display24HourFormat.name'),
@@ -59,7 +43,29 @@ function registerSettings () {
         config: true,
         type: Boolean,
         default: false,
-        requiresReload: false,
+        requiresReload: true,
+        restricted: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.SHOW_DRAGONBANE_TIME, {
+        name: 'JDTIMEKEEPING.Settings.ShowDragonbaneTime.name',
+        hint: 'JDTIMEKEEPING.Settings.ShowDragonbaneTime.hint',
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        restricted: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK, {
+        name: 'JDTIMEKEEPING.Settings.ShowRadialClock.name',
+        hint: 'JDTIMEKEEPING.Settings.ShowRadialClock.hint',
+        scope: 'world',
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
         restricted: true,
     })
 
@@ -112,22 +118,6 @@ function registerSettings () {
         requiresReload: false,
         restricted: true,
     })
-
-    /*
-    game.settings.register(MODULE_ID, SETTINGS.BASE_TIME_CLOCK, {
-        name: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeClock.name'),
-        hint: game.i18n.localize('JDTIMEKEEPING.Settings.BaseTimeClock.hint'),
-        scope: 'world',
-        config: true,
-        type: String,
-        default: 'Stretch',
-        onChange: value => {
-            console.log('JD ETime | %s %d', SETTINGS.BASE_TIME_CLOCK, value)
-        },
-        requiresReload: true,
-        restricted: true,
-    })
-    */
 
     game.settings.register(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO, {
         name: game.i18n.localize('JDTIMEKEEPING.Settings.TimeChangeMacro.name'),
