@@ -1,9 +1,35 @@
+{{#*inline "timePartial"}}
+{{#if this}}
+<span id="timeofday" class="etk-timeofday flexrow" style="color:{{color}};">
+    {{time}}
+</span>
+{{/if}}
+{{/inline}}
+
 <div class="et-time flexcol">
-    <span id="timeofday" class="flexrow align-center">
-        {{time}}
-    </span>
+    {{> timePartial time=time color=textColor }}
+    {{> timePartial time=dbTime color=textColor }}
+
+    <div class="etk-clock-panel flex-align-center">
+        <div class="etk-clock-list flexrow">
+            {{#each clocks as |clock|}}
+            <div class="etk-clock-entry">
+                <span class="etk-clock"
+                    style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}; --background: {{clock.backgroundColor}}">
+                    {{#each clock.spokes}}
+                    <div class="etk-spoke" style="--index: {{ this }}"></div>
+                    {{/each}}
+                </span>
+                {{!-- <div class="etk-name-section">
+                    <div class="name">{{clock.name}}</div>
+                </div> --}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
     {{#if isGM}}
-    <span class="button-container flexrow receive-pointer-events time-button-container">
+    <span class="button-container flexrow receive-pointer-events time-button-container flex-align-center">
         <i id="btn-et-reset-time" data-action="reset-time" class="fa-solid fa-clock-rotate-left"></i>
         <i id="btn-et-small-jump" data-action="time-delta" data-target="large-decrement"
             class="fa-solid fa-backward-fast"></i>

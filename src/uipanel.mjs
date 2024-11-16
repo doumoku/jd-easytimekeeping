@@ -5,6 +5,7 @@ import { Timekeeper } from './timekeeper.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Helpers } from './helpers.mjs'
 import { SetTimeApplication } from './settimeapp.mjs'
+import { Constants } from './constants.mjs'
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api
 
 export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -29,7 +30,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         },
     }
 
-    #time = {}
+    #time = { minutes: 0, hours: 0, days: 0 }
     refresh = foundry.utils.debounce(this.render, 100)
 
     init () {
@@ -59,23 +60,101 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     timeChangeHandler (data) {
-        this.#time = Helpers.toTimeString(data.time, {
-            includeDay: true,
-            i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
-        })
+        this.#time = data.time
         game.socket.emit(`module.${MODULE_ID}`, this.#time)
         this.render(true)
     }
 
-    _onRender (context, options) {
-        // const timeButtons = this.element.querySelectorAll('[data-action=time-delta]')
-        // for (const button of timeButtons) {
-        //     button.addEventListener('click', this.testClick.bind(this))
-        // }
+    /**
+     * Simple remapping of the shifts.
+     * Technically night shift is 12am to 6am and is the first shift of the day,
+     * but I think it looks better if displayed as the last shift of the day.
+     * This lookup table rotates the shift indicies for the radial clock.
+     */
+    static #shiftDisplay = {
+        0: 4, // night, 12am to 6am
+        1: 1, // morning, 6am to 12pm
+        2: 2, // afternoon, 12pm to 6pm
+        3: 3, // evening, 6pm to 12am
+    }
+
+    #prepareClocks (time) {
+        // prep the time data
+        const clocks = [
+            {
+                id: 'etk-stretches',
+                value: time.stretches + 1,
+                max: Constants.stretchesPerShift,
+                name: 'Stretch',
+                color: UIPanel.#clockColor,
+                backgroundColor: '#ffffff',
+            },
+            {
+                id: 'etk-shifts',
+                value: UIPanel.#shiftDisplay[time.shifts],
+                max: Constants.shiftsPerDay,
+                name: time.shiftName,
+                color: UIPanel.#clockColor,
+                backgroundColor: '#ffffff',
+            },
+            // {
+            //     id: 'etk-days',
+            //     value: time.days + 1,
+            //     max: 128,
+            //     name: 'Day',
+            //     color: UIPanel.#clockColor,
+            //     backgroundColor: '#ffffff',
+            // },
+            // {
+            //     id: 'etk-totalStretches',
+            //     value: time.totalStretches % Constants.stretchesPerDay,
+            //     max: Constants.stretchesPerDay,
+            //     name: 'Stretches',
+            //     color: UIPanel.#clockColor,
+            //     backgroundColor: '#ffffff',
+            // },
+        ]
+        // derive the radial data
+        const maxSpokes = 28
+        return clocks.map(data => ({
+            ...data,
+            value: Math.clamp(data.value, 0, data.max),
+            spokes: data.max > maxSpokes ? [] : Array(data.max).keys(),
+        }))
     }
 
     _prepareContext (options) {
-        const context = { time: this.#time, isGM: game.user.isGM }
+        const context = {
+            isGM: game.user.isGM,
+            textColor: UIPanel.#uiTextColor,
+        }
+
+        if (UIPanel.#playerSeesNothing) {
+            context.time = game.i18n.localize('JDTIMEKEEPING.YouHaveNoIdeaOfTheTime')
+        } else {
+            if (UIPanel.#showTimeOfDay) {
+                context.time = Helpers.toTimeString(this.#time, {
+                    includeDay: true,
+                    i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
+                })
+            }
+
+            // some calculations are common whether we are showing either one or both of these
+            if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
+                const dbtime = Helpers.factorDragonbaneTime(this.#time)
+                dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
+
+                if (UIPanel.#showDBTime) {
+                    context.dbTime = game.i18n.format('JDTIMEKEEPING.fuzzyDragonbaneTime', {
+                        stretch: dbtime.stretches + 1,
+                        shift: dbtime.shiftName.toLowerCase(),
+                    })
+                }
+
+                if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(dbtime)
+            }
+        }
+
         return context
     }
 
@@ -122,11 +201,40 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }
     }
 
+    static get #uiTextColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_TEXT_COLOR)
+    }
+
+    static get #clockColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_COLOR)
+    }
+
     static get #smallTimeDelta () {
         return game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA)
     }
 
     static get #largeTimeDelta () {
         return game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA)
+    }
+
+    /**
+     * Has the GM chosen to hide all UI elements from players?
+     */
+    static get #playerSeesNothing () {
+        return !UIPanel.#showDBTime && !UIPanel.#showTimeOfDay && !UIPanel.#showRadialClocks
+    }
+
+    static get #showTimeOfDay () {
+        // The time of day string is always shown for a GM, and conditionally for
+        // players based on the module setting
+        return game.user.isGM || game.settings.get(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY)
+    }
+
+    static get #showDBTime () {
+        return game.settings.get(MODULE_ID, SETTINGS.SHOW_DRAGONBANE_TIME)
+    }
+
+    static get #showRadialClocks () {
+        return game.settings.get(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK)
     }
 }

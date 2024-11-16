@@ -52,40 +52,6 @@
   pointer-events: initial;
 }
 
-.ui-panel {
-  /* Set the left and right margins to align with the player panel */
-  margin-left: 15px;
-  margin-right: 4px;
-
-  /* A bit of space between us and the player panel */
-  margin-bottom: 6px;
-  border: 1px solid black;
-
-  display: flex;
-  justify-content: center;
-}
-
-.time-button-container {
-  i {
-    color: #ffffff;
-  }
-
-  i:hover {
-    color: goldenrod;
-    transform: scale(1.4);
-  }
-
-  i:active {
-    color: rgb(217, 86, 39);
-    transform: scale(1.4);
-  }
-}
-
-.et-time #timeofday {
-  color: goldenrod;
-  margin-bottom: 10px;
-}
-
 .flex-group-center,
 .flex-group-left,
 .flex-group-right {
@@ -153,4 +119,132 @@
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
+}
+
+.hidden {
+  display: none;
+}
+
+/**
+ * UI Panel specific styles
+ */
+.ui-panel {
+  /* Set the left and right margins to align with the player panel */
+  margin-left: 15px;
+  margin-right: 4px;
+
+  /* A bit of space between us and the player panel */
+  margin-bottom: 6px;
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+}
+
+/**
+ * The GM buttons for time control
+ */
+.time-button-container {
+  i {
+    color: #ffffff;
+  }
+
+  i:hover {
+    color: goldenrod;
+    transform: scale(1.4);
+    /* box-shadow: 0 0 4px rgba(35, 234, 0, 0.941); */
+  }
+
+  i:active {
+    color: rgb(217, 86, 39);
+    transform: scale(1.4);
+  }
+}
+
+/**
+ * Display strings for time of day
+ */
+.etk-timeofday {
+  /* color: goldenrod; */
+  margin-bottom: 5px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/**
+ * Styles grafted from Global Progress Clocks are below here.
+ * They control the circular clocks used to display Dragonbane time.
+ */
+/* .etk-clock-panel {
+  gap: 5px;
+  right: 0;
+
+  .etk-clock-list {
+    align-items: center;
+  }
+} */
+
+.etk-clock-panel .etk-clock-entry {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 44px;
+  border-radius: 5px 22px 22px 5px;
+  border-right: none;
+
+  &.hidden {
+    display: none;
+  }
+
+  .etk-name-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 4px 2px 8px;
+    overflow-y: hidden;
+
+    .name {
+      align-items: center;
+      cursor: initial;
+      display: flex;
+      justify-content: end;
+    }
+  }
+
+  .etk-clock {
+    cursor: pointer;
+    width: 44px;
+    height: 44px;
+
+    --spoke-width: 2px;
+
+    align-self: center;
+    aspect-ratio: 1 / 1;
+
+    --filled-ratio: calc(var(--filled) / var(--areas) * 1turn);
+    background: conic-gradient(var(--clock-color) var(--filled-ratio), var(--background) var(--filled-ratio) 1turn);
+    border-radius: 50%;
+    border: black var(--spoke-width) solid;
+
+    position: relative;
+
+    .etk-spoke {
+      width: var(--spoke-width);
+
+      /* Make the spokes slightly larger than the inner radius so they overlay half the outer border, preventing subpixel gaps */
+      height: calc(50% + .5 * var(--spoke-width));
+
+      top: calc(-.5 * var(--spoke-width));
+      right: calc(50% - var(--spoke-width) / 2);
+
+      background: black;
+      position: absolute;
+
+      transform-origin: center bottom;
+      transform: rotate(calc((var(--index) * 1turn) / var(--areas)));
+    }
+  }
 }
