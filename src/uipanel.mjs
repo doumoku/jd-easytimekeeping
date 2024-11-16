@@ -129,26 +129,30 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             textColor: UIPanel.#uiTextColor,
         }
 
-        if (UIPanel.#showTimeOfDay) {
-            context.time = Helpers.toTimeString(this.#time, {
-                includeDay: true,
-                i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
-            })
-        }
-
-        // some calculations are common whether we are showing either one or both of these
-        if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
-            const dbtime = Helpers.factorDragonbaneTime(this.#time)
-            dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
-
-            if (UIPanel.#showDBTime) {
-                context.dbTime = game.i18n.format('JDTIMEKEEPING.fuzzyDragonbaneTime', {
-                    stretch: dbtime.stretches + 1,
-                    shift: dbtime.shiftName.toLowerCase(),
+        if (UIPanel.#playerSeesNothing) {
+            context.time = game.i18n.localize('JDTIMEKEEPING.YouHaveNoIdeaOfTheTime')
+        } else {
+            if (UIPanel.#showTimeOfDay) {
+                context.time = Helpers.toTimeString(this.#time, {
+                    includeDay: true,
+                    i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
                 })
             }
 
-            if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(dbtime)
+            // some calculations are common whether we are showing either one or both of these
+            if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
+                const dbtime = Helpers.factorDragonbaneTime(this.#time)
+                dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
+
+                if (UIPanel.#showDBTime) {
+                    context.dbTime = game.i18n.format('JDTIMEKEEPING.fuzzyDragonbaneTime', {
+                        stretch: dbtime.stretches + 1,
+                        shift: dbtime.shiftName.toLowerCase(),
+                    })
+                }
+
+                if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(dbtime)
+            }
         }
 
         return context
