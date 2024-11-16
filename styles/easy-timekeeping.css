@@ -161,8 +161,12 @@
  * Display strings for time of day
  */
 .etk-timeofday {
-  color: goldenrod;
+  /* color: goldenrod; */
   margin-bottom: 5px;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
 }
 
 /**

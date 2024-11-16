@@ -128,6 +128,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             isGM: game.user.isGM,
             clocks: clocks,
             dbTime: dbDisplayTime,
+            textColor: "#138b37",
         }
         return context
     }

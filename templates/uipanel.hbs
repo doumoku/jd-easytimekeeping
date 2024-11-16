@@ -1,14 +1,14 @@
+{{#*inline "timePartial"}}
+{{#if this}}
+<span id="timeofday" class="etk-timeofday flexrow" style="color:{{color}};">
+    {{time}}
+</span>
+{{/if}}
+{{/inline}}
+
 <div class="et-time flexcol">
-    {{#if time}}
-    <span id="timeofday" class="etk-timeofday flexrow align-center">
-        {{time}}
-    </span>
-    {{/if}}
-    {{#if dbTime}}
-    <span id="db-timeofday" class="etk-timeofday flexrow align-center">
-        {{dbTime}}
-    </span>
-    {{/if}}
+    {{> timePartial time=time color=textColor }}
+    {{> timePartial time=dbTime color=textColor }}
 
     <div class="etk-clock-panel flexrow align-center">
         <div class="etk-clock-list">
