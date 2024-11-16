@@ -2,7 +2,7 @@
  * Dragonbane Timekeeping module registration functions
  *
  */
-import { registerSettings, MODULE_ID } from './settings.mjs'
+import { registerKeybindings, registerSettings, MODULE_ID } from './settings.mjs'
 import { TimeTeller } from './timeteller.mjs'
 import { Constants } from './constants.mjs'
 import { DaylightCycle } from './daylightcycle.mjs'
@@ -12,6 +12,7 @@ import { UIPanel } from './uipanel.mjs'
 Hooks.once('init', () => {
     console.group('JD ETime | init')
 
+    registerKeybindings()
     registerSettings()
 
     const uiPanel = new UIPanel()

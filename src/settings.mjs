@@ -1,10 +1,8 @@
-export { MODULE_ID, SETTINGS, registerSettings }
-
 import { registerAutoTellTimeSettings } from './autotelltimesettings.mjs'
 import { registerDaylightCycleSettings } from './daylightcyclesettings.mjs'
 
-const MODULE_ID = 'jd-easytimekeeping'
-const SETTINGS = {
+export const MODULE_ID = 'jd-easytimekeeping'
+export const SETTINGS = {
     TOTAL_ELAPSED_MINUTES: 'totalElapsedMinutes',
     TIME_CHANGE_MACRO: 'timeChangeMacro',
     AUTO_TELL_TIME_SETTINGS: 'autoTellTimeSettings',
@@ -22,7 +20,7 @@ const SETTINGS = {
     RADIAL_CLOCK_COLOR: 'radialClockColor',
 }
 
-function registerSettings () {
+export function registerSettings () {
     // Register the menus
     registerAutoTellTimeSettings()
     registerDaylightCycleSettings()
@@ -159,5 +157,61 @@ function registerSettings () {
         default: 0,
         requiresReload: false,
         restricted: true,
+    })
+}
+
+export function registerKeybindings () {
+    // Define keybindings for time operations but leave them unbound
+
+    // small increment
+    game.keybindings.register(MODULE_ID, 'small-increment', {
+        name: 'JDTIMEKEEPING.SmallIncrement',
+        precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
+        restricted: true,
+        onDown: () => {
+            game.modules.get(MODULE_ID).api?.increment({
+                minutes: game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA),
+            })
+            return true
+        },
+    })
+
+    // small decrement
+    game.keybindings.register(MODULE_ID, 'small-decrement', {
+        name: 'JDTIMEKEEPING.SmallDecrement',
+        precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
+        restricted: true,
+        onDown: () => {
+            game.modules.get(MODULE_ID).api?.increment({
+                minutes: -game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA),
+            })
+            return true
+        },
+    })
+
+    // large increment
+    game.keybindings.register(MODULE_ID, 'large-increment', {
+        name: 'JDTIMEKEEPING.LargeIncrement',
+        precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
+        restricted: true,
+        onDown: () => {
+            game.modules.get(MODULE_ID).api?.increment({
+                hours: game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA),
+            })
+            return true
+        },
+    })
+
+    // large decrement
+    game.keybindings.register(MODULE_ID, 'large-decrement', {
+        name: 'JDTIMEKEEPING.LargeDecrement',
+        precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
+        restricted: true,
+        onDown: () => {
+            game.modules.get(MODULE_ID).api?.increment({
+                hours: -game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA),
+            })
+            return true
+        },
     })
 }
