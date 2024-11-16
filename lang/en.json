@@ -50,5 +50,7 @@
     "JDTIMEKEEPING.Settings.ShowDragonbaneTime.name": "Show the fuzzy Dragonbane time in stretches and shifts",
     "JDTIMEKEEPING.Settings.ShowDragonbaneTime.hint": "If selected, this will be shown to players and the GM",
     "JDTIMEKEEPING.Settings.ShowRadialClock.name": "Show the circular Dragonbane clocks",
-    "JDTIMEKEEPING.Settings.ShowRadialClock.hint": "While they look like Global Progress Clocks, you can't click on them"
+    "JDTIMEKEEPING.Settings.ShowRadialClock.hint": "While they look like Global Progress Clocks, you can't click on them",
+    "JDTIMEKEEPING.Settings.UITextColor.name": "UI text color",
+    "JDTIMEKEEPING.Settings.UITextColor.hint": "Used for the time and Dragonbane fuzzy time strings"
 }

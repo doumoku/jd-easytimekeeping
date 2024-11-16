@@ -69,6 +69,17 @@ function registerSettings () {
         restricted: true,
     })
 
+    game.settings.register(MODULE_ID, SETTINGS.UI_TEXT_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.UITextColor.name',
+        hint: 'JDTIMEKEEPING.Settings.UITextColor.hint',
+        scope: 'world',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#ffffff',
+        requiresReload: true,
+        restricted: true,
+    })
+
     // small time delta in minutes
     game.settings.register(MODULE_ID, SETTINGS.SMALL_TIME_DELTA, {
         name: 'JDTIMEKEEPING.Settings.SmallTimeDelta.name',
