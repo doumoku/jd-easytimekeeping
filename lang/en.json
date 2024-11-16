@@ -55,5 +55,9 @@
     "JDTIMEKEEPING.Settings.UITextColor.hint": "Used for the time and Dragonbane fuzzy time strings",
     "JDTIMEKEEPING.Settings.RadialClockColor.name": "Circular clock color",
     "JDTIMEKEEPING.Settings.RadialClockColor.hint": "",
-    "JDTIMEKEEPING.YouHaveNoIdeaOfTheTime": "You have no idea what time it is"
+    "JDTIMEKEEPING.YouHaveNoIdeaOfTheTime": "You have no idea what time it is",
+    "JDTIMEKEEPING.SmallIncrement": "Move time forward by a small step",
+    "JDTIMEKEEPING.SmallDecrement": "Move time backward by a small step",
+    "JDTIMEKEEPING.LargeIncrement": "Move time forward by a large step",
+    "JDTIMEKEEPING.LargeDecrement": "Move time backward by a large step"
 }
