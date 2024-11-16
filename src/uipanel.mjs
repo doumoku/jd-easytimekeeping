@@ -34,13 +34,13 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     refresh = foundry.utils.debounce(this.render, 100)
 
     init () {
-        Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
-        game.socket.on(`module.${MODULE_ID}`, time => {
-            this.#time = time
-            this.render(true)
-        })
-        if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
-    }
+            Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
+            game.socket.on(`module.${MODULE_ID}`, time => {
+                this.#time = time
+                this.render(true)
+            })
+            if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
+        }
 
     #insertAppElement (target) {
         /**
@@ -66,8 +66,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     /**
-     * Simple remapping of the shifts. 
-     * Technically night shift is 12am to 6am and is the first shift of the day, 
+     * Simple remapping of the shifts.
+     * Technically night shift is 12am to 6am and is the first shift of the day,
      * but I think it looks better if displayed as the last shift of the day.
      * This lookup table rotates the shift indicies for the radial clock.
      */
@@ -144,7 +144,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             if (UIPanel.#showDBTime) {
                 context.dbTime = game.i18n.format('JDTIMEKEEPING.fuzzyDragonbaneTime', {
                     stretch: dbtime.stretches + 1,
-                    shift: dbtime.shiftName.toLowerCase()
+                    shift: dbtime.shiftName.toLowerCase(),
                 })
             }
 
@@ -211,6 +211,13 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #largeTimeDelta () {
         return game.settings.get(MODULE_ID, SETTINGS.LARGE_TIME_DELTA)
+    }
+
+    /**
+     * Has the GM chosen to hide all UI elements from players?
+     */
+    static get #playerSeesNothing () {
+        return !UIPanel.#showDBTime && !UIPanel.#showTimeOfDay && !UIPanel.#showRadialClocks
     }
 
     static get #showTimeOfDay () {
