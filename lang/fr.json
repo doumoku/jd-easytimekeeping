@@ -69,5 +69,11 @@
     "JDTIMEKEEPING.ShiftTimes.Afternoon": "12pm to 6pm",
     "JDTIMEKEEPING.ShiftTimes.Evening": "6pm to 12am",
     "JDTIMEKEEPING.ShiftTimes.Night": "12am to 6am",
-    "JDTIMEKEEPING.Settings.ShiftNames": "Shift Names"
+    "JDTIMEKEEPING.Settings.ShiftNames": "Shift Names",
+    "JDTIMEKEEPING.UI.reset": "Reset the Time",
+    "JDTIMEKEEPING.UI.largeDec": "Large Decrement",
+    "JDTIMEKEEPING.UI.smallDec": "Small Decrement",
+    "JDTIMEKEEPING.UI.smallInc": "Small Increment",
+    "JDTIMEKEEPING.UI.largeInc": "Large Increment",
+    "JDTIMEKEEPING.UI.set": "Set the Time"
 }
