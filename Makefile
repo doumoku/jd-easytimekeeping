@@ -8,6 +8,9 @@ ALL_DOC_FILES=$(addprefix $(OUTPUT_DIR),$(addsuffix .md, $(basename $(notdir $(I
 
 api: $(ALL_DOC_FILES) package.json
 
+lint:
+	documentation lint $(INPUT_FILES)
+
 $(OUTPUT_DIR)%.md: $(INPUT_DIR)%.mjs
 	@echo "$^ --> $@"
 	documentation $(PUBLIC_API_OPTIONS) $^ > $@
