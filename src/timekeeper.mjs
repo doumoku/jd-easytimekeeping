@@ -9,6 +9,12 @@ import { DaylightCycle } from './daylightcycle.mjs'
 import { Helpers } from './helpers.mjs'
 import { TimeTeller } from './timeteller.mjs'
 
+/**
+ * The public API for Easy Timekeeping.
+ * 
+ * @public
+ * 
+ */
 export class Timekeeper {
     static TIME_CHANGE_HOOK = 'etkTimeChangedHook'
 
@@ -27,6 +33,7 @@ export class Timekeeper {
     /**
      * Increment or decrement the time.
      *
+     * @public
      * @param {Object} time the time interval to increment or decrement by
      * @param {Number} [time.days=0] days
      * @param {Number} [time.hours=0] hours
