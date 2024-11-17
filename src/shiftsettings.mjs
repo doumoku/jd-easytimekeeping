@@ -57,7 +57,14 @@ class ShiftSettings extends FormApplication {
         game.settings.set(MODULE_ID, SETTINGS.SHIFT_SETTINGS, data)
     }
 
-    activateListeners (html) {
-        super.activateListeners(html)
+    // activateListeners (html) {
+    //     super.activateListeners(html)
+    //     html.on('click', '[data-action=reset]', this._handleResetButtonClicked)
+    // }
+
+    async _handleResetButtonClicked (event) {
+        console.log(event)
+        // const me = $(event.delegateTarget).find('[name=morningName]')
+        // me.value = game.i18n.localize('JDTIMEKEEPING.Shift.Morning')
     }
 }
