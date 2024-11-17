@@ -1,12 +1,25 @@
-<form class="flexcol">
-    <div class="form-group">
-        Hello there
+<form class="form-group flexcol">
+    <div class="form-row flexrow">
+        <label for="morningName">{{localize "JDTIMEKEEPING.Settings.RenameShift.Morning.label"}}:</label>
+        <input name="morningName" value="{{morningName}}" />
+    </div>
+    <div class="form-row flexrow">
+        <label for="afternoonName">{{localize "JDTIMEKEEPING.Settings.RenameShift.Afternoon.label"}}:</label>
+        <input name="afternoonName" value="{{afternoonName}}" />
+    </div>
+    <div class="form-row flexrow">
+        <label for="eveningName">{{localize "JDTIMEKEEPING.Settings.RenameShift.Evening.label"}}:</label>
+        <input name="eveningName" value="{{eveningName}}" />
+    </div>
+    <div class="form-row flexrow">
+        <label for="nightName">{{localize "JDTIMEKEEPING.Settings.RenameShift.Night.label"}}:</label>
+        <input name="nightName" value="{{nightName}}" />
     </div>
 
-    <footer class="sheet-footer flexrow">
-        {{!-- <button type="button" name="reset" data-action="reset">
+    <footer class="sheet-footer flexrow button-container">
+        <button class="reset-all" type="button" name="reset" data-action="reset">
             <i class="fa-solid fa-undo"></i> {{localize "SETTINGS.Reset"}}
-        </button> --}}
+        </button>
         <button type="submit" name="submit">
             <i class="fa-solid fa-save"></i> {{localize "SETTINGS.Save"}}
         </button>

@@ -9,6 +9,7 @@ export function registerShiftSettings () {
         icon: 'fas fa-cog',
         type: ShiftSettings,
         restricted: true,
+        resizable: true,
     })
 
     // the settings object
@@ -16,7 +17,12 @@ export function registerShiftSettings () {
         scope: 'world',
         config: false,
         type: Object,
-        default: {},
+        default: {
+            'morningName': game.i18n.localize('JDTIMEKEEPING.Shift.Morning'),
+            'afternoonName': game.i18n.localize('JDTIMEKEEPING.Shift.Afternoon'),
+            'eveningName': game.i18n.localize('JDTIMEKEEPING.Shift.Evening'),
+            'nightName': game.i18n.localize('JDTIMEKEEPING.Shift.Night'),
+        },
         restricted: true,
     })
 }
@@ -34,7 +40,6 @@ class ShiftSettings extends FormApplication {
 
     getData () {
         const initialValues = game.settings.get(MODULE_ID, SETTINGS.SHIFT_SETTINGS)
-
         return initialValues
     }
 
@@ -47,4 +52,3 @@ class ShiftSettings extends FormApplication {
         super.activateListeners(html)
     }
 }
-
