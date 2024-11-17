@@ -61,5 +61,13 @@
     "JDTIMEKEEPING.SmallIncrement": "Avancer le temps d'une période",
     "JDTIMEKEEPING.SmallDecrement": "Reculer le temps d'une période",
     "JDTIMEKEEPING.LargeIncrement": "Avancer le temps d'un intervalle",
-    "JDTIMEKEEPING.LargeDecrement": "Reculer le temps d'un intervalle"
+    "JDTIMEKEEPING.LargeDecrement": "Reculer le temps d'un intervalle",
+    "JDTIMEKEEPING.Settings.ShiftConfig.name": "Daily Shift Settings",
+    "JDTIMEKEEPING.Settings.ShiftConfig.label": "Daily Shift Settings",
+    "JDTIMEKEEPING.Settings.ShiftConfig.hint": "Allows you to change the names of the four daily shifts",
+    "JDTIMEKEEPING.ShiftTimes.Morning": "6am to 12pm",
+    "JDTIMEKEEPING.ShiftTimes.Afternoon": "12pm to 6pm",
+    "JDTIMEKEEPING.ShiftTimes.Evening": "6pm to 12am",
+    "JDTIMEKEEPING.ShiftTimes.Night": "12am to 6am",
+    "JDTIMEKEEPING.Settings.ShiftNames": "Shift Names"
 }
