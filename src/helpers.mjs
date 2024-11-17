@@ -77,22 +77,24 @@ export class Helpers {
     }
 
     static dbShifts = {
-        0: 'JDTIMEKEEPING.Shift.Night',
-        1: 'JDTIMEKEEPING.Shift.Morning',
-        2: 'JDTIMEKEEPING.Shift.Afternoon',
-        3: 'JDTIMEKEEPING.Shift.Evening',
+        0: 'nightName',
+        1: 'morningName',
+        2: 'afternoonName',
+        3: 'eveningName',
     }
 
-    /** 
+    /**
      * Looks up the Dragonbane shift name from a shift index.
-     * night: 12am to 6am 
-     * morning: 6am to 12pm 
-     * afternoon: 12pm to 6pm 
+     * night: 12am to 6am
+     * morning: 6am to 12pm
+     * afternoon: 12pm to 6pm
      * evening: 6pm to 12am
      */
     static getDragonbaneShiftName (shiftIndex) {
-        if (Helpers.dbShifts.hasOwnProperty(shiftIndex))
-            return game.i18n.localize(Helpers.dbShifts[shiftIndex])
+        if (Helpers.dbShifts.hasOwnProperty(shiftIndex)) {
+            const shiftSettings = game.settings.get(MODULE_ID, SETTINGS.SHIFT_SETTINGS)
+            return shiftSettings[this.dbShifts[shiftIndex]]
+        }
         return ''
     }
 }
