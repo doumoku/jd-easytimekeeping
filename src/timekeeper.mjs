@@ -25,9 +25,9 @@ export class Timekeeper {
     }
 
     /**
-     * Increment the time.
+     * Increment or decrement the time.
      *
-     * @param {Object} time the time interval to increment by
+     * @param {Object} time the time interval to increment or decrement by
      * @param {Number} [time.days=0] days
      * @param {Number} [time.hours=0] hours
      * @param {Number} [time.minutes=10] minutes
@@ -49,7 +49,7 @@ export class Timekeeper {
      * @param {Object} time the time to set
      * @param {Number} [time.days=0] days
      * @param {Number} [time.hours=0] hours
-     * @param {Number} [time.minutes=10] minutes
+     * @param {Number} [time.minutes=0] minutes
      */
     set (time) {
         if (!game.user.isGM) {
