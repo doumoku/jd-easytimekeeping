@@ -9,7 +9,6 @@ export function registerShiftSettings () {
         icon: 'fas fa-cog',
         type: ShiftSettings,
         restricted: true,
-        resizable: true,
     })
 
     // the settings object
@@ -24,6 +23,7 @@ export function registerShiftSettings () {
             nightName: game.i18n.localize('JDTIMEKEEPING.Shift.Night'),
         },
         restricted: true,
+        requiresReload: true,
     })
 }
 
