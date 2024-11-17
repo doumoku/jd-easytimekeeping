@@ -1,3 +1,4 @@
+import { Helpers } from './helpers.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 
 export function registerShiftSettings () {
@@ -54,7 +55,12 @@ class ShiftSettings extends FormApplication {
 
     _updateObject (event, formData) {
         const data = foundry.utils.expandObject(formData)
-        game.settings.set(MODULE_ID, SETTINGS.SHIFT_SETTINGS, data)
+        const current = game.settings.get(MODULE_ID, SETTINGS.SHIFT_SETTINGS)
+
+        if (!Helpers.objectsShallowEqual(data, current)) {
+            game.settings.set(MODULE_ID, SETTINGS.SHIFT_SETTINGS, data)
+            SettingsConfig.reloadConfirm({ world: true })
+        }
     }
 
     // activateListeners (html) {
