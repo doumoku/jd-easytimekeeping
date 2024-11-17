@@ -26,3 +26,16 @@ Easy Timekeeping has the following main features:
 - Configurable ability to post the time to chat at regular times of day. Particularly useful when combined with the option to hide the time of day display on the main UI.
 - An API allows many features to be controlled from macros, such as setting the time, incrementing or decrementing the time, querying the current time, and posting the time to chat.
 - Time change events allow further automation. There is a hook for world scripts, and the ability to specify a time change handler macro through the module settings (requires GM permissions). This allows you to develop scripted events that occur in response to the passage of time, or that take place only at certain times of day.
+
+## A Few Thanks
+
+I'd like to thank a few projects and communities, without whom this project probably wouldn't exist.
+
+- The fantastic people at the Dragonbane Community Discord (you can find a permanent invite link at [the Free League forum](https://forum.frialigan.se/viewtopic.php?t=12039)). It was a quick Foundry macro built on Global Progress Clocks that eventually led to this module.
+- The equally fantastic (and occassionally the same) people at the Foundry VTT Discord. With the technical help in the #macro-polo, #module-development, & #system-development channels I'd be cowering in the garden by now.
+- The devs of [Global Progress Clocks](https://github.com/CarlosFdez/global-progress-clocks). Thanks to the magic of MIT licencing I've adapted the radial clocks right into this module.
+- The devs of [SmallTime](https://github.com/unsoluble/smalltime). While I've not used any of the code, I've drawn a lot of inspiration from the UI of SmallTime.
+
+### What Was That About SmallTime?
+
+Inspired by the UI? Really, is that all? What about all the rest of it? That's the funny thing. I'd implemented my [macro proof of concept](https://github.com/DC23/foundry-macros/blob/main/dbtime/dbtime-readme.md), complete with day/night lighting cycle and was well underway on this module before I knew that SmallTime even existed. I arrived at the same idea independently. And since I wrote this module primarily as a way to teach myself how to write a Foundry module, it didn't seem to matter that it did more or less the same thing. Somewhere in the Foundry Discord is the conversation where I'm asking for ideas on how to write a UI for my timekeeping module and someone mentions the way that SmallTime does things. That's the first I'd heard of it. There followed a short period of disillusionment followed by the realisation that it simply doesn't matter. I had my own ideas for a new twist on things, and ultimately who really cares anyway? I mean, nobody is even reading this except some LLM scraping GitHub for more training data.
