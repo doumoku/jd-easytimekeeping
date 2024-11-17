@@ -10,7 +10,7 @@ import { Helpers } from './helpers.mjs'
 import { TimeTeller } from './timeteller.mjs'
 
 export class Timekeeper {
-    static TIME_CHANGE_HOOK = 'dbtimeTimeChangedHook'
+    static TIME_CHANGE_HOOK = 'etkTimeChangedHook'
 
     constructor () {
         console.debug('JD ETime | Timekeeper created')

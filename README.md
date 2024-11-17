@@ -27,6 +27,38 @@ Easy Timekeeping has the following main features:
 - An API allows many features to be controlled from macros, such as setting the time, incrementing or decrementing the time, querying the current time, and posting the time to chat.
 - Time change events allow further automation. There is a hook for world scripts, and the ability to specify a time change handler macro through the module settings (requires GM permissions). This allows you to develop scripted events that occur in response to the passage of time, or that take place only at certain times of day.
 
+## The API
+
+The Easy Timekeeping API can be accessed from Foundry macros at:
+
+```js
+game.modules.get('jd-easytimekeeping').api
+```
+
+From macros, you can do everything that the UI allows - setting the time, incrementing and decrementing the time, or resetting the time. I've [documented all the API functions](./documentation/api.md), so have a look if you're curious or plan to do some scripting with this module.
+
+### The Time Change Event
+
+Another way to interact with Easy Timekeeping is through the Time Change event. This is called whenever the time changes through any means - the UI or by a macro. You can listen to the event from a [World Script](https://foundryvtt.wiki/en/basics/world-scripts) by subscribing to the time change hook:
+
+```js
+Hooks.on(game.modules.get(MODULE_ID).timeChangeHookName, (data) => {
+    console.log(data)
+})
+```
+
+If you don't want to mess around with world scripts, then as GM you can register a standard script macro in the module settings as the Time Change Event Handler. This macro will be called when the time changes. Unlike the hook, the data object gets exploded and your macro will receive the `oldTime` and `time` variables directly as globals.
+
+`data` contains two data objects, `data.oldTime` and `data.time` with the following structure:
+
+```jsdoc
+@param {Object} time 
+@param {Number} time.totalMinutes total minutes
+@param {Number} time.days days
+@param {Number} time.hours The hour of the day in 24-hour time
+@param {Number} time.minutes The minute of the hour in the range [0..59]
+```
+
 ## A Few Thanks
 
 I'd like to thank a few projects and communities, without whom this project probably wouldn't exist.
