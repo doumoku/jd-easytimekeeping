@@ -80,6 +80,11 @@ export class Timekeeper {
      * @returns {time} the current time
      */
     getTime () {
+        if (!Helpers.showTimeOfDay) {
+            ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.NoPermission'))
+            return false
+        }
+
         return this.#factorTime(this.#totalElapsedMinutes)
     }
 
@@ -90,6 +95,11 @@ export class Timekeeper {
      * @returns {string} the current time as a formatted string suitable for display
      */
     toTimeString (includeDay = false) {
+        if (!Helpers.showTimeOfDay) {
+            ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.NoPermission'))
+            return false
+        }
+
         return Helpers.toTimeString(this.#factorTime(this.#totalElapsedMinutes), {
             includeDay: includeDay,
         })
@@ -101,7 +111,11 @@ export class Timekeeper {
      * @public
      */
     tellTime () {
-        console.debug('JD ETime | tellTime')
+        if (!Helpers.showTimeOfDay) {
+            ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.NoPermission'))
+            return false
+        }
+
         const currentTime = this.#factorTime(this.#totalElapsedMinutes)
         TimeTeller.tellTime(currentTime)
     }
