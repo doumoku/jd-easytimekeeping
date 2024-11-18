@@ -41,6 +41,8 @@ In it's current form, **Easy Timekeeping** is no longer uniquely tailored to the
 
 - Configurable ability to post the time to chat at regular times of day. Particularly useful when combined with the option to hide the time of day from the players on the main UI. This feature is disabled by default. Enable it in the module settings.
 
+    ![Time of day chat](./documentation/img/chat.png)
+
 - An API allows most features to be controlled from macros, such as setting the time, incrementing or decrementing the time, querying the current time, and posting the time to chat.
 
 - Time change events allow further automation. There is a hook for world scripts, and the ability to specify a time change handler macro through the module settings (requires GM permissions). This allows you to develop scripted events that occur in response to the passage of time, or that take place only at certain times of day.
