@@ -49,15 +49,7 @@ Hooks.on(game.modules.get(MODULE_ID).timeChangeHookName, (data) => {
 
 If you don't want to mess around with world scripts, then as GM you can register a standard script macro in the module settings with the *Time Change Event Handler* setting. The registered macro will be called when the time changes. Unlike the hook, the data object gets exploded and your macro will receive the `oldTime` and `time` variables directly as globals.
 
-`oldTime` and `time` (or `data.oldTime` & `data.time` in a world script) have the following structure:
-
-```jsdoc
-@param {Object} time 
-@param {Number} time.totalMinutes total minutes elapsed since 12am on day 0
-@param {Number} time.days days since day 0
-@param {Number} time.hours The hour of the day in 24-hour time, range [0..23]
-@param {Number} time.minutes The minute of the hour in the range [0..59]
-```
+`oldTime` and `time` (or `data.oldTime` & `data.time` in a world script) are [`timeAugmented`](./documentation/timekeeper.md#timeaugmented) objects.
 
 ## A Few Thanks
 
