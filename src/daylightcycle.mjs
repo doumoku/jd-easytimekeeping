@@ -1,4 +1,25 @@
+import { Helpers } from './helpers.mjs'
+import { MODULE_ID, SETTINGS } from './settings.mjs'
+import { Timekeeper } from './timekeeper.mjs'
+
 /**
+ * @public
+ * @typedef {Object} PHASES Enumeration of the phases of the day
+ * @property {number} DAWN The dawn phase, when lighting is transitioning between night and day
+ * @property {number} DAY The day phase, when lighting is stable at the daytime setting
+ * @property {number} DUSK The dusk phase, when lighting is transitioning between day and night
+ * @property {number} NIGHT The night phase, when lighting is stable at the nighttime setting
+ */
+export const PHASES = {
+    DAWN: 0,
+    DAY: 1,
+    DUSK: 2,
+    NIGHT: 3,
+}
+
+/**
+ * @public
+ * @class Implements the 24-hour lighting cycle
  * Implements the daylight cycle.
  *
  * In the cycle, the day is divided into 4 phases:
@@ -18,22 +39,17 @@
  * move the scene darkness level towards the target value over the required number of
  * clock ticks.
  */
-import { Helpers } from './helpers.mjs'
-import { MODULE_ID, SETTINGS } from './settings.mjs'
-import { Timekeeper } from './timekeeper.mjs'
-
-export const PHASES = {
-    DAWN: 0,
-    DAY: 1,
-    DUSK: 2,
-    NIGHT: 3,
-}
-
 export class DaylightCycle {
     static init () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, DaylightCycle.timeChangeHandler)
     }
 
+    /**
+     * Time changed hook handler
+     *
+     * @param {import('./timekeeper.mjs').timeChangeData} data
+     * @public
+     */
     static timeChangeHandler (data) {
         const time = data.time
         if (!DaylightCycle.#enabled) return
@@ -61,11 +77,10 @@ export class DaylightCycle {
 
     /**
      * Gets the name of the current phase of the day as a localised string.
-     * @param {Object} time
-     * @param {Number} time.days
-     * @param {Number} time.hours
-     * @param {Number} time.minutes
+     *
+     * @param {import('./timekeeper.mjs').time} time
      * @returns {string} the localised name of the day phase. This is one of the set [Dawn, Day, Dusk, Night]
+     * @public
      */
     static getPhaseOfDay (time) {
         switch (DaylightCycle.#detectPhase(time)) {
@@ -81,6 +96,12 @@ export class DaylightCycle {
         }
     }
 
+    /**
+     * Detects the lighting cycle phase for the given time.
+     *
+     * @param {import('./timekeeper.mjs').time} time
+     * @returns {PHASES} the daylight cycle phase for the given time
+     */
     static #detectPhase (time) {
         /**
          * Internally, work with the JS Date object since it's much
@@ -115,6 +136,9 @@ export class DaylightCycle {
         }
     }
 
+    /**
+     * Processes an update for the `PHASES.DAY` phase
+     */
     static #processDay () {
         console.debug('JD ETime | Daylight cycle - day')
         if (DaylightCycle.#sceneDarkness != DaylightCycle.#daytimeDarkness) {
@@ -126,6 +150,9 @@ export class DaylightCycle {
         }
     }
 
+    /**
+     * Processes an update for the `PHASES.NIGHT` phase
+     */
     static #processNight () {
         console.debug('JD ETime | Daylight cycle - night')
         if (DaylightCycle.#sceneDarkness != DaylightCycle.#nighttimeDarkness) {
@@ -137,6 +164,13 @@ export class DaylightCycle {
         }
     }
 
+    /**
+     * Processes an update for the `PHASES.DAWN` phase.
+     * Uses linear interpolation between the night and day lighting values
+     * to set the scene lighting.
+     *
+     * @param {import('./timekeeper.mjs').time} time the current time in the dawn phase
+     */
     static #processDawn (time) {
         console.debug('JD ETime | Daylight cycle - dawn')
         DaylightCycle.#processTwilightPhase(
@@ -148,6 +182,13 @@ export class DaylightCycle {
         )
     }
 
+    /**
+     * Processes an update for the `PHASES.DUSK` phase
+     * Uses linear interpolation between the day and night lighting values
+     * to set the scene lighting.
+     *
+     * @param {import('./timekeeper.mjs').time} time the current time in the dusk phase
+     */
     static #processDusk (time) {
         console.debug('JD ETime | Daylight cycle - dusk')
         DaylightCycle.#processTwilightPhase(
@@ -159,6 +200,15 @@ export class DaylightCycle {
         )
     }
 
+    /**
+     * Processes one of the twilight (dawn and dusk) phases.
+     *
+     * @param {import('./timekeeper.mjs').time} time the current time
+     * @param {import('./timekeeper.mjs').time} startTime the start of the twilight phase
+     * @param {number} durationMinutes duration of the twilight phase in minutes
+     * @param {number} fromDarkness Foundry scene darkness level of the phase we are moving from
+     * @param {*} toDarkness  Foundry scene darkness level of the phase we are moving towards
+     */
     static #processTwilightPhase (time, startTime, durationMinutes, fromDarkness, toDarkness) {
         /**
          * Given:
@@ -194,6 +244,13 @@ export class DaylightCycle {
         )
     }
 
+    /**
+     * Simple linear interpolation between 2 values
+     * @param {number} scale scaling factor
+     * @param {number} start starting value
+     * @param {number} end ending value
+     * @returns {number} the interpolated value
+     */
     static #scaleVector (scale, start, end) {
         let v = scale * (end - start) + start
         v = Math.min(1, Math.max(0, v))
@@ -201,8 +258,10 @@ export class DaylightCycle {
     }
 
     /**
-     * @param {Date} time the time
-     * @param {Number} minutes the number of minutes to add to the time
+     * Adds a given number of minutes to the time.
+     * @param {import('./timekeeper.mjs').time} time the time
+     * @param {number} minutes the number of minutes to add to the time
+     * @returns {import('./timekeeper.mjs').time} the new time
      */
     static #addMinutes (time, minutes) {
         const totalMinutes = time.hours * 60 + time.minutes + minutes
@@ -220,11 +279,9 @@ export class DaylightCycle {
      * and we only use these objects to simplify relative calculations between times
      * and to ensure correct detection of daylight cycle phases when the phases cross
      * the midnight boundary.
-     * @param {Object} time
-     * @param {Number} time.days
-     * @param {Number} time.hours
-     * @param {Number} time.minutes
-     * @returns
+     *
+     * @param {import('./timekeeper.mjs').time} time the time to convert
+     * @returns {Date} the time input converted to a date, with seconds and milliseconds set to 0
      */
     static #asDate (time) {
         const date = new Date()
@@ -235,7 +292,9 @@ export class DaylightCycle {
     }
 
     /**
-     * Methods to encapsulate settings and scene values, since they make for cleaner code
+     * Tests if the Daylight cycle is enabled.
+     *
+     * @returns {boolean} true if daylight cycle is enabled, otherwise false
      */
     static get #enabled () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
@@ -243,24 +302,49 @@ export class DaylightCycle {
         ]
     }
 
+    /**
+     * Controls the fade duration of a single change in scene lighting.
+     *
+     * @returns {number} The darkness animation duration in milliseconds
+     */
     static get #animateDarkness () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['animate-darkness-ms']
     }
 
+    /**
+     * The daytime darkness value.
+     *
+     * @returns {number} The daytime darkness, range [0..1.0]
+     */
     static get #daytimeDarkness () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['day-darkness-level']
     }
 
+    /**
+     * The nighttime darkness value.
+     *
+     * @returns {number} The nighttime darkness, range [0..1.0]
+     */
     static get #nighttimeDarkness () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)[
             'night-darkness-level'
         ]
     }
 
+    /**
+     * The current scene darkness value
+     *
+     * @returns {number} The current scene darkness, range [0..1.0]
+     */
     static get #sceneDarkness () {
         return canvas.scene.environment.darknessLevel
     }
 
+    /**
+     * Sets the scene darkness
+     *
+     * @param {number} darkness the value to set
+     */
     static async #setSceneDarkness (darkness) {
         await canvas.scene.update(
             { 'environment.darknessLevel': darkness },
@@ -268,22 +352,42 @@ export class DaylightCycle {
         )
     }
 
+    /**
+     * Gets the dawn start time
+     *
+     * @returns {import('./timekeeper.mjs').time} the dawn start time
+     */
     static get #dawnStart () {
         return Helpers.splitTimeString(
             game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dawn-start']
         )
     }
 
+    /**
+     * Gets the dawn duration in minutes
+     *
+     * @returns {number} dawn duration in minutes
+     */
     static get #dawnDuration () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dawn-duration']
     }
 
+    /**
+     * Gets the dusk start time
+     *
+     * @returns {import('./timekeeper.mjs').time} the dusk start time
+     */
     static get #duskStart () {
         return Helpers.splitTimeString(
             game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dusk-start']
         )
     }
 
+    /**
+     * Gets the dusk duration in minutes
+     *
+     * @returns {number} dusk duration in minutes
+     */
     static get #duskDuration () {
         return game.settings.get(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS)['dusk-duration']
     }
