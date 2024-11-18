@@ -3,28 +3,123 @@
 ### Table of Contents
 
 *   [Timekeeper][1]
-    *   [increment][2]
+    *   [getPhaseOfDay][2]
+    *   [increment][3]
+    *   [set][4]
+    *   [getTime][5]
+    *   [tellTime][6]
+*   [time][7]
+    *   [Properties][8]
+*   [timeAugmented][9]
+    *   [Properties][10]
+*   [timeChangeData][11]
+    *   [Properties][12]
 
 ## Timekeeper
 
 The public API for Easy Timekeeping.
 
+### getPhaseOfDay
+
+Gets the name of the current phase of the day as a localised string.
+
+Returns **[string][13]** the localised name of the day phase.
+This is one of the set \[Dawn, Day, Dusk, Night], but localized.
+
 ### increment
 
 Increment or decrement the time.
+You must be a GM to run this function.
 
 #### Parameters
 
-*   `time` **[Object][3]** the time interval to increment or decrement by
+*   `time` **[time][7]** the time step to increment or decrement
 
-    *   `time.days` **[Number][4]** days (optional, default `0`)
-    *   `time.hours` **[Number][4]** hours (optional, default `0`)
-    *   `time.minutes` **[Number][4]** minutes (optional, default `10`)
+Returns **[timeChangeData][11]** if the time was changed, otherwise `false`.
+
+### set
+
+Set the time.
+You must be a GM to run this function.
+
+#### Parameters
+
+*   `time` **[time][7]** the time to set
+
+Returns **[timeChangeData][11]** if the time was changed, otherwise `false`.
+
+### getTime
+
+Gets the current time.
+
+Returns **[time][7]** the current time
+
+### tellTime
+
+Posts the current time to chat.
+
+## time
+
+A time object used for inputting time values to the Easy Timekeeping API
+
+Type: [Object][14]
+
+### Properties
+
+*   `days` **[number][15]** days since day 0
+*   `hours` **[number][15]** hour of the day in 24-hour time, range \[0..23]
+*   `minutes` **[number][15]** minute of the hour, range \[0..59]
+
+## timeAugmented
+
+An augmented time object used when values are returned from the Easy Timekeeping API
+
+Type: [Object][14]
+
+### Properties
+
+*   `days` **[number][15]** days since day 0
+*   `hours` **[number][15]** hour of the day in 24-hour time, range \[0..23]
+*   `minutes` **[number][15]** minute of the hour, range \[0..59]
+*   `totalMinutes` **[number][15]** total elapsed minutes since 12am on day 0
+
+## timeChangeData
+
+Time change object returned from the Easy Timekeeping API
+
+Type: [Object][14]
+
+### Properties
+
+*   `oldTime` **[timeAugmented][9]** the previous time
+*   `time` **[timeAugmented][9]** the new time
 
 [1]: #timekeeper
 
-[2]: #increment
+[2]: #getphaseofday
 
-[3]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[3]: #increment
 
-[4]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[4]: #set
+
+[5]: #gettime
+
+[6]: #telltime
+
+[7]: #time
+
+[8]: #properties
+
+[9]: #timeaugmented
+
+[10]: #properties-1
+
+[11]: #timechangedata
+
+[12]: #properties-2
+
+[13]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[14]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
