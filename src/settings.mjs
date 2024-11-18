@@ -1,5 +1,6 @@
 import { registerAutoTellTimeSettings } from './autotelltimesettings.mjs'
 import { registerDaylightCycleSettings } from './daylightcyclesettings.mjs'
+import { registerShiftSettings } from './shiftsettings.mjs'
 
 export const MODULE_ID = 'jd-easytimekeeping'
 export const SETTINGS = {
@@ -9,6 +10,8 @@ export const SETTINGS = {
     AUTO_TELL_TIME_MENU: 'autoTellTimeMenu',
     DAYLIGHT_CYCLE_SETTINGS: 'daylightCycleSettings',
     DAYLIGHT_CYCLE_MENU: 'daylightCycleMenu',
+    SHIFT_SETTINGS: 'shiftSettings',
+    SHIFT_MENU: 'shiftMenu',
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
     SMALL_TIME_DELTA: 'smallTimeDelta',
     LARGE_TIME_DELTA: 'largeTimeDelta',
@@ -24,6 +27,7 @@ export function registerSettings () {
     // Register the menus
     registerAutoTellTimeSettings()
     registerDaylightCycleSettings()
+    registerShiftSettings()
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY, {
         name: 'JDTIMEKEEPING.Settings.ShowTimeOfDay.name',

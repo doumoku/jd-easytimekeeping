@@ -32,6 +32,7 @@ Hooks.once('ready', async () => {
     timekeeper.init()
 
     game.modules.get(MODULE_ID).api = timekeeper
+    game.modules.get(MODULE_ID).timeChangeHookName = Timekeeper.TIME_CHANGE_HOOK
     game.modules.get(MODULE_ID).constants = Constants
 
     console.groupEnd()

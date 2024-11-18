@@ -61,5 +61,19 @@
     "JDTIMEKEEPING.SmallIncrement": "Move time forward by a small step",
     "JDTIMEKEEPING.SmallDecrement": "Move time backward by a small step",
     "JDTIMEKEEPING.LargeIncrement": "Move time forward by a large step",
-    "JDTIMEKEEPING.LargeDecrement": "Move time backward by a large step"
+    "JDTIMEKEEPING.LargeDecrement": "Move time backward by a large step",
+    "JDTIMEKEEPING.Settings.ShiftConfig.name": "Daily Shift Settings",
+    "JDTIMEKEEPING.Settings.ShiftConfig.label": "Daily Shift Settings",
+    "JDTIMEKEEPING.Settings.ShiftConfig.hint": "Allows you to change the names of the four daily shifts. Either reload Foundry after changing, or just wait for the next time change.",
+    "JDTIMEKEEPING.ShiftTimes.Morning": "6am to 12pm",
+    "JDTIMEKEEPING.ShiftTimes.Afternoon": "12pm to 6pm",
+    "JDTIMEKEEPING.ShiftTimes.Evening": "6pm to 12am",
+    "JDTIMEKEEPING.ShiftTimes.Night": "12am to 6am",
+    "JDTIMEKEEPING.Settings.ShiftNames": "Shift Names",
+    "JDTIMEKEEPING.UI.reset": "Reset the Time",
+    "JDTIMEKEEPING.UI.largeDec": "Large Decrement",
+    "JDTIMEKEEPING.UI.smallDec": "Small Decrement",
+    "JDTIMEKEEPING.UI.smallInc": "Small Increment",
+    "JDTIMEKEEPING.UI.largeInc": "Large Increment",
+    "JDTIMEKEEPING.UI.set": "Set the Time"
 }

@@ -44,14 +44,21 @@ class AutoTellTimeMenu extends FormApplication {
             return shiftArray
         }
 
-        const shiftTimes = {
+        const data = {
             morning: buildShiftValues([6, 7, 8, 9, 10, 11], 'AM'),
             afternoon: buildShiftValues([12, 1, 2, 3, 4, 5], 'PM'),
             evening: buildShiftValues([6, 7, 8, 9, 10, 11], 'PM'),
             night: buildShiftValues([12, 1, 2, 3, 4, 5], 'AM'),
         }
 
-        return shiftTimes
+        // Use the shift names from module settings
+        const shiftSettings = game.settings.get(MODULE_ID, SETTINGS.SHIFT_SETTINGS)
+        data.morningName = shiftSettings['morningName']
+        data.afternoonName = shiftSettings['afternoonName']
+        data.eveningName = shiftSettings['eveningName']
+        data.nightName = shiftSettings['nightName']
+
+        return data
     }
 
     _updateObject (event, formData) {

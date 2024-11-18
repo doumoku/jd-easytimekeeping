@@ -1,0 +1,30 @@
+<form class="form-group flexcol">
+    <fieldset>
+        <legend>{{localize "JDTIMEKEEPING.Settings.ShiftNames"}}:</legend>
+        <div class="form-row flexrow">
+            <label for="morningName">{{localize "JDTIMEKEEPING.ShiftTimes.Morning"}}:</label>
+            <input name="morningName" required=true value="{{morningName}}" />
+        </div>
+        <div class="form-row flexrow">
+            <label for="afternoonName">{{localize "JDTIMEKEEPING.ShiftTimes.Afternoon"}}:</label>
+            <input name="afternoonName" required=true value="{{afternoonName}}" />
+        </div>
+        <div class="form-row flexrow">
+            <label for="eveningName">{{localize "JDTIMEKEEPING.ShiftTimes.Evening"}}:</label>
+            <input name="eveningName" required=true value="{{eveningName}}" />
+        </div>
+        <div class="form-row flexrow">
+            <label for="nightName">{{localize "JDTIMEKEEPING.ShiftTimes.Night"}}:</label>
+            <input name="nightName" required=true value="{{nightName}}" />
+        </div>
+    </fieldset>
+
+    <footer class="sheet-footer flexrow button-container">
+        {{!-- <button class="reset-all" type="button" name="reset" data-action="reset">
+            <i class="fa-solid fa-undo"></i> {{localize "SETTINGS.Reset"}}
+        </button> --}}
+        <button type="submit" name="submit">
+            <i class="fa-solid fa-save"></i> {{localize "SETTINGS.Save"}}
+        </button>
+    </footer>
+</form>
