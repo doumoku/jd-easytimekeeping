@@ -9,7 +9,6 @@ import { DaylightCycle } from './daylightcycle.mjs'
 import { Helpers } from './helpers.mjs'
 import { TimeTeller } from './timeteller.mjs'
 
-
 /**
  * The public API for Easy Timekeeping.
  *
@@ -30,7 +29,7 @@ export class Timekeeper {
      * Gets the name of the current phase of the day as a localised string.
      *
      * @public
-     * @returns {string} the localised name of the day phase. 
+     * @returns {string} the localised name of the day phase.
      * This is one of the set [Dawn, Day, Dusk, Night], but localized.
      */
     getPhaseOfDay () {
@@ -173,9 +172,8 @@ export class Timekeeper {
          * Macros can't listen to hooks, so if there is a macro registered in the
          * module settings then we'll call it now
          */
-        const timeChangeMacro = this.#timeChangeMacro
-        if (timeChangeMacro) {
-            timeChangeMacro.execute(data)
+        if (game.user.isGM) {
+            this.#timeChangeMacro?.execute(data)
         }
 
         return data
@@ -223,9 +221,9 @@ export class Timekeeper {
 
 /**
  * A time object used for inputting time values to the Easy Timekeeping API
- * 
+ *
  * @public
- * @typedef {Object} time 
+ * @typedef {Object} time
  * @property {number} days days since day 0
  * @property {number} hours hour of the day in 24-hour time, range [0..23]
  * @property {number} minutes minute of the hour, range [0..59]
@@ -233,9 +231,9 @@ export class Timekeeper {
 
 /**
  * An augmented time object used when values are returned from the Easy Timekeeping API
- * 
+ *
  * @public
- * @typedef {Object} timeAugmented 
+ * @typedef {Object} timeAugmented
  * @property {number} days days since day 0
  * @property {number} hours hour of the day in 24-hour time, range [0..23]
  * @property {number} minutes minute of the hour, range [0..59]
