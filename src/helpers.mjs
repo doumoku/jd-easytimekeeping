@@ -14,14 +14,11 @@ export class Helpers {
      * Returns the current time of day as a formatted string.
      * Current module settings for 12 or 24 hour time are honoured.
      *
-     * @param {Object} time A Timekeeper time object
-     * @param {Number} time.totalMinutes total minutes
-     * @param {Number} time.days days
-     * @param {Number} time.hours The hour of the day in 24 time
-     * @param {Number} time.minutes The minute of the hour
+     * @param {import('./timekeeper.mjs').timeAugmented} time A Timekeeper time object
      * @param {Object} [options]
-     * @param {Boolean} [options.includeDay=false] Whether the day is included, or just the time
-     * @param {String} [options.i18nFormatter='JDTIMEKEEPING.timeOfDay'] The formatter to use
+     * @param {boolean} [options.includeDay=false] Whether the day is included, or just the time
+     * @param {string} [options.i18nFormatter='JDTIMEKEEPING.timeOfDay'] The formatter to use
+     * @returns {string} the formatted time string
      */
     static toTimeString (time, options) {
         const timeOfDay = Helpers.toTimeOfDay(time)
@@ -35,8 +32,8 @@ export class Helpers {
 
     /**
      * Gets the formatted time as a string "hh:mm [AM|PM]"
-     * @param {Object} time A Timekeeper time object
-     * @param {String} [mode='auto'] Time mode. 'auto' uses the module setting
+     * @param {import('./timekeeper.mjs').timeAugmented} time A Timekeeper time object
+     * @param {string} [mode='auto'] Time mode. 'auto' uses the module setting
      */
     static toTimeOfDay (time, mode = 'auto') {
         const theMode = mode === 'auto' ? Helpers.timeDisplayMode : mode
@@ -89,6 +86,8 @@ export class Helpers {
      * morning: 6am to 12pm
      * afternoon: 12pm to 6pm
      * evening: 6pm to 12am
+     * 
+     * @param {number} shiftIndex The shift index, where 0 is the night shift, 1 is morning, 2 is afternoon, and 3 is evening.
      */
     static getDragonbaneShiftName (shiftIndex) {
         if (Helpers.dbShifts.hasOwnProperty(shiftIndex)) {

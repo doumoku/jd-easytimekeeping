@@ -1,7 +1,6 @@
 /**
  * Defines the constants which are used in multiple places for time calculations.
  */
-
 export class Constants {
     static minutesPerDay = 24 * 60
     static secondsPerDay = 24 * 60 * 60

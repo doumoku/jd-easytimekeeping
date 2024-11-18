@@ -1,5 +1,9 @@
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 
+/**
+ * Registers the settings menu for Automatic time telling.
+ * This feature handles automatic posting of the time of day to chat.
+ */
 export function registerAutoTellTimeSettings () {
     // The settings menu
     game.settings.registerMenu(MODULE_ID, SETTINGS.AUTO_TELL_TIME_MENU, {
