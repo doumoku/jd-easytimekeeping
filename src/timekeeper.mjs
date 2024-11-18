@@ -9,11 +9,11 @@ import { DaylightCycle } from './daylightcycle.mjs'
 import { Helpers } from './helpers.mjs'
 import { TimeTeller } from './timeteller.mjs'
 
+
 /**
  * The public API for Easy Timekeeping.
- * 
+ *
  * @public
- * 
  */
 export class Timekeeper {
     static TIME_CHANGE_HOOK = 'etkTimeChangedHook'
@@ -26,18 +26,24 @@ export class Timekeeper {
         this.#set(this.#totalElapsedMinutes)
     }
 
+    /**
+     * Gets the name of the current phase of the day as a localised string.
+     *
+     * @public
+     * @returns {string} the localised name of the day phase. 
+     * This is one of the set [Dawn, Day, Dusk, Night], but localized.
+     */
     getPhaseOfDay () {
         return DaylightCycle.getPhaseOfDay(this.#factorTime(this.#totalElapsedMinutes))
     }
 
     /**
      * Increment or decrement the time.
+     * You must be a GM to run this function.
      *
      * @public
-     * @param {Object} time the time interval to increment or decrement by
-     * @param {Number} [time.days=0] days
-     * @param {Number} [time.hours=0] hours
-     * @param {Number} [time.minutes=10] minutes
+     * @param {time} time the time step to increment or decrement
+     * @returns {timeChangeData} if the time was changed, otherwise `false`.
      */
     increment (time) {
         if (!game.user.isGM) {
@@ -52,11 +58,11 @@ export class Timekeeper {
 
     /**
      * Set the time.
+     * You must be a GM to run this function.
      *
-     * @param {Object} time the time to set
-     * @param {Number} [time.days=0] days
-     * @param {Number} [time.hours=0] hours
-     * @param {Number} [time.minutes=0] minutes
+     * @public
+     * @param {time} time the time to set
+     * @returns {timeChangeData} if the time was changed, otherwise `false`.
      */
     set (time) {
         if (!game.user.isGM) {
@@ -69,23 +75,31 @@ export class Timekeeper {
     }
 
     /**
-     * Gets the current time
+     * Gets the current time.
+     *
+     * @public
+     * @returns {time} the current time
      */
     getTime () {
         return this.#factorTime(this.#totalElapsedMinutes)
     }
 
     /**
-     * Gets the current time as a formatted string
-     * @param {Boolean} includeDay Determines whether the current day is included in the string
-     * @returns
+     * Gets the current time as a formatted string.
+     *
+     * @param {boolean} includeDay Determines whether the current day is included in the string
+     * @returns {string} the current time as a formatted string suitable for display
      */
     toTimeString (includeDay = false) {
-        return Helpers.toTimeString(this.#factorTime(this.#totalElapsedMinutes), {includeDay: includeDay})
+        return Helpers.toTimeString(this.#factorTime(this.#totalElapsedMinutes), {
+            includeDay: includeDay,
+        })
     }
 
     /**
      * Posts the current time to chat.
+     *
+     * @public
      */
     tellTime () {
         console.debug('JD ETime | tellTime')
@@ -96,7 +110,8 @@ export class Timekeeper {
     /**
      * Private method to actually increment the current time.
      *
-     * @param {Number} minutes The number of minutes to increment.
+     * @param {number} minutes The number of minutes to increment.
+     * @returns {timeChangeData} if the time was changed, otherwise `false`.
      */
     #increment (minutes = 1) {
         console.debug('JD ETime | incrementing %d minutes', minutes)
@@ -114,7 +129,8 @@ export class Timekeeper {
     /**
      * Private method to actually set the time.
      *
-     * @param {Number} totalMinutes The total number of minutes since 0:00 on day 0
+     * @param {number} totalMinutes The total number of minutes since 0:00 on day 0
+     * @returns {timeChangeData} if the time was changed, otherwise `false`.
      */
     #set (totalMinutes = 0) {
         if (totalMinutes >= 0) {
@@ -144,16 +160,9 @@ export class Timekeeper {
     /**
      * Notifies of a change in the time.
      *
-     * @param {Object} oldTime the previous time
-     * @param {Number} oldTime.totalMinutes total minutes
-     * @param {Number} oldTime.days days
-     * @param {Number} oldTime.hours The hour of the day in 24 time
-     * @param {Number} oldTime.minutes The minute of the hour
-     * @param {Object} newTime the new time
-     * @param {Number} newTime.totalMinutes total minutes
-     * @param {Number} newTime.days days
-     * @param {Number} newTime.hours The hour of the day in 24 time
-     * @param {Number} newTime.minutes The minute of the hour
+     * @param {time} oldTime the previous time
+     * @param {time} newTime the new time
+     * @returns {timeChangeData} if the time was changed, otherwise `false`.
      */
     #notify (oldTime, newTime) {
         const data = { oldTime: oldTime, time: newTime }
@@ -174,6 +183,7 @@ export class Timekeeper {
 
     /**
      * Factors a time in total minutes into a time object
+     * @returns {timeAugmented}
      */
     #factorTime (totalMinutes) {
         const time = {}
@@ -210,3 +220,32 @@ export class Timekeeper {
         )
     }
 }
+
+/**
+ * A time object used for inputting time values to the Easy Timekeeping API
+ * 
+ * @public
+ * @typedef {Object} time 
+ * @property {number} days days since day 0
+ * @property {number} hours hour of the day in 24-hour time, range [0..23]
+ * @property {number} minutes minute of the hour, range [0..59]
+ */
+
+/**
+ * An augmented time object used when values are returned from the Easy Timekeeping API
+ * 
+ * @public
+ * @typedef {Object} timeAugmented 
+ * @property {number} days days since day 0
+ * @property {number} hours hour of the day in 24-hour time, range [0..23]
+ * @property {number} minutes minute of the hour, range [0..59]
+ * @property {number} totalMinutes total elapsed minutes since 12am on day 0
+ */
+
+/**
+ * Time change object returned from the Easy Timekeeping API
+ * @public
+ * @typedef {Object} timeChangeData
+ * @property {timeAugmented} oldTime the previous time
+ * @property {timeAugmented} time the new time
+ */

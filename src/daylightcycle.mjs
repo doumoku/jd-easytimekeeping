@@ -59,6 +59,14 @@ export class DaylightCycle {
         }
     }
 
+    /**
+     * Gets the name of the current phase of the day as a localised string.
+     * @param {Object} time
+     * @param {Number} time.days
+     * @param {Number} time.hours
+     * @param {Number} time.minutes
+     * @returns {string} the localised name of the day phase. This is one of the set [Dawn, Day, Dusk, Night]
+     */
     static getPhaseOfDay (time) {
         switch (DaylightCycle.#detectPhase(time)) {
             case PHASES.DAWN:
