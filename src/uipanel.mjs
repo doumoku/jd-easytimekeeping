@@ -158,7 +158,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         if (UIPanel.#playerSeesNothing) {
             context.time = game.i18n.localize('JDTIMEKEEPING.YouHaveNoIdeaOfTheTime')
         } else {
-            if (UIPanel.#showTimeOfDay) {
+            if (Helpers.showTimeOfDay) {
                 context.time = Helpers.toTimeString(this.#time, {
                     includeDay: true,
                     i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
@@ -247,13 +247,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
      * Has the GM chosen to hide all UI elements from players?
      */
     static get #playerSeesNothing () {
-        return !UIPanel.#showDBTime && !UIPanel.#showTimeOfDay && !UIPanel.#showRadialClocks
-    }
-
-    static get #showTimeOfDay () {
-        // The time of day string is always shown for a GM, and conditionally for
-        // players based on the module setting
-        return game.user.isGM || game.settings.get(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY)
+        return !UIPanel.#showDBTime && !Helpers.showTimeOfDay && !UIPanel.#showRadialClocks
     }
 
     static get #showDBTime () {
