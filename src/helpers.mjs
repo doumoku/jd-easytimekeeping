@@ -114,4 +114,16 @@ export class Helpers {
 
         return true
     }
+
+    /**
+     * Check if the exact time of day can be seen by the current user based 
+     * on user role and module settings
+     * 
+     * @returns {boolean} `true` if the exact time can be shown, `false` otherwise
+     */
+    static get showTimeOfDay () {
+        // The time of day string is always shown for a GM, and conditionally for
+        // players based on the module setting
+        return game.user.isGM || game.settings.get(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY)
+    }
 }
