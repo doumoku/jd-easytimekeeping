@@ -1,7 +1,7 @@
 # Easy Timekeeping
 
 ![Static Badge](https://img.shields.io/badge/Module%20Status%3A-Beta%20Testing-red)
-![Static Badge](https://img.shields.io/badge/Version-0.6.5-blue)
+![Static Badge](https://img.shields.io/badge/Version-0.6.6-blue)
 [![Release Build](https://github.com/DC23/jd-easytimekeeping/actions/workflows/main.yml/badge.svg)](https://github.com/DC23/jd-easytimekeeping/actions/workflows/main.yml)
 
 > [!CAUTION]
