@@ -20,12 +20,28 @@ In it's current form, **Easy Timekeeping** is no longer uniquely tailored to the
 **Easy Timekeeping** has the following main features:
 
 - The GM is always in control of the passage of time.
-- The UI allows the GM to quickly change the time by configurable small and large jumps.
-- An optional daylight cycle provides configurable automation of scene lighting.
-- Special modes for Dragonbane that support fuzzy time showing just the current stretch and shift in words and visual form. The precise time of day can optionally be hidden from players.
-- Configurable ability to post the time to chat at regular times of day. Particularly useful when combined with the option to hide the time of day display on the main UI.
-- An API allows many features to be controlled from macros, such as setting the time, incrementing or decrementing the time, querying the current time, and posting the time to chat.
+
+- Media buttons allow the GM to quickly change the time by configurable small and large jumps. By default these are set to 15 minutes for small changes and 6 hours for large, but these can be changed by a GM in the module settings.
+
+    ![Default GM UI](./documentation/img/gm-default-ui.png)
+    ![Default GM UI](./documentation/img/gm-all-ui.png)
+
+- All time control buttons on the UI have keybindings, but they are unset by default. If you want to use keyboard shortcuts, you can assign keys in the Foundry Configure Controls menu for Easy Timekeeping.
+
+- An optional daylight cycle provides configurable automation of scene lighting. Note that the daylight cycle is disabled by default. Turn it on in the module settings. Once enabled, it is active for every scene in your world. To disable daylight cycles for a single scene, use the Foundry Darkness Level Lock setting in the scene lighting configuration.
+
+- Special modes for Dragonbane that support fuzzy time showing just the current stretch and shift in words and visual form. The precise time of day can optionally be hidden from players, with the fuzzy Dragonbane time in stretches and shifts displayed in words or graphically:
+
+    ![Player view of Dragonbane text-based fuzzy time](./documentation/img/player-fuzzy-dragonbane.png)
+    ![Player view of Dragonbane graphical fuzzy time](./documentation/img/player-dragonbane-graphical.png)
+
+- Configurable ability to post the time to chat at regular times of day. Particularly useful when combined with the option to hide the time of day from the players on the main UI. This feature is disabled by default. Enable it in the module settings.
+
+- An API allows most features to be controlled from macros, such as setting the time, incrementing or decrementing the time, querying the current time, and posting the time to chat.
+
 - Time change events allow further automation. There is a hook for world scripts, and the ability to specify a time change handler macro through the module settings (requires GM permissions). This allows you to develop scripted events that occur in response to the passage of time, or that take place only at certain times of day.
+
+## How Time is Reckoned
 
 ## The API
 
