@@ -29,13 +29,13 @@ In it's current form, **Easy Timekeeping** is no longer uniquely tailored to the
 
 ## The API
 
-The **Easy Timekeeping** API can be accessed from Foundry macros with:
+The [**Easy Timekeeping** API](./documentation/timekeeper.md) can be accessed from Foundry macros with:
 
 ```js
 game.modules.get('jd-easytimekeeping').api
 ```
 
-From macros, you can do everything that the UI allows - setting, incrementing, and decrementing the time. The [API is documented](./documentation/timekeeper.md) in the public methods of the Timekeeper class, generated with [documentationjs](https://github.com/documentationjs). It says `Timekeeper`, I just renamed it to `api` when exporting from the module to make the intent clear.
+From macros, you can do everything that the UI allows - setting, incrementing, and decrementing the time.
 
 ### The Time Change Event
 
