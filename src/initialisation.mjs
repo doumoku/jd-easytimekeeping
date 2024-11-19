@@ -13,7 +13,6 @@ Hooks.once('init', () => {
     console.group('JD ETime | init')
 
     registerKeybindings()
-    registerSettings()
 
     const uiPanel = new UIPanel()
     uiPanel.init()
@@ -27,6 +26,8 @@ Hooks.once('init', () => {
 
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
+
+    registerSettings()
 
     const timekeeper = new Timekeeper()
     timekeeper.init()
