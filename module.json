@@ -3,7 +3,7 @@
     "title": "Easy Timekeeping",
     "version": "v0.6.6",
     "compatibility": {
-        "minimum": "11",
+        "minimum": "12",
         "verified": "12"
     },
     "description": "Easy Timekeeping implements simple timekeeping without any fuss or complicated features.",
