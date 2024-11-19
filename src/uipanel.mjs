@@ -169,12 +169,12 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
                 const dbtime = Helpers.factorDragonbaneTime(this.#time)
                 dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
+                dbtime.textColor = context.textColor  // it's the same color for now, but could be different
 
                 if (UIPanel.#showDBTime) {
-                    context.dbTime = game.i18n.format('JDTIMEKEEPING.fuzzyDragonbaneTime', {
-                        stretch: dbtime.stretches + 1,
-                        shift: dbtime.shiftName.toLowerCase(),
-                    })
+                    // new approach: just pass in a data object and handle layout in the template
+                    if (Helpers.showTimeOfDay) dbtime.days = null // hide days if they are already shown in time string
+                    context.dbtime = dbtime
                 }
 
                 if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(dbtime)

@@ -6,9 +6,20 @@
 {{/if}}
 {{/inline}}
 
+{{log this}}
 <div class="et-time flexcol">
     {{> timePartial time=time color=textColor }}
-    {{> timePartial time=dbTime color=textColor }}
+
+    {{#with dbtime}}
+    <span id="dbtime" class="etk-timeofday flexrow" style='color: {{textColor}};'>
+        {{#if days}}
+        {{localize "JDTIMEKEEPING.Time.Day"}} {{days}}, {{localize "JDTIMEKEEPING.Time.Stretch"}} {{stretches}} <br />
+        {{shiftName}} {{localize "JDTIMEKEEPING.Time.Shift"}}
+        {{else}}
+        {{localize "JDTIMEKEEPING.Time.Stretch"}} {{stretches}}, {{shiftName}} {{localize "JDTIMEKEEPING.Time.Shift"}}
+        {{/if}}
+    </span>
+    {{/with}}
 
     <div class="etk-clock-panel flex-align-center">
         <div class="etk-clock-list flexrow">
