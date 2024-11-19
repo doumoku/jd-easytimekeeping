@@ -40,7 +40,7 @@
     "JDTIMEKEEPING.timeOfDay": "It's {time} on day {day}",
     "JDTIMEKEEPING.fuzzyDragonbaneTime": "Stretch {stretch}, {shift} shift",
     "JDTIMEKEEPING.uiTimeOfDay": "{time} on day {day}",
-    "JDTIMEKEEPING.NoPermission": "You do not have permission to change the time.",
+    "JDTIMEKEEPING.NoPermission": "Easy Timekeeping: You do not have permission to call this function.",
     "JDTIMEKEEPING.ResetTime.title": "Confirm Time Reset",
     "JDTIMEKEEPING.ResetTime.content": "Reset the time to midnight of the first day?",
     "JDTIMEKEEPING.ResetTime.hotkey": "Open the Reset Time dialog",
