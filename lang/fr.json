@@ -37,8 +37,8 @@
     "JDTIMEKEEPING.Time.Dusk": "Crépuscule",
     "JDTIMEKEEPING.Time.Night": "Nuit",
     "JDTIMEKEEPING.Time.minutes": "minutes",
-    "JDTIMEKEEPING.timeOfDay": "Il est {time} du {day} jour(s).",
-    "JDTIMEKEEPING.uiTimeOfDay": "{time} du {day} jour(s)",
+    "JDTIMEKEEPING.timeOfDay": "Il est {time} du {day} ième jour(s).",
+    "JDTIMEKEEPING.uiTimeOfDay": "{time} du {day} ième jour(s)",
     "JDTIMEKEEPING.NoPermission": "Vous n'avez pas la permission de modifier l'heure",
     "JDTIMEKEEPING.ResetTime.title": "Remise à Zéro",
     "JDTIMEKEEPING.ResetTime.content": "Réinitialiser l'heure à minuit le premier jour ?",
@@ -74,7 +74,7 @@
     "JDTIMEKEEPING.UI.largeInc": "Forte Augmentation",
     "JDTIMEKEEPING.UI.set": "Régler l'heure",
     "JDTIMEKEEPING.Time.Stretch": "Période",
-    "JDTIMEKEEPING.Settings.ShowPlayersExactTime.name": "Show players the exact time",
-    "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "The exact time is always shown to the GM and Assistant GM",
-    "JDTIMEKEEPING.Time.DayAndWeek": "Day {day}, week {week}"
+    "JDTIMEKEEPING.Settings.ShowPlayersExactTime.name": "Afficher l'heure exacte aux joueurs",
+    "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "L'heure exacte est toujours indiquée au MJ et au MJ adjoint.",
+    "JDTIMEKEEPING.Time.DayAndWeek": "{day} ième jour(s), {week} ième semaine(s)"
 }
