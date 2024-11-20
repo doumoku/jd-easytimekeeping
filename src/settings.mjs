@@ -18,7 +18,7 @@ export const SETTINGS = {
     UI_RADIAL_CLOCK_COLOR: 'uiRadialClockColor',
     SHOW_RADIAL_CLOCK: 'showRadialClock',
     SHOW_DRAGONBANE_TIME: 'showDragonbaneTime',
-    SHOW_TIME_OF_DAY: 'showTimeOfDay',
+    SHOW_PLAYERS_EXACT_TIME: 'showPlayersExactTime',
     UI_TEXT_COLOR: 'uiTextColor',
     RADIAL_CLOCK_COLOR: 'radialClockColor',
 }
@@ -29,9 +29,9 @@ export function registerSettings () {
     registerDaylightCycleSettings()
     registerShiftSettings()
 
-    game.settings.register(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY, {
-        name: 'JDTIMEKEEPING.Settings.ShowTimeOfDay.name',
-        hint: 'JDTIMEKEEPING.Settings.ShowTimeOfDay.hint',
+    game.settings.register(MODULE_ID, SETTINGS.SHOW_PLAYERS_EXACT_TIME, {
+        name: 'JDTIMEKEEPING.Settings.ShowPlayersExactTime.name',
+        hint: 'JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint',
         scope: 'world',
         config: true,
         type: Boolean,
