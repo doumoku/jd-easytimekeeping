@@ -105,6 +105,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     #prepareClocks (time) {
+        const displayDay = (time.days % 7) + 1
         // prep the time data
         const clocks = [
             {
@@ -133,10 +134,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                  * are 0-based. Thus we have +1 all over the place.
                  */
                 id: 'etk-days',
-                value: (time.days + 1) % 7,
+                value: displayDay,
                 max: 7,
                 name: game.i18n.format('JDTIMEKEEPING.Time.DayAndWeek', {
-                    day: (time.days + 1) % 7,
+                    day: displayDay,
                     week: Math.floor(time.days / 7) + 1,
                 }),
                 color: UIPanel.#clockColor,
