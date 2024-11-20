@@ -91,19 +91,6 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         this.render(true)
     }
 
-    /**
-     * Simple remapping of the shifts.
-     * Technically night shift is 12am to 6am and is the first shift of the day,
-     * but I think it looks better if displayed as the last shift of the day.
-     * This lookup table rotates the shift indicies for the radial clock.
-     */
-    static #shiftDisplay = {
-        0: 4, // night, 12am to 6am
-        1: 1, // morning, 6am to 12pm
-        2: 2, // afternoon, 12pm to 6pm
-        3: 3, // evening, 6pm to 12am
-    }
-
     #prepareClocks (time) {
         const displayDay = (time.days % 7) + 1
         // prep the time data
@@ -121,7 +108,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             },
             {
                 id: 'etk-shifts',
-                value: UIPanel.#shiftDisplay[time.shifts],
+                value: time.shifts + 1,
                 max: Constants.shiftsPerDay,
                 name: time.shiftName,
                 color: UIPanel.#clockColor,
