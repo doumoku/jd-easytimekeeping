@@ -12,6 +12,7 @@ categories:
   - title: '🧰 Maintenance'
     labels: 
       - 'refactoring'
+      - 'maintenance'
 template: |
   ## What's Changed
 
