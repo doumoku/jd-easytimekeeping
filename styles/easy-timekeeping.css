@@ -176,6 +176,39 @@
 }
 
 /**
+ * Tooltips
+ * Usage:
+ * <span class="hovertext" data-hover="this is the tooltip">
+ */
+.hovertext {
+  position: relative;
+  border-bottom: 1px dotted black;
+}
+
+.hovertext:before {
+  content: attr(data-hover);
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+  transition: opacity 1s ease-in-out;
+
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  bottom: 1.2em;
+}
+
+.hovertext:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+
+/**
  * Styles grafted from Global Progress Clocks are below here.
  * They control the circular clocks used to display Dragonbane time.
  */

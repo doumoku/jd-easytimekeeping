@@ -7,7 +7,7 @@
 {{/inline}}
 
 {{log this}}
-<div class="et-time flexcol">
+<div class="et-time flexcol receive-pointer-events">
     {{> timePartial time=time color=textColor }}
 
     {{#with dbtime}}
@@ -24,16 +24,13 @@
     <div class="etk-clock-panel flex-align-center">
         <div class="etk-clock-list flexrow">
             {{#each clocks as |clock|}}
-            <div class="etk-clock-entry">
+            <div class="etk-clock-entry hovertext" data-hover="{{clock.name}}">
                 <span class="etk-clock"
                     style="--areas: {{clock.max}}; --filled: {{clock.value}}; --clock-color: {{clock.color}}; --background: {{clock.backgroundColor}}">
                     {{#each clock.spokes}}
                     <div class="etk-spoke" style="--index: {{ this }}"></div>
                     {{/each}}
                 </span>
-                {{!-- <div class="etk-name-section">
-                    <div class="name">{{clock.name}}</div>
-                </div> --}}
             </div>
             {{/each}}
         </div>
@@ -41,23 +38,34 @@
 
     {{#if isGM}}
     <span class="button-container flexrow receive-pointer-events time-button-container flex-align-center">
-        <i id="btn-etk-reset-time" data-action="reset-time" class="fa-solid fa-clock-rotate-left"
-            title="{{localize 'JDTIMEKEEPING.UI.reset'}}"></i>
 
-        <i id="btn-etk-large-dec" data-action="time-delta" data-target="large-decrement"
-            class="fa-solid fa-backward-fast" title="{{localize 'JDTIMEKEEPING.UI.largeDec'}}"></i>
+        <span class="hovertext" data-hover="{{localize 'JDTIMEKEEPING.UI.reset'}}">
+            <i id="btn-etk-reset-time" data-action="reset-time" class="fa-solid fa-clock-rotate-left"></i>
+        </span>
 
-        <i id="btn-etk-small-dec" data-action="time-delta" data-target="small-decrement" class="fa-solid fa-backward"
-            title="{{localize 'JDTIMEKEEPING.UI.smallDec'}}"></i>
+        <span class="hovertext" data-hover="{{localize 'JDTIMEKEEPING.UI.largeDec'}}">
+            <i id="btn-etk-large-dec" data-action="time-delta" data-target="large-decrement"
+                class="fa-solid fa-backward-fast"></i>
+        </span>
 
-        <i id="btn-etk-small-inc" data-action="time-delta" data-target="small-increment" class="fa-solid fa-forward"
-            title="{{localize 'JDTIMEKEEPING.UI.smallInc'}}"></i>
+        <span class="hovertext" data-hover="{{localize 'JDTIMEKEEPING.UI.smallDec'}}">
+            <i id="btn-etk-small-dec" data-action="time-delta" data-target="small-decrement"
+                class="fa-solid fa-backward"></i>
+        </span>
 
-        <i id="btn-etk-large-inc" data-action="time-delta" data-target="large-increment"
-            class="fa-solid fa-forward-fast" title="{{localize 'JDTIMEKEEPING.UI.largeInc'}}"></i>
+        <span class="hovertext" data-hover="{{localize 'JDTIMEKEEPING.UI.smallInc'}}">
+            <i id="btn-etk-small-inc" data-action="time-delta" data-target="small-increment"
+                class="fa-solid fa-forward "> </i>
+        </span>
 
-        <i id="btn-etk-set-time" data-action="set-time" class="fa-solid fa-clock"
-            title="{{localize 'JDTIMEKEEPING.UI.set'}}"></i>
+        <span class="hovertext" data-hover="{{localize 'JDTIMEKEEPING.UI.largeInc'}}">
+            <i id="btn-etk-large-inc" data-action="time-delta" data-target="large-increment"
+                class="fa-solid fa-forward-fast "> </i>
+        </span>
+
+        <span class="hovertext" data-hover="{{localize 'JDTIMEKEEPING.UI.set'}}">
+            <i id="btn-etk-set-time" data-action="set-time" class="fa-solid fa-clock "></i>
+        </span>
     </span>
     {{/if}}
 </div>
