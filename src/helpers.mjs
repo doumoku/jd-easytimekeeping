@@ -121,9 +121,9 @@ export class Helpers {
      * 
      * @returns {boolean} `true` if the exact time can be shown, `false` otherwise
      */
-    static get showTimeOfDay () {
+    static get showExactTime () {
         // The time of day string is always shown for a GM, and conditionally for
         // players based on the module setting
-        return game.user.isGM || game.settings.get(MODULE_ID, SETTINGS.SHOW_TIME_OF_DAY)
+        return game.user.isGM || game.settings.get(MODULE_ID, SETTINGS.SHOW_PLAYERS_EXACT_TIME)
     }
 }

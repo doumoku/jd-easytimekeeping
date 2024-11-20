@@ -80,7 +80,7 @@ export class Timekeeper {
      * @returns {time} the current time
      */
     getTime () {
-        if (!Helpers.showTimeOfDay) {
+        if (!Helpers.showExactTime) {
             ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.NoPermission'))
             return false
         }
@@ -95,7 +95,7 @@ export class Timekeeper {
      * @returns {string} the current time as a formatted string suitable for display
      */
     toTimeString (includeDay = false) {
-        if (!Helpers.showTimeOfDay) {
+        if (!Helpers.showExactTime) {
             ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.NoPermission'))
             return false
         }
@@ -111,7 +111,7 @@ export class Timekeeper {
      * @public
      */
     tellTime () {
-        if (!Helpers.showTimeOfDay) {
+        if (!Helpers.showExactTime) {
             ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.NoPermission'))
             return false
         }
