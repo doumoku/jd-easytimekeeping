@@ -189,9 +189,7 @@
   content: attr(data-hover);
   visibility: hidden;
   opacity: 0;
-  /* width: 100px; */
-  min-width: 70px;
-  width: fit-content;
+  width: max-content;
   background-color: black;
   color: #fff;
   text-align: center;
@@ -202,7 +200,7 @@
   position: absolute;
   z-index: 1;
   left: 0;
-  top: 110%;
+  bottom: 1.2em;
 }
 
 .hovertext:hover:before {
