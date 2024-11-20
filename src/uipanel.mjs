@@ -111,7 +111,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 id: 'etk-stretches',
                 value: time.stretches + 1,
                 max: Constants.stretchesPerShift,
-                name: game.i18n.localize('JDTIMEKEEPING.Time.Stretch') + ' ' + (time.stretches+1).toString(),
+                name:
+                    game.i18n.localize('JDTIMEKEEPING.Time.Stretch') +
+                    ' ' +
+                    (time.stretches + 1).toString(),
                 color: UIPanel.#clockColor,
                 backgroundColor: '#ffffff',
             },
@@ -123,22 +126,22 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 color: UIPanel.#clockColor,
                 backgroundColor: '#ffffff',
             },
-            // {
-            //     id: 'etk-days',
-            //     value: time.days + 1,
-            //     max: 128,
-            //     name: 'Day',
-            //     color: UIPanel.#clockColor,
-            //     backgroundColor: '#ffffff',
-            // },
-            // {
-            //     id: 'etk-totalStretches',
-            //     value: time.totalStretches % Constants.stretchesPerDay,
-            //     max: Constants.stretchesPerDay,
-            //     name: 'Stretches',
-            //     color: UIPanel.#clockColor,
-            //     backgroundColor: '#ffffff',
-            // },
+            {
+                /**
+                 * note that we need to display everything in
+                 * 1-based values, but all the calculations
+                 * are 0-based. Thus we have +1 all over the place.
+                 */
+                id: 'etk-days',
+                value: (time.days + 1) % 7,
+                max: 7,
+                name: game.i18n.format('JDTIMEKEEPING.Time.DayAndWeek', {
+                    day: (time.days + 1) % 7,
+                    week: Math.floor(time.days / 7) + 1,
+                }),
+                color: UIPanel.#clockColor,
+                backgroundColor: '#ffffff',
+            },
         ]
         // derive the radial data
         const maxSpokes = 28
