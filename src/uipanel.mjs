@@ -111,7 +111,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 id: 'etk-stretches',
                 value: time.stretches + 1,
                 max: Constants.stretchesPerShift,
-                name: 'Stretch',
+                name: game.i18n.localize('JDTIMEKEEPING.Time.Stretch') + ' ' + (time.stretches+1).toString(),
                 color: UIPanel.#clockColor,
                 backgroundColor: '#ffffff',
             },
