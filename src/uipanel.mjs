@@ -158,7 +158,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         if (UIPanel.#playerSeesNothing) {
             context.time = game.i18n.localize('JDTIMEKEEPING.YouHaveNoIdeaOfTheTime')
         } else {
-            if (Helpers.showTimeOfDay) {
+            if (Helpers.showExactTime) {
                 context.time = Helpers.toTimeString(this.#time, {
                     includeDay: true,
                     i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
@@ -179,7 +179,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     context.dbtime.shifts += 1
                     context.dbtime.stretches += 1
                     // make adjustments just to the copy, since the original is used for the graphical display
-                    if (Helpers.showTimeOfDay) context.dbtime.days = null // hide days if they are already shown in time string
+                    if (Helpers.showExactTime) context.dbtime.days = null // hide days if they are already shown in time string
                 }
 
                 if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(dbtime)
@@ -252,7 +252,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
      * Has the GM chosen to hide all UI elements from players?
      */
     static get #playerSeesNothing () {
-        return !UIPanel.#showDBTime && !Helpers.showTimeOfDay && !UIPanel.#showRadialClocks
+        return !UIPanel.#showDBTime && !Helpers.showExactTime && !UIPanel.#showRadialClocks
     }
 
     static get #showDBTime () {
