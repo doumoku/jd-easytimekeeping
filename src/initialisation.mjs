@@ -21,12 +21,15 @@ Hooks.once('init', () => {
     console.groupEnd()
 })
 
+Hooks.once('i18nInit', () => {
+    registerSettings()
+})
+
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
 
     TimeTeller.init()
     DaylightCycle.init()
-    registerSettings()
 
     const timekeeper = new Timekeeper()
     timekeeper.init()
