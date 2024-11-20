@@ -18,15 +18,14 @@ Hooks.once('init', () => {
     uiPanel.init()
     game.modules.get(MODULE_ID).uiPanel = uiPanel
 
-    TimeTeller.init()
-    DaylightCycle.init()
-
     console.groupEnd()
 })
 
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
 
+    TimeTeller.init()
+    DaylightCycle.init()
     registerSettings()
 
     const timekeeper = new Timekeeper()

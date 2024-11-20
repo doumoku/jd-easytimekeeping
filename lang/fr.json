@@ -38,7 +38,6 @@
     "JDTIMEKEEPING.Time.Night": "Nuit",
     "JDTIMEKEEPING.Time.minutes": "minutes",
     "JDTIMEKEEPING.timeOfDay": "Il est {time} du {day} jour(s).",
-    "JDTIMEKEEPING.fuzzyDragonbaneTime": "Période {stretch}, {shift} intervalle",
     "JDTIMEKEEPING.uiTimeOfDay": "{time} du {day} jour(s)",
     "JDTIMEKEEPING.NoPermission": "Vous n'avez pas la permission de modifier l'heure",
     "JDTIMEKEEPING.ResetTime.title": "Remise à Zéro",
@@ -75,5 +74,6 @@
     "JDTIMEKEEPING.UI.smallDec": "Faible Diminution",
     "JDTIMEKEEPING.UI.smallInc": "Faible Augmentation",
     "JDTIMEKEEPING.UI.largeInc": "Forte Augmentation",
-    "JDTIMEKEEPING.UI.set": "Régler l'heure"
+    "JDTIMEKEEPING.UI.set": "Régler l'heure",
+    "JDTIMEKEEPING.Time.Stretch": "Période"
 }
