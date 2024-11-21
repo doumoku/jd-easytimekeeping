@@ -104,7 +104,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     ' ' +
                     (time.stretches + 1).toString(),
                 color: UIPanel.#clockFGColor,
-                backgroundColor: '#ffffff',
+                backgroundColor: UIPanel.#clockBGColor,
             },
             {
                 id: 'etk-shifts',
@@ -112,7 +112,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 max: Constants.shiftsPerDay,
                 name: time.shiftName,
                 color: UIPanel.#clockFGColor,
-                backgroundColor: '#ffffff',
+                backgroundColor: UIPanel.#clockBGColor,
             },
             {
                 /**
@@ -128,7 +128,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     week: Math.floor(time.days / 7) + 1,
                 }),
                 color: UIPanel.#clockFGColor,
-                backgroundColor: '#ffffff',
+                backgroundColor: UIPanel.#clockBGColor,
             },
         ]
         // derive the radial data
@@ -247,6 +247,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #clockFGColor () {
         return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_FG_COLOR)
+    }
+
+    static get #clockBGColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR)
     }
 
     static get #smallTimeDelta () {
