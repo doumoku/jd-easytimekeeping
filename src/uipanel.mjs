@@ -140,6 +140,24 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }))
     }
 
+    _onRender (context, options) {
+        /**
+         * Need to find and replace the opacity variable to pass the 
+         * client setting into the CSS for the UI fade feature.
+         * On the first render, the top-level element has no style 
+         * attribute yet, but it gets rendered again shortly after
+         * so there's no need to set the opacity variable when the 
+         * style attribute is completely missing. If I do set it, then
+         * I end up doubling the variable.
+         */
+        const regex = /--opacity:\d+.?\d*;/ 
+        let style = this.element.getAttribute('style')
+        if (style) {
+            style = style.replace(regex, '')
+            this.element.setAttribute('style', style + `--opacity:${UIPanel.#uiFadeOpacity};`)
+        } 
+    }
+
     _prepareContext (options) {
         const context = {
             isGM: game.user.isGM,
@@ -252,5 +270,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #showRadialClocks () {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK)
+    }
+
+    static get #uiFadeOpacity () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_FADE_OPACITY)
     }
 }
