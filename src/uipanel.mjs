@@ -103,7 +103,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     game.i18n.localize('JDTIMEKEEPING.Time.Stretch') +
                     ' ' +
                     (time.stretches + 1).toString(),
-                color: UIPanel.#clockColor,
+                color: UIPanel.#clockFGColor,
                 backgroundColor: '#ffffff',
             },
             {
@@ -111,7 +111,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 value: time.shifts + 1,
                 max: Constants.shiftsPerDay,
                 name: time.shiftName,
-                color: UIPanel.#clockColor,
+                color: UIPanel.#clockFGColor,
                 backgroundColor: '#ffffff',
             },
             {
@@ -127,7 +127,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     day: displayDay,
                     week: Math.floor(time.days / 7) + 1,
                 }),
-                color: UIPanel.#clockColor,
+                color: UIPanel.#clockFGColor,
                 backgroundColor: '#ffffff',
             },
         ]
@@ -245,8 +245,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         return game.settings.get(MODULE_ID, SETTINGS.UI_TEXT_COLOR)
     }
 
-    static get #clockColor () {
-        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_COLOR)
+    static get #clockFGColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_FG_COLOR)
     }
 
     static get #smallTimeDelta () {

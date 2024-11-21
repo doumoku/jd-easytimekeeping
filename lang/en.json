@@ -52,8 +52,8 @@
     "JDTIMEKEEPING.Settings.ShowRadialClock.hint": "While they look like Global Progress Clocks, you can't click on them",
     "JDTIMEKEEPING.Settings.UITextColor.name": "UI Text Color",
     "JDTIMEKEEPING.Settings.UITextColor.hint": "Used for the time and Dragonbane fuzzy time strings",
-    "JDTIMEKEEPING.Settings.RadialClockColor.name": "Circular Clock Color",
-    "JDTIMEKEEPING.Settings.RadialClockColor.hint": "",
+    "JDTIMEKEEPING.Settings.RadialClockColor.name": "Circular Clock Foreground Color",
+    "JDTIMEKEEPING.Settings.RadialClockColor.hint": "Used for the filled sections",
     "JDTIMEKEEPING.YouHaveNoIdeaOfTheTime": "You have no idea what time it is",
     "JDTIMEKEEPING.SmallIncrement": "Move time forward by a small step",
     "JDTIMEKEEPING.SmallDecrement": "Move time backward by a small step",
@@ -78,5 +78,7 @@
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "The exact time is always shown to the GM and Assistant GM",
     "JDTIMEKEEPING.Time.DayAndWeek": "Day {day}, week {week}",
     "JDTIMEKEEPING.Settings.UIFadeOpacity.name": "UI Idle Transparency",
-    "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Controls the UI transparency when not in use. 0 is fully hidden, and 1 is fully visible."
+    "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Controls the UI transparency when not in use. 0 is fully hidden, and 1 is fully visible.",
+    "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Circular Clock Background Color",
+    "JDTIMEKEEPING.Settings.RadialClockBGColor.hint": "Used for the unfilled sections"
 }
