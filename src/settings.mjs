@@ -15,12 +15,12 @@ export const SETTINGS = {
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
     SMALL_TIME_DELTA: 'smallTimeDelta',
     LARGE_TIME_DELTA: 'largeTimeDelta',
-    UI_RADIAL_CLOCK_COLOR: 'uiRadialClockColor',
     SHOW_RADIAL_CLOCK: 'showRadialClock',
     SHOW_DRAGONBANE_TIME: 'showDragonbaneTime',
     SHOW_PLAYERS_EXACT_TIME: 'showPlayersExactTime',
     UI_TEXT_COLOR: 'uiTextColor',
-    RADIAL_CLOCK_COLOR: 'radialClockColor',
+    RADIAL_CLOCK_FG_COLOR: 'radialClockColor',
+    RADIAL_CLOCK_BG_COLOR: 'radialClockBGColor',
     UI_FADE_OPACITY: 'uiFadeOpacity',
 }
 
@@ -144,13 +144,24 @@ export function registerSettings () {
         restricted: false,
     })
 
-    game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_COLOR, {
+    game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_FG_COLOR, {
         name: 'JDTIMEKEEPING.Settings.RadialClockColor.name',
         hint: 'JDTIMEKEEPING.Settings.RadialClockColor.hint',
         scope: 'client',
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#138b37',
+        requiresReload: true,
+        restricted: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.RadialClockBGColor.name',
+        hint: 'JDTIMEKEEPING.Settings.RadialClockBGColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#ffffff',
         requiresReload: true,
         restricted: false,
     })

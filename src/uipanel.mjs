@@ -103,16 +103,16 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     game.i18n.localize('JDTIMEKEEPING.Time.Stretch') +
                     ' ' +
                     (time.stretches + 1).toString(),
-                color: UIPanel.#clockColor,
-                backgroundColor: '#ffffff',
+                color: UIPanel.#clockFGColor,
+                backgroundColor: UIPanel.#clockBGColor,
             },
             {
                 id: 'etk-shifts',
                 value: time.shifts + 1,
                 max: Constants.shiftsPerDay,
                 name: time.shiftName,
-                color: UIPanel.#clockColor,
-                backgroundColor: '#ffffff',
+                color: UIPanel.#clockFGColor,
+                backgroundColor: UIPanel.#clockBGColor,
             },
             {
                 /**
@@ -127,8 +127,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     day: displayDay,
                     week: Math.floor(time.days / 7) + 1,
                 }),
-                color: UIPanel.#clockColor,
-                backgroundColor: '#ffffff',
+                color: UIPanel.#clockFGColor,
+                backgroundColor: UIPanel.#clockBGColor,
             },
         ]
         // derive the radial data
@@ -245,8 +245,12 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         return game.settings.get(MODULE_ID, SETTINGS.UI_TEXT_COLOR)
     }
 
-    static get #clockColor () {
-        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_COLOR)
+    static get #clockFGColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_FG_COLOR)
+    }
+
+    static get #clockBGColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR)
     }
 
     static get #smallTimeDelta () {
