@@ -13,6 +13,9 @@ categories:
     labels: 
       - 'refactoring'
       - 'maintenance'
+  - title: '📖 Documentation'
+    labels: 
+      - 'documentation'
 template: |
   ## What's Changed
 
