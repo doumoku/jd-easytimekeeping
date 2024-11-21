@@ -76,5 +76,7 @@
     "JDTIMEKEEPING.Time.Stretch": "Période",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.name": "Afficher l'heure exacte aux joueurs",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "L'heure exacte est toujours indiquée au MJ et au MJ adjoint.",
-    "JDTIMEKEEPING.Time.DayAndWeek": "{day} ième jour(s), {week} ième semaine(s)"
+    "JDTIMEKEEPING.Time.DayAndWeek": "{day} ième jour(s), {week} ième semaine(s)",
+    "JDTIMEKEEPING.Settings.UIFadeOpacity.name": "UI Idle Transparency",
+    "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Controls the UI transparency when not in use. 0 is fully hidden, and 1 is fully visible."
 }
