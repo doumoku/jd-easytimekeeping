@@ -142,6 +142,19 @@
 }
 
 /**
+ * Element fade when not hovered/focused
+ */
+ /* TODO: faded opacity from module settings via the HBS templates */
+.fade-element {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-element:not(:hover) {
+  opacity: 0.3;
+}
+
+/**
  * The GM buttons for time control
  */
 .time-button-container {
