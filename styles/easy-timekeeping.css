@@ -142,6 +142,18 @@
 }
 
 /**
+ * Element fade when not hovered/focused
+ */
+.fade-element {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.fade-element:not(:hover) {
+  opacity: var(--opacity);
+}
+
+/**
  * The GM buttons for time control
  */
 .time-button-container {

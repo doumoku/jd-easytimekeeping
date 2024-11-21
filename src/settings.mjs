@@ -21,6 +21,7 @@ export const SETTINGS = {
     SHOW_PLAYERS_EXACT_TIME: 'showPlayersExactTime',
     UI_TEXT_COLOR: 'uiTextColor',
     RADIAL_CLOCK_COLOR: 'radialClockColor',
+    UI_FADE_OPACITY: 'uiFadeOpacity',
 }
 
 export function registerSettings () {
@@ -68,28 +69,6 @@ export function registerSettings () {
         config: true,
         type: Boolean,
         default: false,
-        requiresReload: true,
-        restricted: true,
-    })
-
-    game.settings.register(MODULE_ID, SETTINGS.UI_TEXT_COLOR, {
-        name: 'JDTIMEKEEPING.Settings.UITextColor.name',
-        hint: 'JDTIMEKEEPING.Settings.UITextColor.hint',
-        scope: 'world',
-        config: true,
-        type: new foundry.data.fields.ColorField(),
-        default: '#ffffff',
-        requiresReload: true,
-        restricted: true,
-    })
-
-    game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_COLOR, {
-        name: 'JDTIMEKEEPING.Settings.RadialClockColor.name',
-        hint: 'JDTIMEKEEPING.Settings.RadialClockColor.hint',
-        scope: 'world',
-        config: true,
-        type: new foundry.data.fields.ColorField(),
-        default: '#138b37',
         requiresReload: true,
         restricted: true,
     })
@@ -152,6 +131,39 @@ export function registerSettings () {
         type: new foundry.data.fields.DocumentUUIDField({ type: 'Macro' }),
         requiresReload: false,
         restricted: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_TEXT_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.UITextColor.name',
+        hint: 'JDTIMEKEEPING.Settings.UITextColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#ffffff',
+        requiresReload: true,
+        restricted: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.RadialClockColor.name',
+        hint: 'JDTIMEKEEPING.Settings.RadialClockColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#138b37',
+        requiresReload: true,
+        restricted: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {
+        name: 'JDTIMEKEEPING.Settings.UIFadeOpacity.name',
+        hint: 'JDTIMEKEEPING.Settings.UIFadeOpacity.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.NumberField({ min: 0, max: 1.0 }),
+        default: 0.8,
+        requiresReload: true,
+        restricted: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, {
