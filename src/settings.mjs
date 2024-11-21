@@ -15,7 +15,6 @@ export const SETTINGS = {
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
     SMALL_TIME_DELTA: 'smallTimeDelta',
     LARGE_TIME_DELTA: 'largeTimeDelta',
-    UI_RADIAL_CLOCK_COLOR: 'uiRadialClockColor',
     SHOW_RADIAL_CLOCK: 'showRadialClock',
     SHOW_DRAGONBANE_TIME: 'showDragonbaneTime',
     SHOW_PLAYERS_EXACT_TIME: 'showPlayersExactTime',
