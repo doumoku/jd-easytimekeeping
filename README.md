@@ -54,10 +54,10 @@ In it's current form, **Easy Timekeeping** is no longer uniquely tailored to the
 
 | Name | Times | Graphical Clock Appearance |
 | ---  | :--------: | :---: |
+| Night| 12am - 6am | ![circular clock with 4 filled segments](./documentation/img/night-clock.png) |
 | Morning| 6am - 12pm | ![circular clock with 1 filled segments](./documentation/img/morning-clock.png) |
 | Afternoon| 12pm - 6pm | ![circular clock with 2 filled segments](./documentation/img/afternoon-clock.png) |
 | Evening| 6pm - 12am | ![circular clock with 3 filled segments](./documentation/img/evening-clock.png) |
-| Night| 12am - 6am | ![circular clock with 4 filled segments](./documentation/img/night-clock.png) |
 
 The name of each shift can be customised in the module settings. It's primarily used in the fuzzy time but may be used
 for other features in future.
