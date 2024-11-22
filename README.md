@@ -1,7 +1,7 @@
 # Easy Timekeeping
 
 [![Static Badge](https://img.shields.io/badge/Foundry%20Page-Easy%20Timekeeping-darkgreen)](https://foundryvtt.com/packages/jd-easytimekeeping)
-![Static Badge](https://img.shields.io/badge/Version-0.8.0-blue)
+![Static Badge](https://img.shields.io/badge/Version-0.8.1-blue)
 [![Static Badge](https://img.shields.io/badge/Foundry-v12+-orange)](https://foundryvtt.com/)
 [![Release Drafter](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-drafter.yml/badge.svg)](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-drafter.yml)
 [![Release Creation](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-creation.yml/badge.svg)](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-creation.yml)
