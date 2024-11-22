@@ -13,10 +13,7 @@ Hooks.once('init', () => {
     console.group('JD ETime | init')
 
     registerKeybindings()
-
-    const uiPanel = new UIPanel()
-    uiPanel.init()
-    game.modules.get(MODULE_ID).uiPanel = uiPanel
+    UIPanel.registerKeybindings()
 
     console.groupEnd()
 })
@@ -42,5 +39,8 @@ Hooks.once('ready', async () => {
 })
 
 Hooks.on('canvasReady', () => {
-    game.modules.get(MODULE_ID).uiPanel.render(true)
+    const uiPanel = new UIPanel()
+    uiPanel.ready()
+    uiPanel.render(true)
+    game.modules.get(MODULE_ID).uiPanel = uiPanel
 })
