@@ -73,7 +73,6 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
          * This creates a DOM element in the ui-left interface div,
          * in between the canvas controls and the players panel.
          * Technique from Global Progress Clocks.
-         * Shame it doesn't appear to work with ApplicationV2, since it put the UI exactly where I wanted it
          * */
         const top = document.querySelector(target)
         if (top) {
