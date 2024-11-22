@@ -241,6 +241,10 @@
   border-radius: 5px 22px 22px 5px;
   border-right: none;
 
+  /* Add a little space in between the clocks */
+  margin-right: 1px;
+  margin-left: 1px;
+
   &.hidden {
     display: none;
   }
