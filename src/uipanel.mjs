@@ -33,15 +33,13 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     #time = { minutes: 0, hours: 0, days: 0 }
     refresh = foundry.utils.debounce(this.render, 100)
 
-    init () {
+    ready () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
         game.socket.on(`module.${MODULE_ID}`, time => {
             this.#time = time
             this.render(true)
         })
         if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
-
-        UIPanel.registerKeybindings()
     }
 
     static registerKeybindings () {
