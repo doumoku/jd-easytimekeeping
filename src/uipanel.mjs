@@ -139,25 +139,28 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     _onRender (context, options) {
         /**
-         * Need to find and replace the opacity variable to pass the 
+         * Need to find and replace the opacity variable to pass the
          * client setting into the CSS for the UI fade feature.
-         * On the first render, the top-level element has no style 
-         * attribute yet, but it gets rendered again shortly after
-         * so there's no need to set the opacity variable when the 
-         * style attribute is completely missing. If I do set it, then
-         * I end up doubling the variable.
+         * On the first render, the top-level element has no style
+         * attribute yet, so we need to handle that case as well.
          */
-        const regex = /--opacity:\d+.?\d*;/ 
+        const regex = /--opacity:\d+.?\d*;/
         let style = this.element.getAttribute('style')
         if (style) {
-            style = style.replace(regex, '')
+            style = style.replaceAll(regex, '')
             this.element.setAttribute('style', style + `--opacity:${UIPanel.#uiFadeOpacity};`)
-        } 
+        } else {
+            this.element.setAttribute('style', `--opacity:${UIPanel.#uiFadeOpacity};`)
+        }
     }
 
     _prepareContext (options) {
         if (this.#time === null) {
-            this.#time = game.modules.get(MODULE_ID)?.api?.getTime() ||  { minutes: 0, hours: 0, days: 0 }
+            this.#time = game.modules.get(MODULE_ID)?.api?.getTime() || {
+                minutes: 0,
+                hours: 0,
+                days: 0,
+            }
         }
 
         const context = {
