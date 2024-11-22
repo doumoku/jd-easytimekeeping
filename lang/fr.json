@@ -77,8 +77,8 @@
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.name": "Afficher l'heure exacte aux joueurs",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "L'heure exacte est toujours indiquée au MJ et au MJ adjoint.",
     "JDTIMEKEEPING.Time.DayAndWeek": "{day} ième jour(s), {week} ième semaine(s)",
-    "JDTIMEKEEPING.Settings.UIFadeOpacity.name": "UI Idle Transparency",
-    "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Controls the UI transparency when not in use. 0 is fully hidden, and 1 is fully visible.",
-    "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Circular Clock Background Color",
-    "JDTIMEKEEPING.Settings.RadialClockBGColor.hint": "Used for the unfilled sections"
+    "JDTIMEKEEPING.Settings.UIFadeOpacity.name": " Transparence de l'interface en mode veille",
+    "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Contrôle la transparence de l'interface lorsqu'elle n'est pas utilisée. 0 est totalement caché et 1 est totalement visible.",
+    "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Couleur de fond de l'horloge ronde",
+    "JDTIMEKEEPING.Settings.RadialClockBGColor.hint": "A utiliser pour les sections non remplies"
 }
