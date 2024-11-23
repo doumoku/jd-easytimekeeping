@@ -55,12 +55,12 @@ export function registerSettings () {
 
     game.settings.register(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME, {
         name: 'JDTIMEKEEPING.Settings.Display24HourFormat.name',
-        scope: 'world',
+        scope: 'client',
         config: true,
         type: Boolean,
         default: false,
         requiresReload: true,
-        restricted: true,
+        restricted: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DRAGONBANE_TIME, {
