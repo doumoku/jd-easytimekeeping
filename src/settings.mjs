@@ -12,6 +12,7 @@ export const SETTINGS = {
     DAYLIGHT_CYCLE_MENU: 'daylightCycleMenu',
     SHIFT_SETTINGS: 'shiftSettings',
     SHIFT_MENU: 'shiftMenu',
+    SHOW_DAY_IN_EXACT_TIME: 'showDayInExactTime',
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
     SMALL_TIME_DELTA: 'smallTimeDelta',
     LARGE_TIME_DELTA: 'largeTimeDelta',
@@ -41,8 +42,19 @@ export function registerSettings () {
         restricted: true,
     })
 
+    game.settings.register(MODULE_ID, SETTINGS.SHOW_DAY_IN_EXACT_TIME, {
+        name: 'JDTIMEKEEPING.Settings.ShowDayInExactTime.name',
+        hint: 'JDTIMEKEEPING.Settings.ShowDayInExactTime.hint',
+        scope: 'client',
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+        restricted: false,
+    })
+
     game.settings.register(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME, {
-        name: game.i18n.localize('JDTIMEKEEPING.Settings.Display24HourFormat.name'),
+        name: 'JDTIMEKEEPING.Settings.Display24HourFormat.name',
         scope: 'world',
         config: true,
         type: Boolean,
@@ -124,8 +136,8 @@ export function registerSettings () {
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO, {
-        name: game.i18n.localize('JDTIMEKEEPING.Settings.TimeChangeMacro.name'),
-        hint: game.i18n.localize('JDTIMEKEEPING.Settings.TimeChangeMacro.hint'),
+        name: 'JDTIMEKEEPING.Settings.TimeChangeMacro.name',
+        hint: 'JDTIMEKEEPING.Settings.TimeChangeMacro.hint',
         scope: 'world',
         config: true,
         type: new foundry.data.fields.DocumentUUIDField({ type: 'Macro' }),

@@ -173,7 +173,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         } else {
             if (Helpers.showExactTime) {
                 context.time = Helpers.toTimeString(this.#time, {
-                    includeDay: true,
+                    includeDay: UIPanel.#includeDayInExactTime,
                     i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
                 })
             }
@@ -282,5 +282,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #uiFadeOpacity () {
         return game.settings.get(MODULE_ID, SETTINGS.UI_FADE_OPACITY)
+    }
+
+    static get #includeDayInExactTime () {
+        return game.settings.get(MODULE_ID, SETTINGS.SHOW_DAY_IN_EXACT_TIME)
     }
 }
