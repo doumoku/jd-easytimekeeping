@@ -184,7 +184,7 @@ export function registerSettings () {
         scope: 'client',
         config: true,
         type: new foundry.data.fields.NumberField({ min: 0, max: 1.0 }),
-        default: 0.8,
+        default: 0.6,
         requiresReload: true,
         restricted: false,
     })
