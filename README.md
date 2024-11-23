@@ -1,9 +1,9 @@
 # Easy Timekeeping
 
-![GitHub Release](https://img.shields.io/github/v/release/DC23/jd-easytimekeeping?label=Release&color=blue&link=https%3A%2F%2Fgithub.com%2FDC23%2Fjd-easytimekeeping%2Freleases%2Flatest)
-[![Static Badge](https://img.shields.io/badge/Foundry%20Version-v12+-orange)](https://foundryvtt.com/)
+[![GitHub Release](https://img.shields.io/github/v/release/DC23/jd-easytimekeeping?label=Release&color=blue&logo=GitHub)](https://github.com/DC23/jd-easytimekeeping/releases/latest)
+[![Static Badge](https://img.shields.io/badge/Foundry%20Version-v12+-orange?logo=foundry-virtual-tabletop)](https://foundryvtt.com/)
 ![GitHub Total Downloads](https://img.shields.io/github/downloads/DC23/jd-easytimekeeping/total?logo=GitHub&label=Downloads)
-![GitHub Open Issues](https://img.shields.io/github/issues-raw/DC23/jd-easytimekeeping?label=Open%20Issues)
+[![GitHub Open Issues](https://img.shields.io/github/issues-raw/DC23/jd-easytimekeeping?label=Open%20Issues&logo=GitHub)](https://github.com/DC23/jd-easytimekeeping/issues)
 [![Release Drafter](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-drafter.yml/badge.svg)](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-drafter.yml)
 [![Release Creation](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-creation.yml/badge.svg)](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-creation.yml)
 
