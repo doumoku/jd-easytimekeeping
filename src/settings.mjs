@@ -55,12 +55,12 @@ export function registerSettings () {
 
     game.settings.register(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME, {
         name: 'JDTIMEKEEPING.Settings.Display24HourFormat.name',
-        scope: 'world',
+        scope: 'client',
         config: true,
         type: Boolean,
         default: false,
         requiresReload: true,
-        restricted: true,
+        restricted: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DRAGONBANE_TIME, {
@@ -173,7 +173,7 @@ export function registerSettings () {
         scope: 'client',
         config: true,
         type: new foundry.data.fields.ColorField(),
-        default: '#ffffff',
+        default: '#062811',
         requiresReload: true,
         restricted: false,
     })
@@ -184,7 +184,7 @@ export function registerSettings () {
         scope: 'client',
         config: true,
         type: new foundry.data.fields.NumberField({ min: 0, max: 1.0 }),
-        default: 0.8,
+        default: 0.6,
         requiresReload: true,
         restricted: false,
     })
