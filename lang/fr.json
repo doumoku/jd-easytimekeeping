@@ -81,6 +81,6 @@
     "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Contrôle la transparence de l'interface lorsqu'elle n'est pas utilisée. 0 est totalement caché et 1 est totalement visible.",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Couleur de fond de l'horloge ronde",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.hint": "A utiliser pour les sections non remplies",
-    "JDTIMEKEEPING.Settings.ShowDayInExactTime.name": "Include the day in the exact time",
-    "JDTIMEKEEPING.Settings.ShowDayInExactTime.hint": "Only has an effect when your GM has enabled exact time for players"
+    "JDTIMEKEEPING.Settings.ShowDayInExactTime.name": "Inclure le jour dans l'heure exacte",
+    "JDTIMEKEEPING.Settings.ShowDayInExactTime.hint": "Cela n'a d'effet que si le MJ a activé l'heure exacte pour les joueurs."
 }
