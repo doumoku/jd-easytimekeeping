@@ -82,5 +82,13 @@
     "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Circular Clock Background Color",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.hint": "Used for the unfilled sections",
     "JDTIMEKEEPING.Settings.ShowDayInExactTime.name": "Include the Day in the Exact Time",
-    "JDTIMEKEEPING.Settings.ShowDayInExactTime.hint": "Only has an effect when your GM has enabled exact time for players"
+    "JDTIMEKEEPING.Settings.ShowDayInExactTime.hint": "Only has an effect when your GM has enabled exact time for players",
+
+    "JDTIMEKEEPING.Monday": "Monday",
+    "JDTIMEKEEPING.Tuesday": "Tuesday",
+    "JDTIMEKEEPING.Wednesday": "Wednesday",
+    "JDTIMEKEEPING.Thursday": "Thursday",
+    "JDTIMEKEEPING.Friday": "Friday",
+    "JDTIMEKEEPING.Saturday": "Saturday",
+    "JDTIMEKEEPING.Sunday": "Sunday"
 }
