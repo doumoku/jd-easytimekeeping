@@ -1,6 +1,6 @@
 # Easy Timekeeping
 
-![Current Version](https://img.shields.io/github/v/release/DC23/jd-easytimekeeping?color=blue&logo=github&label=Release)
+![GitHub Release](https://img.shields.io/github/v/release/DC23/jd-easytimekeeping?label=Release&color=blue&link=https%3A%2F%2Fgithub.com%2FDC23%2Fjd-easytimekeeping%2Freleases%2Flatest)
 [![Static Badge](https://img.shields.io/badge/Foundry%20Version-v12+-orange)](https://foundryvtt.com/)
 ![GitHub Total Downloads](https://img.shields.io/github/downloads/DC23/jd-easytimekeeping/total?logo=GitHub&label=Downloads)
 ![GitHub Open Issues](https://img.shields.io/github/issues-raw/DC23/jd-easytimekeeping?label=Open%20Issues)
