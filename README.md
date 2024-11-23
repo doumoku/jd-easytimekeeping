@@ -4,6 +4,7 @@
 [![Static Badge](https://img.shields.io/badge/Foundry%20Version-v12+-orange?logo=foundry-virtual-tabletop)](https://foundryvtt.com/)
 ![GitHub Total Downloads](https://img.shields.io/github/downloads/DC23/jd-easytimekeeping/total?logo=GitHub&label=Downloads)
 [![GitHub Open Issues](https://img.shields.io/github/issues-raw/DC23/jd-easytimekeeping?label=Open%20Issues&logo=GitHub)](https://github.com/DC23/jd-easytimekeeping/issues)
+
 [![Release Drafter](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-drafter.yml/badge.svg)](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-drafter.yml)
 [![Release Creation](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-creation.yml/badge.svg)](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-creation.yml)
 
