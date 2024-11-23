@@ -144,7 +144,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
          * On the first render, the top-level element has no style
          * attribute yet, so we need to handle that case as well.
          */
-        const regex = /--opacity:\d+.?\d*;/
+        const regex = /--opacity:\d+.?\d*;/g
         let style = this.element.getAttribute('style')
         if (style) {
             style = style.replaceAll(regex, '')
