@@ -1,16 +1,22 @@
 import { Helpers } from './helpers.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 
+const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
 export function registerWeekdaySettings () {
     // The settings menu
     game.settings.registerMenu(MODULE_ID, SETTINGS.WEEKDAY_MENU, {
-        // TODO: add these strings
         name: 'JDTIMEKEEPING.Settings.WeekdayConfig.name',
         label: 'JDTIMEKEEPING.Settings.WeekdayConfig.label',
         hint: 'JDTIMEKEEPING.Settings.WeekdayConfig.hint',
         icon: 'fas fa-cog',
-        type: ShiftSettings,
+        type: WeekdaySettings,
         restricted: true,
+    })
+
+    const defaults = {}
+    weekdays.forEach((v, i) => {
+        defaults[v.toLowerCase()] = game.i18n.localize(`JDTIMEKEEPING.${v}`)
     })
 
     // the settings object
@@ -18,13 +24,7 @@ export function registerWeekdaySettings () {
         scope: 'world',
         config: false,
         type: Object,
-        default: {
-            // TODO: days of the week initial values
-            // morningName: game.i18n.localize('JDTIMEKEEPING.Shift.Morning'),
-            // afternoonName: game.i18n.localize('JDTIMEKEEPING.Shift.Afternoon'),
-            // eveningName: game.i18n.localize('JDTIMEKEEPING.Shift.Evening'),
-            // nightName: game.i18n.localize('JDTIMEKEEPING.Shift.Night'),
-        },
+        default: defaults,
         restricted: true,
         requiresReload: true,
     })
@@ -35,7 +35,6 @@ class WeekdaySettings extends FormApplication {
         return foundry.utils.mergeObject(super.defaultOptions, {
             popOut: true,
             width: 400,
-            // TODO: add this template
             template: `modules/${MODULE_ID}/templates/weekdaysettings.hbs`,
             id: SETTINGS.WEEKDAY_MENU,
             title: 'JDTIMEKEEPING.Settings.WeekdayConfig.name',
@@ -44,17 +43,14 @@ class WeekdaySettings extends FormApplication {
 
     getData () {
         const initialValues = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
-        // we can't have empty strings, so force any emptyish values back to the default
-        // TODO: change to days of week
-        initialValues.morningName =
-            initialValues.morningName || game.i18n.localize('JDTIMEKEEPING.Shift.Morning')
-        initialValues.afternoonName =
-            initialValues.afternoonName || game.i18n.localize('JDTIMEKEEPING.Shift.Afternoon')
-        initialValues.eveningName =
-            initialValues.eveningName || game.i18n.localize('JDTIMEKEEPING.Shift.Evening')
-        initialValues.nightName =
-            initialValues.nightName || game.i18n.localize('JDTIMEKEEPING.Shift.Night')
-        return initialValues
+        const data = {}
+        weekdays.forEach((v, i) => {
+            data[i] = { 
+                id: `${v.toLowerCase()}`,
+                label: game.i18n.localize(`JDTIMEKEEPING.${v}`),
+                value: initialValues[v.toLowerCase()] }
+        })
+        return data
     }
 
     _updateObject (event, formData) {
@@ -63,7 +59,7 @@ class WeekdaySettings extends FormApplication {
 
         if (!Helpers.objectsShallowEqual(data, current)) {
             game.settings.set(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS, data)
-            SettingsConfig.reloadConfirm({ world: true })
+            // SettingsConfig.reloadConfirm({ world: true })
         }
     }
 
