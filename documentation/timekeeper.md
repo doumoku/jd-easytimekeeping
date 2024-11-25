@@ -2,18 +2,22 @@
 
 ### Table of Contents
 
-*   [Timekeeper][1]
-    *   [getPhaseOfDay][2]
-    *   [increment][3]
-    *   [set][4]
-    *   [getTime][5]
-    *   [tellTime][6]
-*   [time][7]
-    *   [Properties][8]
-*   [timeAugmented][9]
-    *   [Properties][10]
-*   [timeChangeData][11]
-    *   [Properties][12]
+* [Timekeeper][1]
+  * [getPhaseOfDay][2]
+  * [increment][3]
+  * [set][4]
+  * [getTime][5]
+  * [tellTime][6]
+* [time][7]
+  * [Properties][8]
+* [timeAugmented][9]
+  * [Properties][10]
+* [dayData][11]
+  * [Properties][12]
+* [timeChangeData][13]
+  * [Properties][14]
+* [dungeonTurnTime][15]
+  * [Properties][16]
 
 ## Timekeeper
 
@@ -23,7 +27,7 @@ The public API for Easy Timekeeping.
 
 Gets the name of the current phase of the day as a localised string.
 
-Returns **[string][13]** the localised name of the day phase.
+Returns **[string][17]** the localised name of the day phase.
 This is one of the set \[Dawn, Day, Dusk, Night], but localized.
 
 ### increment
@@ -33,9 +37,9 @@ You must be a GM to run this function.
 
 #### Parameters
 
-*   `time` **[time][7]** the time step to increment or decrement
+* `time` **[time][7]** the time step to increment or decrement
 
-Returns **[timeChangeData][11]** if the time was changed, otherwise `false`.
+Returns **[timeChangeData][13]** if the time was changed, otherwise `false`.
 
 ### set
 
@@ -44,9 +48,9 @@ You must be a GM to run this function.
 
 #### Parameters
 
-*   `time` **[time][7]** the time to set
+* `time` **[time][7]** the time to set
 
-Returns **[timeChangeData][11]** if the time was changed, otherwise `false`.
+Returns **[timeChangeData][13]** if the time was changed, otherwise `false`.
 
 ### getTime
 
@@ -62,37 +66,66 @@ Posts the current time to chat.
 
 A time object used for inputting time values to the Easy Timekeeping API
 
-Type: [Object][14]
+Type: [Object][18]
 
 ### Properties
 
-*   `days` **[number][15]** days since day 0
-*   `hours` **[number][15]** hour of the day in 24-hour time, range \[0..23]
-*   `minutes` **[number][15]** minute of the hour, range \[0..59]
+* `days` **[number][19]** days since day 0
+* `hours` **[number][19]** hour of the day in 24-hour time, range \[0..23]
+* `minutes` **[number][19]** minute of the hour, range \[0..59]
 
 ## timeAugmented
 
 An augmented time object used when values are returned from the Easy Timekeeping API
 
-Type: [Object][14]
+Type: [Object][18]
 
 ### Properties
 
-*   `days` **[number][15]** days since day 0
-*   `hours` **[number][15]** hour of the day in 24-hour time, range \[0..23]
-*   `minutes` **[number][15]** minute of the hour, range \[0..59]
-*   `totalMinutes` **[number][15]** total elapsed minutes since 12am on day 0
+* `days` **[number][19]** days since day 0
+* `hours` **[number][19]** hour of the day in 24-hour time, range \[0..23]
+* `minutes` **[number][19]** minute of the hour, range \[0..59]
+* `totalMinutes` **[number][19]** total elapsed minutes since 12am on day 0
+* `weekNumber` **[number][19]** 1-based number of 7-day weeks that have elapsed, including the current partial week.
+* `day` **[dayData][11]** additional metadata about the day of the week
+
+## dayData
+
+Day data
+
+Type: [Object][18]
+
+### Properties
+
+* `index` **[number][19]** 1-based number of the day of the week, starting with Monday. Each week is fixed at 7 days.
+* `name` **[string][17]** the name of the current day of the week, based on the current world settings.
 
 ## timeChangeData
 
 Time change object returned from the Easy Timekeeping API
 
-Type: [Object][14]
+Type: [Object][18]
 
 ### Properties
 
-*   `oldTime` **[timeAugmented][9]** the previous time
-*   `time` **[timeAugmented][9]** the new time
+* `oldTime` **[timeAugmented][9]** the previous time
+* `time` **[timeAugmented][9]** the new time
+
+## dungeonTurnTime
+
+Dungeon turn time, used by the graphical display
+
+Type: [Object][18]
+
+### Properties
+
+* `totalStretches` **[number][19]** total number of dungeon elapsed dungeon turns
+* `days` **[number][19]** days since day 0
+* `shifts` **[number][19]** the current shift out of the 4 shifts per day. 0-based, range \[0..3]
+* `stretches` **[number][19]** the current stretch/dungeon turn within the current shift. 0-based indexing
+* `day` **[dayData][11]** additional metadata about the day of the week
+* `weekNumber` **[number][19]** 1-based number of 7-day weeks that have elapsed, including the current partial week.
+* `shiftName` **[string][17]** the name of the current shift, based on world settings.
 
 [1]: #timekeeper
 
@@ -114,12 +147,20 @@ Type: [Object][14]
 
 [10]: #properties-1
 
-[11]: #timechangedata
+[11]: #daydata
 
 [12]: #properties-2
 
-[13]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[13]: #timechangedata
 
-[14]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[14]: #properties-3
 
-[15]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[15]: #dungeonturntime
+
+[16]: #properties-4
+
+[17]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+
+[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number

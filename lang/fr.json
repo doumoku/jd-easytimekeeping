@@ -38,7 +38,6 @@
     "JDTIMEKEEPING.Time.Night": "Nuit",
     "JDTIMEKEEPING.Time.minutes": "minutes",
     "JDTIMEKEEPING.timeOfDay": "Il est {time} du {day} ième jour(s).",
-    "JDTIMEKEEPING.uiTimeOfDay": "{time} du {day} ième jour(s)",
     "JDTIMEKEEPING.NoPermission": "Vous n'avez pas la permission de modifier l'heure",
     "JDTIMEKEEPING.ResetTime.title": "Remise à Zéro",
     "JDTIMEKEEPING.ResetTime.content": "Réinitialiser l'heure à minuit le premier jour ?",
@@ -81,8 +80,8 @@
     "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Contrôle la transparence de l'interface lorsqu'elle n'est pas utilisée. 0 est totalement caché et 1 est totalement visible.",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Couleur de fond de l'horloge ronde",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.hint": "A utiliser pour les sections non remplies",
-    "JDTIMEKEEPING.Settings.ShowDayInExactTime.name": "Inclure le jour dans l'heure exacte",
-    "JDTIMEKEEPING.Settings.ShowDayInExactTime.hint": "Cela n'a d'effet que si le MJ a activé l'heure exacte pour les joueurs.",
+    "JDTIMEKEEPING.Settings.ShowLongFormatTime.name": "Show the time in long format",
+    "JDTIMEKEEPING.Settings.ShowLongFormatTime.hint": "Cela n'a d'effet que si le MJ a activé l'heure exacte pour les joueurs.",
 
     "JDTIMEKEEPING.Monday": "Monday",
     "JDTIMEKEEPING.Tuesday": "Tuesday",
@@ -94,5 +93,7 @@
     
     "JDTIMEKEEPING.Settings.WeekdayConfig.name": "Configure Days of the Week",
     "JDTIMEKEEPING.Settings.WeekdayConfig.label": "Rename Weekdays",
-    "JDTIMEKEEPING.Settings.WeekdayConfig.hint": ""
+    "JDTIMEKEEPING.Settings.WeekdayConfig.hint": "",
+
+    "JDTIMEKEEPING.longTimeFormat": "{time}, {dayName} week {weekNumber}"
 }

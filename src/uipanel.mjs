@@ -121,7 +121,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 max: 7,
                 name: game.i18n.format('JDTIMEKEEPING.Time.DayAndWeek', {
                     day: time.day.name,
-                    week: time.week,
+                    week: time.weekNumber,
                 }),
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
@@ -160,6 +160,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 minutes: 0,
                 hours: 0,
                 days: 0,
+                weekNumber: 1,
+                day : { index: 1, name: 'Monday'},
             }
         }
 
@@ -172,20 +174,13 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             context.time = game.i18n.localize('JDTIMEKEEPING.YouHaveNoIdeaOfTheTime')
         } else {
             if (Helpers.showExactTime) {
-                context.time = Helpers.toTimeString(this.#time, {
-                    includeDay: UIPanel.#includeDayInExactTime,
-                    i18nFormatter: 'JDTIMEKEEPING.uiTimeOfDay',
-                })
+                context.time = Helpers.toTimeString(this.#time, UIPanel.#showLongFormatTime)
             }
 
             // some calculations are common whether we are showing either one or both of these
             if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
                 const dbtime = Helpers.factorDragonbaneTime(this.#time)
-                dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
                 dbtime.textColor = context.textColor // it's the same color for now, but could be different
-                dbtime.day = { index: (dbtime.days % 7) + 1 }  // 1-based day index for UI
-                dbtime.day.name = Helpers.getWeekdayName(dbtime.day.index - 1)  // lookup by 0-based index
-                dbtime.week = Math.floor(dbtime.days / 7) + 1  // 1-based week number
 
                 if (UIPanel.#showDBTime) {
                     // new approach: just pass in a data object and handle layout in the template
@@ -195,6 +190,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     context.dbtime.shifts += 1
                     context.dbtime.stretches += 1
                     // make adjustments just to the copy, since the original is used for the graphical display
+                    // TODO: fix this for issue #205
                     if (Helpers.showExactTime) context.dbtime.days = null // hide days if they are already shown in time string
                 }
 
@@ -287,7 +283,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         return game.settings.get(MODULE_ID, SETTINGS.UI_FADE_OPACITY)
     }
 
-    static get #includeDayInExactTime () {
-        return game.settings.get(MODULE_ID, SETTINGS.SHOW_DAY_IN_EXACT_TIME)
+    static get #showLongFormatTime () {
+        return game.settings.get(MODULE_ID, SETTINGS.SHOW_LONG_FORMAT_TIME)
     }
 }

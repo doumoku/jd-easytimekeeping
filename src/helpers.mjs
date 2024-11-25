@@ -15,17 +15,17 @@ export class Helpers {
      * Current module settings for 12 or 24 hour time are honoured.
      *
      * @param {import('./timekeeper.mjs').timeAugmented} time A Timekeeper time object
-     * @param {Object} [options]
-     * @param {boolean} [options.includeDay=false] Whether the day is included, or just the time
-     * @param {string} [options.i18nFormatter='JDTIMEKEEPING.timeOfDay'] The formatter to use
+     * @param {boolean} [includeDay=false] Whether the day is included, or just the time
      * @returns {string} the formatted time string
      */
-    static toTimeString (time, options) {
+    static toTimeString (time, includeDay) {
         const timeOfDay = Helpers.toTimeOfDay(time)
-        if (options?.includeDay) {
-            // TODO: use day setting
-            const formatter = options?.i18nFormatter || 'JDTIMEKEEPING.timeOfDay'
-            return game.i18n.format(formatter, { time: timeOfDay, day: time.days + 1 })
+        if (includeDay) {
+            return game.i18n.format('JDTIMEKEEPING.longTimeFormat', {
+                time: timeOfDay,
+                dayName: time.day.name,
+                weekNumber: time.weekNumber,
+            })
         } else {
             return timeOfDay
         }
@@ -61,6 +61,8 @@ export class Helpers {
 
     /**
      * Factors a time object into Dragonbane stretches, shifts and days
+     * @property {import('./timekeeper.mjs').timeAugmented} time
+     * @returns {import('./timekeeper.mjs').dungeonTurnTime}
      */
     static factorDragonbaneTime (time) {
         const dbtime = {}
@@ -70,6 +72,11 @@ export class Helpers {
         remainingStretches = remainingStretches % Constants.stretchesPerDay
         dbtime.shifts = Math.floor(remainingStretches / Constants.stretchesPerShift)
         dbtime.stretches = remainingStretches % Constants.stretchesPerShift
+
+        dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
+        dbtime.day = { index: (dbtime.days % 7) + 1 } // 1-based day index for UI
+        dbtime.day.name = Helpers.getWeekdayName(dbtime.day.index - 1) // lookup by 0-based index
+        dbtime.weekNumber = Math.floor(dbtime.days / 7) + 1 // 1-based week number
 
         return dbtime
     }
@@ -87,7 +94,7 @@ export class Helpers {
      * morning: 6am to 12pm
      * afternoon: 12pm to 6pm
      * evening: 6pm to 12am
-     * 
+     *
      * @param {number} shiftIndex The shift index, where 0 is the night shift, 1 is morning, 2 is afternoon, and 3 is evening.
      */
     static getDragonbaneShiftName (shiftIndex) {
@@ -98,7 +105,7 @@ export class Helpers {
         return ''
     }
 
-    // not the greatest approach, but 
+    // not the greatest approach, but
     static objectsShallowEqual (obj1, obj2) {
         const entries1 = Object.entries(obj1)
         const entries2 = Object.entries(obj2)
@@ -117,9 +124,9 @@ export class Helpers {
     }
 
     /**
-     * Check if the exact time can be seen by the current user based 
+     * Check if the exact time can be seen by the current user based
      * on user role and module settings
-     * 
+     *
      * @returns {boolean} `true` if the exact time can be shown, `false` otherwise
      */
     static get showExactTime () {
@@ -131,7 +138,7 @@ export class Helpers {
     /**
      * Gets a localised weekday name
      * @param {number} dayIndex the 0-based day index, range [0..6]
-     * @returns {string} the localized name of the corresponding day of the week. 
+     * @returns {string} the localized name of the corresponding day of the week.
      * Weeks start on Monday.
      */
     static getWeekdayName (dayIndex) {
