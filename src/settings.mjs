@@ -213,7 +213,7 @@ export function registerSettings () {
         scope: 'client',
         config: true,
         type: new foundry.data.fields.ColorField(),
-        default: '#062811',
+        default: '#25e45e',
         requiresReload: true,
         restricted: false,
     })
