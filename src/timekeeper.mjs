@@ -50,7 +50,6 @@ export class Timekeeper {
             return false
         }
 
-        // FIXME: The default time increment should come from module settings
         if (!time) time = { minutes: 10 }
         return this.#increment(this.#toTotalMinutes(time))
     }

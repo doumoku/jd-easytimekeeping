@@ -1,6 +1,7 @@
 import { registerAutoTellTimeSettings } from './autotelltimesettings.mjs'
 import { registerDaylightCycleSettings } from './daylightcyclesettings.mjs'
 import { registerShiftSettings } from './shiftsettings.mjs'
+import { registerWeekdaySettings } from './weekdaysettings.mjs'
 
 export const MODULE_ID = 'jd-easytimekeeping'
 export const SETTINGS = {
@@ -12,6 +13,8 @@ export const SETTINGS = {
     DAYLIGHT_CYCLE_MENU: 'daylightCycleMenu',
     SHIFT_SETTINGS: 'shiftSettings',
     SHIFT_MENU: 'shiftMenu',
+    WEEKDAY_SETTINGS: 'weekdaySettings',
+    WEEKDAY_MENU: 'weekdayMenu',
     SHOW_DAY_IN_EXACT_TIME: 'showDayInExactTime',
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
     SMALL_TIME_DELTA: 'smallTimeDelta',
@@ -30,6 +33,7 @@ export function registerSettings () {
     registerAutoTellTimeSettings()
     registerDaylightCycleSettings()
     registerShiftSettings()
+    registerWeekdaySettings()
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_PLAYERS_EXACT_TIME, {
         name: 'JDTIMEKEEPING.Settings.ShowPlayersExactTime.name',
