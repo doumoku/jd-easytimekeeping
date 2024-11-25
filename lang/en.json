@@ -80,8 +80,8 @@
     "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Controls the UI transparency when not in use. 0 is fully hidden, and 1 is fully visible.",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Circular Clock Background Color",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.hint": "Used for the unfilled sections",
-    "JDTIMEKEEPING.Settings.ShowDayInExactTime.name": "Include the Day in the Exact Time",
-    "JDTIMEKEEPING.Settings.ShowDayInExactTime.hint": "Only has an effect when your GM has enabled exact time for players",
+    "JDTIMEKEEPING.Settings.ShowLongFormatTime.name": "Show the Time in Long Format",
+    "JDTIMEKEEPING.Settings.ShowLongFormatTime.hint": "Only has an effect when your GM has enabled exact time for players",
 
     "JDTIMEKEEPING.Monday": "Monday",
     "JDTIMEKEEPING.Tuesday": "Tuesday",
@@ -95,5 +95,5 @@
     "JDTIMEKEEPING.Settings.WeekdayConfig.label": "Rename Weekdays",
     "JDTIMEKEEPING.Settings.WeekdayConfig.hint": "",
 
-    "JDTIMEKEEPING.longTimeFormat": "{time}, {dayName}, Week {weekNumber}"
+    "JDTIMEKEEPING.longTimeFormat": "{time}, {dayName} week {weekNumber}"
 }

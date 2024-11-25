@@ -15,7 +15,7 @@ export const SETTINGS = {
     SHIFT_MENU: 'shiftMenu',
     WEEKDAY_SETTINGS: 'weekdaySettings',
     WEEKDAY_MENU: 'weekdayMenu',
-    SHOW_DAY_IN_EXACT_TIME: 'showDayInExactTime',
+    SHOW_LONG_FORMAT_TIME: 'showDayInExactTime',
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
     SMALL_TIME_DELTA: 'smallTimeDelta',
     LARGE_TIME_DELTA: 'largeTimeDelta',
@@ -46,9 +46,9 @@ export function registerSettings () {
         restricted: true,
     })
 
-    game.settings.register(MODULE_ID, SETTINGS.SHOW_DAY_IN_EXACT_TIME, {
-        name: 'JDTIMEKEEPING.Settings.ShowDayInExactTime.name',
-        hint: 'JDTIMEKEEPING.Settings.ShowDayInExactTime.hint',
+    game.settings.register(MODULE_ID, SETTINGS.SHOW_LONG_FORMAT_TIME, {
+        name: 'JDTIMEKEEPING.Settings.ShowLongFormatTime.name',
+        hint: 'JDTIMEKEEPING.Settings.ShowLongFormatTime.hint',
         scope: 'client',
         config: true,
         type: Boolean,

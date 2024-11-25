@@ -174,7 +174,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             context.time = game.i18n.localize('JDTIMEKEEPING.YouHaveNoIdeaOfTheTime')
         } else {
             if (Helpers.showExactTime) {
-                context.time = Helpers.toTimeString(this.#time, UIPanel.#includeDayInExactTime)
+                context.time = Helpers.toTimeString(this.#time, UIPanel.#showLongFormatTime)
             }
 
             // some calculations are common whether we are showing either one or both of these
@@ -283,7 +283,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         return game.settings.get(MODULE_ID, SETTINGS.UI_FADE_OPACITY)
     }
 
-    static get #includeDayInExactTime () {
-        return game.settings.get(MODULE_ID, SETTINGS.SHOW_DAY_IN_EXACT_TIME)
+    static get #showLongFormatTime () {
+        return game.settings.get(MODULE_ID, SETTINGS.SHOW_LONG_FORMAT_TIME)
     }
 }
