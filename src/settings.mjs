@@ -26,6 +26,8 @@ export const SETTINGS = {
     RADIAL_CLOCK_FG_COLOR: 'radialClockColor',
     RADIAL_CLOCK_BG_COLOR: 'radialClockBGColor',
     UI_FADE_OPACITY: 'uiFadeOpacity',
+    UI_BUTTON_COLOR: 'uiButtonColor',
+    UI_BUTTON_ACTIVE_COLOR: 'uiButtonActiveColor',
 }
 
 export function registerSettings () {
@@ -178,6 +180,28 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#062811',
+        requiresReload: true,
+        restricted: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.UIButtonColor.name',
+        hint: 'JDTIMEKEEPING.Settings.UIButtonColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#ffffff',
+        requiresReload: true,
+        restricted: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_ACTIVE_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.UIButtonActiveColor.name',
+        hint: 'JDTIMEKEEPING.Settings.UIButtonActiveColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#138b37',
         requiresReload: true,
         restricted: false,
     })
