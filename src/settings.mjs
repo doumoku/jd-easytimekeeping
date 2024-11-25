@@ -193,7 +193,7 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#ffffff',
         requiresReload: true,
-        restricted: false,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_HOVERED_COLOR, {
@@ -204,7 +204,7 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#138b37',
         requiresReload: true,
-        restricted: false,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_CLICKED_COLOR, {
@@ -215,7 +215,7 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#25e45e',
         requiresReload: true,
-        restricted: false,
+        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {

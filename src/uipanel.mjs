@@ -188,14 +188,13 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 dbtime.textColor = context.textColor // it's the same color for now, but could be different
 
                 if (UIPanel.#showDBTime) {
-                    // new approach: just pass in a data object and handle layout in the template
+                    // just pass in a data object and handle layout in the template
+                    // make adjustments to the copy, since the original is used for the graphical display
                     context.dbtime = foundry.utils.deepClone(dbtime)
                     // display as 1-based
                     context.dbtime.days += 1
                     context.dbtime.shifts += 1
                     context.dbtime.stretches += 1
-                    // make adjustments just to the copy, since the original is used for the graphical display
-                    // TODO: fix this for issue #205
                     if (Helpers.showExactTime) context.dbtime.days = null // hide days if they are already shown in time string
                 }
 
