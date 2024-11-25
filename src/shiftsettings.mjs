@@ -40,15 +40,6 @@ class ShiftSettings extends FormApplication {
 
     getData () {
         const initialValues = game.settings.get(MODULE_ID, SETTINGS.SHIFT_SETTINGS)
-        // we can't have empty strings, so force any emptyish values back to the default
-        initialValues.morningName =
-            initialValues.morningName || game.i18n.localize('JDTIMEKEEPING.Shift.Morning')
-        initialValues.afternoonName =
-            initialValues.afternoonName || game.i18n.localize('JDTIMEKEEPING.Shift.Afternoon')
-        initialValues.eveningName =
-            initialValues.eveningName || game.i18n.localize('JDTIMEKEEPING.Shift.Evening')
-        initialValues.nightName =
-            initialValues.nightName || game.i18n.localize('JDTIMEKEEPING.Shift.Night')
         return initialValues
     }
 
