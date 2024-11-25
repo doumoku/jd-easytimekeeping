@@ -11,4 +11,5 @@ export class Constants {
     static stretchesPerShift = 24
     static stretchesPerDay = 24 * 4
     static minutesPerStretch = 15
+    static daysPerWeek = 7
 }
