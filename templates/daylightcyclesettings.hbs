@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label for="dawn-start">{{localize "JDTIMEKEEPING.Settings.DawnStartTime.label"}}:</label>
-                    <input type="time" name="dawn-start" step="300" value="{{dawn-start}}" />
+                    <input type="time" name="dawn-start" value="{{dawn-start}}" />
                 </div>
 
                 <div class="form-group">
@@ -53,7 +53,7 @@
 
                 <div class="form-group">
                     <label for="dusk-start">{{localize "JDTIMEKEEPING.Settings.DuskStartTime.label"}}:</label>
-                    <input type="time" name="dusk-start" step="300" value="{{dusk-start}}" />
+                    <input type="time" name="dusk-start" value="{{dusk-start}}" />
                 </div>
 
                 <div class="form-group">
@@ -67,6 +67,9 @@
     </div>
 
     <footer class="sheet-footer button-container flexrow">
+        <button class="reset-all" type="button" name="reset" data-action="reset">
+            <i class="fa-solid fa-undo"></i> {{localize "SETTINGS.Reset"}}
+        </button>
         <button type="submit" name="submit">
             <i class="fa-solid fa-save"></i> {{localize "SETTINGS.Save"}}
         </button>

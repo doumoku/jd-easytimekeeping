@@ -29,6 +29,16 @@ export function registerDaylightCycleSettings () {
     })
 }
 
+const DAYLIGHTCYLE_UI_DEFAULTS = {
+    'day-darkness-level': 0,
+    'night-darkness-level': 1.0,
+    'dusk-start': '18:00',
+    'dusk-duration': 60,
+    'dawn-start': '06:00',
+    'dawn-duration': 60,
+    'animate-darkness': 5, // The UI is in seconds, not milliseconds
+}
+
 class DaylightCycleMenu extends FormApplication {
     static get defaultOptions () {
         return foundry.utils.mergeObject(super.defaultOptions, {
@@ -52,5 +62,19 @@ class DaylightCycleMenu extends FormApplication {
         data['animate-darkness-ms'] = Number.parseFloat(data['animate-darkness']) * 1000
         console.debug('JD ETime | DaylightCycleMenu _updateObject: %o', data)
         game.settings.set(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS, data)
+    }
+
+    activateListeners (html) {
+        super.activateListeners(html)
+        html.on('click', '[data-action=reset]', this._handleResetButtonClicked)
+    }
+
+    async _handleResetButtonClicked (event) {
+        console.log('JD ETime | Reset Daylight Cycle settings to default values')
+        for (const [key, value] of Object.entries(DAYLIGHTCYLE_UI_DEFAULTS)) {
+            const element = $(event.delegateTarget).find(`[name=${key}]`)
+            if (element && element.length > 0) element[0].value = value
+        }
+        $(event.delegateTarget).find('[name=daylight-cycle-enabled]')?.prop('checked', false)
     }
 }
