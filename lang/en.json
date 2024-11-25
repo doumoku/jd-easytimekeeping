@@ -76,7 +76,7 @@
     "JDTIMEKEEPING.Time.Stretch": "Stretch",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.name": "Show Players the Exact Time",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "The exact time is always shown to the GM and Assistant GM",
-    "JDTIMEKEEPING.Time.DayAndWeek": "Day {day}, week {week}",
+    "JDTIMEKEEPING.Time.DayAndWeek": "{day}, week {week}",
     "JDTIMEKEEPING.Settings.UIFadeOpacity.name": "UI Idle Transparency",
     "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Controls the UI transparency when not in use. 0 is fully hidden, and 1 is fully visible.",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Circular Clock Background Color",

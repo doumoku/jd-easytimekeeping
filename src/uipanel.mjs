@@ -89,7 +89,6 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     #prepareClocks (time) {
-        const displayDay = (time.days % 7) + 1
         // prep the time data
         const clocks = [
             {
@@ -118,11 +117,11 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                  * are 0-based. Thus we have +1 all over the place.
                  */
                 id: 'etk-days',
-                value: displayDay,
+                value: time.day.index,
                 max: 7,
                 name: game.i18n.format('JDTIMEKEEPING.Time.DayAndWeek', {
-                    day: displayDay,
-                    week: Math.floor(time.days / 7) + 1,
+                    day: time.day.name,
+                    week: time.week,
                 }),
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
@@ -157,6 +156,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     _prepareContext (options) {
         if (this.#time === null) {
             this.#time = game.modules.get(MODULE_ID)?.api?.getTime() || {
+                totalMinutes: 0,
                 minutes: 0,
                 hours: 0,
                 days: 0,
@@ -183,6 +183,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 const dbtime = Helpers.factorDragonbaneTime(this.#time)
                 dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
                 dbtime.textColor = context.textColor // it's the same color for now, but could be different
+                dbtime.day = { index: (dbtime.days % 7) + 1 }  // 1-based day index for UI
+                dbtime.day.name = Helpers.getWeekdayName(dbtime.day.index - 1)  // lookup by 0-based index
+                dbtime.week = Math.floor(dbtime.days / 7) + 1  // 1-based week number
 
                 if (UIPanel.#showDBTime) {
                     // new approach: just pass in a data object and handle layout in the template

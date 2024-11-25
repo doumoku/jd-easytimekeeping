@@ -23,6 +23,7 @@ export class Helpers {
     static toTimeString (time, options) {
         const timeOfDay = Helpers.toTimeOfDay(time)
         if (options?.includeDay) {
+            // TODO: use day setting
             const formatter = options?.i18nFormatter || 'JDTIMEKEEPING.timeOfDay'
             return game.i18n.format(formatter, { time: timeOfDay, day: time.days + 1 })
         } else {
@@ -116,14 +117,25 @@ export class Helpers {
     }
 
     /**
-     * Check if the exact time of day can be seen by the current user based 
+     * Check if the exact time can be seen by the current user based 
      * on user role and module settings
      * 
      * @returns {boolean} `true` if the exact time can be shown, `false` otherwise
      */
     static get showExactTime () {
-        // The time of day string is always shown for a GM, and conditionally for
+        // The exact time is always shown for a GM, and conditionally for
         // players based on the module setting
         return game.user.isGM || game.settings.get(MODULE_ID, SETTINGS.SHOW_PLAYERS_EXACT_TIME)
+    }
+
+    /**
+     * Gets a localised weekday name
+     * @param {number} dayIndex the 0-based day index, range [0..6]
+     * @returns {string} the localized name of the corresponding day of the week. 
+     * Weeks start on Monday.
+     */
+    static getWeekdayName (dayIndex) {
+        const weekdays = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
+        return Object.values(weekdays)[dayIndex]
     }
 }
