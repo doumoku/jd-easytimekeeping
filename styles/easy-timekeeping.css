@@ -157,18 +157,18 @@
  * The GM buttons for time control
  */
 .time-button-container {
-  i {
+  /* i {
     color: #ffffff;
-  }
+  } */
 
   i:hover {
-    color: goldenrod;
+    /* color: goldenrod; */
     transform: scale(1.4);
     /* box-shadow: 0 0 4px rgba(35, 234, 0, 0.941); */
   }
 
   i:active {
-    color: rgb(217, 86, 39);
+    /* color: rgb(217, 86, 39); */
     transform: scale(1.4);
   }
 }
@@ -177,7 +177,6 @@
  * Display strings for time of day
  */
 .etk-timeofday {
-  /* color: goldenrod; */
   margin-bottom: 5px;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
