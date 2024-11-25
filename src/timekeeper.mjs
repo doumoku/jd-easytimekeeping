@@ -99,9 +99,7 @@ export class Timekeeper {
             return false
         }
 
-        return Helpers.toTimeString(this.#factorTime(this.#totalElapsedMinutes), {
-            includeDay: includeDay,
-        })
+        return Helpers.toTimeString(this.#factorTime(this.#totalElapsedMinutes), includeDay)
     }
 
     /**
@@ -203,6 +201,9 @@ export class Timekeeper {
         time.days = Math.floor(totalMinutes / Constants.minutesPerDay)
         time.hours = Math.floor((totalMinutes % Constants.minutesPerDay) / 60)
         time.minutes = (totalMinutes % Constants.minutesPerDay) % 60
+        time.day = { index: (time.days % 7) + 1 } // 1-based day index for UI
+        time.day.name = Helpers.getWeekdayName(time.day.index - 1) // lookup by 0-based index
+        time.weekNumber = Math.floor(time.days / 7) + 1 // 1-based week number
 
         return time
     }
@@ -251,6 +252,17 @@ export class Timekeeper {
  * @property {number} hours hour of the day in 24-hour time, range [0..23]
  * @property {number} minutes minute of the hour, range [0..59]
  * @property {number} totalMinutes total elapsed minutes since 12am on day 0
+ * @property {number} weekNumber 1-based number of 7-day weeks that have elapsed, including the current partial week.
+ * @property {dayData} day additional metadata about the day of the week
+ */
+
+/**
+ * Day data
+ * 
+ * @public
+ * @typedef {Object} dayData
+ * @property {number} index 1-based number of the day of the week, starting with Monday. Each week is fixed at 7 days.
+ * @property {string} name the name of the current day of the week, based on the current world settings.
  */
 
 /**
@@ -259,4 +271,18 @@ export class Timekeeper {
  * @typedef {Object} timeChangeData
  * @property {timeAugmented} oldTime the previous time
  * @property {timeAugmented} time the new time
+ */
+
+/**
+ * Dungeon turn time, used by the graphical display
+ * 
+ * @public
+ * @typedef {Object} dungeonTurnTime
+ * @property {number} totalStretches total number of dungeon elapsed dungeon turns
+ * @property {number} days days since day 0
+ * @property {number} shifts the current shift out of the 4 shifts per day. 0-based, range [0..3]
+ * @property {number} stretches the current stretch/dungeon turn within the current shift. 0-based indexing
+ * @property {dayData} day additional metadata about the day of the week
+ * @property {number} weekNumber 1-based number of 7-day weeks that have elapsed, including the current partial week.
+ * @property {string} shiftName the name of the current shift, based on world settings.
  */

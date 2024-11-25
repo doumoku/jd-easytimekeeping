@@ -38,7 +38,6 @@
     "JDTIMEKEEPING.Time.Night": "Nuit",
     "JDTIMEKEEPING.Time.minutes": "minutes",
     "JDTIMEKEEPING.timeOfDay": "Il est {time} du {day} ième jour(s).",
-    "JDTIMEKEEPING.uiTimeOfDay": "{time} du {day} ième jour(s)",
     "JDTIMEKEEPING.NoPermission": "Vous n'avez pas la permission de modifier l'heure",
     "JDTIMEKEEPING.ResetTime.title": "Remise à Zéro",
     "JDTIMEKEEPING.ResetTime.content": "Réinitialiser l'heure à minuit le premier jour ?",
@@ -94,5 +93,7 @@
     
     "JDTIMEKEEPING.Settings.WeekdayConfig.name": "Configure Days of the Week",
     "JDTIMEKEEPING.Settings.WeekdayConfig.label": "Rename Weekdays",
-    "JDTIMEKEEPING.Settings.WeekdayConfig.hint": ""
+    "JDTIMEKEEPING.Settings.WeekdayConfig.hint": "",
+
+    "JDTIMEKEEPING.longTimeFormat": "{time}, {dayName}, Week {weekNumber}"
 }
