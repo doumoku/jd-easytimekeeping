@@ -30,7 +30,6 @@ export function registerDaylightCycleSettings () {
 }
 
 const DAYLIGHTCYLE_UI_DEFAULTS = {
-    // 'daylight-cycle-enabled': false,
     'day-darkness-level': 0,
     'night-darkness-level': 1.0,
     'dusk-start': '18:00',
@@ -76,5 +75,6 @@ class DaylightCycleMenu extends FormApplication {
             const element = $(event.delegateTarget).find(`[name=${key}]`)
             if (element && element.length > 0) element[0].value = value
         }
+        $(event.delegateTarget).find('[name=daylight-cycle-enabled]')?.prop('checked', false)
     }
 }
