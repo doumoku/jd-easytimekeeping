@@ -23,7 +23,6 @@ export function registerShiftSettings () {
             eveningName: game.i18n.localize('JDTIMEKEEPING.Shift.Evening'),
             nightName: game.i18n.localize('JDTIMEKEEPING.Shift.Night'),
         },
-        restricted: true,
         requiresReload: true,
     })
 }

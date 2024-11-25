@@ -26,10 +26,22 @@ export const SETTINGS = {
     RADIAL_CLOCK_FG_COLOR: 'radialClockColor',
     RADIAL_CLOCK_BG_COLOR: 'radialClockBGColor',
     UI_FADE_OPACITY: 'uiFadeOpacity',
-    UI_BUTTON_COLOR: 'uiButtonColor',
-    UI_BUTTON_HOVERED_COLOR: 'uiButtonHoveredColor',
-    UI_BUTTON_CLICKED_COLOR: 'uiButtonClickedColor',
+    UI_BUTTON_COLOR: 'uiButtonColour',
+    UI_BUTTON_HOVERED_COLOR: 'uiButtonHoveredColour',
+    UI_BUTTON_CLICKED_COLOR: 'uiButtonClickedColour',
 }
+
+const GM_ONLY_SETTINGS = [
+    SETTINGS.SHOW_PLAYERS_EXACT_TIME,
+    SETTINGS.SHOW_DRAGONBANE_TIME,
+    SETTINGS.SHOW_RADIAL_CLOCK,
+    SETTINGS.SMALL_TIME_DELTA,
+    SETTINGS.LARGE_TIME_DELTA,
+    SETTINGS.TIME_CHANGE_MACRO,
+    SETTINGS.UI_BUTTON_COLOR,
+    SETTINGS.UI_BUTTON_HOVERED_COLOR,
+    SETTINGS.UI_BUTTON_CLICKED_COLOR,
+]
 
 export function registerSettings () {
     // Register the menus
@@ -46,7 +58,6 @@ export function registerSettings () {
         type: Boolean,
         default: true,
         requiresReload: true,
-        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_LONG_FORMAT_TIME, {
@@ -57,7 +68,6 @@ export function registerSettings () {
         type: Boolean,
         default: false,
         requiresReload: true,
-        restricted: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME, {
@@ -67,7 +77,6 @@ export function registerSettings () {
         type: Boolean,
         default: false,
         requiresReload: true,
-        restricted: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DRAGONBANE_TIME, {
@@ -78,7 +87,6 @@ export function registerSettings () {
         type: Boolean,
         default: false,
         requiresReload: true,
-        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK, {
@@ -89,7 +97,6 @@ export function registerSettings () {
         type: Boolean,
         default: false,
         requiresReload: true,
-        restricted: true,
     })
 
     // small time delta in minutes
@@ -113,7 +120,6 @@ export function registerSettings () {
             console.log('JD ETime | %s %d', SETTINGS.SMALL_TIME_DELTA, value)
         },
         requiresReload: false,
-        restricted: true,
     })
 
     // Large time delta in hours
@@ -139,7 +145,6 @@ export function registerSettings () {
             console.log('JD ETime | %s %d', SETTINGS.LARGE_TIME_DELTA, value)
         },
         requiresReload: false,
-        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TIME_CHANGE_MACRO, {
@@ -149,7 +154,6 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.DocumentUUIDField({ type: 'Macro' }),
         requiresReload: false,
-        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_TEXT_COLOR, {
@@ -160,7 +164,6 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#ffffff',
         requiresReload: true,
-        restricted: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_FG_COLOR, {
@@ -171,7 +174,6 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#138b37',
         requiresReload: true,
-        restricted: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR, {
@@ -182,7 +184,6 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#062811',
         requiresReload: true,
-        restricted: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_COLOR, {
@@ -193,7 +194,6 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#ffffff',
         requiresReload: true,
-        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_HOVERED_COLOR, {
@@ -204,7 +204,6 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#138b37',
         requiresReload: true,
-        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_CLICKED_COLOR, {
@@ -215,7 +214,6 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#25e45e',
         requiresReload: true,
-        restricted: true,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {
@@ -226,7 +224,6 @@ export function registerSettings () {
         type: new foundry.data.fields.NumberField({ min: 0, max: 1.0 }),
         default: 0.6,
         requiresReload: true,
-        restricted: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, {
@@ -235,9 +232,16 @@ export function registerSettings () {
         type: Number,
         default: 0,
         requiresReload: false,
-        restricted: true,
     })
 }
+
+Hooks.on('renderSettingsConfig', (app, [html], context) => {
+    if (game.user.isGM) return
+
+    GM_ONLY_SETTINGS.forEach(id => {
+        html.querySelector(`.form-group[data-setting-id="${MODULE_ID}.${id}"]`)?.remove()
+    })
+})
 
 export function registerKeybindings () {
     // Define keybindings for time operations but leave them unbound

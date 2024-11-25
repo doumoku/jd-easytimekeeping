@@ -25,7 +25,6 @@ export function registerWeekdaySettings () {
         config: false,
         type: Object,
         default: defaults,
-        restricted: true,
         requiresReload: true,
     })
 }
