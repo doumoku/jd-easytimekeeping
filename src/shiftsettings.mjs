@@ -53,14 +53,20 @@ class ShiftSettings extends FormApplication {
         }
     }
 
-    // activateListeners (html) {
-    //     super.activateListeners(html)
-    //     html.on('click', '[data-action=reset]', this._handleResetButtonClicked)
-    // }
+    activateListeners (html) {
+        super.activateListeners(html)
+        html.on('click', '[data-action=reset]', this._handleResetButtonClicked)
+    }
+
+    static #RESET_FIELDS = ['Morning', 'Afternoon', 'Evening', 'Night']
 
     async _handleResetButtonClicked (event) {
-        console.log(event)
-        // const me = $(event.delegateTarget).find('[name=morningName]')
-        // me.value = game.i18n.localize('JDTIMEKEEPING.Shift.Morning')
+        console.log('JD ETime | Reset Shift settings to default values')
+        ShiftSettings.#RESET_FIELDS.forEach(id => {
+            const element = $(event.delegateTarget).find(`[name=${id.toLowerCase()}Name]`)
+            if (element && element.length > 0) {
+                element[0].value = game.i18n.localize(`JDTIMEKEEPING.Shift.${id}`)
+            }
+        })
     }
 }
