@@ -95,5 +95,12 @@
     "JDTIMEKEEPING.Settings.WeekdayConfig.label": "Rename Weekdays",
     "JDTIMEKEEPING.Settings.WeekdayConfig.hint": "",
 
-    "JDTIMEKEEPING.longTimeFormat": "{time}, {dayName} week {weekNumber}"
+    "JDTIMEKEEPING.longTimeFormat": "{time}, {dayName} week {weekNumber}",
+
+    "JDTIMEKEEPING.Settings.UIButtonColor.name": "Time Step Button Color",
+    "JDTIMEKEEPING.Settings.UIButtonColor.hint": "",
+    "JDTIMEKEEPING.Settings.UIButtonHoveredColor.name": "Time Step Button Color When Hovered",
+    "JDTIMEKEEPING.Settings.UIButtonHoveredColor.hint": "",
+    "JDTIMEKEEPING.Settings.UIButtonClickedColor.name": "Time Step Button Color When Clicked",
+    "JDTIMEKEEPING.Settings.UIButtonClickedColor.hint": ""
 }

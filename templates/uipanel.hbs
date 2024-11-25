@@ -37,7 +37,8 @@
     </div>
 
     {{#if isGM}}
-    <span class="button-container flexrow receive-pointer-events time-button-container flex-align-center">
+    <span class="button-container flexrow receive-pointer-events time-button-container flex-align-center"
+        style="--color: {{btn.color}}; --hover-color: {{btn.hoverColor}}; --click-color: {{btn.clickColor}};">
 
         <span class="hovertext" data-hover="{{localize 'JDTIMEKEEPING.UI.reset'}}">
             <i id="btn-etk-reset-time" data-action="reset-time" class="fa-solid fa-clock-rotate-left"></i>

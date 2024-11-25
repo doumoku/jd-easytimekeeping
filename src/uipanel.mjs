@@ -168,6 +168,11 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         const context = {
             isGM: game.user.isGM,
             textColor: UIPanel.#uiTextColor,
+            btn: {
+                color: UIPanel.#timeStepButtonColor,
+                hoverColor: UIPanel.#timeStepButtonHoveredColor,
+                clickColor: UIPanel.#timeStepButtonClickedColor,
+            }
         }
 
         if (UIPanel.#playerSeesNothing) {
@@ -256,6 +261,18 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #clockBGColor () {
         return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR)
+    }
+
+    static get #timeStepButtonColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_BUTTON_COLOR)
+    }
+
+    static get #timeStepButtonHoveredColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_BUTTON_HOVERED_COLOR)
+    }
+
+    static get #timeStepButtonClickedColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_BUTTON_CLICKED_COLOR)
     }
 
     static get #smallTimeDelta () {
