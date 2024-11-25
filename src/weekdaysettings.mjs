@@ -44,10 +44,11 @@ class WeekdaySettings extends FormApplication {
         const initialValues = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
         const data = {}
         weekdays.forEach((v, i) => {
-            data[i] = { 
+            data[i] = {
                 id: `${v.toLowerCase()}`,
                 label: game.i18n.localize(`JDTIMEKEEPING.${v}`),
-                value: initialValues[v.toLowerCase()] }
+                value: initialValues[v.toLowerCase()],
+            }
         })
         return data
     }
@@ -58,19 +59,23 @@ class WeekdaySettings extends FormApplication {
 
         if (!Helpers.objectsShallowEqual(data, current)) {
             game.settings.set(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS, data)
+            // The days of the week don't need a reload at the moment.
             // SettingsConfig.reloadConfirm({ world: true })
         }
     }
 
-    // activateListeners (html) {
-    //     super.activateListeners(html)
-    //     html.on('click', '[data-action=reset]', this._handleResetButtonClicked)
-    // }
+    activateListeners (html) {
+        super.activateListeners(html)
+        html.on('click', '[data-action=reset]', this._handleResetButtonClicked)
+    }
 
     async _handleResetButtonClicked (event) {
-        console.log(event)
-        // TODO: implement this
-        // const me = $(event.delegateTarget).find('[name=morningName]')
-        // me.value = game.i18n.localize('JDTIMEKEEPING.Shift.Morning')
+        console.log('JD ETime | Reset Weekday settings to default values')
+        weekdays.forEach(id => {
+            const element = $(event.delegateTarget).find(`[name=${id.toLowerCase()}]`)
+            if (element && element.length > 0) {
+                element[0].value = game.i18n.localize(`JDTIMEKEEPING.${id}`)
+            }
+        })
     }
 }
