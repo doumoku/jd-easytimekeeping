@@ -30,11 +30,14 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         },
     }
 
+    #avDockWhenSettingsOpen = null
     #time = null
     refresh = foundry.utils.debounce(this.render, 100)
 
     ready () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
+        Hooks.on('renderAVConfig', this.renderAVConfigHandler.bind(this))
+        Hooks.on('closeAVConfig', this.closeAVConfigHandler.bind(this))
         game.socket.on(`module.${MODULE_ID}`, time => {
             this.#time = time
             this.render(true)
@@ -86,6 +89,19 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         this.#time = data.time
         game.socket.emit(`module.${MODULE_ID}`, this.#time)
         this.render(true)
+    }
+
+    renderAVConfigHandler () {
+        this.#avDockWhenSettingsOpen = game.webrtc.settings.client.dockPosition
+    }
+
+    closeAVConfigHandler () {
+        /**
+         * if the AV dock position has changed, we need to force a Foundry reload
+         * since Foundry is currently inconsistent in when this occurs.
+         */
+        const after = game.webrtc.settings.client.dockPosition
+        if (this.#avDockWhenSettingsOpen != after) SettingsConfig.reloadConfirm({ world: true })
     }
 
     #prepareClocks (time) {
@@ -172,7 +188,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 color: UIPanel.#timeStepButtonColor,
                 hoverColor: UIPanel.#timeStepButtonHoveredColor,
                 clickColor: UIPanel.#timeStepButtonClickedColor,
-            }
+            },
         }
 
         if (UIPanel.#playerSeesNothing) {
