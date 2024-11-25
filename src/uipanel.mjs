@@ -258,6 +258,18 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR)
     }
 
+    static get #timeStepButtonColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_BUTTON_COLOR)
+    }
+
+    static get #timeStepButtonHoveredColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_BUTTON_HOVERED_COLOR)
+    }
+
+    static get #timeStepButtonClickedColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_BUTTON_CLICKED_COLOR)
+    }
+
     static get #smallTimeDelta () {
         return game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA)
     }

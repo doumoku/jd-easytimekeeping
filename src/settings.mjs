@@ -27,7 +27,8 @@ export const SETTINGS = {
     RADIAL_CLOCK_BG_COLOR: 'radialClockBGColor',
     UI_FADE_OPACITY: 'uiFadeOpacity',
     UI_BUTTON_COLOR: 'uiButtonColor',
-    UI_BUTTON_ACTIVE_COLOR: 'uiButtonActiveColor',
+    UI_BUTTON_HOVERED_COLOR: 'uiButtonHoveredColor',
+    UI_BUTTON_CLICKED_COLOR: 'uiButtonClickedColor',
 }
 
 export function registerSettings () {
@@ -195,13 +196,24 @@ export function registerSettings () {
         restricted: false,
     })
 
-    game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_ACTIVE_COLOR, {
-        name: 'JDTIMEKEEPING.Settings.UIButtonActiveColor.name',
-        hint: 'JDTIMEKEEPING.Settings.UIButtonActiveColor.hint',
+    game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_HOVERED_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.UIButtonHoveredColor.name',
+        hint: 'JDTIMEKEEPING.Settings.UIButtonHoveredColor.hint',
         scope: 'client',
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#138b37',
+        requiresReload: true,
+        restricted: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_CLICKED_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.UIButtonClickedColor.name',
+        hint: 'JDTIMEKEEPING.Settings.UIButtonClickedColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#062811',
         requiresReload: true,
         restricted: false,
     })

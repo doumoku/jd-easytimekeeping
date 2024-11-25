@@ -99,6 +99,8 @@
 
     "JDTIMEKEEPING.Settings.UIButtonColor.name": "Time Step Button Color",
     "JDTIMEKEEPING.Settings.UIButtonColor.hint": "",
-    "JDTIMEKEEPING.Settings.UIButtonActiveColor.name": "Time Step Button Color When Clicked",
-    "JDTIMEKEEPING.Settings.UIButtonActiveColor.hint": ""
+    "JDTIMEKEEPING.Settings.UIButtonHoveredColor.name": "Time Step Button Color When Hovered",
+    "JDTIMEKEEPING.Settings.UIButtonHoveredColor.hint": "",
+    "JDTIMEKEEPING.Settings.UIButtonClickedColor.name": "Time Step Button Color When Clicked",
+    "JDTIMEKEEPING.Settings.UIButtonClickedColor.hint": ""
 }
