@@ -21,6 +21,7 @@
     ![GM all UI](./documentation/img/gm-all-ui.png)
 
 - All time control buttons on the UI have keybindings, but they are unset by default. If you want to use keyboard shortcuts, you can assign keys in the Foundry Configure Controls menu for Easy Timekeeping.
+  - For the short and long time step buttons, holding down the `shift` key when clicking will move time by double the configured amount. Holding down `alt` will move time by half, rounded to the nearest whole minute. This can sometimes set the time to odd values, which can be fixed with the Set Time dialog. I find the half-time-step feature useful with the long time step, for example, if the party camp is interrupted by an encounter, I might decide the encounter takes place halfway through the shift.
 
 - An optional daylight cycle provides configurable automation of scene lighting. Note that the daylight cycle is disabled by default. Turn it on in the module settings. Once enabled, it is active for every scene in your world. To disable daylight cycles for a single scene, use the Foundry Darkness Level Lock setting in the scene lighting configuration.
 
