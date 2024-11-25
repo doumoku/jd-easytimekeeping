@@ -96,7 +96,7 @@ If you don't want to mess around with world scripts, then as GM you can register
 I'd like to thank a few projects and communities, without whom this project probably wouldn't exist.
 
 - The fantastic people at the Dragonbane Community Discord (you can find a permanent invite link at [the Free League forum](https://forum.frialigan.se/viewtopic.php?t=12039)). It was a quick Foundry macro built on Global Progress Clocks that eventually led to this module.
-- The equally fantastic (and occassionally the same) people at the Foundry VTT Discord. With the technical help in the `#macro-polo`, `#module-development`, and `#system-development` channels I'd be cowering under my desk by now.
+- The equally fantastic (and occassionally the same) people at the Foundry VTT Discord. Without the technical help in the `#macro-polo`, `#module-development`, and `#system-development` channels I'd be cowering under my desk by now.
 - The devs of [Global Progress Clocks](https://github.com/CarlosFdez/global-progress-clocks). Thanks to the magic of MIT licencing I've adapted the radial clocks right into this module.
 - The devs of [SmallTime](https://github.com/unsoluble/smalltime). While I've not used any of the code, I've drawn a lot of inspiration from the UI of SmallTime.
 
