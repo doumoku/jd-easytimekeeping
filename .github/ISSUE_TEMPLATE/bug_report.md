@@ -12,9 +12,9 @@ A clear and concise description of what the bug is.
 
 **To Reproduce**
 Steps to reproduce the behavior:
-1. 
-2. 
-3. 
+1.
+2.
+3.
 4. See error
 
 **Expected behavior**
@@ -24,10 +24,11 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Foundry Information:**
- - Foundry Version: 
- - Browser [e.g. chrome, safari]
- - Module Version:
- - Any other modules that you think might be related: 
+
+- Foundry Version:
+- Browser [e.g. chrome, safari]
+- Module Version:
+- Any other modules that you think might be related:
 
 **Additional context**
 Add any other context about the problem here.
