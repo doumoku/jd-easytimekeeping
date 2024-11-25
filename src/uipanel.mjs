@@ -161,7 +161,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 hours: 0,
                 days: 0,
                 weekNumber: 1,
-                day : { index: 1, name: 'Monday'},
+                day: { index: 1, name: 'Monday' },
             }
         }
 
@@ -211,16 +211,18 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         const dataTarget = target.getAttribute('data-target')
         if (dataTarget) {
             const tk = game.modules.get(MODULE_ID).api
-            // TODO: keyboard modifiers
+            let scale = 1
+            if (event.ctrlKey) scale = 0.5
+            else if (event.shiftKey) scale = 2
 
             if (dataTarget === 'small-increment') {
-                tk.increment({ minutes: UIPanel.#smallTimeDelta })
+                tk.increment({ minutes: UIPanel.#smallTimeDelta * scale })
             } else if (dataTarget === 'large-increment') {
-                tk.increment({ hours: UIPanel.#largeTimeDelta })
+                tk.increment({ hours: UIPanel.#largeTimeDelta * scale })
             } else if (dataTarget === 'large-decrement') {
-                tk.increment({ hours: -UIPanel.#largeTimeDelta })
+                tk.increment({ hours: UIPanel.#largeTimeDelta * -scale })
             } else if (dataTarget === 'small-decrement') {
-                tk.increment({ minutes: -UIPanel.#smallTimeDelta })
+                tk.increment({ minutes: UIPanel.#smallTimeDelta * -scale })
             }
         }
     }
