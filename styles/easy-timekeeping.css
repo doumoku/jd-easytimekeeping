@@ -157,18 +157,18 @@
  * The GM buttons for time control
  */
 .time-button-container {
-  /* i {
-    color: #ffffff;
-  } */
+  i {
+    color: var(--color);
+  }
 
   i:hover {
-    /* color: goldenrod; */
+    color: var(--hover-color);
     transform: scale(1.4);
     /* box-shadow: 0 0 4px rgba(35, 234, 0, 0.941); */
   }
 
   i:active {
-    /* color: rgb(217, 86, 39); */
+    color: var(--click-color);
     transform: scale(1.4);
   }
 }

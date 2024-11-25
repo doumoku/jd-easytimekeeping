@@ -168,6 +168,11 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         const context = {
             isGM: game.user.isGM,
             textColor: UIPanel.#uiTextColor,
+            btn: {
+                color: UIPanel.#timeStepButtonColor,
+                hoverColor: UIPanel.#timeStepButtonHoveredColor,
+                clickColor: UIPanel.#timeStepButtonClickedColor,
+            }
         }
 
         if (UIPanel.#playerSeesNothing) {
