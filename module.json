@@ -12,6 +12,11 @@
             "name": "JugglinDan",
             "discord": "jugglindan",
             "flags": {}
+        },
+        {
+            "name": "Sasmira",
+            "discord": "sasmira",
+            "flags": {}
         }
     ],
     "esmodules": [
