@@ -76,5 +76,6 @@ class DaylightCycleMenu extends FormApplication {
             if (element && element.length > 0) element[0].value = value
         }
         $(event.delegateTarget).find('[name=daylight-cycle-enabled]')?.prop('checked', false)
+        ui.notifications.notify(game.i18n.localize('SETTINGS.ResetInfo'))
     }
 }
