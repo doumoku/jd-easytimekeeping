@@ -77,5 +77,6 @@ class WeekdaySettings extends FormApplication {
                 element[0].value = game.i18n.localize(`JDTIMEKEEPING.${id}`)
             }
         })
+        ui.notifications.notify(game.i18n.localize('SETTINGS.ResetInfo'))
     }
 }

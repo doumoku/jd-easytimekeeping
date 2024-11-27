@@ -68,5 +68,6 @@ class ShiftSettings extends FormApplication {
                 element[0].value = game.i18n.localize(`JDTIMEKEEPING.Shift.${id}`)
             }
         })
+        ui.notifications.notify(game.i18n.localize('SETTINGS.ResetInfo'))
     }
 }
