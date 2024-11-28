@@ -1,7 +1,7 @@
 {
     "id": "jd-easytimekeeping",
     "title": "Easy Timekeeping",
-    "version": "vX.Y.Z",
+    "version": "vDev",
     "compatibility": {
         "minimum": "12",
         "verified": "12"
@@ -31,7 +31,7 @@
         },
         {
             "lang": "fr",
-            "name": "French",
+            "name": "Français",
             "path": "lang/fr.json",
             "flags": {}
         }
