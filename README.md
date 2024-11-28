@@ -10,7 +10,7 @@
 [![Release Drafter](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-drafter.yml/badge.svg)](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-drafter.yml)
 [![Release Creation](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-creation.yml/badge.svg)](https://github.com/DC23/jd-easytimekeeping/actions/workflows/release-creation.yml)
 
-[Easy Timekeeping](https://foundryvtt.com/packages/jd-easytimekeeping) implements simple timekeeping without any fuss or complicated features. It's a lightweight, customisable, and easy to use timekeeping tool for any game. While general purpose, this module has some features that make it particularly suited to the [Dragonbane game system](https://foundryvtt.com/packages/dragonbane). However, those features are options that are turned off by default, and the Dragonbane system is not a dependency of Easy Timekeeping.
+[Easy Timekeeping](https://foundryvtt.com/packages/jd-easytimekeeping) implements simple timekeeping without any fuss or complicated features. It's a lightweight, customisable, and easy to use timekeeping tool for any game. While general purpose, this module has some features that make it particularly suited to the [Dragonbane game system](https://foundryvtt.com/packages/dragonbane). However, those optional features are turned off by default, and the Dragonbane system is not a dependency of Easy Timekeeping.
 
 **Easy Timekeeping** has the following main features:
 
