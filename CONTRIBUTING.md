@@ -2,11 +2,11 @@
 
 ## Did you find a bug?
 
-- **Ensure the bug was not already reported** by searching on GitHub under [Issues]().
+- **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/DC23/jd-easytimekeeping/issues).
 
 - If you're unable to find an open issue addressing the problem, then open a new one, preferrably using one of the templates. Include as much information as possible about the issue, when it occurs, and how to reproduce or find it. The templates provide guidance on exactly what information we find most helpful.
 
-## Do you have ideas for new features, or changes you'd like to see? 
+## Do you have ideas for new features, or changes you'd like to see?
 
 - Post a [feature request](https://github.com/DC23/jd-easytimekeeping/issues). Be sure to use the template :)
 
@@ -26,9 +26,9 @@ Great!
 
 ## A Note About the API Documentation
 
-The API documentation is built with [documentation.js](https://github.com/documentationjs/documentation). The current setup is a bit old-school, 
-in that I'm building the documentation at the command-line with Make and then manually committing the updated files to git. 
-It will make a lot more sense to move this workflow into a GitHub Action, and I will probably do that one day. 
+The API documentation is built with [documentation.js](https://github.com/documentationjs/documentation). The current setup is a bit old-school,
+in that I'm building the documentation at the command-line with Make and then manually committing the updated files to git.
+It will make a lot more sense to move this workflow into a GitHub Action, and I will probably do that one day.
 But for now, just make sure any code PRs have sensible JSDoc on them and the API docs will work themselves out.
 
 ---
