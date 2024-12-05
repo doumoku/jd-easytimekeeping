@@ -35,6 +35,15 @@ Hooks.once('ready', async () => {
     game.modules.get(MODULE_ID).timeChangeHookName = Timekeeper.TIME_CHANGE_HOOK
     game.modules.get(MODULE_ID).constants = Constants
 
+    // I don't need this for now
+    // Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
+    //     return arg1 == arg2 ? options.fn(this) : options.inverse(this)
+    // })
+    // {{#ifEquals sampleString "This is a string"}}
+    // Your HTML here
+    // {{else}}
+    // {{/ifEquals}}
+
     console.groupEnd()
 })
 
