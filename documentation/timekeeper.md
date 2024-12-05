@@ -16,7 +16,7 @@
   * [Properties][12]
 * [timeChangeData][13]
   * [Properties][14]
-* [dungeonTurnTime][15]
+* [gameTurnTime][15]
   * [Properties][16]
 
 ## Timekeeper
@@ -111,18 +111,18 @@ Type: [Object][18]
 * `oldTime` **[timeAugmented][9]** the previous time
 * `time` **[timeAugmented][9]** the new time
 
-## dungeonTurnTime
+## gameTurnTime
 
-Dungeon turn time, used by the graphical display
+Game turn time. This is used by the graphical clocks, and returned from API calls.
 
 Type: [Object][18]
 
 ### Properties
 
-* `totalStretches` **[number][19]** total number of dungeon elapsed dungeon turns
+* `totalGameTurns` **[number][19]** total number of elapsed game turns
 * `days` **[number][19]** days since day 0
 * `shifts` **[number][19]** the current shift out of the 4 shifts per day. 0-based, range \[0..3]
-* `stretches` **[number][19]** the current stretch/dungeon turn within the current shift. 0-based indexing
+* `turns` **[number][19]** the current game turn within the current shift. 0-based indexing
 * `day` **[dayData][11]** additional metadata about the day of the week
 * `weekNumber` **[number][19]** 1-based number of 7-day weeks that have elapsed, including the current partial week.
 * `shiftName` **[string][17]** the name of the current shift, based on world settings.
@@ -155,7 +155,7 @@ Type: [Object][18]
 
 [14]: #properties-3
 
-[15]: #dungeonturntime
+[15]: #gameturntime
 
 [16]: #properties-4
 

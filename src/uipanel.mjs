@@ -108,12 +108,12 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         // prep the time data
         const clocks = [
             {
-                id: 'etk-stretches',
-                value: time.stretches + 1,
+                id: 'etk-turns',
+                value: time.turns + 1,
                 max: Constants.stretchesPerShift,
                 name: game.i18n.format('JDTIMEKEEPING.gameTurnFormat', {
                     gameTurnName: UIPanel.#gameTurnName,
-                    gameTurnNumber: (time.stretches + 1).toString(),
+                    gameTurnNumber: (time.turns + 1).toString(),
                 }),
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
@@ -202,7 +202,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
             // some calculations are common whether we are showing either one or both of these
             if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
-                const dbtime = Helpers.factorDragonbaneTime(this.#time)
+                const dbtime = Helpers.factorGameTurns(this.#time)
                 dbtime.textColor = context.textColor // it's the same color for now, but could be different
 
                 if (UIPanel.#showDBTime) {
@@ -213,7 +213,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     context.dbtime.gameTurnName = UIPanel.#gameTurnName
                     context.dbtime.days += 1
                     context.dbtime.shifts += 1
-                    context.dbtime.stretches += 1
+                    context.dbtime.turns += 1
                     if (Helpers.showExactTime) context.dbtime.days = null // hide days if they are already shown in time string
                 }
 
