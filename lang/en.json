@@ -1,6 +1,6 @@
 {
-    "JDTIMEKEEPING.Settings.SmallTimeDelta.name": "Small Time Step (minutes)",
-    "JDTIMEKEEPING.Settings.SmallTimeDelta.hint": "Small time step UI button duration in minutes. Values other than 15 don't work well with the Dragonbane fuzzy time and circular clocks.",
+    "JDTIMEKEEPING.Settings.SmallTimeDelta.name": "Small Time Step / Game Turn (minutes)",
+    "JDTIMEKEEPING.Settings.SmallTimeDelta.hint": "Small time step UI button duration in minutes. This setting also defines the duration of a game exploration turn.",
     "JDTIMEKEEPING.Settings.LargeTimeDelta.name": "Large Time Step (hours)",
     "JDTIMEKEEPING.Settings.LargeTimeDelta.hint": "Large time step UI button duration in hours",
     "JDTIMEKEEPING.Settings.TimeChangeMacro.name": "Time Change Event Handler",
@@ -45,12 +45,12 @@
     "JDTIMEKEEPING.SetTime.title": "Set the Time",
     "JDTIMEKEEPING.SetTime.label": "Time",
     "JDTIMEKEEPING.SetTime.hotkey": "Open the Set Time dialog",
-    "JDTIMEKEEPING.Settings.ShowDragonbaneTime.name": "Show the Fuzzy Dragonbane Time in Stretches and Shifts",
+    "JDTIMEKEEPING.Settings.ShowDragonbaneTime.name": "Show the Fuzzy Time in Game Turns and Shifts",
     "JDTIMEKEEPING.Settings.ShowDragonbaneTime.hint": "If selected, this will be shown to players and the GM",
-    "JDTIMEKEEPING.Settings.ShowRadialClock.name": "Show the Circular Dragonbane Clocks",
+    "JDTIMEKEEPING.Settings.ShowRadialClock.name": "Show the Circular Clocks",
     "JDTIMEKEEPING.Settings.ShowRadialClock.hint": "While they look like Global Progress Clocks, you can't click on them",
     "JDTIMEKEEPING.Settings.UITextColor.name": "UI Text Color",
-    "JDTIMEKEEPING.Settings.UITextColor.hint": "Used for the time and Dragonbane fuzzy time strings",
+    "JDTIMEKEEPING.Settings.UITextColor.hint": "Used for the time and fuzzy time strings",
     "JDTIMEKEEPING.Settings.RadialClockColor.name": "Circular Clock Foreground Color",
     "JDTIMEKEEPING.Settings.RadialClockColor.hint": "Used for the filled sections",
     "JDTIMEKEEPING.YouHaveNoIdeaOfTheTime": "You have no idea what time it is",
@@ -103,5 +103,9 @@
     "JDTIMEKEEPING.Settings.UIButtonHoveredColor.name": "Time Step Button Color When Hovered",
     "JDTIMEKEEPING.Settings.UIButtonHoveredColor.hint": "",
     "JDTIMEKEEPING.Settings.UIButtonClickedColor.name": "Time Step Button Color When Clicked",
-    "JDTIMEKEEPING.Settings.UIButtonClickedColor.hint": ""
+    "JDTIMEKEEPING.Settings.UIButtonClickedColor.hint": "",
+
+    "JDTIMEKEEPING.Settings.GameTurnName.name": "Game Turn",
+    "JDTIMEKEEPING.Settings.GameTurnName.hint": "The name of a game or dungeon turn",
+    "JDTIMEKEEPING.gameTurnFormat": "{gameTurnName} {gameTurnNumber}"
 }
