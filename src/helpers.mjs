@@ -24,6 +24,7 @@ export class Helpers {
             return game.i18n.format('JDTIMEKEEPING.longTimeFormat', {
                 time: timeOfDay,
                 dayName: time.day.name,
+                weekName: this.weekName,
                 weekNumber: time.weekNumber,
             })
         } else {
@@ -144,5 +145,13 @@ export class Helpers {
     static getWeekdayName (dayIndex) {
         const weekdays = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
         return Object.values(weekdays)[dayIndex]
+    }
+
+    /**
+     * Returns the current world setting for the word used for the name of a week
+     */
+    static get weekName () {
+        const weekSettings = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
+        return weekSettings.weekname
     }
 }

@@ -1,7 +1,7 @@
 import { Helpers } from './helpers.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 
-const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'WeekName']
 
 export function registerWeekdaySettings () {
     // The settings menu
@@ -50,6 +50,13 @@ class WeekdaySettings extends FormApplication {
                 value: initialValues[v.toLowerCase()],
             }
         })
+
+        // data.weekday = {
+        //     id: 'weekName',
+        //     label: game.i18n.localize('JDTIMEKEEPING.WeekName'),
+        //     value: initialValues['weekName'],
+        // }
+
         return data
     }
 
