@@ -119,7 +119,7 @@ export function registerSettings () {
         onChange: value => {
             console.log('JD ETime | %s %d', SETTINGS.SMALL_TIME_DELTA, value)
         },
-        requiresReload: false,
+        requiresReload: true,
     })
 
     // Large time delta in hours
