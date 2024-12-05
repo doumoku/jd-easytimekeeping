@@ -75,7 +75,7 @@
     "JDTIMEKEEPING.Time.Stretch": "Période",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.name": "Afficher l'heure exacte aux joueurs",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "L'heure exacte est toujours indiquée au MJ et au MJ adjoint.",
-    "JDTIMEKEEPING.Time.DayAndWeek": "{day}, Semaine: {week}",
+    "JDTIMEKEEPING.Time.DayAndWeek": "{day}, {weekName}: {week}",
     "JDTIMEKEEPING.Settings.UIFadeOpacity.name": " Transparence de l'interface en mode veille",
     "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Contrôle la transparence de l'interface lorsqu'elle n'est pas utilisée. 0 est totalement caché et 1 est totalement visible.",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Couleur de fond de l'horloge ronde",
@@ -90,12 +90,13 @@
     "JDTIMEKEEPING.Friday": "Vendredi",
     "JDTIMEKEEPING.Saturday": "Samedi",
     "JDTIMEKEEPING.Sunday": "Dimanche",
+    "JDTIMEKEEPING.WeekName": "Semaine",
     
     "JDTIMEKEEPING.Settings.WeekdayConfig.name": "Configurer les jours de la semaine",
     "JDTIMEKEEPING.Settings.WeekdayConfig.label": "Renommer les jours de la semaine",
     "JDTIMEKEEPING.Settings.WeekdayConfig.hint": "",
 
-    "JDTIMEKEEPING.longTimeFormat": "{dayName}, {time} | Semaine: {weekNumber}",
+    "JDTIMEKEEPING.longTimeFormat": "{dayName}, {time} | {weekName}: {weekNumber}",
 
     "JDTIMEKEEPING.Settings.UIButtonColor.name": "Couleur des boutons",
     "JDTIMEKEEPING.Settings.UIButtonColor.hint": "",

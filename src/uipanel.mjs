@@ -137,6 +137,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 max: 7,
                 name: game.i18n.format('JDTIMEKEEPING.Time.DayAndWeek', {
                     day: time.day.name,
+                    weekName: Helpers.weekName,
                     week: time.weekNumber,
                 }),
                 color: UIPanel.#clockFGColor,
