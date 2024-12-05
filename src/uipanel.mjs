@@ -111,10 +111,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 id: 'etk-stretches',
                 value: time.stretches + 1,
                 max: Constants.stretchesPerShift,
-                name:
-                    game.i18n.localize('JDTIMEKEEPING.Time.Stretch') +
-                    ' ' +
-                    (time.stretches + 1).toString(),
+                name: game.i18n.format('JDTIMEKEEPING.gameTurnFormat', {
+                    gameTurnName: UIPanel.#gameTurnName,
+                    gameTurnNumber: (time.stretches + 1).toString(),
+                }),
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
             },
@@ -321,5 +321,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #showLongFormatTime () {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_LONG_FORMAT_TIME)
+    }
+
+    static get #gameTurnName () {
+        return game.settings.get(MODULE_ID, SETTINGS.GAME_TURN_NAME)
     }
 }

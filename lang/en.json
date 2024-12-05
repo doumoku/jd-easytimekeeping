@@ -106,5 +106,6 @@
     "JDTIMEKEEPING.Settings.UIButtonClickedColor.hint": "",
 
     "JDTIMEKEEPING.Settings.GameTurnName.name": "Game Turn",
-    "JDTIMEKEEPING.Settings.GameTurnName.hint": "The name of a game or dungeon turn"
+    "JDTIMEKEEPING.Settings.GameTurnName.hint": "The name of a game or dungeon turn",
+    "JDTIMEKEEPING.gameTurnFormat": "{gameTurnName} {gameTurnNumber}"
 }
