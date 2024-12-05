@@ -142,7 +142,7 @@ export class DaylightCycle {
     static #processDay () {
         console.debug('JD ETime | Daylight cycle - day')
         if (DaylightCycle.#sceneDarkness != DaylightCycle.#daytimeDarkness) {
-            console.log(
+            console.debug(
                 'JD ETime | Daylight cycle: setting daytime darkness %f',
                 DaylightCycle.#daytimeDarkness
             )
@@ -156,7 +156,7 @@ export class DaylightCycle {
     static #processNight () {
         console.debug('JD ETime | Daylight cycle - night')
         if (DaylightCycle.#sceneDarkness != DaylightCycle.#nighttimeDarkness) {
-            console.log(
+            console.debug(
                 'JD ETime | Daylight cycle: setting nighttime darkness %f',
                 DaylightCycle.#nighttimeDarkness
             )
