@@ -145,6 +145,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             },
         ]
         // derive the radial data
+        // const maxSpokes = 36
         const maxSpokes = 28
         return clocks.map(data => ({
             ...data,
