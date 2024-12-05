@@ -1,6 +1,6 @@
 {
-    "JDTIMEKEEPING.Settings.SmallTimeDelta.name": "Small Time Step (minutes)",
-    "JDTIMEKEEPING.Settings.SmallTimeDelta.hint": "Small time step UI button duration in minutes. Values other than 15 don't work well with the Dragonbane fuzzy time and circular clocks.",
+    "JDTIMEKEEPING.Settings.SmallTimeDelta.name": "Small Time Step / Game Turn (minutes)",
+    "JDTIMEKEEPING.Settings.SmallTimeDelta.hint": "Small time step UI button duration in minutes. This setting also defines the duration of a game exploration turn.",
     "JDTIMEKEEPING.Settings.LargeTimeDelta.name": "Large Time Step (hours)",
     "JDTIMEKEEPING.Settings.LargeTimeDelta.hint": "Large time step UI button duration in hours",
     "JDTIMEKEEPING.Settings.TimeChangeMacro.name": "Time Change Event Handler",
