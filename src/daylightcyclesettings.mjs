@@ -57,11 +57,17 @@ class DaylightCycleMenu extends FormApplication {
         return initialValues
     }
 
-    _updateObject (event, formData) {
+    async _updateObject (event, formData) {
         const data = foundry.utils.expandObject(formData)
         data['animate-darkness-ms'] = Number.parseFloat(data['animate-darkness']) * 1000
         console.debug('JD ETime | DaylightCycleMenu _updateObject: %o', data)
-        game.settings.set(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS, data)
+        await game.settings.set(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS, data)
+
+        // set the time to the current time to force a time change event
+        // so that the DaylightCycle class can respond to any settings 
+        // changes that might have been made
+        const api = game.modules.get(MODULE_ID).api
+        api.set(api.getTime())
     }
 
     activateListeners (html) {
