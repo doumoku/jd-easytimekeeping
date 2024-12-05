@@ -103,5 +103,8 @@
     "JDTIMEKEEPING.Settings.UIButtonHoveredColor.name": "Time Step Button Color When Hovered",
     "JDTIMEKEEPING.Settings.UIButtonHoveredColor.hint": "",
     "JDTIMEKEEPING.Settings.UIButtonClickedColor.name": "Time Step Button Color When Clicked",
-    "JDTIMEKEEPING.Settings.UIButtonClickedColor.hint": ""
+    "JDTIMEKEEPING.Settings.UIButtonClickedColor.hint": "",
+
+    "JDTIMEKEEPING.Settings.GameTurnName.name": "Game Turn",
+    "JDTIMEKEEPING.Settings.GameTurnName.hint": "The name of a game or dungeon turn"
 }

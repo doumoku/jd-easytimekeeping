@@ -29,6 +29,7 @@ export const SETTINGS = {
     UI_BUTTON_COLOR: 'uiButtonColour',
     UI_BUTTON_HOVERED_COLOR: 'uiButtonHoveredColour',
     UI_BUTTON_CLICKED_COLOR: 'uiButtonClickedColour',
+    GAME_TURN_NAME: 'gameTurnName',
 }
 
 const GM_ONLY_SETTINGS = [
@@ -96,6 +97,16 @@ export function registerSettings () {
         config: true,
         type: Boolean,
         default: false,
+        requiresReload: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.GAME_TURN_NAME, {
+        name: 'JDTIMEKEEPING.Settings.GameTurnName.name',
+        hint: 'JDTIMEKEEPING.Settings.GameTurnName.hint',
+        scope: 'world',
+        config: true,
+        type: String,
+        default: game.i18n.localize('JDTIMEKEEPING.Time.Stretch'),
         requiresReload: true,
     })
 
