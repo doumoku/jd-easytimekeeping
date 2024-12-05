@@ -210,6 +210,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                     // make adjustments to the copy, since the original is used for the graphical display
                     context.dbtime = foundry.utils.deepClone(dbtime)
                     // display as 1-based
+                    context.dbtime.gameTurnName = UIPanel.#gameTurnName
                     context.dbtime.days += 1
                     context.dbtime.shifts += 1
                     context.dbtime.stretches += 1

@@ -13,10 +13,10 @@
     {{#with dbtime}}
     <span id="dbtime" class="etk-timeofday flexrow" style='color: {{textColor}};'>
         {{#if days}}
-        {{localize "JDTIMEKEEPING.Time.Day"}} {{days}}, {{localize "JDTIMEKEEPING.Time.Stretch"}} {{stretches}} <br />
+        {{localize "JDTIMEKEEPING.Time.Day"}} {{days}}, {{gameTurnName}} {{stretches}} <br />
         {{shiftName}} {{localize "JDTIMEKEEPING.Time.Shift"}}
         {{else}}
-        {{localize "JDTIMEKEEPING.Time.Stretch"}} {{stretches}}, {{shiftName}} {{localize "JDTIMEKEEPING.Time.Shift"}}
+        {{gameTurnName}} {{stretches}}, {{shiftName}} {{localize "JDTIMEKEEPING.Time.Shift"}}
         {{/if}}
     </span>
     {{/with}}
