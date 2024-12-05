@@ -75,7 +75,7 @@
     "JDTIMEKEEPING.Time.Stretch": "Stretch",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.name": "Show Players the Exact Time",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "The exact time is always shown to the GM and Assistant GM",
-    "JDTIMEKEEPING.Time.DayAndWeek": "{day}, week {week}",
+    "JDTIMEKEEPING.Time.DayAndWeek": "{day}, {weekName} {week}",
     "JDTIMEKEEPING.Settings.UIFadeOpacity.name": "UI Idle Transparency",
     "JDTIMEKEEPING.Settings.UIFadeOpacity.hint": "Controls the UI transparency when not in use. 0 is fully hidden, and 1 is fully visible.",
     "JDTIMEKEEPING.Settings.RadialClockBGColor.name": "Circular Clock Background Color",
@@ -90,12 +90,13 @@
     "JDTIMEKEEPING.Friday": "Friday",
     "JDTIMEKEEPING.Saturday": "Saturday",
     "JDTIMEKEEPING.Sunday": "Sunday",
+    "JDTIMEKEEPING.WeekName": "Week",
     
     "JDTIMEKEEPING.Settings.WeekdayConfig.name": "Configure the Days of the Week",
     "JDTIMEKEEPING.Settings.WeekdayConfig.label": "Rename Weekdays",
     "JDTIMEKEEPING.Settings.WeekdayConfig.hint": "",
 
-    "JDTIMEKEEPING.longTimeFormat": "{time}, {dayName} week {weekNumber}",
+    "JDTIMEKEEPING.longTimeFormat": "{time}, {dayName} {weekName} {weekNumber}",
 
     "JDTIMEKEEPING.Settings.UIButtonColor.name": "Time Step Button Color",
     "JDTIMEKEEPING.Settings.UIButtonColor.hint": "",
