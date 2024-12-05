@@ -64,7 +64,7 @@ class DaylightCycleMenu extends FormApplication {
         await game.settings.set(MODULE_ID, SETTINGS.DAYLIGHT_CYCLE_SETTINGS, data)
 
         // set the time to the current time to force a time change event
-        // so that the DaylightCycle class can respond to any settings 
+        // so that the DaylightCycle class can respond to any settings
         // changes that might have been made
         const api = game.modules.get(MODULE_ID).api
         api.set(api.getTime())
