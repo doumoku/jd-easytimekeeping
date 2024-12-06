@@ -38,6 +38,34 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     #time = null
     refresh = foundry.utils.debounce(this.render, 100)
 
+    /**
+     * Factory method for the UIPanel 
+     *
+     * @returns {UIPanel}
+     */
+    static create () {
+        const position = game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION)
+        // if position if out of bounds for current client view, reset to a safe location in the top left
+        if (position) {
+            if (
+                position.top > game.canvas.screenDimensions[1] ||
+                position.left > game.canvas.screenDimensions[0]
+            ) {
+                position.top = 100
+                position.left = 150
+            }
+        }
+
+        UIPanel.checkForAVPanel()
+        const uiPanel = new UIPanel({
+            window: { frame: UIPanel.floatingPanel },
+            position: position,
+        })
+
+        uiPanel.ready()
+        return uiPanel
+    }
+
     ready () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
         Hooks.on('renderAVConfig', this.renderAVConfigHandler.bind(this))
@@ -115,9 +143,23 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         /**
          * if the AV dock position has changed, we need to force a Foundry reload
          * since Foundry is currently inconsistent in when this occurs.
+         *
+         * Note that game.webrtc.settings.world.mode > 0 indicates that A/V chat is enabled.
+         * I might be able to use that to automatically switch to a floating UI
          */
+
         const after = game.webrtc.settings.client.dockPosition
         if (this.#avDockWhenSettingsOpen != after) SettingsConfig.reloadConfirm({ world: true })
+    }
+
+    static checkForAVPanel () {
+        if (UIPanel.avEnabled && !UIPanel.floatingPanel) {
+            // This is a pathological layout situation: the AV dock disrupts the docked UI
+            ui.notifications.warn(
+                'The A/V dock is not compatible with a docked Easy Timekeeping UI. Switching to the floating UI'
+            )
+            game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL, true)
+        }
     }
 
     #prepareClocks (time) {
@@ -184,7 +226,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
     }
 
-    setPosition(pos) {
+    setPosition (pos) {
         super.setPosition(pos)
         game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
     }
@@ -409,5 +451,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get floatingPanel () {
         return game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL)
+    }
+
+    static get avEnabled () {
+        return game.webrtc.settings.world.mode > 0
     }
 }
