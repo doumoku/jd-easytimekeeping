@@ -31,6 +31,7 @@ export const SETTINGS = {
     UI_BUTTON_CLICKED_COLOR: 'uiButtonClickedColour',
     GAME_TURN_NAME: 'gameTurnName',
     FLOATING_UI_PANEL: 'uiInFrame',
+    FLOATING_UI_PANEL_POSITION: 'uiPanelPosition',
 }
 
 const GM_ONLY_SETTINGS = [
@@ -60,6 +61,18 @@ export function registerSettings () {
         type: Boolean,
         default: false,
         requiresReload: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, {
+        scope: 'client',
+        config: false,
+        type: foundry.applications.types.ApplicationPosition,
+        // default: {
+        //     top: 100,
+        //     left: 150,
+        //     width: 220,
+        // },
+        requiresReload: false,
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {
