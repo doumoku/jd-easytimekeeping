@@ -61,25 +61,25 @@ export class Helpers {
     }
 
     /**
-     * Factors a time object into Dragonbane stretches, shifts and days
-     * @property {import('./timekeeper.mjs').timeAugmented} time
-     * @returns {import('./timekeeper.mjs').dungeonTurnTime}
+     * Factors a time object into game turns, shifts and days
+     * @property {number} totalMinutes total elapsed minutes since 12am on day 0
+     * @returns {import('./timekeeper.mjs').gameTurnTime}
      */
-    static factorDragonbaneTime (time) {
-        const dbtime = {}
-        dbtime.totalStretches = Math.floor(time.totalMinutes / Constants.minutesPerStretch)
-        var remainingStretches = dbtime.totalStretches
-        dbtime.days = Math.floor(remainingStretches / Constants.stretchesPerDay)
-        remainingStretches = remainingStretches % Constants.stretchesPerDay
-        dbtime.shifts = Math.floor(remainingStretches / Constants.stretchesPerShift)
-        dbtime.stretches = remainingStretches % Constants.stretchesPerShift
+    static factorGameTurns (totalMinutes) {
+        const gameTurnData = {}
+        gameTurnData.totalGameTurns = Math.floor(totalMinutes / Constants.minutesPerStretch)
+        var remainingGameTurns = gameTurnData.totalGameTurns
+        gameTurnData.days = Math.floor(remainingGameTurns / Constants.stretchesPerDay)
+        remainingGameTurns = remainingGameTurns % Constants.stretchesPerDay
+        gameTurnData.shifts = Math.floor(remainingGameTurns / Constants.stretchesPerShift)
+        gameTurnData.turns = remainingGameTurns % Constants.stretchesPerShift
 
-        dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
-        dbtime.day = { index: (dbtime.days % 7) + 1 } // 1-based day index for UI
-        dbtime.day.name = Helpers.getWeekdayName(dbtime.day.index - 1) // lookup by 0-based index
-        dbtime.weekNumber = Math.floor(dbtime.days / 7) + 1 // 1-based week number
+        gameTurnData.shiftName = Helpers.getDragonbaneShiftName(gameTurnData.shifts)
+        gameTurnData.day = { index: (gameTurnData.days % 7) + 1 } // 1-based day index for UI
+        gameTurnData.day.name = Helpers.getWeekdayName(gameTurnData.day.index - 1) // lookup by 0-based index
+        gameTurnData.weekNumber = Math.floor(gameTurnData.days / 7) + 1 // 1-based week number
 
-        return dbtime
+        return gameTurnData
     }
 
     static dbShifts = {

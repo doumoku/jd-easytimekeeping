@@ -118,6 +118,17 @@ export class Timekeeper {
     }
 
     /**
+     * Factors a time object into game turns, shifts and days
+     * @property {number} totalMinutes total elapsed minutes since 12am on day 0
+     * @returns {gameTurnTime} `totalMinutes` factored into game turns, shifts, days and weeks
+     * @public
+     */
+    factorGameTurns (totalMinutes) {
+        // proxy to the static helper to expose the function to the macro API
+        return Helpers.factorGameTurns(totalMinutes)
+    }
+
+    /**
      * Private method to actually increment the current time.
      *
      * @param {number} minutes The number of minutes to increment.
@@ -274,14 +285,14 @@ export class Timekeeper {
  */
 
 /**
- * Dungeon turn time, used by the graphical display
+ * Game turn time. This is used by the graphical clocks, and returned from API calls.
  * 
  * @public
- * @typedef {Object} dungeonTurnTime
- * @property {number} totalStretches total number of dungeon elapsed dungeon turns
+ * @typedef {Object} gameTurnTime
+ * @property {number} totalGameTurns total number of elapsed game turns
  * @property {number} days days since day 0
  * @property {number} shifts the current shift out of the 4 shifts per day. 0-based, range [0..3]
- * @property {number} stretches the current stretch/dungeon turn within the current shift. 0-based indexing
+ * @property {number} turns the current game turn within the current shift. 0-based indexing
  * @property {dayData} day additional metadata about the day of the week
  * @property {number} weekNumber 1-based number of 7-day weeks that have elapsed, including the current partial week.
  * @property {string} shiftName the name of the current shift, based on world settings.
