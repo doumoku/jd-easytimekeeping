@@ -50,12 +50,14 @@ Hooks.once('ready', async () => {
 Hooks.on('canvasReady', () => {
     const position = game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION)
     // if position if out of bounds for current client view, reset to a safe location in the top left
-    if (
-        position.top > game.canvas.screenDimensions[1] ||
-        position.left > game.canvas.screenDimensions[0]
-    ) {
-        position.top = 100
-        position.left = 150
+    if (position) {
+        if (
+            position.top > game.canvas.screenDimensions[1] ||
+            position.left > game.canvas.screenDimensions[0]
+        ) {
+            position.top = 100
+            position.left = 150
+        }
     }
 
     const uiPanel = new UIPanel({ window: { frame: UIPanel.floatingPanel }, position: position })

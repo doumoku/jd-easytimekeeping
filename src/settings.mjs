@@ -67,6 +67,7 @@ export function registerSettings () {
         scope: 'client',
         config: false,
         type: foundry.applications.types.ApplicationPosition,
+        default: { top: 100, left: 150 },
         requiresReload: false,
     })
 
