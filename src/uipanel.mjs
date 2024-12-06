@@ -30,6 +30,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         },
     }
 
+    static #hidden = false
     #avDockWhenSettingsOpen = null
     #time = null
     refresh = foundry.utils.debounce(this.render, 100)
@@ -64,6 +65,17 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             restricted: true,
             onDown: async () => {
                 await UIPanel.resetTimeButtonHandler()
+                return true
+            },
+        })
+
+        // Show / hide the UI
+        game.keybindings.register(MODULE_ID, 'show-hide-ui', {
+            name: 'JDTIMEKEEPING.showHideUI',
+            precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
+            restricted: false,
+            onDown: async () => {
+                UIPanel.toggleHidden()
                 return true
             },
         })
@@ -160,14 +172,27 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
          * client setting into the CSS for the UI fade feature.
          * On the first render, the top-level element has no style
          * attribute yet, so we need to handle that case as well.
+         * 
+         * Todo: This shouldn't be required every render, but only when the settings have changed.
          */
         const regex = /--opacity:\d+.?\d*;/g
         let style = this.element.getAttribute('style')
         if (style) {
             style = style.replaceAll(regex, '')
-            this.element.setAttribute('style', style + `--opacity:${UIPanel.#uiFadeOpacity};`)
+            this.element.setAttribute(
+                'style',
+                style +
+                    `--opacity-no-focus:${UIPanel.#uiFadeOpacityNoFocus}; --opacity-focus:${
+                        UIPanel.#hidden ? 0 : 1
+                    };`
+            )
         } else {
-            this.element.setAttribute('style', `--opacity:${UIPanel.#uiFadeOpacity};`)
+            this.element.setAttribute(
+                'style',
+                `--opacity-no-focus:${UIPanel.#uiFadeOpacityNoFocus}; --opacity-focus:${
+                    UIPanel.#hidden ? 0 : 1
+                };`
+            )
         }
     }
 
@@ -269,6 +294,28 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }
     }
 
+    async toggleHidden() {
+        UIPanel.#hidden = !UIPanel.#hidden
+
+        /**
+         * When the UI is hidden, stop processing pointer events,
+         * and when switching back to shown, process events again.
+         */
+        if (UIPanel.#hidden) {
+            this.element.classList.remove('receive-pointer-events')
+        } else {
+            if (!this.element.classList.contains('receive-pointer-events'))
+                this.element.classList.add('receive-pointer-events')
+        }
+
+        // refresh the UI
+        await this.render(true)
+    }
+    
+    static async toggleHidden () {
+        await game.modules.get(MODULE_ID).uiPanel.toggleHidden()
+    }
+
     static get #uiTextColor () {
         return game.settings.get(MODULE_ID, SETTINGS.UI_TEXT_COLOR)
     }
@@ -316,7 +363,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK)
     }
 
-    static get #uiFadeOpacity () {
+    static get #uiFadeOpacityNoFocus () {
+        if (UIPanel.#hidden) return 0
         return game.settings.get(MODULE_ID, SETTINGS.UI_FADE_OPACITY)
     }
 
