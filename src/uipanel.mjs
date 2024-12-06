@@ -18,6 +18,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             frame: false,
             title: 'JDTIMEKEEPING.title',
             icon: 'fa-solid fa-clock',
+            resizable: true,
         },
         actions: {
             'time-delta': UIPanel.timeDeltaButtonHandler,
@@ -294,6 +295,15 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         if (reset) {
             await game.modules.get(MODULE_ID).api.set({ days: 0, hours: 0, minutes: 0 })
         }
+    }
+
+    _onClose() {
+        /**
+         * When the UI is closed by the user, force the hidden flag to true.
+         * That way, when they hit the Toggle UI Visibility hotkey, 
+         * toggleHidden will show the UI again right away.
+         */
+        UIPanel.#hidden = true
     }
 
     async toggleHidden () {
