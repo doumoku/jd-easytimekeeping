@@ -39,7 +39,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     refresh = foundry.utils.debounce(this.render, 100)
 
     /**
-     * Factory method for the UIPanel 
+     * Factory method for the UIPanel
      *
      * @returns {UIPanel}
      */
@@ -155,9 +155,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static checkForAVPanel () {
         if (UIPanel.avEnabled && !UIPanel.floatingPanel) {
             // This is a pathological layout situation: the AV dock disrupts the docked UI
-            ui.notifications.warn(
-                'The A/V dock is not compatible with a docked Easy Timekeeping UI. Switching to the floating UI'
-            )
+            ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.AVDockWarning'))
             game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL, true)
         }
     }
