@@ -62,6 +62,19 @@ export function registerSettings () {
         requiresReload: true,
     })
 
+    game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {
+        name: 'JDTIMEKEEPING.Settings.UIFadeOpacity.name',
+        hint: 'JDTIMEKEEPING.Settings.UIFadeOpacity.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.NumberField({ min: 0.1, max: 1.0 }),
+        default: 0.6,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.updateOpacity()
+        },
+    })
+
     game.settings.register(MODULE_ID, SETTINGS.SHOW_PLAYERS_EXACT_TIME, {
         name: 'JDTIMEKEEPING.Settings.ShowPlayersExactTime.name',
         hint: 'JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint',
@@ -236,19 +249,6 @@ export function registerSettings () {
         type: new foundry.data.fields.ColorField(),
         default: '#25e45e',
         requiresReload: true,
-    })
-
-    game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {
-        name: 'JDTIMEKEEPING.Settings.UIFadeOpacity.name',
-        hint: 'JDTIMEKEEPING.Settings.UIFadeOpacity.hint',
-        scope: 'client',
-        config: true,
-        type: new foundry.data.fields.NumberField({ min: 0.1, max: 1.0 }),
-        default: 0.6,
-        requiresReload: false,
-        onChange: () => {
-            game.modules.get(MODULE_ID).uiPanel?.updateOpacity()
-        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, {
