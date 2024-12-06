@@ -118,6 +118,17 @@ export class Timekeeper {
     }
 
     /**
+     * Factors a time object into game turns, shifts and days
+     * @property {number} totalMinutes total elapsed minutes since 12am on day 0
+     * @returns {gameTurnTime} `totalMinutes` factored into game turns, shifts, days and weeks
+     * @public
+     */
+    factorGameTurns (totalMinutes) {
+        // proxy to the static helper to expose the function to the macro API
+        return Helpers.factorGameTurns(totalMinutes)
+    }
+
+    /**
      * Private method to actually increment the current time.
      *
      * @param {number} minutes The number of minutes to increment.
