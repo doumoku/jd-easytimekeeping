@@ -269,7 +269,7 @@ export class Timekeeper {
 
 /**
  * Day data
- * 
+ *
  * @public
  * @typedef {Object} dayData
  * @property {number} index 1-based number of the day of the week, starting with Monday. Each week is fixed at 7 days.
@@ -286,7 +286,7 @@ export class Timekeeper {
 
 /**
  * Game turn time. This is used by the graphical clocks, and returned from API calls.
- * 
+ *
  * @public
  * @typedef {Object} gameTurnTime
  * @property {number} totalGameTurns total number of elapsed game turns

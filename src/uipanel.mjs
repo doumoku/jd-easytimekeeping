@@ -155,6 +155,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static checkForAVPanel () {
         if (UIPanel.avEnabled && !UIPanel.floatingPanel) {
             // This is a pathological layout situation: the AV dock disrupts the docked UI
+            // todo: I could only do the check for the left & right dock settings, but it's safer to use all.
+            // Also, this bug was actually fixed in PR #254, but I needed a commit to get a PR for this bug fix
+            // so the release notes workflow will pick this up. Weird.
             ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.AVDockWarning'))
             game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL, true)
         }
