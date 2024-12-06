@@ -16,6 +16,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         id: UIPanel.ID,
         window: {
             frame: false,
+            title: 'JDTIMEKEEPING.title',
+            icon: 'fa-solid fa-clock',
+            resizable: true,
         },
         actions: {
             'time-delta': UIPanel.timeDeltaButtonHandler,
@@ -35,15 +38,44 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     #time = null
     refresh = foundry.utils.debounce(this.render, 100)
 
+    /**
+     * Factory method for the UIPanel
+     *
+     * @returns {UIPanel}
+     */
+    static create () {
+        const position = game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION)
+        // if position if out of bounds for current client view, reset to a safe location in the top left
+        if (position) {
+            if (
+                position.top > game.canvas.screenDimensions[1] ||
+                position.left > game.canvas.screenDimensions[0]
+            ) {
+                position.top = 100
+                position.left = 150
+            }
+        }
+
+        UIPanel.checkForAVPanel()
+        const uiPanel = new UIPanel({
+            window: { frame: UIPanel.floatingPanel },
+            position: position,
+        })
+
+        uiPanel.ready()
+        return uiPanel
+    }
+
     ready () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
         Hooks.on('renderAVConfig', this.renderAVConfigHandler.bind(this))
         Hooks.on('closeAVConfig', this.closeAVConfigHandler.bind(this))
         game.socket.on(`module.${MODULE_ID}`, time => {
             this.#time = time
-            this.render(true)
+            this.render()
         })
-        if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
+
+        if (!UIPanel.floatingPanel) this.#insertAppElement('#players')
     }
 
     static registerKeybindings () {
@@ -100,7 +132,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     timeChangeHandler (data) {
         this.#time = data.time
         game.socket.emit(`module.${MODULE_ID}`, this.#time)
-        this.render(true)
+        this.render()
     }
 
     renderAVConfigHandler () {
@@ -111,9 +143,21 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         /**
          * if the AV dock position has changed, we need to force a Foundry reload
          * since Foundry is currently inconsistent in when this occurs.
+         *
+         * Note that game.webrtc.settings.world.mode > 0 indicates that A/V chat is enabled.
+         * I might be able to use that to automatically switch to a floating UI
          */
+
         const after = game.webrtc.settings.client.dockPosition
         if (this.#avDockWhenSettingsOpen != after) SettingsConfig.reloadConfirm({ world: true })
+    }
+
+    static checkForAVPanel () {
+        if (UIPanel.avEnabled && !UIPanel.floatingPanel) {
+            // This is a pathological layout situation: the AV dock disrupts the docked UI
+            ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.AVDockWarning'))
+            game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL, true)
+        }
     }
 
     #prepareClocks (time) {
@@ -166,19 +210,37 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }))
     }
 
-    _onRender (context, options) {
+    #stripOpacityVariables (style) {
+        const focus = /--opacity-focus:\s*\d+.?\d*;/g
+        const noFocus = /--opacity-no-focus:\s*\d+.?\d*;/g
+        return style.replaceAll(focus, '').replaceAll(noFocus, '').trim()
+    }
+
+    _onFirstRender (context, options) {
+        this.updateOpacity()
+    }
+
+    _onClose () {
+        game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
+    }
+
+    setPosition (pos) {
+        super.setPosition(pos)
+        game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
+    }
+
+    updateOpacity () {
         /**
          * Need to find and replace the opacity variable to pass the
          * client setting into the CSS for the UI fade feature.
          * On the first render, the top-level element has no style
          * attribute yet, so we need to handle that case as well.
-         * 
-         * Todo: This shouldn't be required every render, but only when the settings have changed.
          */
-        const regex = /--opacity:\d+.?\d*;/g
+        if (!this.element) return
+
         let style = this.element.getAttribute('style')
         if (style) {
-            style = style.replaceAll(regex, '')
+            style = this.#stripOpacityVariables(style)
             this.element.setAttribute(
                 'style',
                 style +
@@ -276,7 +338,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     static async setTimeButtonHandler (event, target) {
-        new SetTimeApplication().render(true)
+        new SetTimeApplication().render()
     }
 
     static async resetTimeButtonHandler (event, target) {
@@ -294,7 +356,14 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }
     }
 
-    async toggleHidden() {
+    async toggleHidden () {
+        // If floating panel and shown, then just close
+        if (this.options.window.frame && !UIPanel.#hidden) {
+            this.close()
+            UIPanel.#hidden = true
+            return
+        }
+
         UIPanel.#hidden = !UIPanel.#hidden
 
         /**
@@ -302,16 +371,18 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
          * and when switching back to shown, process events again.
          */
         if (UIPanel.#hidden) {
-            this.element.classList.remove('receive-pointer-events')
+            this?.element?.classList.remove('receive-pointer-events')
         } else {
-            if (!this.element.classList.contains('receive-pointer-events'))
-                this.element.classList.add('receive-pointer-events')
+            if (!this?.element?.classList.contains('receive-pointer-events'))
+                this?.element?.classList.add('receive-pointer-events')
         }
+
+        this.updateOpacity()
 
         // refresh the UI
         await this.render(true)
     }
-    
+
     static async toggleHidden () {
         await game.modules.get(MODULE_ID).uiPanel.toggleHidden()
     }
@@ -374,5 +445,13 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #gameTurnName () {
         return game.settings.get(MODULE_ID, SETTINGS.GAME_TURN_NAME)
+    }
+
+    static get floatingPanel () {
+        return game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL)
+    }
+
+    static get avEnabled () {
+        return game.webrtc.settings.world.mode > 0
     }
 }

@@ -30,6 +30,8 @@ export const SETTINGS = {
     UI_BUTTON_HOVERED_COLOR: 'uiButtonHoveredColour',
     UI_BUTTON_CLICKED_COLOR: 'uiButtonClickedColour',
     GAME_TURN_NAME: 'gameTurnName',
+    FLOATING_UI_PANEL: 'uiInFrame',
+    FLOATING_UI_PANEL_POSITION: 'uiPanelPosition',
 }
 
 const GM_ONLY_SETTINGS = [
@@ -50,6 +52,37 @@ export function registerSettings () {
     registerDaylightCycleSettings()
     registerShiftSettings()
     registerWeekdaySettings()
+
+    game.settings.register(MODULE_ID, SETTINGS.FLOATING_UI_PANEL, {
+        name: 'JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.name',
+        hint: 'JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.hint',
+        scope: 'client',
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, {
+        scope: 'client',
+        config: false,
+        type: foundry.applications.types.ApplicationPosition,
+        default: { top: 100, left: 150 },
+        requiresReload: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {
+        name: 'JDTIMEKEEPING.Settings.UIFadeOpacity.name',
+        hint: 'JDTIMEKEEPING.Settings.UIFadeOpacity.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.NumberField({ min: 0.1, max: 1.0 }),
+        default: 0.6,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.updateOpacity()
+        },
+    })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_PLAYERS_EXACT_TIME, {
         name: 'JDTIMEKEEPING.Settings.ShowPlayersExactTime.name',
@@ -224,16 +257,6 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#25e45e',
-        requiresReload: true,
-    })
-
-    game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {
-        name: 'JDTIMEKEEPING.Settings.UIFadeOpacity.name',
-        hint: 'JDTIMEKEEPING.Settings.UIFadeOpacity.hint',
-        scope: 'client',
-        config: true,
-        type: new foundry.data.fields.NumberField({ min: 0, max: 1.0 }),
-        default: 0.6,
         requiresReload: true,
     })
 

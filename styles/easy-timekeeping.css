@@ -186,7 +186,6 @@
   justify-content: center;
   text-align: center;
   overflow-wrap: break-word;
-  /* max-width: 90%; */
 }
 
 /**
@@ -196,7 +195,6 @@
  */
 .hovertext {
   position: relative;
-  /* border-bottom: 1px dotted black; */
 }
 
 .hovertext:before {

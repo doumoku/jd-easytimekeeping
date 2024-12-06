@@ -2,7 +2,7 @@
  * Dragonbane Timekeeping module registration functions
  *
  */
-import { registerKeybindings, registerSettings, MODULE_ID } from './settings.mjs'
+import { registerKeybindings, registerSettings, MODULE_ID, SETTINGS } from './settings.mjs'
 import { TimeTeller } from './timeteller.mjs'
 import { Constants } from './constants.mjs'
 import { DaylightCycle } from './daylightcycle.mjs'
@@ -48,8 +48,7 @@ Hooks.once('ready', async () => {
 })
 
 Hooks.on('canvasReady', () => {
-    const uiPanel = new UIPanel()
-    uiPanel.ready()
+    const uiPanel = UIPanel.create()
     uiPanel.render(true)
     game.modules.get(MODULE_ID).uiPanel = uiPanel
 })
