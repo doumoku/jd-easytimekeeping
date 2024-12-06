@@ -180,9 +180,12 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         this.updateOpacity()
     }
 
-    _onRender (context, options) {}
-
     _onClose () {
+        game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
+    }
+
+    setPosition(pos) {
+        super.setPosition(pos)
         game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
     }
 
