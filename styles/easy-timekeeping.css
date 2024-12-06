@@ -142,15 +142,18 @@
 }
 
 /**
- * Element fade when not hovered/focused
+ * Element fade when hovered/focused
  */
 .fade-element {
-  opacity: 1;
+  opacity: var(--opacity-focus);
   transition: opacity 0.5s ease-in-out;
 }
 
+/**
+ * Element fade when not hovered/focused
+ */
 .fade-element:not(:hover) {
-  opacity: var(--opacity);
+  opacity: var(--opacity-no-focus);
 }
 
 /**
