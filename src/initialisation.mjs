@@ -48,7 +48,7 @@ Hooks.once('ready', async () => {
 })
 
 Hooks.on('canvasReady', () => {
-    const uiPanel = new UIPanel()
+    const uiPanel = new UIPanel({ window: { frame: UIPanel.floatingPanel } })
     uiPanel.ready()
     uiPanel.render(true)
     game.modules.get(MODULE_ID).uiPanel = uiPanel
