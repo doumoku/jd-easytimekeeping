@@ -10,7 +10,7 @@
 <div class="et-time flexcol">
     {{> timePartial time=time color=textColor }}
 
-    {{#with dbtime}}
+    {{#with gameTurnData}}
     <span id="dbtime" class="etk-timeofday flexrow" style='color: {{textColor}};'>
         {{#if days}}
         {{localize "JDTIMEKEEPING.Time.Day"}} {{days}}, {{gameTurnName}} {{turns}} <br />

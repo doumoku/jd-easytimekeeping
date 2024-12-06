@@ -202,22 +202,22 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
             // some calculations are common whether we are showing either one or both of these
             if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
-                const dbtime = Helpers.factorGameTurns(this.#time)
-                dbtime.textColor = context.textColor // it's the same color for now, but could be different
+                const gameTurnData = Helpers.factorGameTurns(this.#time)
+                gameTurnData.textColor = context.textColor // it's the same color for now, but could be different
 
                 if (UIPanel.#showDBTime) {
                     // just pass in a data object and handle layout in the template
                     // make adjustments to the copy, since the original is used for the graphical display
-                    context.dbtime = foundry.utils.deepClone(dbtime)
+                    context.gameTurnData = foundry.utils.deepClone(gameTurnData)
                     // display as 1-based
-                    context.dbtime.gameTurnName = UIPanel.#gameTurnName
-                    context.dbtime.days += 1
-                    context.dbtime.shifts += 1
-                    context.dbtime.turns += 1
-                    if (Helpers.showExactTime) context.dbtime.days = null // hide days if they are already shown in time string
+                    context.gameTurnData.gameTurnName = UIPanel.#gameTurnName
+                    context.gameTurnData.days += 1
+                    context.gameTurnData.shifts += 1
+                    context.gameTurnData.turns += 1
+                    if (Helpers.showExactTime) context.gameTurnData.days = null // hide days if they are already shown in time string
                 }
 
-                if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(dbtime)
+                if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(gameTurnData)
             }
         }
 
