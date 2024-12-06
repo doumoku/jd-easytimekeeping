@@ -107,5 +107,6 @@
 
     "JDTIMEKEEPING.Settings.GameTurnName.name": "Game Turn",
     "JDTIMEKEEPING.Settings.GameTurnName.hint": "The name of a game or dungeon turn",
-    "JDTIMEKEEPING.gameTurnFormat": "{gameTurnName} {gameTurnNumber}"
+    "JDTIMEKEEPING.gameTurnFormat": "{gameTurnName} {gameTurnNumber}",
+    "JDTIMEKEEPING.showHideUI": "Show or hide the User Interface"
 }
