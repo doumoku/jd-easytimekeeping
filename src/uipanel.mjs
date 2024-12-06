@@ -170,6 +170,12 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }))
     }
 
+    #stripOpacityVariables(style) {
+        const focus = /--opacity-focus:\s*\d+.?\d*;/g
+        const noFocus = /--opacity-no-focus:\s*\d+.?\d*;/g
+        return style.replaceAll(focus, '').replaceAll(noFocus, '').trim()
+    }
+
     _onRender (context, options) {
         /**
          * Need to find and replace the opacity variable to pass the
@@ -179,10 +185,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
          *
          * Todo: This shouldn't be required every render, but only when the settings have changed.
          */
-        const regex = /--opacity:\d+.?\d*;/g
         let style = this.element.getAttribute('style')
         if (style) {
-            style = style.replaceAll(regex, '')
+            style = this.#stripOpacityVariables(style)
             this.element.setAttribute(
                 'style',
                 style +
