@@ -16,6 +16,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         id: UIPanel.ID,
         window: {
             frame: false,
+            title: 'JDTIMEKEEPING.title',
+            icon: 'fa-solid fa-clock',
         },
         actions: {
             'time-delta': UIPanel.timeDeltaButtonHandler,
@@ -41,7 +43,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         Hooks.on('closeAVConfig', this.closeAVConfigHandler.bind(this))
         game.socket.on(`module.${MODULE_ID}`, time => {
             this.#time = time
-            this.render(true)
+            this.render()
         })
         if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
     }
@@ -100,7 +102,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     timeChangeHandler (data) {
         this.#time = data.time
         game.socket.emit(`module.${MODULE_ID}`, this.#time)
-        this.render(true)
+        this.render()
     }
 
     renderAVConfigHandler () {
@@ -172,7 +174,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
          * client setting into the CSS for the UI fade feature.
          * On the first render, the top-level element has no style
          * attribute yet, so we need to handle that case as well.
-         * 
+         *
          * Todo: This shouldn't be required every render, but only when the settings have changed.
          */
         const regex = /--opacity:\d+.?\d*;/g
@@ -276,7 +278,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     static async setTimeButtonHandler (event, target) {
-        new SetTimeApplication().render(true)
+        new SetTimeApplication().render()
     }
 
     static async resetTimeButtonHandler (event, target) {
@@ -294,7 +296,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }
     }
 
-    async toggleHidden() {
+    async toggleHidden () {
         UIPanel.#hidden = !UIPanel.#hidden
 
         /**
@@ -302,16 +304,16 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
          * and when switching back to shown, process events again.
          */
         if (UIPanel.#hidden) {
-            this.element.classList.remove('receive-pointer-events')
+            this?.element?.classList.remove('receive-pointer-events')
         } else {
-            if (!this.element.classList.contains('receive-pointer-events'))
-                this.element.classList.add('receive-pointer-events')
+            if (!this?.element?.classList.contains('receive-pointer-events'))
+                this?.element?.classList.add('receive-pointer-events')
         }
 
         // refresh the UI
         await this.render(true)
     }
-    
+
     static async toggleHidden () {
         await game.modules.get(MODULE_ID).uiPanel.toggleHidden()
     }
@@ -374,5 +376,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #gameTurnName () {
         return game.settings.get(MODULE_ID, SETTINGS.GAME_TURN_NAME)
+    }
+
+    static get floatingPanel () {
+        return game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL)
     }
 }
