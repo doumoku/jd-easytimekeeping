@@ -46,7 +46,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             this.#time = time
             this.render()
         })
-        if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
+
+        if (!UIPanel.floatingPanel) this.#insertAppElement('#players')
     }
 
     static registerKeybindings () {
@@ -297,10 +298,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }
     }
 
-    _onClose() {
+    _onClose () {
         /**
          * When the UI is closed by the user, force the hidden flag to true.
-         * That way, when they hit the Toggle UI Visibility hotkey, 
+         * That way, when they hit the Toggle UI Visibility hotkey,
          * toggleHidden will show the UI again right away.
          */
         UIPanel.#hidden = true
