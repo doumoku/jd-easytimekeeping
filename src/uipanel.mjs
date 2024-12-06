@@ -202,7 +202,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
             // some calculations are common whether we are showing either one or both of these
             if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
-                const gameTurnData = Helpers.factorGameTurns(this.#time)
+                const gameTurnData = Helpers.factorGameTurns(this.#time.totalMinutes)
                 gameTurnData.textColor = context.textColor // it's the same color for now, but could be different
 
                 if (UIPanel.#showDBTime) {

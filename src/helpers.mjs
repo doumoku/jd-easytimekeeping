@@ -62,12 +62,12 @@ export class Helpers {
 
     /**
      * Factors a time object into game turns, shifts and days
-     * @property {import('./timekeeper.mjs').timeAugmented} time
+     * @property {number} totalMinutes total elapsed minutes since 12am on day 0
      * @returns {import('./timekeeper.mjs').gameTurnTime}
      */
-    static factorGameTurns (time) {
+    static factorGameTurns (totalMinutes) {
         const gameTurnData = {}
-        gameTurnData.totalGameTurns = Math.floor(time.totalMinutes / Constants.minutesPerStretch)
+        gameTurnData.totalGameTurns = Math.floor(totalMinutes / Constants.minutesPerStretch)
         var remainingGameTurns = gameTurnData.totalGameTurns
         gameTurnData.days = Math.floor(remainingGameTurns / Constants.stretchesPerDay)
         remainingGameTurns = remainingGameTurns % Constants.stretchesPerDay
