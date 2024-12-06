@@ -170,21 +170,27 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }))
     }
 
-    #stripOpacityVariables(style) {
+    #stripOpacityVariables (style) {
         const focus = /--opacity-focus:\s*\d+.?\d*;/g
         const noFocus = /--opacity-no-focus:\s*\d+.?\d*;/g
         return style.replaceAll(focus, '').replaceAll(noFocus, '').trim()
     }
 
-    _onRender (context, options) {
+    _onFirstRender (context, options) {
+        this.updateOpacity()
+    }
+
+    _onRender (context, options) {}
+
+    updateOpacity () {
         /**
          * Need to find and replace the opacity variable to pass the
          * client setting into the CSS for the UI fade feature.
          * On the first render, the top-level element has no style
          * attribute yet, so we need to handle that case as well.
-         *
-         * Todo: This shouldn't be required every render, but only when the settings have changed.
          */
+        if (!this.element) return
+
         let style = this.element.getAttribute('style')
         if (style) {
             style = this.#stripOpacityVariables(style)
@@ -303,16 +309,14 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }
     }
 
-    _onClose () {
-        /**
-         * When the UI is closed by the user, force the hidden flag to true.
-         * That way, when they hit the Toggle UI Visibility hotkey,
-         * toggleHidden will show the UI again right away.
-         */
-        UIPanel.#hidden = true
-    }
-
     async toggleHidden () {
+        // If floating panel and shown, then just close
+        if (this.options.window.frame && !UIPanel.#hidden) {
+            this.close()
+            UIPanel.#hidden = true
+            return
+        }
+
         UIPanel.#hidden = !UIPanel.#hidden
 
         /**
@@ -325,6 +329,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             if (!this?.element?.classList.contains('receive-pointer-events'))
                 this?.element?.classList.add('receive-pointer-events')
         }
+
+        this.updateOpacity()
 
         // refresh the UI
         await this.render(true)

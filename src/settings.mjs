@@ -243,9 +243,12 @@ export function registerSettings () {
         hint: 'JDTIMEKEEPING.Settings.UIFadeOpacity.hint',
         scope: 'client',
         config: true,
-        type: new foundry.data.fields.NumberField({ min: 0, max: 1.0 }),
+        type: new foundry.data.fields.NumberField({ min: 0.1, max: 1.0 }),
         default: 0.6,
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.updateOpacity()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, {
