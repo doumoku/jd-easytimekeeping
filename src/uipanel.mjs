@@ -341,7 +341,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     static async setTimeButtonHandler (event, target) {
-        new SetTimeApplication().render()
+        new SetTimeApplication().render(true)
     }
 
     static async resetTimeButtonHandler (event, target) {
