@@ -24,6 +24,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             'time-delta': UIPanel.timeDeltaButtonHandler,
             'set-time': UIPanel.setTimeButtonHandler,
             'reset-time': UIPanel.resetTimeButtonHandler,
+            'tell-time': UIPanel.tellTime,
         },
     }
 
@@ -341,7 +342,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     static async setTimeButtonHandler (event, target) {
-        new SetTimeApplication().render()
+        new SetTimeApplication().render(true)
     }
 
     static async resetTimeButtonHandler (event, target) {
@@ -357,6 +358,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         if (reset) {
             await game.modules.get(MODULE_ID).api.set({ days: 0, hours: 0, minutes: 0 })
         }
+    }
+
+    static tellTime() {
+        game.modules.get(MODULE_ID).api?.tellTime()
     }
 
     async toggleHidden () {

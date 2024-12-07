@@ -72,6 +72,7 @@
     "JDTIMEKEEPING.UI.smallInc": "Small Increment",
     "JDTIMEKEEPING.UI.largeInc": "Large Increment",
     "JDTIMEKEEPING.UI.set": "Set the Time",
+    "JDTIMEKEEPING.UI.timeChat": "Post Time to Chat",
     "JDTIMEKEEPING.Time.Stretch": "Stretch",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.name": "Show Players the Exact Time",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "The exact time is always shown to the GM and Assistant GM",
