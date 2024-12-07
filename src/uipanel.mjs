@@ -225,6 +225,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     }
 
     _onClose () {
+        UIPanel.#hidden = true
         game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
     }
 
