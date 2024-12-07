@@ -72,7 +72,7 @@
     "JDTIMEKEEPING.UI.smallInc": "Faible Augmentation",
     "JDTIMEKEEPING.UI.largeInc": "Forte Augmentation",
     "JDTIMEKEEPING.UI.set": "Régler l'heure",
-    "JDTIMEKEEPING.UI.timeChat": "Post Time to Chat",
+    "JDTIMEKEEPING.UI.timeChat": "Donner l'heure dans le Chat",
     "JDTIMEKEEPING.Time.Stretch": "Période",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.name": "Afficher l'heure exacte aux joueurs",
     "JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint": "L'heure exacte est toujours indiquée au MJ et au MJ adjoint.",
@@ -106,12 +106,12 @@
     "JDTIMEKEEPING.Settings.UIButtonClickedColor.name": "Couleur des boutons lorsqu'ils sont cliqués",
     "JDTIMEKEEPING.Settings.UIButtonClickedColor.hint": "",
 
-    "JDTIMEKEEPING.Settings.GameTurnName.name": "Game Turn",
-    "JDTIMEKEEPING.Settings.GameTurnName.hint": "The name of a game or dungeon turn",
+    "JDTIMEKEEPING.Settings.GameTurnName.name": "Tour en jeu",
+    "JDTIMEKEEPING.Settings.GameTurnName.hint": "Donner le nom d'un Tour en jeu ou en donjon",
     "JDTIMEKEEPING.gameTurnFormat": "{gameTurnName} {gameTurnNumber}",
-    "JDTIMEKEEPING.showHideUI": "Show or hide the User Interface",
-    "JDTIMEKEEPING.title": "Easy Timekeeping",
-    "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.name": "Show UI as a Floating Window",
-    "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.hint": "This lets you move the window around. If you close it, then the Show/Hide hotkey will bring it back again.",
-    "JDTIMEKEEPING.AVDockWarning": "Foundry Audio/Video detected. Switching to the floating panel to avoid conflicts with the A/V interface."
+    "JDTIMEKEEPING.showHideUI": "Afficher/Masquer l'Interface Utilisateur",
+    "JDTIMEKEEPING.title": "Gestionnaire de temps",
+    "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.name": "Afficher l'interface sous forme de fenêtre flottante",
+    "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.hint": "Vous pouvez désormais déplacer la fenêtre. Si vous la fermez, la touche de raccourci Afficher/Masquer la fera réapparaître.",
+    "JDTIMEKEEPING.AVDockWarning": "Foundry Audio/Video détecté. Utilisation du panneau flottant afin d'éviter les conflits avec l'interface A/V."
 }

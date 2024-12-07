@@ -139,7 +139,21 @@
 
   display: flex;
   justify-content: center;
+
+/* Fix window & sheme color */
+  background: black;
+  padding: 0.1em;
 }
+[id^=jd-et-uipanel] .window-header {
+  background: black;
+  font-family: QTFrizQuad;
+  border-bottom: unset;
+}
+[id^=jd-et-uipanel] .window-content {
+  background: black;
+}
+/*End*/
+
 
 /**
  * Element fade when hovered/focused
