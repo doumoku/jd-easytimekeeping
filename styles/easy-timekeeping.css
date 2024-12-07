@@ -140,18 +140,24 @@
   display: flex;
   justify-content: center;
 
-/* Fix window & sheme color */
+}
+
+/* Fix window & scheme color */
+.ui-panel.floating {
   background: black;
   padding: 0.1em;
 }
+
 [id^=jd-et-uipanel] .window-header {
   background: black;
   font-family: QTFrizQuad;
   border-bottom: unset;
 }
+
 [id^=jd-et-uipanel] .window-content {
   background: black;
 }
+
 /*End*/
 
 
@@ -244,7 +250,7 @@
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
-  height: 44px; 
+  height: 44px;
   border-radius: 5px 22px 22px 5px;
   border-right: none;
 
