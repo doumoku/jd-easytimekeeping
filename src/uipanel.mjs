@@ -49,8 +49,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         // if position if out of bounds for current client view, reset to a safe location in the top left
         if (position) {
             if (
-                position.top > game.canvas.screenDimensions[1] ||
-                position.left > game.canvas.screenDimensions[0]
+                position.top > window.visualViewport.height || 
+                position.left > window.visualViewport.width
             ) {
                 position.top = 100
                 position.left = 150
