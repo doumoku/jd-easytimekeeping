@@ -49,7 +49,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         // if position if out of bounds for current client view, reset to a safe location in the top left
         if (position) {
             if (
-                position.top > window.visualViewport.height || 
+                position.top > window.visualViewport.height ||
                 position.left > window.visualViewport.width
             ) {
                 position.top = 100
@@ -57,10 +57,14 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             }
         }
 
+        const classes = UIPanel.DEFAULT_OPTIONS.classes
+        if (UIPanel.floatingPanel) classes.push('floating')
+
         UIPanel.checkForAVPanel()
         const uiPanel = new UIPanel({
             window: { frame: UIPanel.floatingPanel },
             position: position,
+            classes: classes,
         })
 
         uiPanel.ready()
@@ -240,6 +244,11 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
          * client setting into the CSS for the UI fade feature.
          * On the first render, the top-level element has no style
          * attribute yet, so we need to handle that case as well.
+         *
+         * I can't do this with the simple approach I use with other
+         * CSS variables in the HBS template because this affects
+         * elements that are created at a higher level than the HBS
+         * template defines.
          */
         if (!this.element) return
 
@@ -361,7 +370,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }
     }
 
-    static tellTime() {
+    static tellTime () {
         game.modules.get(MODULE_ID).api?.tellTime()
     }
 
