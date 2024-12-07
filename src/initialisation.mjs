@@ -25,6 +25,10 @@ Hooks.once('i18nInit', () => {
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
 
+    const uiPanel = UIPanel.create()
+    uiPanel.render(true)
+    game.modules.get(MODULE_ID).uiPanel = uiPanel
+
     TimeTeller.init()
     DaylightCycle.init()
 
@@ -45,10 +49,4 @@ Hooks.once('ready', async () => {
     // {{/ifEquals}}
 
     console.groupEnd()
-})
-
-Hooks.on('canvasReady', () => {
-    const uiPanel = UIPanel.create()
-    uiPanel.render(true)
-    game.modules.get(MODULE_ID).uiPanel = uiPanel
 })
