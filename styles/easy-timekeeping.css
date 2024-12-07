@@ -131,7 +131,7 @@
 .ui-panel {
   /* Set the left and right margins to align with the player panel */
   margin-left: 15px;
-  margin-right: 5px;
+  /* margin-right: 5px; */
 
   /* A bit of space between us and the player panel */
   margin-bottom: 6px;
