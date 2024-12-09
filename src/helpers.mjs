@@ -65,6 +65,7 @@ export class Helpers {
      * @property {number} totalMinutes total elapsed minutes since 12am on day 0
      * @returns {import('./timekeeper.mjs').gameTurnTime}
      */
+    // todo: Code Smell! Why is this not a Timekeeper function? What architectural goal is served by having it here?
     static factorGameTurns (totalMinutes) {
         const gameTurnData = {}
         gameTurnData.totalGameTurns = Math.floor(totalMinutes / Constants.minutesPerStretch)
@@ -75,6 +76,7 @@ export class Helpers {
         gameTurnData.turns = remainingGameTurns % Constants.stretchesPerShift
 
         gameTurnData.shiftName = Helpers.getDragonbaneShiftName(gameTurnData.shifts)
+        // todo: Code Smell! should use Constants.daysPerWeek
         gameTurnData.day = { index: (gameTurnData.days % 7) + 1 } // 1-based day index for UI
         gameTurnData.day.name = Helpers.getWeekdayName(gameTurnData.day.index - 1) // lookup by 0-based index
         gameTurnData.weekNumber = Math.floor(gameTurnData.days / 7) + 1 // 1-based week number

@@ -198,6 +198,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                  */
                 id: 'etk-days',
                 value: time.day.index,
+                // todo: Code Smell! should use Constants.daysPerWeek
                 max: 7,
                 name: game.i18n.format('JDTIMEKEEPING.Time.DayAndWeek', {
                     day: time.day.name,

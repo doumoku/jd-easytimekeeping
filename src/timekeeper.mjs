@@ -212,8 +212,10 @@ export class Timekeeper {
         time.days = Math.floor(totalMinutes / Constants.minutesPerDay)
         time.hours = Math.floor((totalMinutes % Constants.minutesPerDay) / 60)
         time.minutes = (totalMinutes % Constants.minutesPerDay) % 60
+        // todo: Code Smell! should use Constants.daysPerWeek
         time.day = { index: (time.days % 7) + 1 } // 1-based day index for UI
         time.day.name = Helpers.getWeekdayName(time.day.index - 1) // lookup by 0-based index
+        // todo: Code Smell! should use Constants.daysPerWeek
         time.weekNumber = Math.floor(time.days / 7) + 1 // 1-based week number
 
         return time
