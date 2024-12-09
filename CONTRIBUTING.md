@@ -37,7 +37,7 @@ But please be aware that since I'm not a polyglot, while I'm overjoyed to accept
 - If I delete strings, I will delete those from all language files myself.
 - When I finish development on vX.Y.Z, I will remove the `in progress` label and add the `help wanted` label to the
 **"vX.Y.Z Language String Changes"** Issue.
-- However, as the number of translations grows, I can't delay releases until all translations are updated. Therefore, once a new release is ready, I will release it without updated language files. The module will keep working, but with placehold English text for new strings.
+- However, as the number of translations grows, I can't delay releases until all translations are updated. Therefore, once a new release is ready, I will release it without updated language files. The module will keep working, but with placeholder English text for new strings.
 - As soon as PRs arrive for updates to language support, I'll do my best to merge those and ship a patch release as soon as possible.
 
 ## A Note About the API Documentation
