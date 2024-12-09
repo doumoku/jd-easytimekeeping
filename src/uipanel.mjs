@@ -174,7 +174,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             {
                 id: 'etk-turns',
                 value: time.turns + 1,
-                max: Constants.stretchesPerShift,
+                max: Constants.turnsPerShift,
                 name: game.i18n.format('JDTIMEKEEPING.gameTurnFormat', {
                     gameTurnName: UIPanel.#gameTurnName,
                     gameTurnNumber: (time.turns + 1).toString(),

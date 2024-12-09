@@ -68,12 +68,12 @@ export class Helpers {
     // todo: Code Smell! Why is this not a Timekeeper function? What architectural goal is served by having it here?
     static factorGameTurns (totalMinutes) {
         const gameTurnData = {}
-        gameTurnData.totalGameTurns = Math.floor(totalMinutes / Constants.minutesPerStretch)
+        gameTurnData.totalGameTurns = Math.floor(totalMinutes / Constants.minutesPerTurn)
         var remainingGameTurns = gameTurnData.totalGameTurns
-        gameTurnData.days = Math.floor(remainingGameTurns / Constants.stretchesPerDay)
-        remainingGameTurns = remainingGameTurns % Constants.stretchesPerDay
-        gameTurnData.shifts = Math.floor(remainingGameTurns / Constants.stretchesPerShift)
-        gameTurnData.turns = remainingGameTurns % Constants.stretchesPerShift
+        gameTurnData.days = Math.floor(remainingGameTurns / Constants.turnsPerDay)
+        remainingGameTurns = remainingGameTurns % Constants.turnsPerDay
+        gameTurnData.shifts = Math.floor(remainingGameTurns / Constants.turnsPerShift)
+        gameTurnData.turns = remainingGameTurns % Constants.turnsPerShift
 
         gameTurnData.shiftName = Helpers.getDragonbaneShiftName(gameTurnData.shifts)
         // todo: Code Smell! should use Constants.daysPerWeek
