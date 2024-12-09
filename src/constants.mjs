@@ -14,16 +14,15 @@ export class Constants {
     static daysPerWeek = 7
 
     // Variable and calculated values that I'm refactoring to look like the old constants
-    static get minutesPerStretch () {
+    static get minutesPerTurn () {
         return game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA)
     }
 
-    // static stretchesPerShift = 24
-    static get stretchesPerShift () {
-        return Constants.minutesPerShift / Constants.minutesPerStretch
+    static get turnsPerShift () {
+        return Constants.minutesPerShift / Constants.minutesPerTurn
     }
 
-    static get stretchesPerDay () {
-        return Constants.stretchesPerShift * Constants.shiftsPerDay
+    static get turnsPerDay () {
+        return Constants.turnsPerShift * Constants.shiftsPerDay
     }
 }

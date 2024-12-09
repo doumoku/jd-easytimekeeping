@@ -174,7 +174,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             {
                 id: 'etk-turns',
                 value: time.turns + 1,
-                max: Constants.stretchesPerShift,
+                max: Constants.turnsPerShift,
                 name: game.i18n.format('JDTIMEKEEPING.gameTurnFormat', {
                     gameTurnName: UIPanel.#gameTurnName,
                     gameTurnNumber: (time.turns + 1).toString(),
@@ -198,6 +198,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                  */
                 id: 'etk-days',
                 value: time.day.index,
+                // todo: Code Smell! should use Constants.daysPerWeek
                 max: 7,
                 name: game.i18n.format('JDTIMEKEEPING.Time.DayAndWeek', {
                     day: time.day.name,

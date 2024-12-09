@@ -30,12 +30,12 @@
 
     ![Default player UI](./documentation/img/player-default-ui.png)
 
-- Special modes for Dragonbane that support fuzzy time showing just the current stretch and shift in words and visual form. The precise time of day can optionally be hidden from players, with the fuzzy Dragonbane time in stretches and shifts displayed in words or graphically:
+- Fuzzy time that shows game turns, shifts, days, and weeks in words and visual form. The precise time of day can optionally be hidden from players:
 
     ![Player view of Dragonbane text-based fuzzy time](./documentation/img/player-fuzzy-dragonbane.png)
     ![Player view of Dragonbane graphical fuzzy time with exact time](./documentation/img/player-dragonbane-graphical.png)
 
-- Configurable ability to post the time to chat at regular times of day. Particularly useful when combined with the option to hide the time of day from the players on the main UI. This feature is disabled by default. Enable it in the module settings.
+- Post the current time to chat messages. A button on the UI panel allows the GM to post a chat message whenever they choose, while an automation feature can post the time to chat at specific hours. This is particularly useful when combined with the option to hide the time of day from the players on the main UI. This feature is disabled by default. Enable it in the module settings.
 
     ![Time of day chat](./documentation/img/chat.png)
 
