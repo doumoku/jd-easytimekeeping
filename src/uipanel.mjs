@@ -362,7 +362,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 title: 'JDTIMEKEEPING.ResetTime.title',
             },
             content: game.i18n.localize('JDTIMEKEEPING.ResetTime.content'),
-            modal: true,
+            modal: false,
             rejectClose: false,
         })
         if (reset) {
