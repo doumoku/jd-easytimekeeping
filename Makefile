@@ -2,7 +2,7 @@ INPUT_DIR=./src/
 
 # For now, I only want to document functions in timekeeper.mjs
 # INPUT_FILES=$(wildcard $(INPUT_DIR)*.mjs)
-INPUT_FILES=$(INPUT_DIR)timekeeper.mjs
+INPUT_FILES=$(INPUT_DIR)timekeeper.mjs constants.mjs
 
 PUBLIC_API_OPTIONS= build --access public --format md --shallow --markdown-toc-max-depth 3
 OUTPUT_DIR=./documentation/
