@@ -19,6 +19,8 @@
     *   [Properties][15]
 *   [gameTurnTime][16]
     *   [Properties][17]
+*   [Constants][18]
+    *   [Properties][19]
 
 ## Timekeeper
 
@@ -28,7 +30,7 @@ The public API for Easy Timekeeping.
 
 Gets the name of the current phase of the day as a localised string.
 
-Returns **[string][18]** the localised name of the day phase.
+Returns **[string][20]** the localised name of the day phase.
 This is one of the set \[Dawn, Day, Dusk, Night], but localized.
 
 ### increment
@@ -73,7 +75,7 @@ Factors a time object into game turns, shifts and days
 
 #### Properties
 
-*   `totalMinutes` **[number][19]** total elapsed minutes since 12am on day 0
+*   `totalMinutes` **[number][21]** total elapsed minutes since 12am on day 0
 
 Returns **[gameTurnTime][16]** `totalMinutes` factored into game turns, shifts, days and weeks
 
@@ -81,45 +83,45 @@ Returns **[gameTurnTime][16]** `totalMinutes` factored into game turns, shifts, 
 
 A time object used for inputting time values to the Easy Timekeeping API
 
-Type: [Object][20]
+Type: [Object][22]
 
 ### Properties
 
-*   `days` **[number][19]** days since day 0
-*   `hours` **[number][19]** hour of the day in 24-hour time, range \[0..23]
-*   `minutes` **[number][19]** minute of the hour, range \[0..59]
+*   `days` **[number][21]** days since day 0
+*   `hours` **[number][21]** hour of the day in 24-hour time, range \[0..23]
+*   `minutes` **[number][21]** minute of the hour, range \[0..59]
 
 ## timeAugmented
 
 An augmented time object used when values are returned from the Easy Timekeeping API
 
-Type: [Object][20]
+Type: [Object][22]
 
 ### Properties
 
-*   `days` **[number][19]** days since day 0
-*   `hours` **[number][19]** hour of the day in 24-hour time, range \[0..23]
-*   `minutes` **[number][19]** minute of the hour, range \[0..59]
-*   `totalMinutes` **[number][19]** total elapsed minutes since 12am on day 0
-*   `weekNumber` **[number][19]** 1-based number of 7-day weeks that have elapsed, including the current partial week.
+*   `days` **[number][21]** days since day 0
+*   `hours` **[number][21]** hour of the day in 24-hour time, range \[0..23]
+*   `minutes` **[number][21]** minute of the hour, range \[0..59]
+*   `totalMinutes` **[number][21]** total elapsed minutes since 12am on day 0
+*   `weekNumber` **[number][21]** 1-based number of 7-day weeks that have elapsed, including the current partial week.
 *   `day` **[dayData][12]** additional metadata about the day of the week
 
 ## dayData
 
 Day data
 
-Type: [Object][20]
+Type: [Object][22]
 
 ### Properties
 
-*   `index` **[number][19]** 1-based number of the day of the week, starting with Monday. Each week is fixed at 7 days.
-*   `name` **[string][18]** the name of the current day of the week, based on the current world settings.
+*   `index` **[number][21]** 1-based number of the day of the week, starting with Monday. Each week is fixed at 7 days.
+*   `name` **[string][20]** the name of the current day of the week, based on the current world settings.
 
 ## timeChangeData
 
 Time change object returned from the Easy Timekeeping API
 
-Type: [Object][20]
+Type: [Object][22]
 
 ### Properties
 
@@ -130,17 +132,34 @@ Type: [Object][20]
 
 Game turn time. This is used by the graphical clocks, and returned from API calls.
 
-Type: [Object][20]
+Type: [Object][22]
 
 ### Properties
 
-*   `totalGameTurns` **[number][19]** total number of elapsed game turns
-*   `days` **[number][19]** days since day 0
-*   `shifts` **[number][19]** the current shift out of the 4 shifts per day. 0-based, range \[0..3]
-*   `turns` **[number][19]** the current game turn within the current shift. 0-based indexing
+*   `totalGameTurns` **[number][21]** total number of elapsed game turns
+*   `days` **[number][21]** days since day 0
+*   `shifts` **[number][21]** the current shift out of the 4 shifts per day. 0-based, range \[0..3]
+*   `turns` **[number][21]** the current game turn within the current shift. 0-based indexing
 *   `day` **[dayData][12]** additional metadata about the day of the week
-*   `weekNumber` **[number][19]** 1-based number of 7-day weeks that have elapsed, including the current partial week.
-*   `shiftName` **[string][18]** the name of the current shift, based on world settings.
+*   `weekNumber` **[number][21]** 1-based number of 7-day weeks that have elapsed, including the current partial week.
+*   `shiftName` **[string][20]** the name of the current shift, based on world settings.
+
+## Constants
+
+Constants used in time calculations.
+
+### Properties
+
+*   `secondsPerDay` **[Number][21]** The number of seconds in a day.
+*   `minutesPerDay` **[Number][21]** The number of minutes in a day.
+*   `hoursPerDay` **[Number][21]** The number of hours in a day.
+*   `shiftsPerDay` **[Number][21]** The number of shifts in a day.
+*   `minutesPerShift` **[Number][21]** The number of minutes in a shift.
+*   `hoursPerShift` **[Number][21]** The number of hours in a shift.
+*   `daysPerWeek` **[Number][21]** The number of days in a week.
+*   `minutesPerTurn` **[Number][21]** The number of minutes in a game turn. Will vary by current module settings.
+*   `turnsPerShift` **[Number][21]** The number of game turns per shift. Will vary by current module settings.
+*   `turnsPerDay` **[Number][21]** The number of game turns per day. Will vary by current module settings.
 
 [1]: #timekeeper
 
@@ -176,8 +195,12 @@ Type: [Object][20]
 
 [17]: #properties-5
 
-[18]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+[18]: #constants
 
-[19]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+[19]: #properties-6
 
-[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
+[20]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String
+
+[21]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number
+
+[22]: https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object
