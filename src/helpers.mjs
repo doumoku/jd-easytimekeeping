@@ -14,7 +14,7 @@ export class Helpers {
      * Returns the current time of day as a formatted string.
      * Current module settings for 12 or 24 hour time are honoured.
      *
-     * @param {import('./timekeeper.mjs').timeAugmented} time A Timekeeper time object
+     * @param {import('./datatypes.mjs').timeAugmented} time A Timekeeper time object
      * @param {boolean} [includeDay=false] Whether the day is included, or just the time
      * @returns {string} the formatted time string
      */
@@ -34,7 +34,7 @@ export class Helpers {
 
     /**
      * Gets the formatted time as a string "hh:mm [AM|PM]"
-     * @param {import('./timekeeper.mjs').timeAugmented} time A Timekeeper time object
+     * @param {import('./datatypes.mjs').timeAugmented} time A Timekeeper time object
      * @param {string} [mode='auto'] Time mode. 'auto' uses the module setting
      */
     static toTimeOfDay (time, mode = 'auto') {
@@ -63,7 +63,7 @@ export class Helpers {
     /**
      * Factors a time object into game turns, shifts and days
      * @property {number} totalMinutes total elapsed minutes since 12am on day 0
-     * @returns {import('./timekeeper.mjs').gameTurnTime}
+     * @returns {import('./datatypes.mjs').gameTurnTime}
      */
     // todo: Code Smell! Why is this not a Timekeeper function? What architectural goal is served by having it here?
     static factorGameTurns (totalMinutes) {
