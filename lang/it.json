@@ -113,5 +113,8 @@
     "JDTIMEKEEPING.title": "Easy Timekeeping",
     "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.name": "Mostra Interfaccia Utente come finestra mobile",
     "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.hint": "Ti consente di spostare la finestra. Se lo chiudi, il tasto di scelta rapida Mostra/Nascondi lo ripristinerà.",
-    "JDTIMEKEEPING.AVDockWarning": "Rilevato audio/video Foundry. Passaggio al pannello mobile per evitare conflitti con l'interfaccia A/V."
+    "JDTIMEKEEPING.AVDockWarning": "Rilevato audio/video Foundry. Passaggio al pannello mobile per evitare conflitti con l'interfaccia A/V.",
+
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.name": "Circular Clock Border and Spoke Color",
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": ""
 }

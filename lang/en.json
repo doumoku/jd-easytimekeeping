@@ -113,5 +113,8 @@
     "JDTIMEKEEPING.title": "Easy Timekeeping",
     "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.name": "Show UI as a Floating Window",
     "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.hint": "This lets you move the window around. If you close it, then the Show/Hide hotkey will bring it back again.",
-    "JDTIMEKEEPING.AVDockWarning": "Foundry Audio/Video detected. Switching to the floating panel to avoid conflicts with the A/V interface."
+    "JDTIMEKEEPING.AVDockWarning": "Foundry Audio/Video detected. Switching to the floating panel to avoid conflicts with the A/V interface.",
+
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.name": "Circular Clock Border and Spoke Color",
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": ""
 }
