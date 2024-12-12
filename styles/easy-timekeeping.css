@@ -125,6 +125,10 @@
   display: none;
 }
 
+.etk-dialog {
+  padding: 0;
+}
+
 /**
  * UI Panel specific styles
  */
