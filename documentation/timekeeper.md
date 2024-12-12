@@ -150,16 +150,16 @@ Constants used in time calculations.
 
 ### Properties
 
-*   `secondsPerDay` **[Number][21]** The number of seconds in a day.
-*   `minutesPerDay` **[Number][21]** The number of minutes in a day.
-*   `hoursPerDay` **[Number][21]** The number of hours in a day.
-*   `shiftsPerDay` **[Number][21]** The number of shifts in a day.
-*   `minutesPerShift` **[Number][21]** The number of minutes in a shift.
-*   `hoursPerShift` **[Number][21]** The number of hours in a shift.
-*   `daysPerWeek` **[Number][21]** The number of days in a week.
-*   `minutesPerTurn` **[Number][21]** The number of minutes in a game turn. Will vary by current module settings.
-*   `turnsPerShift` **[Number][21]** The number of game turns per shift. Will vary by current module settings.
-*   `turnsPerDay` **[Number][21]** The number of game turns per day. Will vary by current module settings.
+*   `secondsPerDay` **[number][21]** The number of seconds in a day.
+*   `minutesPerDay` **[number][21]** The number of minutes in a day.
+*   `hoursPerDay` **[number][21]** The number of hours in a day.
+*   `shiftsPerDay` **[number][21]** The number of shifts in a day.
+*   `minutesPerShift` **[number][21]** The number of minutes in a shift.
+*   `hoursPerShift` **[number][21]** The number of hours in a shift.
+*   `daysPerWeek` **[number][21]** The number of days in a week.
+*   `minutesPerTurn` **[number][21]** The number of minutes in a game turn. Will vary by current module settings.
+*   `turnsPerShift` **[number][21]** The number of game turns per shift. Will vary by current module settings.
+*   `turnsPerDay` **[number][21]** The number of game turns per day. Will vary by current module settings.
 
 [1]: #timekeeper
 
