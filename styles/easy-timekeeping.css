@@ -125,6 +125,10 @@
   display: none;
 }
 
+.etk-dialog {
+  padding: 0;
+}
+
 /**
  * UI Panel specific styles
  */
@@ -146,6 +150,7 @@
 .ui-panel.floating {
   background: black;
   padding: 0.1em;
+  margin: 0;
 }
 
 [id^=jd-et-uipanel] .window-header {
