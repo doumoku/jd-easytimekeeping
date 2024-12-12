@@ -30,7 +30,7 @@ export class Timekeeper {
      *
      * @public
      * @returns {string} the localised name of the day phase.
-     * This is one of the set [Dawn, Day, Dusk, Night], but localized.
+     * This is one of the set `[Dawn, Day, Dusk, Night]`, but localized.
      */
     getPhaseOfDay () {
         return DaylightCycle.getPhaseOfDay(this.#factorTime(this.#totalElapsedMinutes))

@@ -31,7 +31,7 @@ The public API for Easy Timekeeping.
 Gets the name of the current phase of the day as a localised string.
 
 Returns **[string][20]** the localised name of the day phase.
-This is one of the set \[Dawn, Day, Dusk, Night], but localized.
+This is one of the set `[Dawn, Day, Dusk, Night]`, but localized.
 
 ### increment
 
