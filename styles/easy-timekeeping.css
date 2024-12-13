@@ -140,6 +140,7 @@
   /* A bit of space between us and the player panel */
   margin-bottom: 6px;
   border: 1px solid black;
+  padding: 0.1em;
 
   display: flex;
   justify-content: center;
