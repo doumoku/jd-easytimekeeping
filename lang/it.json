@@ -115,6 +115,6 @@
     "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.hint": "Ti consente di spostare la finestra. Se lo chiudi, il tasto di scelta rapida Mostra/Nascondi lo ripristinerà.",
     "JDTIMEKEEPING.AVDockWarning": "Rilevato audio/video Foundry. Passaggio al pannello mobile per evitare conflitti con l'interfaccia A/V.",
 
-    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.name": "Circular Clock Border and Spoke Color",
-    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": ""
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.name": "Circular Clock Border Color",
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": "Used for the border and spokes"
 }

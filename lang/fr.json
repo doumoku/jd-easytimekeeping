@@ -115,6 +115,6 @@
     "JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.hint": "Vous pouvez désormais déplacer la fenêtre. Si vous la fermez, la touche de raccourci Afficher/Masquer la fera réapparaître.",
     "JDTIMEKEEPING.AVDockWarning": "Foundry Audio/Video détecté. Utilisation du panneau flottant afin d'éviter les conflits avec l'interface A/V.",
 
-    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.name": "Circular Clock Border and Spoke Color",
-    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": ""
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.name": "Circular Clock Border Color",
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": "Used for the border and spokes"
 }
