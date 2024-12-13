@@ -81,7 +81,7 @@ export function registerSettings () {
         default: 0.6,
         requiresReload: false,
         onChange: () => {
-            game.modules.get(MODULE_ID).uiPanel?.updateOpacity()
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
         },
     })
 
@@ -102,7 +102,10 @@ export function registerSettings () {
         config: true,
         type: Boolean,
         default: false,
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME, {
@@ -111,7 +114,10 @@ export function registerSettings () {
         config: true,
         type: Boolean,
         default: false,
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DRAGONBANE_TIME, {
@@ -122,6 +128,7 @@ export function registerSettings () {
         type: Boolean,
         default: false,
         requiresReload: true,
+        // Not using cosmeticSettingsChanged because it's a world setting, so needs a reload to update all clients
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK, {
@@ -208,7 +215,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#ffffff',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_FG_COLOR, {
@@ -218,7 +228,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#138b37',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR, {
@@ -228,7 +241,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#062811',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_SPOKE_COLOR, {
@@ -238,7 +254,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#000000',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_COLOR, {
@@ -248,7 +267,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#ffffff',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_HOVERED_COLOR, {
@@ -258,7 +280,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#138b37',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_CLICKED_COLOR, {
@@ -268,7 +293,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#25e45e',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, {

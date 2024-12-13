@@ -240,6 +240,15 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         super.setPosition(pos)
         game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
     }
+    
+    /**
+     * Called when cosmetic settings have been changed
+     */
+    cosmeticSettingsChanged() {
+        // this?.element.style.setProperty("--background-color", this.#uiBackgroundColor);
+        this.updateOpacity()
+        this.render()
+    }
 
     updateOpacity () {
         /**
