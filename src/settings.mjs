@@ -25,6 +25,7 @@ export const SETTINGS = {
     UI_TEXT_COLOR: 'uiTextColor',
     RADIAL_CLOCK_FG_COLOR: 'radialClockColor',
     RADIAL_CLOCK_BG_COLOR: 'radialClockBGColor',
+    RADIAL_CLOCK_SPOKE_COLOR: 'radialClockSpokeColor',
     UI_FADE_OPACITY: 'uiFadeOpacity',
     UI_BUTTON_COLOR: 'uiButtonColour',
     UI_BUTTON_HOVERED_COLOR: 'uiButtonHoveredColour',
@@ -227,6 +228,16 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#062811',
+        requiresReload: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_SPOKE_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.RadialClockSpokeColor.name',
+        hint: 'JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#000000',
         requiresReload: true,
     })
 
