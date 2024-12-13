@@ -116,5 +116,7 @@
     "JDTIMEKEEPING.AVDockWarning": "Rilevato audio/video Foundry. Passaggio al pannello mobile per evitare conflitti con l'interfaccia A/V.",
 
     "JDTIMEKEEPING.Settings.RadialClockSpokeColor.name": "Circular Clock Border Color",
-    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": "Used for the border and spokes"
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": "Used for the border and spokes",
+    "JDTIMEKEEPING.Settings.UIFocusOpacity.name": "UI Transparency",
+    "JDTIMEKEEPING.Settings.UIFocusOpacity.hint": "Controls the UI transparency when in use. 0 is fully hidden, and 1 is fully visible."
 }

@@ -116,5 +116,7 @@
     "JDTIMEKEEPING.AVDockWarning": "Foundry Audio/Video detected. Switching to the floating panel to avoid conflicts with the A/V interface.",
 
     "JDTIMEKEEPING.Settings.RadialClockSpokeColor.name": "Circular Clock Border Color",
-    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": "Used for the border and spokes"
+    "JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint": "Used for the border and spokes",
+    "JDTIMEKEEPING.Settings.UIFocusOpacity.name": "UI Transparency",
+    "JDTIMEKEEPING.Settings.UIFocusOpacity.hint": "Controls the UI transparency when in use. 0 is fully hidden, and 1 is fully visible."
 }
