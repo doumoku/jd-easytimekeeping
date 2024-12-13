@@ -240,8 +240,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
      */
     cosmeticSettingsChanged (render = true) {
         // this?.element.style.setProperty("--background-color", this.#uiBackgroundColor);
-        this?.element.style.setProperty('--opacity-no-focus', UIPanel.#uiFadeOpacityNoFocus)
-        this?.element.style.setProperty('--opacity-focus', UIPanel.#hidden ? 0 : 1)
+        this?.element.style.setProperty('--opacity-no-focus', UIPanel.#uiUnfocusedOpacity)
+        this?.element.style.setProperty('--opacity-focus', UIPanel.#uiFocusedOpacity)
         if (render) this.render()
     }
 
@@ -429,9 +429,14 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK)
     }
 
-    static get #uiFadeOpacityNoFocus () {
+    static get #uiFocusedOpacity () {
         if (UIPanel.#hidden) return 0
-        return game.settings.get(MODULE_ID, SETTINGS.UI_FADE_OPACITY)
+        return game.settings.get(MODULE_ID, SETTINGS.UI_FOCUSED_OPACITY)
+    }
+
+    static get #uiUnfocusedOpacity () {
+        if (UIPanel.#hidden) return 0
+        return game.settings.get(MODULE_ID, SETTINGS.UI_UNFOCUSED_OPACITY)
     }
 
     static get #showLongFormatTime () {

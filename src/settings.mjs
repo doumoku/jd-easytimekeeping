@@ -26,7 +26,9 @@ export const SETTINGS = {
     RADIAL_CLOCK_FG_COLOR: 'radialClockColor',
     RADIAL_CLOCK_BG_COLOR: 'radialClockBGColor',
     RADIAL_CLOCK_SPOKE_COLOR: 'radialClockSpokeColor',
-    UI_FADE_OPACITY: 'uiFadeOpacity',
+    UI_FOCUS_OPACITY: 'uiFocusOpacity',
+    UI_UNFOCUSED_OPACITY: 'uiFadeOpacity',
+    UI_FOCUSED_OPACITY: 'uiFocusedOpacity',
     UI_BUTTON_COLOR: 'uiButtonColour',
     UI_BUTTON_HOVERED_COLOR: 'uiButtonHoveredColour',
     UI_BUTTON_CLICKED_COLOR: 'uiButtonClickedColour',
@@ -72,7 +74,20 @@ export function registerSettings () {
         requiresReload: false,
     })
 
-    game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {
+    game.settings.register(MODULE_ID, SETTINGS.UI_FOCUSED_OPACITY, {
+        name: 'JDTIMEKEEPING.Settings.UIFocusOpacity.name',
+        hint: 'JDTIMEKEEPING.Settings.UIFocusOpacity.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.NumberField({ min: 0.1, max: 1.0 }),
+        default: 0.85,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_UNFOCUSED_OPACITY, {
         name: 'JDTIMEKEEPING.Settings.UIFadeOpacity.name',
         hint: 'JDTIMEKEEPING.Settings.UIFadeOpacity.hint',
         scope: 'client',
