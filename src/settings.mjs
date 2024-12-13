@@ -32,6 +32,7 @@ export const SETTINGS = {
     UI_BUTTON_COLOR: 'uiButtonColour',
     UI_BUTTON_HOVERED_COLOR: 'uiButtonHoveredColour',
     UI_BUTTON_CLICKED_COLOR: 'uiButtonClickedColour',
+    UI_BACKGROUND_COLOR: 'uiBackgroundColour',
     GAME_TURN_NAME: 'gameTurnName',
     FLOATING_UI_PANEL: 'uiInFrame',
     FLOATING_UI_PANEL_POSITION: 'uiPanelPosition',
@@ -221,6 +222,19 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.DocumentUUIDField({ type: 'Macro' }),
         requiresReload: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_BACKGROUND_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.UIBackgroundColor.name',
+        hint: 'JDTIMEKEEPING.Settings.UIBackgroundColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#000000',
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_TEXT_COLOR, {
