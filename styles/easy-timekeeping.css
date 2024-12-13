@@ -141,9 +141,11 @@
   margin-bottom: 6px;
   border: 1px solid black;
   padding: 0.1em;
+  /* box-sizing: border-box; */
 
   display: flex;
   justify-content: center;
+  flex-shrink: 3;
 }
 
 /* Fix window & scheme color */
