@@ -221,14 +221,8 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }))
     }
 
-    #stripOpacityVariables (style) {
-        const focus = /--opacity-focus:\s*\d+.?\d*;/g
-        const noFocus = /--opacity-no-focus:\s*\d+.?\d*;/g
-        return style.replaceAll(focus, '').replaceAll(noFocus, '').trim()
-    }
-
     _onFirstRender (context, options) {
-        this.updateOpacity()
+        this.cosmeticSettingsChanged(false)
     }
 
     _onClose () {
@@ -240,48 +234,15 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         super.setPosition(pos)
         game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
     }
-    
+
     /**
      * Called when cosmetic settings have been changed
      */
-    cosmeticSettingsChanged() {
+    cosmeticSettingsChanged (render = true) {
         // this?.element.style.setProperty("--background-color", this.#uiBackgroundColor);
-        this.updateOpacity()
-        this.render()
-    }
-
-    updateOpacity () {
-        /**
-         * Need to find and replace the opacity variable to pass the
-         * client setting into the CSS for the UI fade feature.
-         * On the first render, the top-level element has no style
-         * attribute yet, so we need to handle that case as well.
-         *
-         * I can't do this with the simple approach I use with other
-         * CSS variables in the HBS template because this affects
-         * elements that are created at a higher level than the HBS
-         * template defines.
-         */
-        if (!this.element) return
-
-        let style = this.element.getAttribute('style')
-        if (style) {
-            style = this.#stripOpacityVariables(style)
-            this.element.setAttribute(
-                'style',
-                style +
-                    `--opacity-no-focus:${UIPanel.#uiFadeOpacityNoFocus}; --opacity-focus:${
-                        UIPanel.#hidden ? 0 : 1
-                    };`
-            )
-        } else {
-            this.element.setAttribute(
-                'style',
-                `--opacity-no-focus:${UIPanel.#uiFadeOpacityNoFocus}; --opacity-focus:${
-                    UIPanel.#hidden ? 0 : 1
-                };`
-            )
-        }
+        this?.element.style.setProperty('--opacity-no-focus', UIPanel.#uiFadeOpacityNoFocus)
+        this?.element.style.setProperty('--opacity-focus', UIPanel.#hidden ? 0 : 1)
+        if (render) this.render()
     }
 
     _prepareContext (options) {
@@ -407,7 +368,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 this?.element?.classList.add('receive-pointer-events')
         }
 
-        this.updateOpacity()
+        this.cosmeticSettingsChanged(false)
 
         // refresh the UI
         await this.render(true)
