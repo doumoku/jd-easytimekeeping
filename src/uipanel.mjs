@@ -181,6 +181,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 }),
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
+                spokeColor: UIPanel.#clockSpokeColor,
             },
             {
                 id: 'etk-shifts',
@@ -189,6 +190,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 name: time.shiftName,
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
+                spokeColor: UIPanel.#clockSpokeColor,
             },
             {
                 /**
@@ -206,6 +208,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 }),
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
+                spokeColor: UIPanel.#clockSpokeColor,
             },
         ]
         // derive the radial data
@@ -415,6 +418,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #clockBGColor () {
         return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR)
+    }
+
+    static get #clockSpokeColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_SPOKE_COLOR)
     }
 
     static get #timeStepButtonColor () {
