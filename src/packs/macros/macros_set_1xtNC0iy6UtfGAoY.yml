@@ -1,0 +1,67 @@
+folder: Yfu68cdycaDj0W5C
+name: set
+type: script
+author: 5csdu5LeMVsdxR5m
+img: icons/magic/time/clock-spinning-gold-pink.webp
+scope: global
+command: >-
+  /*
+
+  The set function will set the time to a specific value.
+
+  Internally, it's used by the reset and set time dialogs.
+
+
+  It takes the same time object (see the API documentation on GitHub) as 
+
+  increment, accepting values in days, hours, and minutes.
+
+  These values are 0-based, and {days:0, hours:0, minutes:0} is
+
+  12:00 midnight on day 0. This is the default value, so calling set
+
+  with no argument will reset the time.
+
+
+  Note that while the UI displays time in weeks, the set function doesn't accept
+  input in weeks. If you want to set time in weeks, you would use the API
+  constants daysPerWeek value to calculate the required number of days. I'll
+  keep that for a more advanced example.
+
+  */
+
+
+  /* Set the time to 8:48pm on day 7
+
+  Note that days, hours, and minutes are 0-based. Sunday is day 6, but the UI
+  will display it as day 7 of week 1. 8pm is 20:00 in 24-hour time but that is
+  0-based, since 12am is 00:00 - that's the zero.
+
+
+  If you have the UI options enabled that display the time in game turns, then
+  the number of turns this time works out to will depend on how long you set a
+  turn for. But it will always be 8:48pm in the evening shift on Sunday of week
+  1.
+
+  */
+
+
+  await game.modules.get('jd-easytimekeeping').api.set({days:6, hours:20,
+  minutes:48})
+ownership:
+  default: 0
+  5csdu5LeMVsdxR5m: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: worldbuilding
+  systemVersion: 0.8.2
+  createdTime: 1734170153206
+  modifiedTime: 1734171572945
+  lastModifiedBy: 5csdu5LeMVsdxR5m
+_id: 1xtNC0iy6UtfGAoY
+sort: 100000
+_key: '!macros!1xtNC0iy6UtfGAoY'
+

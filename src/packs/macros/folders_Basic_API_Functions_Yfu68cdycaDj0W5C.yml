@@ -1,8 +1,8 @@
-name: API Examples
+name: Basic API Functions
 sorting: a
 folder: null
 type: Macro
-_id: nRVMmmg6fU1eP7V7
+_id: Yfu68cdycaDj0W5C
 description: ''
 sort: 0
 color: null
@@ -13,8 +13,8 @@ _stats:
   coreVersion: '12.331'
   systemId: worldbuilding
   systemVersion: 0.8.2
-  createdTime: 1734153406354
-  modifiedTime: 1734153406354
+  createdTime: 1734168235515
+  modifiedTime: 1734168235515
   lastModifiedBy: 5csdu5LeMVsdxR5m
-_key: '!folders!nRVMmmg6fU1eP7V7'
+_key: '!folders!Yfu68cdycaDj0W5C'
 
