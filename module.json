@@ -22,6 +22,10 @@
     "esmodules": [
         "src/initialisation.mjs"
     ],
+    "scripts": {
+        "pushLDBtoYML": "node ./tools/pushLDBtoYML.mjs",
+        "pullYMLtoLDB": "node ./tools/pullYMLtoLDB.mjs"
+    },
     "languages": [
         {
             "lang": "en",
