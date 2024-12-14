@@ -45,6 +45,18 @@
     "styles": [
         "styles/easy-timekeeping.css"
     ],
+    "packs": [
+        {
+            "name": "macros",
+            "label": "Macros",
+            "path": "packs/macros",
+            "type": "Macro",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            }
+        }
+    ],
     "socket": true,
     "url": "https://github.com/DC23/jd-easytimekeeping",
     "manifest": "https://github.com/DC23/jd-easytimekeeping/releases/latest/download/module.json",

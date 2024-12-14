@@ -25,3 +25,9 @@ $(OUTPUT_DIR)%.md: $(INPUT_DIR)%.mjs
 .PHONY: clean
 clean:
 	rm -f $(ALL_DOC_FILES)
+
+yml2ldb:
+	npm run pullYMLtoLDB --if-present
+
+ldb2yml:
+	npm run pushLDBtoYML --if-present

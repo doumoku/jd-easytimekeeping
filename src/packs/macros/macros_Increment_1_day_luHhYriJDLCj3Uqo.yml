@@ -1,0 +1,26 @@
+folder: nRVMmmg6fU1eP7V7
+name: Increment 1 day
+type: script
+author: 5csdu5LeMVsdxR5m
+img: icons/svg/d20.svg
+scope: global
+command: |-
+  // Increments time by 1 day
+  await game.modules.get('jd-easytimekeeping').api.increment({days:1})
+ownership:
+  default: 0
+  5csdu5LeMVsdxR5m: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: worldbuilding
+  systemVersion: 0.8.2
+  createdTime: 1734149438438
+  modifiedTime: 1734153409087
+  lastModifiedBy: 5csdu5LeMVsdxR5m
+_id: luHhYriJDLCj3Uqo
+sort: 200000
+_key: '!macros!luHhYriJDLCj3Uqo'
+
