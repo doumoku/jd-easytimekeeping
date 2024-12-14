@@ -1,0 +1,50 @@
+name: toTimeString
+type: script
+author: 5csdu5LeMVsdxR5m
+img: icons/magic/time/clock-stopwatch-white-blue.webp
+scope: global
+command: >-
+  /*
+
+  The API has several functions for getting the time. 
+
+
+  toTimeString returns the current time as a formatted string. 
+
+  Internally, it's used by the chat functions.
+
+  */
+
+
+  // by default, the day is not included in the string
+
+  const time = game.modules.get('jd-easytimekeeping').api.toTimeString()
+
+  ui.notifications.notify(time)
+
+
+  // pass true to have the day included
+
+  const timeWithDay =
+  game.modules.get('jd-easytimekeeping').api.toTimeString(true)
+
+  ui.notifications.notify(timeWithDay)
+folder: Yfu68cdycaDj0W5C
+ownership:
+  default: 0
+  o6GlVGWTkBeVyzwZ: 3
+  5csdu5LeMVsdxR5m: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: worldbuilding
+  systemVersion: 0.8.2
+  createdTime: 1734171824609
+  modifiedTime: 1734171824609
+  lastModifiedBy: 5csdu5LeMVsdxR5m
+_id: 2y7tBcywzeDuXc8E
+sort: 0
+_key: '!macros!2y7tBcywzeDuXc8E'
+

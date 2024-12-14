@@ -28,7 +28,14 @@ The public API for Easy Timekeeping.
 
 ### getPhaseOfDay
 
-Gets the name of the current phase of the day as a localised string.
+Get the name of the current phase of the day as a localised string.
+
+Not to be confused with the four shifts, the phase of day relates
+to the daylight cycle. During the day phase, the scene lighting
+will be set to the day value. During the night, scene lighting is
+set to the night value. During dawn, lighting is gradually changed
+from the night to the day values, while during dusk, the lighting
+changes from the day to night values.
 
 Returns **[string][20]** the localised name of the day phase.
 This is one of the set `[Dawn, Day, Dusk, Night]`, but localized.
@@ -59,7 +66,7 @@ Returns **[timeChangeData][14]** if the time was changed, otherwise `false`.
 
 Gets the current time.
 
-Returns **[time][8]** the current time
+Returns **[timeAugmented][10]** the current time
 
 ### tellTime
 
