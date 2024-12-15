@@ -55,6 +55,7 @@ class WeekdaySettings extends FormApplication {
         return foundry.utils.mergeObject(super.defaultOptions, {
             popOut: true,
             width: 400,
+            resizable: true,
             template: `modules/${MODULE_ID}/templates/weekdaysettings.hbs`,
             id: SETTINGS.WEEKDAY_MENU,
             title: 'JDTIMEKEEPING.Settings.WeekdayConfig.name',
@@ -79,7 +80,6 @@ class WeekdaySettings extends FormApplication {
         })
 
         // The number of days per week
-        // todo: will need to redraw the form when this changes
         data.daysPerWeek = {
             id: 'daysPerWeek',
             label: game.i18n.localize('JDTIMEKEEPING.Settings.DaysInWeek'),
@@ -112,18 +112,23 @@ class WeekdaySettings extends FormApplication {
 
     activateListeners (html) {
         super.activateListeners(html)
-        html.on('click', '[data-action=reset]', this._handleResetButtonClicked)
-        html.on('change', '[name=daysPerWeek]', event => {
-            const daysPerWeek = Number.parseInt(event.currentTarget.value)
-            weekdays.forEach((name, i) => {
-                let element = html.find(`[name=${name.toLowerCase()}]`).parent()
-                if (element && element.length) {
-                    element = element[0]
-                    element.classList.remove('hidden')
-                    if (i >= daysPerWeek)
-                        element.classList.add('hidden')
-                }
-            })
+        html.on('click', '[data-action=reset]', this._handleResetButtonClicked.bind(this))
+        html.on('change', '[name=daysPerWeek]', this._handleDaysPerWeekChanged.bind(this))
+    }
+
+    _handleDaysPerWeekChanged (event) {
+        const daysPerWeek = Number.parseInt(event.currentTarget.value)
+        this.#updateDayElements(event.delegateTarget, daysPerWeek)
+    }
+
+    #updateDayElements(delegateTarget, daysPerWeek) {
+        weekdays.forEach((name, i) => {
+            let element = $(delegateTarget).find(`[name=${name.toLowerCase()}]`).parent()
+            if (element && element.length) {
+                element = element[0]
+                if (i >= daysPerWeek) element.style.display = 'none'
+                else element.style.display = 'flex'
+            }
         })
     }
 
@@ -139,6 +144,8 @@ class WeekdaySettings extends FormApplication {
         $(event.delegateTarget).find('[name=daysPerWeek]')[0].value = DEFAULT_DAYS_PER_WEEK
         $(event.delegateTarget).find('[name=weekname]')[0].value =
             game.i18n.localize('JDTIMEKEEPING.WeekName')
+
+        this.#updateDayElements(event.delegateTarget, DEFAULT_DAYS_PER_WEEK)
 
         ui.notifications.notify(game.i18n.localize('SETTINGS.ResetInfo'))
     }
