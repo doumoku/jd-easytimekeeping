@@ -114,21 +114,31 @@ class WeekdaySettings extends FormApplication {
         return data
     }
 
-    _updateObject (event, formData) {
+    async _updateObject (event, formData) {
         const data = foundry.utils.expandObject(formData)
+        var reload = false
 
-        game.settings.set(MODULE_ID, SETTINGS.DAYS_PER_WEEK, data.daysPerWeek)
-        delete(data.daysPerWeek)
+        const daysPerWeek = await game.settings.get(MODULE_ID, SETTINGS.DAYS_PER_WEEK)
+        if (daysPerWeek != data.daysPerWeek) {
+            game.settings.set(MODULE_ID, SETTINGS.DAYS_PER_WEEK, data.daysPerWeek)
+            reload = true
+        }
+        delete data.daysPerWeek
 
-        game.settings.set(MODULE_ID, SETTINGS.WEEK_NAME, data.weekName)
-        delete(data.weekName)
+        const weekName = await game.settings.get(MODULE_ID, SETTINGS.WEEK_NAME)
+        if (weekName != data.weekName) {
+            game.settings.set(MODULE_ID, SETTINGS.WEEK_NAME, data.weekName)
+            reload = true
+        }
+        delete data.weekName
 
         const current = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
         if (!Helpers.objectsShallowEqual(data, current)) {
             game.settings.set(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS, data)
-            // The days of the week don't need a reload at the moment.
-            // SettingsConfig.reloadConfirm({ world: true })
+            reload = true
         }
+
+        if (reload) SettingsConfig.reloadConfirm({ world: true })
     }
 
     activateListeners (html) {
@@ -142,7 +152,7 @@ class WeekdaySettings extends FormApplication {
         this.#updateDayElements(event.delegateTarget, daysPerWeek)
     }
 
-    #updateDayElements(delegateTarget, daysPerWeek) {
+    #updateDayElements (delegateTarget, daysPerWeek) {
         weekdays.forEach((name, i) => {
             let element = $(delegateTarget).find(`[name=${name.toLowerCase()}]`).parent()
             if (element && element.length) {
