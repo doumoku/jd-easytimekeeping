@@ -105,8 +105,8 @@ class WeekdaySettings extends FormApplication {
         }
 
         // the name of the week itself
-        data.weekname = {
-            id: 'weekname',
+        data.weekName = {
+            id: 'weekName',
             label: game.i18n.localize('JDTIMEKEEPING.Settings.WeekName.label'),
             value: weekName,
         }
@@ -120,8 +120,8 @@ class WeekdaySettings extends FormApplication {
         game.settings.set(MODULE_ID, SETTINGS.DAYS_PER_WEEK, data.daysPerWeek)
         delete(data.daysPerWeek)
 
-        game.settings.set(MODULE_ID, SETTINGS.WEEK_NAME, data.weekname)
-        delete(data.weekname)
+        game.settings.set(MODULE_ID, SETTINGS.WEEK_NAME, data.weekName)
+        delete(data.weekName)
 
         const current = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
         if (!Helpers.objectsShallowEqual(data, current)) {
@@ -163,7 +163,7 @@ class WeekdaySettings extends FormApplication {
         })
 
         $(event.delegateTarget).find('[name=daysPerWeek]')[0].value = DEFAULT_DAYS_PER_WEEK
-        $(event.delegateTarget).find('[name=weekname]')[0].value =
+        $(event.delegateTarget).find('[name=weekName]')[0].value =
             game.i18n.localize('JDTIMEKEEPING.WeekName')
 
         this.#updateDayElements(event.delegateTarget, DEFAULT_DAYS_PER_WEEK)
