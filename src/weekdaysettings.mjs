@@ -40,13 +40,26 @@ export function registerWeekdaySettings () {
 
     defaults.daysPerWeek = DEFAULT_DAYS_PER_WEEK
 
-    // the settings object
+    // the settings objects
     game.settings.register(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS, {
         scope: 'world',
         config: false,
         type: Object,
         default: defaults,
-        requiresReload: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.DAYS_PER_WEEK, {
+        scope: 'world',
+        config: false,
+        type: Number,
+        default: DEFAULT_DAYS_PER_WEEK,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.WEEK_NAME, {
+        scope: 'world',
+        config: false,
+        type: String,
+        default: game.i18n.localize('JDTIMEKEEPING.WeekName'),
     })
 }
 
@@ -63,7 +76,10 @@ class WeekdaySettings extends FormApplication {
     }
 
     getData () {
-        const initialValues = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
+        const initialDayNames = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
+        const daysPerWeek = game.settings.get(MODULE_ID, SETTINGS.DAYS_PER_WEEK)
+        const weekName = game.settings.get(MODULE_ID, SETTINGS.WEEK_NAME)
+
         const data = {}
 
         // build the list of week days
@@ -74,8 +90,8 @@ class WeekdaySettings extends FormApplication {
                 id: `${v.toLowerCase()}`,
                 label: value,
                 // initial value if we have one, or the default localised string if we don't have a setting value
-                value: initialValues[v.toLowerCase()] ?? value,
-                class: i >= initialValues.daysPerWeek ? 'hidden' : '', // hide if not in use
+                value: initialDayNames[v.toLowerCase()] ?? value,
+                class: i >= daysPerWeek ? 'hidden' : '', // hide if not in use
             }
         })
 
@@ -83,7 +99,7 @@ class WeekdaySettings extends FormApplication {
         data.daysPerWeek = {
             id: 'daysPerWeek',
             label: game.i18n.localize('JDTIMEKEEPING.Settings.DaysInWeek'),
-            value: initialValues.daysPerWeek,
+            value: daysPerWeek,
             min: MIN_DAYS_PER_WEEK,
             max: MAX_DAYS_PER_WEEK,
         }
@@ -92,17 +108,22 @@ class WeekdaySettings extends FormApplication {
         data.weekname = {
             id: 'weekname',
             label: game.i18n.localize('JDTIMEKEEPING.Settings.WeekName.label'),
-            value: initialValues.weekname,
+            value: weekName,
         }
 
         return data
     }
 
     _updateObject (event, formData) {
-        // todo: I might need to munge the form data to add some structure. Right now it's one flat object
         const data = foundry.utils.expandObject(formData)
-        const current = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
 
+        game.settings.set(MODULE_ID, SETTINGS.DAYS_PER_WEEK, data.daysPerWeek)
+        delete(data.daysPerWeek)
+
+        game.settings.set(MODULE_ID, SETTINGS.WEEK_NAME, data.weekname)
+        delete(data.weekname)
+
+        const current = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
         if (!Helpers.objectsShallowEqual(data, current)) {
             game.settings.set(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS, data)
             // The days of the week don't need a reload at the moment.

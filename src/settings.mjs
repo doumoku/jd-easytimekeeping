@@ -14,6 +14,8 @@ export const SETTINGS = {
     SHIFT_SETTINGS: 'shiftSettings',
     SHIFT_MENU: 'shiftMenu',
     WEEKDAY_SETTINGS: 'weekdaySettings',
+    DAYS_PER_WEEK: 'daysPerWeek',
+    WEEK_NAME: 'weekName',
     WEEKDAY_MENU: 'weekdayMenu',
     SHOW_LONG_FORMAT_TIME: 'showDayInExactTime',
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
