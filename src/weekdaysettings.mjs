@@ -1,8 +1,22 @@
 import { Helpers } from './helpers.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 
-// todo: take the name of the week out of this array. It needs to be only for the weekday names.
-const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const weekdays = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+    'EightDay',
+    'NineDay',
+    'TenDay',
+    'ElevenDay',
+    'TwelveDay',
+    'ThirteenDay',
+    'FourteenDay',
+]
 
 const MIN_DAYS_PER_WEEK = 5
 const MAX_DAYS_PER_WEEK = 14
@@ -54,10 +68,13 @@ class WeekdaySettings extends FormApplication {
         // build the list of week days
         data.weekdays = {}
         weekdays.forEach((v, i) => {
+            const value = game.i18n.localize(`JDTIMEKEEPING.${v}`)
             data.weekdays[i] = {
                 id: `${v.toLowerCase()}`,
-                label: game.i18n.localize(`JDTIMEKEEPING.${v}`),
-                value: initialValues[v.toLowerCase()],
+                label: value,
+                // initial value if we have one, or the default localised string if we don't have a setting value
+                value: initialValues[v.toLowerCase()] ?? value,
+                class: i >= initialValues.daysPerWeek ? 'hidden' : '', // hide if not in use
             }
         })
 
@@ -96,6 +113,18 @@ class WeekdaySettings extends FormApplication {
     activateListeners (html) {
         super.activateListeners(html)
         html.on('click', '[data-action=reset]', this._handleResetButtonClicked)
+        html.on('change', '[name=daysPerWeek]', event => {
+            const daysPerWeek = Number.parseInt(event.currentTarget.value)
+            weekdays.forEach((name, i) => {
+                let element = html.find(`[name=${name.toLowerCase()}]`).parent()
+                if (element && element.length) {
+                    element = element[0]
+                    element.classList.remove('hidden')
+                    if (i >= daysPerWeek)
+                        element.classList.add('hidden')
+                }
+            })
+        })
     }
 
     async _handleResetButtonClicked (event) {

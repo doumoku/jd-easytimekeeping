@@ -123,5 +123,12 @@
     "JDTIMEKEEPING.Settings.UIBackgroundColor.name": "UI Background Color",
     "JDTIMEKEEPING.Settings.UIBackgroundColor.hint": "Used on both the docked and floating panels",
     "JDTIMEKEEPING.Settings.DaysInWeek": "Number of Days in a Week",
-    "JDTIMEKEEPING.Settings.WeekName.label": "Name of the Week"
+    "JDTIMEKEEPING.Settings.WeekName.label": "Name of the Week",
+    "JDTIMEKEEPING.EightDay": "Eightday",
+    "JDTIMEKEEPING.NineDay": "Nineday",
+    "JDTIMEKEEPING.TenDay": "Tenday",
+    "JDTIMEKEEPING.ElevenDay": "Elevenday",
+    "JDTIMEKEEPING.TwelveDay": "Twelveday",
+    "JDTIMEKEEPING.ThirteenDay": "Thirteenday",
+    "JDTIMEKEEPING.FourteenDay": "Fourteenday"
 }
