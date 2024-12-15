@@ -25,7 +25,10 @@ export class Constants {
     static shiftsPerDay = 4
     static minutesPerShift = 6 * 60 // hoursPerShift * minutesPerHour
     static hoursPerShift = 6
-    static daysPerWeek = 7
+
+    static get daysPerWeek() {
+        return game.settings.get(MODULE_ID, SETTINGS.DAYS_PER_WEEK)
+    }
 
     static get minutesPerTurn () {
         return game.settings.get(MODULE_ID, SETTINGS.SMALL_TIME_DELTA)

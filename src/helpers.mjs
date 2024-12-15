@@ -139,7 +139,7 @@ export class Helpers {
 
     /**
      * Gets a localised weekday name
-     * @param {number} dayIndex the 0-based day index, range [0..6]
+     * @param {number} dayIndex the 0-based day index, range [0..14)
      * @returns {string} the localized name of the corresponding day of the week.
      * Weeks start on Monday.
      */
@@ -152,7 +152,6 @@ export class Helpers {
      * Returns the current world setting for the word used for the name of a week
      */
     static get weekName () {
-        const weekSettings = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
-        return weekSettings.weekname
+        return game.settings.get(MODULE_ID, SETTINGS.WEEK_NAME)
     }
 }
