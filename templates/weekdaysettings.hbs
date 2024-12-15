@@ -1,14 +1,23 @@
 {{#*inline "dayPartial"}}
-<div class="form-row flexrow">
+<div class="form-row flexrow {{class}}">
     <label for="{{id}}">{{label}}:</label>
     <input name="{{id}}" type="text" required=true value="{{value}}" />
 </div>
 {{/inline}}
 
 <form class="form-group flexcol">
+
+    <div class="form-row flexrow">
+        <label for="{{daysPerWeek.id}}">{{daysPerWeek.label}}:</label>
+        <input name="{{daysPerWeek.id}}" type="number" min="{{daysPerWeek.min}}" max="{{daysPerWeek.max}}" required=true
+            value="{{daysPerWeek.value}}" />
+    </div>
+
+    {{> dayPartial weekName}}
+
     <fieldset>
-        <legend>{{localize "JDTIMEKEEPING.Settings.WeekdayConfig.label"}}:</legend>
-        {{#each this}}
+        <legend>{{localize "JDTIMEKEEPING.Settings.RenameWeekdays"}}:</legend>
+        {{#each this.weekdays}}
         {{> dayPartial}}
         {{/each}}
     </fieldset>
