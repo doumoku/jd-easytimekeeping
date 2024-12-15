@@ -5,10 +5,20 @@
 </div>
 {{/inline}}
 
+{{log this}}
 <form class="form-group flexcol">
+
+    <div class="form-row flexrow">
+        <label for="{{daysPerWeek.id}}">{{daysPerWeek.label}}:</label>
+        <input name="{{daysPerWeek.id}}" type="number" min="{{daysPerWeek.min}}" max="{{daysPerWeek.max}}" required=true
+            value="{{daysPerWeek.value}}" />
+    </div>
+
+    {{> dayPartial weekname}}
+
     <fieldset>
-        <legend>{{localize "JDTIMEKEEPING.Settings.WeekdayConfig.label"}}:</legend>
-        {{#each this}}
+        <legend>{{localize "JDTIMEKEEPING.Settings.RenameWeekdays"}}:</legend>
+        {{#each this.weekdays}}
         {{> dayPartial}}
         {{/each}}
     </fieldset>

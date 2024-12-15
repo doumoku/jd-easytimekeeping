@@ -1,7 +1,12 @@
 import { Helpers } from './helpers.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 
-const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday', 'WeekName']
+// todo: take the name of the week out of this array. It needs to be only for the weekday names.
+const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+
+const MIN_DAYS_PER_WEEK = 5
+const MAX_DAYS_PER_WEEK = 14
+const DEFAULT_DAYS_PER_WEEK = 7
 
 export function registerWeekdaySettings () {
     // The settings menu
@@ -18,6 +23,8 @@ export function registerWeekdaySettings () {
     weekdays.forEach((v, i) => {
         defaults[v.toLowerCase()] = game.i18n.localize(`JDTIMEKEEPING.${v}`)
     })
+
+    defaults.daysPerWeek = DEFAULT_DAYS_PER_WEEK
 
     // the settings object
     game.settings.register(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS, {
@@ -43,24 +50,39 @@ class WeekdaySettings extends FormApplication {
     getData () {
         const initialValues = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
         const data = {}
+
+        // build the list of week days
+        data.weekdays = {}
         weekdays.forEach((v, i) => {
-            data[i] = {
+            data.weekdays[i] = {
                 id: `${v.toLowerCase()}`,
                 label: game.i18n.localize(`JDTIMEKEEPING.${v}`),
                 value: initialValues[v.toLowerCase()],
             }
         })
 
-        // data.weekday = {
-        //     id: 'weekName',
-        //     label: game.i18n.localize('JDTIMEKEEPING.WeekName'),
-        //     value: initialValues['weekName'],
-        // }
+        // The number of days per week
+        // todo: will need to redraw the form when this changes
+        data.daysPerWeek = {
+            id: 'daysPerWeek',
+            label: game.i18n.localize('JDTIMEKEEPING.Settings.DaysInWeek'),
+            value: initialValues.daysPerWeek,
+            min: MIN_DAYS_PER_WEEK,
+            max: MAX_DAYS_PER_WEEK,
+        }
+
+        // the name of the week itself
+        data.weekname = {
+            id: 'weekname',
+            label: game.i18n.localize('JDTIMEKEEPING.Settings.WeekName.label'),
+            value: initialValues.weekname,
+        }
 
         return data
     }
 
     _updateObject (event, formData) {
+        // todo: I might need to munge the form data to add some structure. Right now it's one flat object
         const data = foundry.utils.expandObject(formData)
         const current = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
 
@@ -84,6 +106,11 @@ class WeekdaySettings extends FormApplication {
                 element[0].value = game.i18n.localize(`JDTIMEKEEPING.${id}`)
             }
         })
+
+        $(event.delegateTarget).find('[name=daysPerWeek]')[0].value = DEFAULT_DAYS_PER_WEEK
+        $(event.delegateTarget).find('[name=weekname]')[0].value =
+            game.i18n.localize('JDTIMEKEEPING.WeekName')
+
         ui.notifications.notify(game.i18n.localize('SETTINGS.ResetInfo'))
     }
 }

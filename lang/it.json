@@ -94,7 +94,8 @@
     "JDTIMEKEEPING.WeekName": "Settimana",
     
     "JDTIMEKEEPING.Settings.WeekdayConfig.name": "Configura i Giorni della Settimana",
-    "JDTIMEKEEPING.Settings.WeekdayConfig.label": "Rinomina i Giorni della Settimana",
+    "JDTIMEKEEPING.Settings.WeekdayConfig.label": "Weekday Settings",
+    "JDTIMEKEEPING.Settings.RenameWeekdays": "Rinomina i Giorni della Settimana",
     "JDTIMEKEEPING.Settings.WeekdayConfig.hint": "Imposta i nomi dei giorni della settimana",
 
     "JDTIMEKEEPING.longTimeFormat": "{time}, {dayName}, {weekName} {weekNumber}",
@@ -120,5 +121,7 @@
     "JDTIMEKEEPING.Settings.UIFocusOpacity.name": "UI Transparency",
     "JDTIMEKEEPING.Settings.UIFocusOpacity.hint": "Controls the UI transparency when in use. 0 is fully hidden, and 1 is fully visible.",
     "JDTIMEKEEPING.Settings.UIBackgroundColor.name": "UI Background Color",
-    "JDTIMEKEEPING.Settings.UIBackgroundColor.hint": "Used on both the docked and floating panels"
+    "JDTIMEKEEPING.Settings.UIBackgroundColor.hint": "Used on both the docked and floating panels",
+    "JDTIMEKEEPING.Settings.DaysInWeek": "Number of Days in a Week",
+    "JDTIMEKEEPING.Settings.WeekName.label": "Name of the Week"
 }
