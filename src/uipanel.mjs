@@ -18,7 +18,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             frame: false,
             title: 'JDTIMEKEEPING.title',
             icon: 'fa-solid fa-clock',
-            resizable: true,
+            resizable: false,
+            width: 'auto',
+            height: 'auto',
         },
         actions: {
             'time-delta': UIPanel.timeDeltaButtonHandler,
@@ -46,8 +48,13 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
      */
     static create () {
         const position = game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION)
+
         // if position if out of bounds for current client view, reset to a safe location in the top left
         if (position) {
+            if (UIPanel.floatingPanel) { 
+                position.width = 'auto'
+                position.height = 'auto'
+            }
             if (
                 position.top > window.visualViewport.height ||
                 position.left > window.visualViewport.width
@@ -239,7 +246,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
      * Called when cosmetic settings have been changed
      */
     cosmeticSettingsChanged (render = true) {
-        this?.element.style.setProperty("--background-color", UIPanel.#uiBgColor);
+        this?.element.style.setProperty('--background-color', UIPanel.#uiBgColor)
         this?.element.style.setProperty('--opacity-no-focus', UIPanel.#uiUnfocusedOpacity)
         this?.element.style.setProperty('--opacity-focus', UIPanel.#uiFocusedOpacity)
         if (render) this.render()
@@ -381,7 +388,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static get #uiBgColor () {
         return game.settings.get(MODULE_ID, SETTINGS.UI_BACKGROUND_COLOR)
     }
-    
+
     static get #uiTextColor () {
         return game.settings.get(MODULE_ID, SETTINGS.UI_TEXT_COLOR)
     }

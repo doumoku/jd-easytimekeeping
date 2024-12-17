@@ -81,7 +81,7 @@
 .flexshrink {
   -webkit-box-flex: 0;
   -ms-flex: 0;
-  flex: 0;
+  flex: 0 1;
 }
 
 .flex-between {
@@ -140,13 +140,14 @@
   /* A bit of space between us and the player panel */
   margin-bottom: 6px;
   border: 1px solid black;
-  padding: 0.1em;
+  padding: 0.2em;
 
   background: var(--background-color);
 
   display: flex;
   justify-content: center;
-  flex-shrink: 3;
+  flex:0 3;
+  width: 200px;
 }
 
 /* Fix window & scheme color */
