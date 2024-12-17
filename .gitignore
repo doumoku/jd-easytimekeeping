@@ -1,4 +1,4 @@
-packs/macros/
-node_modules/
+/packs/
+/node_modules/
 tmp/
-.vscode/
+/.vscode/
