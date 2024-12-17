@@ -167,6 +167,7 @@
 
 [id^=jd-et-uipanel] .window-content {
   background: var(--background-color);
+  padding: 0.5rem; /*  It inherits 1rem, but it's too much. */ 
 }
 
 /*End*/

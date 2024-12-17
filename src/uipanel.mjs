@@ -18,9 +18,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
             frame: false,
             title: 'JDTIMEKEEPING.title',
             icon: 'fa-solid fa-clock',
-            resizable: false,
-            width: 'auto',
+            resizable: true, // only applies on the undocked UI
             height: 'auto',
+            width: 'auto',
         },
         actions: {
             'time-delta': UIPanel.timeDeltaButtonHandler,
@@ -49,11 +49,17 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     static create () {
         const position = game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION)
 
-        // if position if out of bounds for current client view, reset to a safe location in the top left
         if (position) {
-            position.width = 'auto'
-            position.height = 'auto'
+            // for the floating panel, reset the auto width so it can resize manually
+            if (UIPanel.floatingPanel) {
+                if (position.width === 'auto') position.width = '220'
+            } else {
+                // when docked, restore auto width
+                position.width = 'auto'
+            }
 
+            // if position if out of bounds for current client view,
+            // reset to a safe location in the top left
             if (
                 position.top > window.visualViewport.height ||
                 position.left > window.visualViewport.width
