@@ -17,7 +17,7 @@ command: >-
 
   // The duration will be whatever is defined in the module settings.
 
-  await game.modules.get('jd-easytimekeeping').api.increment()
+  game.modules.get('jd-easytimekeeping').api.increment()
 ownership:
   default: 0
   5csdu5LeMVsdxR5m: 3
@@ -29,7 +29,7 @@ _stats:
   systemId: worldbuilding
   systemVersion: 0.8.2
   createdTime: 1734169119827
-  modifiedTime: 1734171572945
+  modifiedTime: 1734432278941
   lastModifiedBy: 5csdu5LeMVsdxR5m
 _id: I4pjnPXyQfv39Tys
 sort: 200000

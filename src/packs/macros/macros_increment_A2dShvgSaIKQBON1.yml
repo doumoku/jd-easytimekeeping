@@ -18,7 +18,7 @@ command: >-
 
   // Increment by 1 day, 12 hours, 30 minutes
 
-  await game.modules.get('jd-easytimekeeping').api.increment({days:1, hours: 12,
+  game.modules.get('jd-easytimekeeping').api.increment({days:1, hours: 12,
   minutes: 30})
 ownership:
   default: 0
@@ -31,7 +31,7 @@ _stats:
   systemId: worldbuilding
   systemVersion: 0.8.2
   createdTime: 1734168670451
-  modifiedTime: 1734171572945
+  modifiedTime: 1734432268021
   lastModifiedBy: 5csdu5LeMVsdxR5m
 _id: A2dShvgSaIKQBON1
 sort: 600000

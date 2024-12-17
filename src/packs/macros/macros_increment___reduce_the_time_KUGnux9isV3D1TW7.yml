@@ -14,8 +14,8 @@ command: >-
 
   // Note that you need the - sign on each value.
 
-  await game.modules.get('jd-easytimekeeping').api.increment({hours: -3,
-  minutes: -30})
+  game.modules.get('jd-easytimekeeping').api.increment({hours: -3, minutes:
+  -30})
 ownership:
   default: 0
   5csdu5LeMVsdxR5m: 3
@@ -27,7 +27,7 @@ _stats:
   systemId: worldbuilding
   systemVersion: 0.8.2
   createdTime: 1734169264117
-  modifiedTime: 1734171572945
+  modifiedTime: 1734432289062
   lastModifiedBy: 5csdu5LeMVsdxR5m
 _id: KUGnux9isV3D1TW7
 sort: 300000

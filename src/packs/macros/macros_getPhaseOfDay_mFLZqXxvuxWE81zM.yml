@@ -33,9 +33,7 @@ command: >-
   */
 
 
-  const phase = await game.modules.get('jd-easytimekeeping').api.getPhaseOfDay()
-
-  console.log(phase)
+  const phase = game.modules.get('jd-easytimekeeping').api.getPhaseOfDay()
 
   const message = `It's ${phase}`
 
@@ -51,7 +49,7 @@ _stats:
   systemId: worldbuilding
   systemVersion: 0.8.2
   createdTime: 1734168254604
-  modifiedTime: 1734174077846
+  modifiedTime: 1734432244060
   lastModifiedBy: 5csdu5LeMVsdxR5m
 _id: mFLZqXxvuxWE81zM
 sort: 500000

@@ -46,8 +46,7 @@ command: >-
   */
 
 
-  await game.modules.get('jd-easytimekeeping').api.set({days:6, hours:20,
-  minutes:48})
+  game.modules.get('jd-easytimekeeping').api.set({days:6, hours:20, minutes:48})
 ownership:
   default: 0
   5csdu5LeMVsdxR5m: 3
@@ -59,7 +58,7 @@ _stats:
   systemId: worldbuilding
   systemVersion: 0.8.2
   createdTime: 1734170153206
-  modifiedTime: 1734171572945
+  modifiedTime: 1734432299266
   lastModifiedBy: 5csdu5LeMVsdxR5m
 _id: 1xtNC0iy6UtfGAoY
 sort: 100000
