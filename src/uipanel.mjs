@@ -251,9 +251,9 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
      * Called when cosmetic settings have been changed
      */
     cosmeticSettingsChanged (render = true) {
-        this?.element.style.setProperty('--background-color', UIPanel.#uiBgColor)
-        this?.element.style.setProperty('--opacity-no-focus', UIPanel.#uiUnfocusedOpacity)
-        this?.element.style.setProperty('--opacity-focus', UIPanel.#uiFocusedOpacity)
+        this?.element?.style.setProperty('--background-color', UIPanel.#uiBgColor)
+        this?.element?.style.setProperty('--opacity-no-focus', UIPanel.#uiUnfocusedOpacity)
+        this?.element?.style.setProperty('--opacity-focus', UIPanel.#uiFocusedOpacity)
         if (render) this.render()
     }
 
