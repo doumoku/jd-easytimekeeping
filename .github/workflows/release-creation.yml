@@ -46,7 +46,9 @@ jobs:
 
       - name: Populate Versioned keys in Manifest
         id: sub_manifest_link_version
-        uses: microsoft/variable-substitution@v1
+        # Updated from microsoft/variable-substitution@v1 since that Action is deprecated. 
+        # See #313 and https://github.com/DC23/jd-easytimekeeping/wiki/Dev-Ops#variable-substitution
+        uses: devops-actions/variable-substitution@v1.2
         with:
           files: 'module.json'
         env:
