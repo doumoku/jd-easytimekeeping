@@ -1,0 +1,86 @@
+name: factorGameTurns
+type: script
+author: 5csdu5LeMVsdxR5m
+img: icons/magic/time/hourglass-tilted-glowing-gold.webp
+scope: global
+command: >-
+  /*
+
+  factorGameTurns is where the API calls start to get a little more complex.
+
+
+  This function takes an integer representing the total number of minutes
+  elapsed since midnight on day 0
+
+  and factors it into a gameTurnTime object, representing the number of game
+  turns, shifts, days, weeks, the named
+
+  shift and more for the given time. The most common way to obtain the total
+  elapsed minutes is from a timeAugmented object returned from the API functions
+  set, increment, & getTime.
+
+
+  The timeAugmented object doesn't contain this data already because it requires
+  additional calculations but the
+
+  information isn't always required.
+
+
+  See: 
+    - https://github.com/DC23/jd-easytimekeeping/blob/main/documentation/timekeeper.md#factorgameturns
+    - https://github.com/DC23/jd-easytimekeeping/blob/main/documentation/timekeeper.md#gameturntime
+    - https://github.com/DC23/jd-easytimekeeping/blob/main/documentation/timekeeper.md#timeaugmented
+  */
+
+
+  // For this example, let's set the time to 7pm on day 3, and store the return
+  value 
+
+  const timeData = game.modules.get('jd-easytimekeeping').api.set({days:3,
+  hours:19})
+
+
+  // The return value has both the previous time and the newly set time.
+
+  // Have a look in the console
+
+  console.log(timeData)
+
+
+  const factored =
+  game.modules.get('jd-easytimekeeping').api.factorGameTurns(timeData.time.totalMinutes)
+
+  console.log(factored)
+
+
+  // turns and shifts are 0-based
+
+  // This example shows where you can get the name of the day as well, as set by
+  the module settings
+
+  // It's not a great message, but the idea is that the API gives you the tools
+  to build your own things.
+
+  const message = `It's turn ${factored.turns + 1} in shift ${factored.shifts +
+  1}. It is ${factored.shiftName} on ${timeData.time.day.name}.`
+
+  ui.notifications.notify(message)
+folder: Yfu68cdycaDj0W5C
+ownership:
+  default: 0
+  o6GlVGWTkBeVyzwZ: 3
+  5csdu5LeMVsdxR5m: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: worldbuilding
+  systemVersion: 0.8.2
+  createdTime: 1734173100910
+  modifiedTime: 1734173100910
+  lastModifiedBy: 5csdu5LeMVsdxR5m
+_id: ImCJp1Ilikq8Z4tm
+sort: 0
+_key: '!macros!ImCJp1Ilikq8Z4tm'
+

@@ -34,10 +34,28 @@
             "name": "Français",
             "path": "lang/fr.json",
             "flags": {}
+        },
+        {
+            "lang": "it",
+            "name": "Italiano",
+            "path": "lang/it.json",
+            "flags": {}
         }
     ],
     "styles": [
         "styles/easy-timekeeping.css"
+    ],
+    "packs": [
+        {
+            "name": "macros",
+            "label": "Example Macros",
+            "path": "packs/macros",
+            "type": "Macro",
+            "ownership": {
+                "PLAYER": "OBSERVER",
+                "ASSISTANT": "OWNER"
+            }
+        }
     ],
     "socket": true,
     "url": "https://github.com/DC23/jd-easytimekeeping",

@@ -1,7 +1,26 @@
 import { Helpers } from './helpers.mjs'
 import { MODULE_ID, SETTINGS } from './settings.mjs'
 
-const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+const weekdays = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday',
+    'EightDay',
+    'NineDay',
+    'TenDay',
+    'ElevenDay',
+    'TwelveDay',
+    'ThirteenDay',
+    'FourteenDay',
+]
+
+const MIN_DAYS_PER_WEEK = 5
+const MAX_DAYS_PER_WEEK = 14
+const DEFAULT_DAYS_PER_WEEK = 7
 
 export function registerWeekdaySettings () {
     // The settings menu
@@ -19,13 +38,28 @@ export function registerWeekdaySettings () {
         defaults[v.toLowerCase()] = game.i18n.localize(`JDTIMEKEEPING.${v}`)
     })
 
-    // the settings object
+    defaults.daysPerWeek = DEFAULT_DAYS_PER_WEEK
+
+    // the settings objects
     game.settings.register(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS, {
         scope: 'world',
         config: false,
         type: Object,
         default: defaults,
-        requiresReload: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.DAYS_PER_WEEK, {
+        scope: 'world',
+        config: false,
+        type: Number,
+        default: DEFAULT_DAYS_PER_WEEK,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.WEEK_NAME, {
+        scope: 'world',
+        config: false,
+        type: String,
+        default: game.i18n.localize('JDTIMEKEEPING.WeekName'),
     })
 }
 
@@ -34,6 +68,7 @@ class WeekdaySettings extends FormApplication {
         return foundry.utils.mergeObject(super.defaultOptions, {
             popOut: true,
             width: 400,
+            resizable: true,
             template: `modules/${MODULE_ID}/templates/weekdaysettings.hbs`,
             id: SETTINGS.WEEKDAY_MENU,
             title: 'JDTIMEKEEPING.Settings.WeekdayConfig.name',
@@ -41,32 +76,91 @@ class WeekdaySettings extends FormApplication {
     }
 
     getData () {
-        const initialValues = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
+        const initialDayNames = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
+        const daysPerWeek = game.settings.get(MODULE_ID, SETTINGS.DAYS_PER_WEEK)
+        const weekName = game.settings.get(MODULE_ID, SETTINGS.WEEK_NAME)
+
         const data = {}
+
+        // build the list of week days
+        data.weekdays = {}
         weekdays.forEach((v, i) => {
-            data[i] = {
+            const value = game.i18n.localize(`JDTIMEKEEPING.${v}`)
+            data.weekdays[i] = {
                 id: `${v.toLowerCase()}`,
-                label: game.i18n.localize(`JDTIMEKEEPING.${v}`),
-                value: initialValues[v.toLowerCase()],
+                label: value,
+                // initial value if we have one, or the default localised string if we don't have a setting value
+                value: initialDayNames[v.toLowerCase()] ?? value,
+                class: i >= daysPerWeek ? 'hidden' : '', // hide if not in use
             }
         })
+
+        // The number of days per week
+        data.daysPerWeek = {
+            id: 'daysPerWeek',
+            label: game.i18n.localize('JDTIMEKEEPING.Settings.DaysInWeek'),
+            value: daysPerWeek,
+            min: MIN_DAYS_PER_WEEK,
+            max: MAX_DAYS_PER_WEEK,
+        }
+
+        // the name of the week itself
+        data.weekName = {
+            id: 'weekName',
+            label: game.i18n.localize('JDTIMEKEEPING.Settings.WeekName.label'),
+            value: weekName,
+        }
+
         return data
     }
 
-    _updateObject (event, formData) {
+    async _updateObject (event, formData) {
         const data = foundry.utils.expandObject(formData)
-        const current = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
+        var reload = false
 
+        const daysPerWeek = await game.settings.get(MODULE_ID, SETTINGS.DAYS_PER_WEEK)
+        if (daysPerWeek != data.daysPerWeek) {
+            game.settings.set(MODULE_ID, SETTINGS.DAYS_PER_WEEK, data.daysPerWeek)
+            reload = true
+        }
+        delete data.daysPerWeek
+
+        const weekName = await game.settings.get(MODULE_ID, SETTINGS.WEEK_NAME)
+        if (weekName != data.weekName) {
+            game.settings.set(MODULE_ID, SETTINGS.WEEK_NAME, data.weekName)
+            reload = true
+        }
+        delete data.weekName
+
+        const current = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
         if (!Helpers.objectsShallowEqual(data, current)) {
             game.settings.set(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS, data)
-            // The days of the week don't need a reload at the moment.
-            // SettingsConfig.reloadConfirm({ world: true })
+            reload = true
         }
+
+        if (reload) SettingsConfig.reloadConfirm({ world: true })
     }
 
     activateListeners (html) {
         super.activateListeners(html)
-        html.on('click', '[data-action=reset]', this._handleResetButtonClicked)
+        html.on('click', '[data-action=reset]', this._handleResetButtonClicked.bind(this))
+        html.on('change', '[name=daysPerWeek]', this._handleDaysPerWeekChanged.bind(this))
+    }
+
+    _handleDaysPerWeekChanged (event) {
+        const daysPerWeek = Number.parseInt(event.currentTarget.value)
+        this.#updateDayElements(event.delegateTarget, daysPerWeek)
+    }
+
+    #updateDayElements (delegateTarget, daysPerWeek) {
+        weekdays.forEach((name, i) => {
+            let element = $(delegateTarget).find(`[name=${name.toLowerCase()}]`).parent()
+            if (element && element.length) {
+                element = element[0]
+                if (i >= daysPerWeek) element.style.display = 'none'
+                else element.style.display = 'flex'
+            }
+        })
     }
 
     async _handleResetButtonClicked (event) {
@@ -77,6 +171,13 @@ class WeekdaySettings extends FormApplication {
                 element[0].value = game.i18n.localize(`JDTIMEKEEPING.${id}`)
             }
         })
+
+        $(event.delegateTarget).find('[name=daysPerWeek]')[0].value = DEFAULT_DAYS_PER_WEEK
+        $(event.delegateTarget).find('[name=weekName]')[0].value =
+            game.i18n.localize('JDTIMEKEEPING.WeekName')
+
+        this.#updateDayElements(event.delegateTarget, DEFAULT_DAYS_PER_WEEK)
+
         ui.notifications.notify(game.i18n.localize('SETTINGS.ResetInfo'))
     }
 }

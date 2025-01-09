@@ -4,7 +4,7 @@ INPUT_DIR=./src/
 # INPUT_FILES=$(wildcard $(INPUT_DIR)*.mjs)
 INPUT_FILES=$(INPUT_DIR)timekeeper.mjs
 
-PUBLIC_API_OPTIONS= build --access public --format md --shallow --markdown-toc-max-depth 3
+PUBLIC_API_OPTIONS= build --access public --format md --markdown-toc-max-depth 3
 OUTPUT_DIR=./documentation/
 ALL_DOC_FILES=$(addprefix $(OUTPUT_DIR),$(addsuffix .md, $(basename $(notdir $(INPUT_FILES)))))
 
@@ -25,3 +25,9 @@ $(OUTPUT_DIR)%.md: $(INPUT_DIR)%.mjs
 .PHONY: clean
 clean:
 	rm -f $(ALL_DOC_FILES)
+
+yml2ldb:
+	npm run pullYMLtoLDB --if-present
+
+ldb2yml:
+	npm run pushLDBtoYML --if-present

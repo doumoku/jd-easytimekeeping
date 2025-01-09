@@ -2,7 +2,7 @@
  * Dragonbane Timekeeping module registration functions
  *
  */
-import { registerKeybindings, registerSettings, MODULE_ID } from './settings.mjs'
+import { registerKeybindings, registerSettings, MODULE_ID, SETTINGS } from './settings.mjs'
 import { TimeTeller } from './timeteller.mjs'
 import { Constants } from './constants.mjs'
 import { DaylightCycle } from './daylightcycle.mjs'
@@ -25,6 +25,10 @@ Hooks.once('i18nInit', () => {
 Hooks.once('ready', async () => {
     console.group('JD ETime | ready')
 
+    const uiPanel = UIPanel.create()
+    uiPanel.render(true)
+    game.modules.get(MODULE_ID).uiPanel = uiPanel
+
     TimeTeller.init()
     DaylightCycle.init()
 
@@ -35,12 +39,14 @@ Hooks.once('ready', async () => {
     game.modules.get(MODULE_ID).timeChangeHookName = Timekeeper.TIME_CHANGE_HOOK
     game.modules.get(MODULE_ID).constants = Constants
 
-    console.groupEnd()
-})
+    // I don't need this for now
+    // Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
+    //     return arg1 == arg2 ? options.fn(this) : options.inverse(this)
+    // })
+    // {{#ifEquals sampleString "This is a string"}}
+    // Your HTML here
+    // {{else}}
+    // {{/ifEquals}}
 
-Hooks.on('canvasReady', () => {
-    const uiPanel = new UIPanel()
-    uiPanel.ready()
-    uiPanel.render(true)
-    game.modules.get(MODULE_ID).uiPanel = uiPanel
+    console.groupEnd()
 })

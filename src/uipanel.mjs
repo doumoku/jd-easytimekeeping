@@ -16,11 +16,17 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         id: UIPanel.ID,
         window: {
             frame: false,
+            title: 'JDTIMEKEEPING.title',
+            icon: 'fa-solid fa-clock',
+            resizable: true, // only applies on the undocked UI
+            height: 'auto',
+            width: 'auto',
         },
         actions: {
             'time-delta': UIPanel.timeDeltaButtonHandler,
             'set-time': UIPanel.setTimeButtonHandler,
             'reset-time': UIPanel.resetTimeButtonHandler,
+            'tell-time': UIPanel.tellTime,
         },
     }
 
@@ -30,9 +36,52 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         },
     }
 
+    static #hidden = false
     #avDockWhenSettingsOpen = null
     #time = null
     refresh = foundry.utils.debounce(this.render, 100)
+
+    /**
+     * Factory method for the UIPanel
+     *
+     * @returns {UIPanel}
+     */
+    static create () {
+        const position = game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION)
+
+        if (position) {
+            // for the floating panel, reset the auto width so it can resize manually
+            if (UIPanel.floatingPanel) {
+                if (position.width === 'auto') position.width = '220'
+            } else {
+                // when docked, restore auto width
+                position.width = 'auto'
+            }
+
+            // if position if out of bounds for current client view,
+            // reset to a safe location in the top left
+            if (
+                position.top > window.visualViewport.height ||
+                position.left > window.visualViewport.width
+            ) {
+                position.top = 100
+                position.left = 150
+            }
+        }
+
+        const classes = UIPanel.DEFAULT_OPTIONS.classes
+        if (UIPanel.floatingPanel) classes.push('floating')
+
+        UIPanel.checkForAVPanel()
+        const uiPanel = new UIPanel({
+            window: { frame: UIPanel.floatingPanel },
+            position: position,
+            classes: classes,
+        })
+
+        uiPanel.ready()
+        return uiPanel
+    }
 
     ready () {
         Hooks.on(Timekeeper.TIME_CHANGE_HOOK, this.timeChangeHandler.bind(this))
@@ -40,9 +89,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         Hooks.on('closeAVConfig', this.closeAVConfigHandler.bind(this))
         game.socket.on(`module.${MODULE_ID}`, time => {
             this.#time = time
-            this.render(true)
+            this.render()
         })
-        if (!UIPanel.DEFAULT_OPTIONS.window.frame) this.#insertAppElement('#players')
+
+        if (!UIPanel.floatingPanel) this.#insertAppElement('#players')
     }
 
     static registerKeybindings () {
@@ -67,6 +117,17 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 return true
             },
         })
+
+        // Show / hide the UI
+        game.keybindings.register(MODULE_ID, 'show-hide-ui', {
+            name: 'JDTIMEKEEPING.showHideUI',
+            precedence: CONST.KEYBINDING_PRECEDENCE.PRIORITY,
+            restricted: false,
+            onDown: async () => {
+                UIPanel.toggleHidden()
+                return true
+            },
+        })
     }
 
     #insertAppElement (target) {
@@ -88,7 +149,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
     timeChangeHandler (data) {
         this.#time = data.time
         game.socket.emit(`module.${MODULE_ID}`, this.#time)
-        this.render(true)
+        this.render()
     }
 
     renderAVConfigHandler () {
@@ -99,24 +160,40 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         /**
          * if the AV dock position has changed, we need to force a Foundry reload
          * since Foundry is currently inconsistent in when this occurs.
+         *
+         * Note that game.webrtc.settings.world.mode > 0 indicates that A/V chat is enabled.
+         * I might be able to use that to automatically switch to a floating UI
          */
+
         const after = game.webrtc.settings.client.dockPosition
         if (this.#avDockWhenSettingsOpen != after) SettingsConfig.reloadConfirm({ world: true })
+    }
+
+    static checkForAVPanel () {
+        if (UIPanel.avEnabled && !UIPanel.floatingPanel) {
+            // This is a pathological layout situation: the AV dock disrupts the docked UI
+            // todo: I could only do the check for the left & right dock settings, but it's safer to use all.
+            // Also, this bug was actually fixed in PR #254, but I needed a commit to get a PR for this bug fix
+            // so the release notes workflow will pick this up. Weird.
+            ui.notifications.warn(game.i18n.localize('JDTIMEKEEPING.AVDockWarning'))
+            game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL, true)
+        }
     }
 
     #prepareClocks (time) {
         // prep the time data
         const clocks = [
             {
-                id: 'etk-stretches',
-                value: time.stretches + 1,
-                max: Constants.stretchesPerShift,
-                name:
-                    game.i18n.localize('JDTIMEKEEPING.Time.Stretch') +
-                    ' ' +
-                    (time.stretches + 1).toString(),
+                id: 'etk-turns',
+                value: time.turns + 1,
+                max: Constants.turnsPerShift,
+                name: game.i18n.format('JDTIMEKEEPING.gameTurnFormat', {
+                    gameTurnName: UIPanel.#gameTurnName,
+                    gameTurnNumber: (time.turns + 1).toString(),
+                }),
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
+                spokeColor: UIPanel.#clockSpokeColor,
             },
             {
                 id: 'etk-shifts',
@@ -125,6 +202,7 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 name: time.shiftName,
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
+                spokeColor: UIPanel.#clockSpokeColor,
             },
             {
                 /**
@@ -134,16 +212,19 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                  */
                 id: 'etk-days',
                 value: time.day.index,
-                max: 7,
+                max: Constants.daysPerWeek,
                 name: game.i18n.format('JDTIMEKEEPING.Time.DayAndWeek', {
                     day: time.day.name,
+                    weekName: Helpers.weekName,
                     week: time.weekNumber,
                 }),
                 color: UIPanel.#clockFGColor,
                 backgroundColor: UIPanel.#clockBGColor,
+                spokeColor: UIPanel.#clockSpokeColor,
             },
         ]
         // derive the radial data
+        // const maxSpokes = 36
         const maxSpokes = 28
         return clocks.map(data => ({
             ...data,
@@ -152,21 +233,28 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         }))
     }
 
-    _onRender (context, options) {
-        /**
-         * Need to find and replace the opacity variable to pass the
-         * client setting into the CSS for the UI fade feature.
-         * On the first render, the top-level element has no style
-         * attribute yet, so we need to handle that case as well.
-         */
-        const regex = /--opacity:\d+.?\d*;/g
-        let style = this.element.getAttribute('style')
-        if (style) {
-            style = style.replaceAll(regex, '')
-            this.element.setAttribute('style', style + `--opacity:${UIPanel.#uiFadeOpacity};`)
-        } else {
-            this.element.setAttribute('style', `--opacity:${UIPanel.#uiFadeOpacity};`)
-        }
+    _onFirstRender (context, options) {
+        this.cosmeticSettingsChanged(false)
+    }
+
+    _onClose () {
+        UIPanel.#hidden = true
+        game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
+    }
+
+    setPosition (pos) {
+        super.setPosition(pos)
+        game.settings.set(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, this.position)
+    }
+
+    /**
+     * Called when cosmetic settings have been changed
+     */
+    cosmeticSettingsChanged (render = true) {
+        this?.element?.style.setProperty('--background-color', UIPanel.#uiBgColor)
+        this?.element?.style.setProperty('--opacity-no-focus', UIPanel.#uiUnfocusedOpacity)
+        this?.element?.style.setProperty('--opacity-focus', UIPanel.#uiFocusedOpacity)
+        if (render) this.render()
     }
 
     _prepareContext (options) {
@@ -200,21 +288,22 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
             // some calculations are common whether we are showing either one or both of these
             if (UIPanel.#showDBTime || UIPanel.#showRadialClocks) {
-                const dbtime = Helpers.factorDragonbaneTime(this.#time)
-                dbtime.textColor = context.textColor // it's the same color for now, but could be different
+                const gameTurnData = Helpers.factorGameTurns(this.#time.totalMinutes)
+                gameTurnData.textColor = context.textColor // it's the same color for now, but could be different
 
                 if (UIPanel.#showDBTime) {
                     // just pass in a data object and handle layout in the template
                     // make adjustments to the copy, since the original is used for the graphical display
-                    context.dbtime = foundry.utils.deepClone(dbtime)
+                    context.gameTurnData = foundry.utils.deepClone(gameTurnData)
                     // display as 1-based
-                    context.dbtime.days += 1
-                    context.dbtime.shifts += 1
-                    context.dbtime.stretches += 1
-                    if (Helpers.showExactTime) context.dbtime.days = null // hide days if they are already shown in time string
+                    context.gameTurnData.gameTurnName = UIPanel.#gameTurnName
+                    context.gameTurnData.days += 1
+                    context.gameTurnData.shifts += 1
+                    context.gameTurnData.turns += 1
+                    if (Helpers.showExactTime) context.gameTurnData.days = null // hide days if they are already shown in time string
                 }
 
-                if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(dbtime)
+                if (UIPanel.#showRadialClocks) context.clocks = this.#prepareClocks(gameTurnData)
             }
         }
 
@@ -258,12 +347,51 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
                 title: 'JDTIMEKEEPING.ResetTime.title',
             },
             content: game.i18n.localize('JDTIMEKEEPING.ResetTime.content'),
-            modal: true,
+            modal: false,
             rejectClose: false,
         })
         if (reset) {
             await game.modules.get(MODULE_ID).api.set({ days: 0, hours: 0, minutes: 0 })
         }
+    }
+
+    static tellTime () {
+        game.modules.get(MODULE_ID).api?.tellTime()
+    }
+
+    async toggleHidden () {
+        // If floating panel and shown, then just close
+        if (this.options.window.frame && !UIPanel.#hidden) {
+            this.close()
+            UIPanel.#hidden = true
+            return
+        }
+
+        UIPanel.#hidden = !UIPanel.#hidden
+
+        /**
+         * When the UI is hidden, stop processing pointer events,
+         * and when switching back to shown, process events again.
+         */
+        if (UIPanel.#hidden) {
+            this?.element?.classList.remove('receive-pointer-events')
+        } else {
+            if (!this?.element?.classList.contains('receive-pointer-events'))
+                this?.element?.classList.add('receive-pointer-events')
+        }
+
+        this.cosmeticSettingsChanged(false)
+
+        // refresh the UI
+        await this.render(true)
+    }
+
+    static async toggleHidden () {
+        await game.modules.get(MODULE_ID).uiPanel.toggleHidden()
+    }
+
+    static get #uiBgColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.UI_BACKGROUND_COLOR)
     }
 
     static get #uiTextColor () {
@@ -276,6 +404,10 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
 
     static get #clockBGColor () {
         return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR)
+    }
+
+    static get #clockSpokeColor () {
+        return game.settings.get(MODULE_ID, SETTINGS.RADIAL_CLOCK_SPOKE_COLOR)
     }
 
     static get #timeStepButtonColor () {
@@ -313,11 +445,29 @@ export class UIPanel extends HandlebarsApplicationMixin(ApplicationV2) {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK)
     }
 
-    static get #uiFadeOpacity () {
-        return game.settings.get(MODULE_ID, SETTINGS.UI_FADE_OPACITY)
+    static get #uiFocusedOpacity () {
+        if (UIPanel.#hidden) return 0
+        return game.settings.get(MODULE_ID, SETTINGS.UI_FOCUSED_OPACITY)
+    }
+
+    static get #uiUnfocusedOpacity () {
+        if (UIPanel.#hidden) return 0
+        return game.settings.get(MODULE_ID, SETTINGS.UI_UNFOCUSED_OPACITY)
     }
 
     static get #showLongFormatTime () {
         return game.settings.get(MODULE_ID, SETTINGS.SHOW_LONG_FORMAT_TIME)
+    }
+
+    static get #gameTurnName () {
+        return game.settings.get(MODULE_ID, SETTINGS.GAME_TURN_NAME)
+    }
+
+    static get floatingPanel () {
+        return game.settings.get(MODULE_ID, SETTINGS.FLOATING_UI_PANEL)
+    }
+
+    static get avEnabled () {
+        return game.webrtc.settings.world.mode > 0
     }
 }

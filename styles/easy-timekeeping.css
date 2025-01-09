@@ -81,7 +81,7 @@
 .flexshrink {
   -webkit-box-flex: 0;
   -ms-flex: 0;
-  flex: 0;
+  flex: 0 1;
 }
 
 .flex-between {
@@ -125,32 +125,67 @@
   display: none;
 }
 
+.etk-dialog {
+  padding: 0;
+}
+
 /**
  * UI Panel specific styles
  */
 .ui-panel {
   /* Set the left and right margins to align with the player panel */
   margin-left: 15px;
-  margin-right: 5px;
+  /* margin-right: 5px; */
 
   /* A bit of space between us and the player panel */
   margin-bottom: 6px;
   border: 1px solid black;
+  padding: 0.2em;
+
+  background: var(--background-color);
 
   display: flex;
   justify-content: center;
+  flex:0 3;
+  width: 200px;
+}
+
+/* Fix window & scheme color */
+.ui-panel.floating {
+  /* background: var(--background-color); */
+  background: black;
+  padding: 0.1em;
+  margin: 0;
+}
+
+[id^=jd-et-uipanel] .window-header {
+  /* background: var(--background-color); */
+  background: black;
+  font-family: QTFrizQuad;
+  border-bottom: unset;
+}
+
+[id^=jd-et-uipanel] .window-content {
+  background: var(--background-color);
+  padding: 0.5rem; /*  It inherits 1rem, but it's too much. */ 
+}
+
+/*End*/
+
+
+/**
+ * Element fade when hovered/focused
+ */
+.fade-element {
+  opacity: var(--opacity-focus);
+  transition: opacity 0.5s ease-in-out;
 }
 
 /**
  * Element fade when not hovered/focused
  */
-.fade-element {
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
-
 .fade-element:not(:hover) {
-  opacity: var(--opacity);
+  opacity: var(--opacity-no-focus);
 }
 
 /**
@@ -183,7 +218,6 @@
   justify-content: center;
   text-align: center;
   overflow-wrap: break-word;
-  /* max-width: 90%; */
 }
 
 /**
@@ -193,7 +227,6 @@
  */
 .hovertext {
   position: relative;
-  /* border-bottom: 1px dotted black; */
 }
 
 .hovertext:before {
@@ -229,7 +262,7 @@
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
-  height: 44px; 
+  height: 44px;
   border-radius: 5px 22px 22px 5px;
   border-right: none;
 
@@ -270,7 +303,7 @@
     --filled-ratio: calc(var(--filled) / var(--areas) * 1turn);
     background: conic-gradient(var(--clock-color) var(--filled-ratio), var(--background) var(--filled-ratio) 1turn);
     border-radius: 50%;
-    border: black var(--spoke-width) solid;
+    border: var(--spoke-color) var(--spoke-width) solid;
 
     position: relative;
 
@@ -283,7 +316,7 @@
       top: calc(-.5 * var(--spoke-width));
       right: calc(50% - var(--spoke-width) / 2);
 
-      background: black;
+      background: var(--spoke-color);
       position: absolute;
 
       transform-origin: center bottom;

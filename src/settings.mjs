@@ -14,6 +14,8 @@ export const SETTINGS = {
     SHIFT_SETTINGS: 'shiftSettings',
     SHIFT_MENU: 'shiftMenu',
     WEEKDAY_SETTINGS: 'weekdaySettings',
+    DAYS_PER_WEEK: 'daysPerWeek',
+    WEEK_NAME: 'weekName',
     WEEKDAY_MENU: 'weekdayMenu',
     SHOW_LONG_FORMAT_TIME: 'showDayInExactTime',
     DISPLAY_24_HOUR_TIME: 'display24HourTime',
@@ -25,10 +27,17 @@ export const SETTINGS = {
     UI_TEXT_COLOR: 'uiTextColor',
     RADIAL_CLOCK_FG_COLOR: 'radialClockColor',
     RADIAL_CLOCK_BG_COLOR: 'radialClockBGColor',
-    UI_FADE_OPACITY: 'uiFadeOpacity',
+    RADIAL_CLOCK_SPOKE_COLOR: 'radialClockSpokeColor',
+    UI_FOCUS_OPACITY: 'uiFocusOpacity',
+    UI_UNFOCUSED_OPACITY: 'uiFadeOpacity',
+    UI_FOCUSED_OPACITY: 'uiFocusedOpacity',
     UI_BUTTON_COLOR: 'uiButtonColour',
     UI_BUTTON_HOVERED_COLOR: 'uiButtonHoveredColour',
     UI_BUTTON_CLICKED_COLOR: 'uiButtonClickedColour',
+    UI_BACKGROUND_COLOR: 'uiBackgroundColour',
+    GAME_TURN_NAME: 'gameTurnName',
+    FLOATING_UI_PANEL: 'uiInFrame',
+    FLOATING_UI_PANEL_POSITION: 'uiPanelPosition',
 }
 
 const GM_ONLY_SETTINGS = [
@@ -50,6 +59,50 @@ export function registerSettings () {
     registerShiftSettings()
     registerWeekdaySettings()
 
+    game.settings.register(MODULE_ID, SETTINGS.FLOATING_UI_PANEL, {
+        name: 'JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.name',
+        hint: 'JDTIMEKEEPING.Settings.ShowUIInFloatingWindow.hint',
+        scope: 'client',
+        config: true,
+        type: Boolean,
+        default: false,
+        requiresReload: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.FLOATING_UI_PANEL_POSITION, {
+        scope: 'client',
+        config: false,
+        type: foundry.applications.types.ApplicationPosition,
+        default: { top: 100, left: 150 },
+        requiresReload: false,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_FOCUSED_OPACITY, {
+        name: 'JDTIMEKEEPING.Settings.UIFocusOpacity.name',
+        hint: 'JDTIMEKEEPING.Settings.UIFocusOpacity.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.NumberField({ min: 0.1, max: 1.0 }),
+        default: 0.85,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.UI_UNFOCUSED_OPACITY, {
+        name: 'JDTIMEKEEPING.Settings.UIFadeOpacity.name',
+        hint: 'JDTIMEKEEPING.Settings.UIFadeOpacity.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.NumberField({ min: 0.1, max: 1.0 }),
+        default: 0.6,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
+    })
+
     game.settings.register(MODULE_ID, SETTINGS.SHOW_PLAYERS_EXACT_TIME, {
         name: 'JDTIMEKEEPING.Settings.ShowPlayersExactTime.name',
         hint: 'JDTIMEKEEPING.Settings.ShowPlayersExactTime.hint',
@@ -67,7 +120,10 @@ export function registerSettings () {
         config: true,
         type: Boolean,
         default: false,
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.DISPLAY_24_HOUR_TIME, {
@@ -76,7 +132,10 @@ export function registerSettings () {
         config: true,
         type: Boolean,
         default: false,
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_DRAGONBANE_TIME, {
@@ -87,6 +146,7 @@ export function registerSettings () {
         type: Boolean,
         default: false,
         requiresReload: true,
+        // Not using cosmeticSettingsChanged because it's a world setting, so needs a reload to update all clients
     })
 
     game.settings.register(MODULE_ID, SETTINGS.SHOW_RADIAL_CLOCK, {
@@ -96,6 +156,16 @@ export function registerSettings () {
         config: true,
         type: Boolean,
         default: false,
+        requiresReload: true,
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.GAME_TURN_NAME, {
+        name: 'JDTIMEKEEPING.Settings.GameTurnName.name',
+        hint: 'JDTIMEKEEPING.Settings.GameTurnName.hint',
+        scope: 'world',
+        config: true,
+        type: String,
+        default: game.i18n.localize('JDTIMEKEEPING.Time.Stretch'),
         requiresReload: true,
     })
 
@@ -119,7 +189,7 @@ export function registerSettings () {
         onChange: value => {
             console.log('JD ETime | %s %d', SETTINGS.SMALL_TIME_DELTA, value)
         },
-        requiresReload: false,
+        requiresReload: true,
     })
 
     // Large time delta in hours
@@ -156,6 +226,19 @@ export function registerSettings () {
         requiresReload: false,
     })
 
+    game.settings.register(MODULE_ID, SETTINGS.UI_BACKGROUND_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.UIBackgroundColor.name',
+        hint: 'JDTIMEKEEPING.Settings.UIBackgroundColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#000000',
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
+    })
+
     game.settings.register(MODULE_ID, SETTINGS.UI_TEXT_COLOR, {
         name: 'JDTIMEKEEPING.Settings.UITextColor.name',
         hint: 'JDTIMEKEEPING.Settings.UITextColor.hint',
@@ -163,7 +246,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#ffffff',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_FG_COLOR, {
@@ -173,7 +259,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#138b37',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_BG_COLOR, {
@@ -183,7 +272,23 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#062811',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
+    })
+
+    game.settings.register(MODULE_ID, SETTINGS.RADIAL_CLOCK_SPOKE_COLOR, {
+        name: 'JDTIMEKEEPING.Settings.RadialClockSpokeColor.name',
+        hint: 'JDTIMEKEEPING.Settings.RadialClockSpokeColor.hint',
+        scope: 'client',
+        config: true,
+        type: new foundry.data.fields.ColorField(),
+        default: '#000000',
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_COLOR, {
@@ -193,7 +298,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#ffffff',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_HOVERED_COLOR, {
@@ -203,7 +311,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#138b37',
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.UI_BUTTON_CLICKED_COLOR, {
@@ -213,17 +324,10 @@ export function registerSettings () {
         config: true,
         type: new foundry.data.fields.ColorField(),
         default: '#25e45e',
-        requiresReload: true,
-    })
-
-    game.settings.register(MODULE_ID, SETTINGS.UI_FADE_OPACITY, {
-        name: 'JDTIMEKEEPING.Settings.UIFadeOpacity.name',
-        hint: 'JDTIMEKEEPING.Settings.UIFadeOpacity.hint',
-        scope: 'client',
-        config: true,
-        type: new foundry.data.fields.NumberField({ min: 0, max: 1.0 }),
-        default: 0.6,
-        requiresReload: true,
+        requiresReload: false,
+        onChange: () => {
+            game.modules.get(MODULE_ID).uiPanel?.cosmeticSettingsChanged()
+        },
     })
 
     game.settings.register(MODULE_ID, SETTINGS.TOTAL_ELAPSED_MINUTES, {

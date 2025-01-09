@@ -26,11 +26,18 @@ export class Timekeeper {
     }
 
     /**
-     * Gets the name of the current phase of the day as a localised string.
+     * Get the name of the current phase of the day as a localised string.
+     * 
+     * Not to be confused with the four shifts, the phase of day relates
+     * to the daylight cycle. During the day phase, the scene lighting
+     * will be set to the day value. During the night, scene lighting is
+     * set to the night value. During dawn, lighting is gradually changed
+     * from the night to the day values, while during dusk, the lighting
+     * changes from the day to night values.
      *
      * @public
      * @returns {string} the localised name of the day phase.
-     * This is one of the set [Dawn, Day, Dusk, Night], but localized.
+     * This is one of the set `[Dawn, Day, Dusk, Night]`, but localized.
      */
     getPhaseOfDay () {
         return DaylightCycle.getPhaseOfDay(this.#factorTime(this.#totalElapsedMinutes))
@@ -76,7 +83,7 @@ export class Timekeeper {
      * Gets the current time.
      *
      * @public
-     * @returns {time} the current time
+     * @returns {timeAugmented} the current time
      */
     getTime () {
         if (!Helpers.showExactTime) {
@@ -115,6 +122,17 @@ export class Timekeeper {
 
         const currentTime = this.#factorTime(this.#totalElapsedMinutes)
         TimeTeller.tellTime(currentTime)
+    }
+
+    /**
+     * Factors a time object into game turns, shifts and days
+     * @property {number} totalMinutes total elapsed minutes since 12am on day 0
+     * @returns {gameTurnTime} `totalMinutes` factored into game turns, shifts, days and weeks
+     * @public
+     */
+    factorGameTurns (totalMinutes) {
+        // proxy to the static helper to expose the function to the macro API
+        return Helpers.factorGameTurns(totalMinutes)
     }
 
     /**
@@ -201,9 +219,9 @@ export class Timekeeper {
         time.days = Math.floor(totalMinutes / Constants.minutesPerDay)
         time.hours = Math.floor((totalMinutes % Constants.minutesPerDay) / 60)
         time.minutes = (totalMinutes % Constants.minutesPerDay) % 60
-        time.day = { index: (time.days % 7) + 1 } // 1-based day index for UI
+        time.day = { index: (time.days % Constants.daysPerWeek) + 1 } // 1-based day index for UI
         time.day.name = Helpers.getWeekdayName(time.day.index - 1) // lookup by 0-based index
-        time.weekNumber = Math.floor(time.days / 7) + 1 // 1-based week number
+        time.weekNumber = Math.floor(time.days / Constants.daysPerWeek) + 1 // 1-based week number
 
         return time
     }
@@ -258,7 +276,7 @@ export class Timekeeper {
 
 /**
  * Day data
- * 
+ *
  * @public
  * @typedef {Object} dayData
  * @property {number} index 1-based number of the day of the week, starting with Monday. Each week is fixed at 7 days.
@@ -274,14 +292,14 @@ export class Timekeeper {
  */
 
 /**
- * Dungeon turn time, used by the graphical display
- * 
+ * Game turn time. This is used by the graphical clocks, and returned from API calls.
+ *
  * @public
- * @typedef {Object} dungeonTurnTime
- * @property {number} totalStretches total number of dungeon elapsed dungeon turns
+ * @typedef {Object} gameTurnTime
+ * @property {number} totalGameTurns total number of elapsed game turns
  * @property {number} days days since day 0
  * @property {number} shifts the current shift out of the 4 shifts per day. 0-based, range [0..3]
- * @property {number} stretches the current stretch/dungeon turn within the current shift. 0-based indexing
+ * @property {number} turns the current game turn within the current shift. 0-based indexing
  * @property {dayData} day additional metadata about the day of the week
  * @property {number} weekNumber 1-based number of 7-day weeks that have elapsed, including the current partial week.
  * @property {string} shiftName the name of the current shift, based on world settings.

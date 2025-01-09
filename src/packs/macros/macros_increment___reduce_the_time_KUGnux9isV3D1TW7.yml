@@ -1,0 +1,35 @@
+folder: Yfu68cdycaDj0W5C
+name: increment - reduce the time
+type: script
+author: 5csdu5LeMVsdxR5m
+img: icons/tools/navigation/watch-simple-blue.webp
+scope: global
+command: >-
+  /*
+   The increment function allows increasing or decreasing the time by days, hours, and minutes.
+  */
+
+
+  // Decrement by 3 hours 30 minutes
+
+  // Note that you need the - sign on each value.
+
+  game.modules.get('jd-easytimekeeping').api.increment({hours: -3, minutes:
+  -30})
+ownership:
+  default: 0
+  5csdu5LeMVsdxR5m: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: worldbuilding
+  systemVersion: 0.8.2
+  createdTime: 1734169264117
+  modifiedTime: 1734432289062
+  lastModifiedBy: 5csdu5LeMVsdxR5m
+_id: KUGnux9isV3D1TW7
+sort: 300000
+_key: '!macros!KUGnux9isV3D1TW7'
+

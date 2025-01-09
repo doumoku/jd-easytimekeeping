@@ -3,7 +3,6 @@ import { MODULE_ID, SETTINGS } from './settings.mjs'
 import { Timekeeper } from './timekeeper.mjs'
 
 /**
- * @public
  * @typedef {Object} PHASES Enumeration of the phases of the day
  * @property {number} DAWN The dawn phase, when lighting is transitioning between night and day
  * @property {number} DAY The day phase, when lighting is stable at the daytime setting
@@ -18,7 +17,6 @@ export const PHASES = {
 }
 
 /**
- * @public
  * @class Implements the 24-hour lighting cycle
  * Implements the daylight cycle.
  *
@@ -47,7 +45,7 @@ export class DaylightCycle {
     /**
      * Time changed hook handler
      *
-     * @param {import('./timekeeper.mjs').timeChangeData} data
+     * @param {import('./datatypes.mjs').timeChangeData} data
      * @public
      */
     static timeChangeHandler (data) {
@@ -78,9 +76,8 @@ export class DaylightCycle {
     /**
      * Gets the name of the current phase of the day as a localised string.
      *
-     * @param {import('./timekeeper.mjs').time} time
+     * @param {import('./datatypes.mjs').time} time
      * @returns {string} the localised name of the day phase. This is one of the set [Dawn, Day, Dusk, Night]
-     * @public
      */
     static getPhaseOfDay (time) {
         switch (DaylightCycle.#detectPhase(time)) {
@@ -99,7 +96,7 @@ export class DaylightCycle {
     /**
      * Detects the lighting cycle phase for the given time.
      *
-     * @param {import('./timekeeper.mjs').time} time
+     * @param {import('./datatypes.mjs').time} time
      * @returns {PHASES} the daylight cycle phase for the given time
      */
     static #detectPhase (time) {
@@ -142,7 +139,7 @@ export class DaylightCycle {
     static #processDay () {
         console.debug('JD ETime | Daylight cycle - day')
         if (DaylightCycle.#sceneDarkness != DaylightCycle.#daytimeDarkness) {
-            console.log(
+            console.debug(
                 'JD ETime | Daylight cycle: setting daytime darkness %f',
                 DaylightCycle.#daytimeDarkness
             )
@@ -156,7 +153,7 @@ export class DaylightCycle {
     static #processNight () {
         console.debug('JD ETime | Daylight cycle - night')
         if (DaylightCycle.#sceneDarkness != DaylightCycle.#nighttimeDarkness) {
-            console.log(
+            console.debug(
                 'JD ETime | Daylight cycle: setting nighttime darkness %f',
                 DaylightCycle.#nighttimeDarkness
             )
@@ -169,7 +166,7 @@ export class DaylightCycle {
      * Uses linear interpolation between the night and day lighting values
      * to set the scene lighting.
      *
-     * @param {import('./timekeeper.mjs').time} time the current time in the dawn phase
+     * @param {import('./datatypes.mjs').time} time the current time in the dawn phase
      */
     static #processDawn (time) {
         console.debug('JD ETime | Daylight cycle - dawn')
@@ -187,7 +184,7 @@ export class DaylightCycle {
      * Uses linear interpolation between the day and night lighting values
      * to set the scene lighting.
      *
-     * @param {import('./timekeeper.mjs').time} time the current time in the dusk phase
+     * @param {import('./datatypes.mjs').time} time the current time in the dusk phase
      */
     static #processDusk (time) {
         console.debug('JD ETime | Daylight cycle - dusk')
@@ -203,8 +200,8 @@ export class DaylightCycle {
     /**
      * Processes one of the twilight (dawn and dusk) phases.
      *
-     * @param {import('./timekeeper.mjs').time} time the current time
-     * @param {import('./timekeeper.mjs').time} startTime the start of the twilight phase
+     * @param {import('./datatypes.mjs').time} time the current time
+     * @param {import('./datatypes.mjs').time} startTime the start of the twilight phase
      * @param {number} durationMinutes duration of the twilight phase in minutes
      * @param {number} fromDarkness Foundry scene darkness level of the phase we are moving from
      * @param {*} toDarkness  Foundry scene darkness level of the phase we are moving towards
@@ -259,9 +256,9 @@ export class DaylightCycle {
 
     /**
      * Adds a given number of minutes to the time.
-     * @param {import('./timekeeper.mjs').time} time the time
+     * @param {import('./datatypes.mjs').time} time the time
      * @param {number} minutes the number of minutes to add to the time
-     * @returns {import('./timekeeper.mjs').time} the new time
+     * @returns {import('./datatypes.mjs').time} the new time
      */
     static #addMinutes (time, minutes) {
         const totalMinutes = time.hours * 60 + time.minutes + minutes
@@ -280,7 +277,7 @@ export class DaylightCycle {
      * and to ensure correct detection of daylight cycle phases when the phases cross
      * the midnight boundary.
      *
-     * @param {import('./timekeeper.mjs').time} time the time to convert
+     * @param {import('./datatypes.mjs').time} time the time to convert
      * @returns {Date} the time input converted to a date, with seconds and milliseconds set to 0
      */
     static #asDate (time) {
@@ -355,7 +352,7 @@ export class DaylightCycle {
     /**
      * Gets the dawn start time
      *
-     * @returns {import('./timekeeper.mjs').time} the dawn start time
+     * @returns {import('./datatypes.mjs').time} the dawn start time
      */
     static get #dawnStart () {
         return Helpers.splitTimeString(
@@ -375,7 +372,7 @@ export class DaylightCycle {
     /**
      * Gets the dusk start time
      *
-     * @returns {import('./timekeeper.mjs').time} the dusk start time
+     * @returns {import('./datatypes.mjs').time} the dusk start time
      */
     static get #duskStart () {
         return Helpers.splitTimeString(

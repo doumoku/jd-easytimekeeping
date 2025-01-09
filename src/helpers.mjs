@@ -14,7 +14,7 @@ export class Helpers {
      * Returns the current time of day as a formatted string.
      * Current module settings for 12 or 24 hour time are honoured.
      *
-     * @param {import('./timekeeper.mjs').timeAugmented} time A Timekeeper time object
+     * @param {import('./datatypes.mjs').timeAugmented} time A Timekeeper time object
      * @param {boolean} [includeDay=false] Whether the day is included, or just the time
      * @returns {string} the formatted time string
      */
@@ -24,6 +24,7 @@ export class Helpers {
             return game.i18n.format('JDTIMEKEEPING.longTimeFormat', {
                 time: timeOfDay,
                 dayName: time.day.name,
+                weekName: this.weekName,
                 weekNumber: time.weekNumber,
             })
         } else {
@@ -33,7 +34,7 @@ export class Helpers {
 
     /**
      * Gets the formatted time as a string "hh:mm [AM|PM]"
-     * @param {import('./timekeeper.mjs').timeAugmented} time A Timekeeper time object
+     * @param {import('./datatypes.mjs').timeAugmented} time A Timekeeper time object
      * @param {string} [mode='auto'] Time mode. 'auto' uses the module setting
      */
     static toTimeOfDay (time, mode = 'auto') {
@@ -60,25 +61,26 @@ export class Helpers {
     }
 
     /**
-     * Factors a time object into Dragonbane stretches, shifts and days
-     * @property {import('./timekeeper.mjs').timeAugmented} time
-     * @returns {import('./timekeeper.mjs').dungeonTurnTime}
+     * Factors a time object into game turns, shifts and days
+     * @property {number} totalMinutes total elapsed minutes since 12am on day 0
+     * @returns {import('./datatypes.mjs').gameTurnTime}
      */
-    static factorDragonbaneTime (time) {
-        const dbtime = {}
-        dbtime.totalStretches = Math.floor(time.totalMinutes / Constants.minutesPerStretch)
-        var remainingStretches = dbtime.totalStretches
-        dbtime.days = Math.floor(remainingStretches / Constants.stretchesPerDay)
-        remainingStretches = remainingStretches % Constants.stretchesPerDay
-        dbtime.shifts = Math.floor(remainingStretches / Constants.stretchesPerShift)
-        dbtime.stretches = remainingStretches % Constants.stretchesPerShift
+    // todo: Code Smell! Why is this not a Timekeeper function? What architectural goal is served by having it here?
+    static factorGameTurns (totalMinutes) {
+        const gameTurnData = {}
+        gameTurnData.totalGameTurns = Math.floor(totalMinutes / Constants.minutesPerTurn)
+        var remainingGameTurns = gameTurnData.totalGameTurns
+        gameTurnData.days = Math.floor(remainingGameTurns / Constants.turnsPerDay)
+        remainingGameTurns = remainingGameTurns % Constants.turnsPerDay
+        gameTurnData.shifts = Math.floor(remainingGameTurns / Constants.turnsPerShift)
+        gameTurnData.turns = remainingGameTurns % Constants.turnsPerShift
 
-        dbtime.shiftName = Helpers.getDragonbaneShiftName(dbtime.shifts)
-        dbtime.day = { index: (dbtime.days % 7) + 1 } // 1-based day index for UI
-        dbtime.day.name = Helpers.getWeekdayName(dbtime.day.index - 1) // lookup by 0-based index
-        dbtime.weekNumber = Math.floor(dbtime.days / 7) + 1 // 1-based week number
+        gameTurnData.shiftName = Helpers.getDragonbaneShiftName(gameTurnData.shifts)
+        gameTurnData.day = { index: (gameTurnData.days % Constants.daysPerWeek) + 1 } // 1-based day index for UI
+        gameTurnData.day.name = Helpers.getWeekdayName(gameTurnData.day.index - 1) // lookup by 0-based index
+        gameTurnData.weekNumber = Math.floor(gameTurnData.days / Constants.daysPerWeek) + 1 // 1-based week number
 
-        return dbtime
+        return gameTurnData
     }
 
     static dbShifts = {
@@ -137,12 +139,19 @@ export class Helpers {
 
     /**
      * Gets a localised weekday name
-     * @param {number} dayIndex the 0-based day index, range [0..6]
+     * @param {number} dayIndex the 0-based day index, range [0..14)
      * @returns {string} the localized name of the corresponding day of the week.
      * Weeks start on Monday.
      */
     static getWeekdayName (dayIndex) {
         const weekdays = game.settings.get(MODULE_ID, SETTINGS.WEEKDAY_SETTINGS)
         return Object.values(weekdays)[dayIndex]
+    }
+
+    /**
+     * Returns the current world setting for the word used for the name of a week
+     */
+    static get weekName () {
+        return game.settings.get(MODULE_ID, SETTINGS.WEEK_NAME)
     }
 }

@@ -1,0 +1,57 @@
+folder: Yfu68cdycaDj0W5C
+name: getPhaseOfDay
+type: script
+author: 5csdu5LeMVsdxR5m
+img: icons/magic/time/day-night-sunset-sunrise.webp
+scope: global
+command: >-
+  /*
+
+  Get the name of the current phase of the day as a localised string.
+
+
+  Not to be confused with the four shifts, the phase of day relates
+
+  to the daylight cycle. During the day phase, the scene lighting
+
+  will be set to the day value. During the night, scene lighting is
+
+  set to the night value. During dawn, lighting is gradually changed
+
+  from the night to the day values, while during dusk, the lighting
+
+  changes from the day to night values.
+
+
+  The exact time at which dawn, day, dusk, and night occur depend on the world
+  settings.
+
+
+  See:
+  https://github.com/DC23/jd-easytimekeeping/blob/main/documentation/timekeeper.md#getphaseofday
+
+  */
+
+
+  const phase = game.modules.get('jd-easytimekeeping').api.getPhaseOfDay()
+
+  const message = `It's ${phase}`
+
+  ui.notifications.notify(message)
+ownership:
+  default: 0
+  5csdu5LeMVsdxR5m: 3
+flags: {}
+_stats:
+  compendiumSource: null
+  duplicateSource: null
+  coreVersion: '12.331'
+  systemId: worldbuilding
+  systemVersion: 0.8.2
+  createdTime: 1734168254604
+  modifiedTime: 1734432244060
+  lastModifiedBy: 5csdu5LeMVsdxR5m
+_id: mFLZqXxvuxWE81zM
+sort: 500000
+_key: '!macros!mFLZqXxvuxWE81zM'
+
